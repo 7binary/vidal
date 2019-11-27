@@ -1,0 +1,11 @@
+<script type="text/javascript">
+	$(document).on('click', '.list b a', function(e) {
+		e.preventDefault();
+		var $link = $(this);
+		$.getJSON(this.href, null, function(data) {
+			if (data == 'OK') {
+				$link.closest('li').remove();
+			}
+		});
+	});
+</script>

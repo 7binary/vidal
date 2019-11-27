@@ -1,0 +1,23 @@
+{% extends 'VidalMainBundle::layout.html.twig' %}
+
+
+{% block content %}
+	<div class="title">
+		Новости по теме <span>"{{ tag.text }}"</span>
+	</div>
+
+	{% if pagination.getTotalItemCount %}
+		{% include 'VidalMainBundle:Index:render_news.html.twig' with {'news':pagination} %}
+		<div class="navigation">
+			{{ knp_pagination_render(pagination) }}
+		</div>
+	{% else %}
+		<div class="anons">Извините, новостей по этой теме не найдено</div>
+	{% endif %}
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/publication.css') }}"/>
+{% endblock %}

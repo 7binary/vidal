@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+{% set isAdmin = app.user is not null and is_granted('ROLE_ADMIN') %}
+{% set route = app.request.get('_route') %}
+{% set isMobile = is_mobile() %}
+{% set envLocal = env_local == 'true' %}
+<html lang="ru" xmlns:og="http://ogp.me/ns#">
+<head>
+	{% block metaTitle %}
+		<title>{% spaceless %}{{ title is defined ? title|striptags|raw : '' }}{% endspaceless %}</title>
+	{% endblock %}
+	<meta charset="UTF-8"/>
+	<link rel="shortcut icon" href="{{ asset('favicon.ico') }}?v=2"/>
+
+	{% block meta %} {% endblock %}
+
+	{% block stylesheets %}
+		<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/common.min.css') }}"/>
+		<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/jquery-chosen/chosen.min.css') }}"/>
+		<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/checkbox/checkbox.css') }}"/>
+		<link rel="stylesheet" type="text/css"
+			  href="{{ asset('bundles/vidalmain/jquery-ui/jquery-ui-1.10.4.custom.min.css') }}"/>
+		<!--[if lt IE 9]>
+		<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/old_ie.css') }}"/>
+		<![endif]-->
+		<style type="text/css">
+			.wrapper {
+				margin-bottom: 40px;
+			}
+			.header td {
+				border-top:    none;
+				border-bottom: 6px solid #b70039;
+			}
+			.header-last {
+				text-align: right;
+			}
+			.header-last h1 {
+				margin:    0;
+				font-size: 30px;
+			}
+		</style>
+	{% endblock %}
+
+	{% block javascripts %}
+		<script type="text/javascript" src="{{ asset('bundles/vidalmain/javascripts/jquery-1.11.0.min.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('bundles/vidalmain/javascripts/coockie.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('bundles/vidalmain/checkbox/jquery.checkbox.js') }}"></script>
+		<script type="text/javascript"
+				src="{{ asset('bundles/vidalmain/jquery-chosen/chosen.jquery.min.js') }}"></script>
+		<script type="text/javascript"
+				src="{{ asset('bundles/vidalmain/jquery-ui/jquery-ui-1.10.4.custom.min.js') }}"></script>
+	{% endblock %}
+</head>
+
+<body>
+<div id="wrapper" class="wrapper">
+	<div class="header">
+		<table>
+			<tr>
+				<td class="header-1">
+					<a href="{{ envLocal ? '/app_dev.php' : path('index') }}" class="header-link">
+						<img src="{{ asset('bundles/vidalmain/images/vidal.png') }}" alt="Vidal Logo" />
+					</a>
+				</td>
+				<td class="header-last">
+					<h1>{{ title is defined ? title : '' }}</h1>
+				</td>
+			</tr>
+		</table>
+	</div>
+
+	{% block content %}{% endblock %}
+
+    {% include 'VidalMainBundle:Cookie:notice.html.twig' %}
+</div>
+
+</body>
+</html>

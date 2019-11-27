@@ -1,0 +1,105 @@
+services:
+    app.before_kernel:
+        class: Vidal\MainBundle\EventListener\RollbarInit
+        arguments: [%rollbar_token%, %rollbar_env%, %kernel.environment%]
+        tags:
+            - { name: kernel.event_listener, event: kernel.controller, method: onController, priority: -1 }
+            - { name: kernel.event_listener, event: console.command, method: onCommand, priority: -1 }
+
+    default.subscriber:
+        class: Vidal\MainBundle\Service\DoctrineEventSubscriber
+        arguments: [@service_container]
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+
+    drug.subscriber:
+        class: Vidal\DrugBundle\Service\DoctrineEventSubscriber
+        arguments: [@service_container]
+        tags:
+            - { name: doctrine.event_subscriber, connection: drug }
+
+    veterinar.subscriber:
+        class: Vidal\VeterinarBundle\Service\DoctrineEventSubscriber
+        arguments: [@service_container]
+        tags:
+            - { name: doctrine.event_subscriber, connection: veterinar }
+
+    big_mama.subscriber:
+        class: Vidal\BigMamaBundle\Service\DoctrineEventSubscriber
+        arguments: [@service_container]
+        tags:
+            - { name: doctrine.event_subscriber, connection: big_mama }
+
+    vidal.digest_logger:
+        class: Vidal\MainBundle\Service\DigestLogger
+        arguments: [@service_container]
+
+    drug.tag_total:
+         class: Vidal\DrugBundle\Service\TagTotalService
+         arguments: [@service_container]
+
+    gedmo.listener.sortable:
+        class: Gedmo\Sortable\SortableListener
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+        calls:
+            - [ setAnnotationReader, [ @annotation_reader ] ]
+
+    twig.extension.stringloader:
+        class: Twig_Extension_StringLoader
+        tags:
+            - { name: 'twig.extension' }
+
+    vidal.twig_extension:
+        class: Vidal\MainBundle\Service\TwigExtension
+        arguments: [ @service_container ]
+        tags:
+            - { name: twig.extension }
+
+    email.service:
+          class: Vidal\MainBundle\Service\EmailService
+          arguments: [@service_container, @templating]
+
+    findDrug.service:
+          class: Vidal\MainBundle\Service\FindDrugService
+          arguments: [ @doctrine.orm.entity_manager ]
+
+    text.service:
+          class: Vidal\MainBundle\Service\TextService
+          arguments: [ @service_container ]
+
+    lingua.service:
+        class: Vidal\DrugBundle\Service\LinguaService
+
+    product.service:
+        class: Vidal\DrugBundle\Service\ProductService
+        arguments: [@service_container, %kernel.root_dir%]
+
+    elastica.service:
+        class: Vidal\DrugBundle\Service\ElasticaService
+        arguments: [@lingua.service]
+
+    prevent:
+        class: Vidal\MainBundle\Service\Prevent
+        arguments: [@session]
+
+    default.timestampable:
+        class: Gedmo\Timestampable\TimestampableListener
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+        calls:
+            - [ setAnnotationReader, [ @annotation_reader ] ]
+
+    drug.timestampable:
+        class: Gedmo\Timestampable\TimestampableListener
+        tags:
+            - { name: doctrine.event_subscriber, connection: drug }
+        calls:
+            - [ setAnnotationReader, [ @annotation_reader ] ]
+
+    veterinar.timestampable:
+        class: Gedmo\Timestampable\TimestampableListener
+        tags:
+            - { name: doctrine.event_subscriber, connection: veterinar }
+        calls:
+            - [ setAnnotationReader, [ @annotation_reader ] ]

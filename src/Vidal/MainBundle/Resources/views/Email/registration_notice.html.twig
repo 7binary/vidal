@@ -1,0 +1,18 @@
+{% extends 'VidalMainBundle::minimal_layout.html.twig' %}
+
+{% block body %}
+	<p>Пользователь зарегистрировался на сайте</p>
+	<p>Данные о пользователе:</p>
+	<p>
+		Имя: <b>{{ user.firstName }}</b><br/>
+		Фамилия: <b>{{ user.lastName }}</b><br/>
+		Отчество: <b>{{ user.surName }}</b><br/>
+		E-mail: <b>{{ user.username }}</b><br/>
+		Дата рождения: <b>{{ user.birthdate | date('Y.m.d') }}</b><br/>
+		Город: <b>{{ user.city }}</b><br/>
+		ВУЗ: <b>{{ user.university ? user.university : user.school }}</b><br/>
+		Год окончания ВУЗа: <b>{{ user.graduateYear | date('Y') }}</b><br/>
+		Основная специальность: <b>{{ user.primarySpecialty }}</b><br/>
+		Ученая степень: <b>{{ user.academicDegree }}</b><br/>
+	</p>
+{% endblock %}

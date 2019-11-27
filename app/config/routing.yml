@@ -1,0 +1,34 @@
+login:
+    pattern: /login-submit
+
+logout:
+    pattern: /logout
+
+vidal_veterinar:
+    resource: "@VidalVeterinarBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+vidal_main:
+    resource: "@VidalMainBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+vidal_drug:
+    resource: "@VidalDrugBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+vidal_big_mama:
+    resource: "@VidalBigMamaBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+admin:
+    resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
+    prefix: /admin
+
+_sonata_admin:
+    resource: .
+    type: sonata_admin
+    prefix: /admin

@@ -1,0 +1,118 @@
+{% extends 'VidalDrugBundle:Sonata:mini_layout.html.twig' %}
+
+
+{% block content %}
+	<h1>ПЕРЕМЕЩЕНИЕ СТАТЕЙ</h1>
+
+	{% if app.session.flashBag.get('notice')|length %}
+		<div class="saved">Сохранено</div>
+	{% endif %}
+
+	<form method="POST" id="form_move" action="{{ path('move_art') }}">
+		<div class="row">
+			<label for="rubrique">Рубрика *</label>
+			<select id="rubrique" required="required" name="rubrique">
+				<option></option>
+				{% for rubrique in rubriques %}
+					<option value="{{ rubrique.id }}">{{ rubrique }}</option>
+				{% endfor %}
+			</select>
+		</div>
+
+		<div class="row">
+			<label for="type">Категория</label>
+			<select id="type" disabled="disabled" name="type">
+				<option></option>
+			</select>
+		</div>
+
+		<div class="row">
+			<label for="category">Подкатегория</label>
+			<select id="category" disabled="disabled" name="category">
+				<option></option>
+			</select>
+		</div>
+
+		<div class="row">
+			<label for="articles">Статьи *</label>
+			<select id="articles" multiple="multiple" name="articles[]" required="required">
+				{% for article in articles %}
+					<option value="{{ article.id }}">{{ article.id }} - {{ article.title|raw }}</option>
+				{% endfor %}
+			</select>
+		</div>
+
+		<div class="row">
+			<input type="submit" value="Сохранить"/>
+		</div>
+	</form>
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#articles').select2({ width: 'resolve' });
+
+			var $selectRubrique = $('#rubrique');
+			var $selectType = $('#type');
+			var $selectCategory = $('#category');
+
+			$selectRubrique.change(function() {
+				if (this.value) {
+					$.getJSON('/admin/types-of-rubrique/' + this.value, null, function(data) {
+						if (data.length == 0) {
+							$selectType.prop('disabled', 'disabled');
+						}
+						else {
+							$selectType.find('option').remove();
+							$selectType.append($('<option></option>'));
+							$.each(data, function(index, option) {
+								$selectType.append($('<option></option>').val(option.id).text(option.title));
+							});
+							$selectType.prop('disabled', false);
+						}
+					});
+				}
+				else {
+					$selectType.prop('disabled', 'disabled');
+				}
+			});
+
+			$selectType.change(function() {
+				if (this.value) {
+					$.getJSON('/admin/categories-of-type/' + this.value, null, function(data) {
+						if (data.length == 0) {
+							$selectCategory.prop('disabled', 'disabled');
+						}
+						else {
+							$selectCategory.find('option').remove();
+							$selectCategory.append($('<option></option>'));
+							$.each(data, function(index, option) {
+								$selectCategory.append($('<option></option>').val(option.id).text(option.title));
+							});
+							$selectCategory.prop('disabled', false);
+						}
+					});
+				}
+				else {
+					$selectCategory.prop('disabled', 'disabled');
+				}
+			});
+		});
+	</script>
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<style type="text/css">
+		#articles {
+			width: 600px !important;
+		}
+		#rubriques {
+			width: 600px !important;
+		}
+	</style>
+{% endblock %}

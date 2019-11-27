@@ -1,0 +1,11 @@
+{% extends 'VidalMainBundle::layout.html.twig' %}
+
+
+{% block title %}
+	<h1>Пользовательское соглашение</h1>
+{% endblock %}
+
+
+{% block content %}
+	{{ render(controller('VidalMainBundle:Index:Module', {'moduleId':4})) }}
+{% endblock %}

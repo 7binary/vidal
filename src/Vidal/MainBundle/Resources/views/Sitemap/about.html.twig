@@ -1,0 +1,9 @@
+<ul>
+	{% for about in abouts %}
+		<li>
+			<a href="{{ path('about_item', {'url':about.url}) }}" target="_blank">
+				{{ about.title }}
+			</a>
+		</li>
+	{% endfor %}
+</ul>

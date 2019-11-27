@@ -1,0 +1,606 @@
+<?xml version="1.0"?>
+<!-- Переопределения русского перевода сообщений общего характера -->
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="messages.en" >
+        <body>
+            <trans-unit id="bad_credentials">
+                <source>Bad credentials</source>
+                <target>Неверное имя пользователя или пароль</target>
+            </trans-unit>
+
+			<trans-unit id="sonata-dashboard">
+				<source>Dashboard</source>
+				<target>Панель</target>
+			</trans-unit>
+
+            <trans-unit id="sonata-1">
+                <source>Article Type List</source>
+                <target>Категории статей</target>
+            </trans-unit>
+            <trans-unit id="sonata-1-1">
+                <source>Article Type Show</source>
+                <target>Информация по категории статьи</target>
+            </trans-unit>
+            <trans-unit id="sonata-1-2">
+                <source>Article Type Edit</source>
+                <target>Редактирование категории статьи</target>
+            </trans-unit>
+            <trans-unit id="sonata-1-3">
+                <source>Article Type Create</source>
+                <target>Создание категории статьи</target>
+            </trans-unit>
+            <trans-unit id="sonata-1-4">
+                <source>Article Type Delete</source>
+                <target>Удаление категории статьи</target>
+            </trans-unit>
+
+			<trans-unit id="sonata-2">
+				<source>Article Rubrique List</source>
+				<target>Рубрики статей</target>
+			</trans-unit>
+			<trans-unit id="sonata-2-1">
+				<source>Article Rubrique Show</source>
+				<target>Информация по рубрике статьи</target>
+			</trans-unit>
+			<trans-unit id="sonata-2-2">
+				<source>Article Rubrique Edit</source>
+				<target>Редактирование рубрики статьи</target>
+			</trans-unit>
+			<trans-unit id="sonata-2-3">
+				<source>Article Rubrique Create</source>
+				<target>Создание рубрики статьи</target>
+			</trans-unit>
+			<trans-unit id="sonata-2-4">
+				<source>Article Rubrique Delete</source>
+				<target>Удаление рубрики статьи</target>
+			</trans-unit>
+
+			<trans-unit id="sonata-3">
+				<source>Article List</source>
+				<target>Статьи</target>
+			</trans-unit>
+			<trans-unit id="sonata-3-1">
+				<source>Article Show</source>
+				<target>Информация по статье</target>
+			</trans-unit>
+			<trans-unit id="sonata-3-2">
+				<source>Article Edit</source>
+				<target>Редактирование статьи</target>
+			</trans-unit>
+			<trans-unit id="sonata-3-3">
+				<source>Article Create</source>
+				<target>Создание статьи</target>
+			</trans-unit>
+			<trans-unit id="sonata-3-4">
+				<source>Article Delete</source>
+				<target>Удаление статьи</target>
+			</trans-unit>
+
+			<trans-unit id="sonata-4">
+				<source>Document List</source>
+				<target>Документы</target>
+			</trans-unit>
+			<trans-unit id="sonata-4-1">
+				<source>Document Show</source>
+				<target>Информация по документу</target>
+			</trans-unit>
+			<trans-unit id="sonata-4-2">
+				<source>Document Edit</source>
+				<target>Редактирование документа</target>
+			</trans-unit>
+			<trans-unit id="sonata-4-3">
+				<source>Document Create</source>
+				<target>Создание документа</target>
+			</trans-unit>
+			<trans-unit id="sonata-4-4">
+				<source>Document Delete</source>
+				<target>Удаление документа</target>
+			</trans-unit>
+
+			<trans-unit id="sonata-5">
+				<source>Product List</source>
+				<target>Препараты</target>
+			</trans-unit>
+			<trans-unit id="sonata-5-1">
+				<source>Product Show</source>
+				<target>Информация по препарату</target>
+			</trans-unit>
+			<trans-unit id="sonata-5-2">
+				<source>Product Edit</source>
+				<target>Редактирование препарата</target>
+			</trans-unit>
+			<trans-unit id="sonata-5-3">
+				<source>Product Create</source>
+				<target>Создание препарата</target>
+			</trans-unit>
+			<trans-unit id="sonata-5-4">
+				<source>Product Delete</source>
+				<target>Удаление препарата</target>
+			</trans-unit>
+
+			<trans-unit id="sonata-6">
+				<source>Publication List</source>
+				<target>Новости</target>
+			</trans-unit>
+			<trans-unit id="sonata-6-1">
+				<source>Publication Show</source>
+				<target>Информация о новосте</target>
+			</trans-unit>
+			<trans-unit id="sonata-6-2">
+				<source>Publication Edit</source>
+				<target>Редактирование новости</target>
+			</trans-unit>
+			<trans-unit id="sonata-6-3">
+				<source>Publication Create</source>
+				<target>Создание новости</target>
+			</trans-unit>
+			<trans-unit id="sonata-6-4">
+				<source>Publication Delete</source>
+				<target>Удаление новости</target>
+			</trans-unit>
+
+			<trans-unit id="sonata-11">
+				<source>Banner List</source>
+				<target>Баннеры</target>
+			</trans-unit>
+			<trans-unit id="sonata-11-1">
+				<source>Banner Show</source>
+				<target>Информация о баннере</target>
+			</trans-unit>
+			<trans-unit id="sonata-11-2">
+				<source>Banner Edit</source>
+				<target>Редактирование баннера</target>
+			</trans-unit>
+			<trans-unit id="sonata-11-3">
+				<source>Banner Create</source>
+				<target>Создание баннера</target>
+			</trans-unit>
+			<trans-unit id="sonata-11-4">
+				<source>Banner Delete</source>
+				<target>Удаление баннера</target>
+			</trans-unit>
+
+			<trans-unit id="sonata-12">
+				<source>Banner Group List</source>
+				<target>Баннерные места</target>
+			</trans-unit>
+			<trans-unit id="sonata-12-1">
+				<source>Banner Rotate Show</source>
+				<target>Информация о баннерном месте</target>
+			</trans-unit>
+			<trans-unit id="sonata-12-2">
+				<source>Banner Rotate Edit</source>
+				<target>Редактирование баннерного места</target>
+			</trans-unit>
+			<trans-unit id="sonata-12-3">
+				<source>Banner Rotate Create</source>
+				<target>Создание баннерного места</target>
+			</trans-unit>
+			<trans-unit id="sonata-12-4">
+				<source>Banner Rotate Delete</source>
+				<target>Удаление баннерного места</target>
+			</trans-unit>
+
+			<trans-unit id="sonata-13">
+				<source>Question Answer List</source>
+				<target>Ответы специалистов</target>
+			</trans-unit>
+			<trans-unit id="sonata-13-1">
+				<source>Question Answer Show</source>
+				<target>Ответ специалиста</target>
+			</trans-unit>
+			<trans-unit id="sonata-13-2">
+				<source>Question Answer Edit</source>
+				<target>Редактирование ответа специалиста</target>
+			</trans-unit>
+			<trans-unit id="sonata-13-3">
+				<source>Question Answer Create</source>
+				<target>Создание ответа специалиста</target>
+			</trans-unit>
+			<trans-unit id="sonata-13-4">
+				<source>Question Answer Delete</source>
+				<target>Удаление ответа специалиста</target>
+			</trans-unit>
+
+			<trans-unit id="sonata-14">
+				<source>About List</source>
+				<target>О компании</target>
+			</trans-unit>
+			<trans-unit id="sonata-14-1">
+				<source>About Show</source>
+				<target>Раздел о компании</target>
+			</trans-unit>
+			<trans-unit id="sonata-14-2">
+				<source>About Edit</source>
+				<target>Редактирование раздела о компании</target>
+			</trans-unit>
+			<trans-unit id="sonata-14-3">
+				<source>About Create</source>
+				<target>Создание раздела о компании</target>
+			</trans-unit>
+			<trans-unit id="sonata-14-4">
+				<source>About Delete</source>
+				<target>Удаление раздела о компании</target>
+			</trans-unit>
+
+			<trans-unit id="sonata-15">
+				<source>Art List</source>
+				<target>Статьи специалистам</target>
+			</trans-unit>
+			<trans-unit id="sonata-15-1">
+				<source>Art Show</source>
+				<target>Статья специалистам</target>
+			</trans-unit>
+			<trans-unit id="sonata-15-2">
+				<source>Art Edit</source>
+				<target>Редактирование статьи специалистам</target>
+			</trans-unit>
+			<trans-unit id="sonata-15-3">
+				<source>Art Create</source>
+				<target>Создание статьи специалистам</target>
+			</trans-unit>
+			<trans-unit id="sonata-15-4">
+				<source>Art Delete</source>
+				<target>Удаление статьи специалистам</target>
+			</trans-unit>
+
+			<trans-unit id="sonata-16">
+				<source>Art Type List</source>
+				<target>Категории статей специалистам</target>
+			</trans-unit>
+			<trans-unit id="sonata-16-1">
+				<source>Art Type Show</source>
+				<target>Категория статей специалистам</target>
+			</trans-unit>
+			<trans-unit id="sonata-16-2">
+				<source>Art Type Edit</source>
+				<target>Редактирование категории статей специалистам</target>
+			</trans-unit>
+			<trans-unit id="sonata-16-3">
+				<source>Art Type Create</source>
+				<target>Создание категории статей специалистам</target>
+			</trans-unit>
+			<trans-unit id="sonata-16-4">
+				<source>Art Type Delete</source>
+				<target>Удаление категории статей специалистам</target>
+			</trans-unit>
+
+			<trans-unit id="sonata-17">
+				<source>Subdivision List</source>
+				<target>Разделы</target>
+			</trans-unit>
+			<trans-unit id="sonata-17-1">
+				<source>Subdivision Show</source>
+				<target>Раздел</target>
+			</trans-unit>
+			<trans-unit id="sonata-17-2">
+				<source>Subdivision Edit</source>
+				<target>Редактирование раздела</target>
+			</trans-unit>
+			<trans-unit id="sonata-17-3">
+				<source>Subdivision Create</source>
+				<target>Создание раздела</target>
+			</trans-unit>
+			<trans-unit id="sonata-17-4">
+				<source>Subdivision Delete</source>
+				<target>Удаление раздела</target>
+			</trans-unit>
+
+			<trans-unit id="sonata-18">
+				<source>Module List</source>
+				<target>Модули</target>
+			</trans-unit>
+			<trans-unit id="sonata-18-1">
+				<source>Module Show</source>
+				<target>Раздел</target>
+			</trans-unit>
+			<trans-unit id="sonata-18-2">
+				<source>Module Edit</source>
+				<target>Редактирование модуля</target>
+			</trans-unit>
+			<trans-unit id="sonata-18-3">
+				<source>Module Create</source>
+				<target>Создание модуля</target>
+			</trans-unit>
+			<trans-unit id="sonata-18-4">
+				<source>Module Delete</source>
+				<target>Удаление модуля</target>
+			</trans-unit>
+
+			<trans-unit id="sonata-19">
+				<source>Pharm Article List</source>
+				<target>Фарм. статьи</target>
+			</trans-unit>
+			<trans-unit id="sonata-19-1">
+				<source>Pharm Article Show</source>
+				<target>Фарм. статья</target>
+			</trans-unit>
+			<trans-unit id="sonata-19-2">
+				<source>Pharm Article Edit</source>
+				<target>Редактирование фарм. статьи</target>
+			</trans-unit>
+			<trans-unit id="sonata-19-3">
+				<source>Pharm Article Create</source>
+				<target>Создание фарм. статьи</target>
+			</trans-unit>
+			<trans-unit id="sonata-19-4">
+				<source>Pharm Article Delete</source>
+				<target>Удаление фарм. статьи</target>
+			</trans-unit>
+
+			<trans-unit id="sonata-20">
+				<source>Pharm Company List</source>
+				<target>Фарм. компании</target>
+			</trans-unit>
+			<trans-unit id="sonata-20-1">
+				<source>Pharm Company Show</source>
+				<target>Фарм. компания</target>
+			</trans-unit>
+			<trans-unit id="sonata-20-2">
+				<source>Pharm Company Edit</source>
+				<target>Редактирование фарм. компании</target>
+			</trans-unit>
+			<trans-unit id="sonata-20-3">
+				<source>Pharm Company Create</source>
+				<target>Создание фарм. компании</target>
+			</trans-unit>
+			<trans-unit id="sonata-20-4">
+				<source>Pharm Company Delete</source>
+				<target>Удаление фарм. компании</target>
+			</trans-unit>
+
+			<trans-unit id="sonata-21">
+				<source>Art Rubrique List</source>
+				<target>Разделы специалистам</target>
+			</trans-unit>
+			<trans-unit id="sonata-21-1">
+				<source>Art Rubrique Show</source>
+				<target>Раздел специалистам</target>
+			</trans-unit>
+			<trans-unit id="sonata-21-2">
+				<source>Art Rubrique Edit</source>
+				<target>Редактирование раздела специалистам</target>
+			</trans-unit>
+			<trans-unit id="sonata-21-3">
+				<source>Art Rubrique Create</source>
+				<target>Создание раздела специалистам</target>
+			</trans-unit>
+			<trans-unit id="sonata-21-4">
+				<source>Art Rubrique Delete</source>
+				<target>Удаление раздела специалистам</target>
+			</trans-unit>
+
+			<trans-unit id="sonata-22">
+				<source>Art Type List</source>
+				<target>Категории специалистам</target>
+			</trans-unit>
+			<trans-unit id="sonata-22-1">
+				<source>Art Type Show</source>
+				<target>Категория специалистам</target>
+			</trans-unit>
+			<trans-unit id="sonata-22-2">
+				<source>Art Type Edit</source>
+				<target>Редактирование категории специалистам</target>
+			</trans-unit>
+			<trans-unit id="sonata-22-3">
+				<source>Art Type Create</source>
+				<target>Создание категории специалистам</target>
+			</trans-unit>
+			<trans-unit id="sonata-22-4">
+				<source>Art Type Delete</source>
+				<target>Удаление категории специалистам</target>
+			</trans-unit>
+
+			<trans-unit id="sonata-23">
+				<source>Art Category List</source>
+				<target>Подкатегории специалистам</target>
+			</trans-unit>
+			<trans-unit id="sonata-23-1">
+				<source>Art Category Show</source>
+				<target>Подкатегория специалистам</target>
+			</trans-unit>
+			<trans-unit id="sonata-23-2">
+				<source>Art Category Edit</source>
+				<target>Редактирование подкатегории специалистам</target>
+			</trans-unit>
+			<trans-unit id="sonata-23-3">
+				<source>Art Category Create</source>
+				<target>Создание подкатегории специалистам</target>
+			</trans-unit>
+			<trans-unit id="sonata-23-4">
+				<source>Art Category Delete</source>
+				<target>Удаление подкатегории специалистам</target>
+			</trans-unit>
+
+			<trans-unit id="sonata-24">
+				<source>Tag List</source>
+				<target>Теги</target>
+			</trans-unit>
+			<trans-unit id="sonata-24-1">
+				<source>Tag Show</source>
+				<target>Тег</target>
+			</trans-unit>
+			<trans-unit id="sonata-24-2">
+				<source>Tag Edit</source>
+				<target>Редактирование тега</target>
+			</trans-unit>
+			<trans-unit id="sonata-24-3">
+				<source>Tag Create</source>
+				<target>Создание тега</target>
+			</trans-unit>
+			<trans-unit id="sonata-24-4">
+				<source>Tag Delete</source>
+				<target>Удаление тега</target>
+			</trans-unit>
+
+			<trans-unit id="sonata-25">
+				<source>About Service List</source>
+				<target>Наши услуги</target>
+			</trans-unit>
+			<trans-unit id="sonata-25-1">
+				<source>About Service Show</source>
+				<target>Наша услуга</target>
+			</trans-unit>
+			<trans-unit id="sonata-25-2">
+				<source>About Service Edit</source>
+				<target>Редактирование нашей услуги</target>
+			</trans-unit>
+			<trans-unit id="sonata-25-3">
+				<source>About Service Create</source>
+				<target>Создание нашей услуги</target>
+			</trans-unit>
+			<trans-unit id="sonata-25-4">
+				<source>About Service Delete</source>
+				<target>Удаление нашей услуги</target>
+			</trans-unit>
+
+			<trans-unit id="sonata-26">
+				<source>Pharm Portfolio List</source>
+				<target>Портфели препаратов</target>
+			</trans-unit>
+			<trans-unit id="sonata-26-1">
+				<source>Pharm Portfolio Show</source>
+				<target>Портфель препарата</target>
+			</trans-unit>
+			<trans-unit id="sonata-26-2">
+				<source>Pharm Portfolio Edit</source>
+				<target>Редактирование портфеля препарата</target>
+			</trans-unit>
+			<trans-unit id="sonata-26-3">
+				<source>Pharm Portfolio Create</source>
+				<target>Создание портфеля препарата</target>
+			</trans-unit>
+			<trans-unit id="sonata-26-4">
+				<source>Pharm Portfolio Delete</source>
+				<target>Удаление портфеля препарата</target>
+			</trans-unit>
+
+			<trans-unit id="sonata-27">
+				<source>Info Page List</source>
+				<target>Представительства</target>
+			</trans-unit>
+			<trans-unit id="sonata-27-1">
+				<source>Info Page Show</source>
+				<target>Представительтво</target>
+			</trans-unit>
+			<trans-unit id="sonata-27-2">
+				<source>Info Page Edit</source>
+				<target>Редактирование представительства</target>
+			</trans-unit>
+			<trans-unit id="sonata-27-3">
+				<source>Info Page Create</source>
+				<target>Создание представительства</target>
+			</trans-unit>
+			<trans-unit id="sonata-27-4">
+				<source>Info Page Delete</source>
+				<target>Удаление представительства</target>
+			</trans-unit>
+
+			<trans-unit id="sonata-28">
+				<source>User List</source>
+				<target>Пользователи</target>
+			</trans-unit>
+			<trans-unit id="sonata-28-1">
+				<source>User Show</source>
+				<target>Пользователь</target>
+			</trans-unit>
+			<trans-unit id="sonata-28-2">
+				<source>User Edit</source>
+				<target>Редактирование пользователя</target>
+			</trans-unit>
+			<trans-unit id="sonata-28-3">
+				<source>User Create</source>
+				<target>Создание пользователя</target>
+			</trans-unit>
+			<trans-unit id="sonata-28-4">
+				<source>User Delete</source>
+				<target>Удаление пользователя</target>
+			</trans-unit>
+
+			<trans-unit id="sonata-29">
+				<source>Company Group List</source>
+				<target>Группы компаний</target>
+			</trans-unit>
+			<trans-unit id="sonata-29-1">
+				<source>Company Group Show</source>
+				<target>Группа компаний</target>
+			</trans-unit>
+			<trans-unit id="sonata-29-2">
+				<source>Company Group Edit</source>
+				<target>Редактирование группы компаний</target>
+			</trans-unit>
+			<trans-unit id="sonata-29-3">
+				<source>Company Group Create</source>
+				<target>Создание группы компаний</target>
+			</trans-unit>
+			<trans-unit id="sonata-29-4">
+				<source>Company Group Delete</source>
+				<target>Удаление группы компаний</target>
+			</trans-unit>
+
+			<trans-unit id="sonata-30">
+				<source>Astrazeneca Faq List</source>
+				<target>Школа гастрита - вопрос/ответ</target>
+			</trans-unit>
+			<trans-unit id="sonata-30-1">
+				<source>Astrazeneca Faq Show</source>
+				<target>Школа гастрита - просмотр вопрос/ответ</target>
+			</trans-unit>
+			<trans-unit id="sonata-30-2">
+				<source>Astrazeneca Faq Edit</source>
+				<target>Школа гастрита - редактировать вопрос/ответ</target>
+			</trans-unit>
+			<trans-unit id="sonata-30-3">
+				<source>Astrazeneca Faq Create</source>
+				<target>Школа гастрита - создать вопрос/ответ</target>
+			</trans-unit>
+			<trans-unit id="sonata-30-4">
+				<source>Astrazeneca Faq Delete</source>
+				<target>Школа гастрита - удалить вопрос/ответ</target>
+			</trans-unit>
+
+			<trans-unit id="sonata-31">
+				<source>Astrazeneca New List</source>
+				<target>Школа гастрита - статьи</target>
+			</trans-unit>
+			<trans-unit id="sonata-31-1">
+				<source>Astrazeneca New Show</source>
+				<target>Школа гастрита - просмотр статьи</target>
+			</trans-unit>
+			<trans-unit id="sonata-31-2">
+				<source>Astrazeneca New Edit</source>
+				<target>Школа гастрита - редактировать статью</target>
+			</trans-unit>
+			<trans-unit id="sonata-31-3">
+				<source>Astrazeneca New Create</source>
+				<target>Школа гастрита - создать создать</target>
+			</trans-unit>
+			<trans-unit id="sonata-31-4">
+				<source>Astrazeneca New Delete</source>
+				<target>Школа гастрита - удалить статью</target>
+			</trans-unit>
+
+			<trans-unit id="sonata-32">
+				<source>Astrazeneca Blog List</source>
+				<target>Школа гастрита - блоги</target>
+			</trans-unit>
+			<trans-unit id="sonata-32-1">
+				<source>Astrazeneca Blog Show</source>
+				<target>Школа гастрита - просмотр блога</target>
+			</trans-unit>
+			<trans-unit id="sonata-32-2">
+				<source>Astrazeneca Blog Edit</source>
+				<target>Школа гастрита - редактировать блог</target>
+			</trans-unit>
+			<trans-unit id="sonata-32-3">
+				<source>Astrazeneca Blog Create</source>
+				<target>Школа гастрита - создать блог</target>
+			</trans-unit>
+			<trans-unit id="sonata-32-4">
+				<source>Astrazeneca Blog Delete</source>
+				<target>Школа гастрита - удалить блог</target>
+			</trans-unit>
+
+        </body>
+    </file>
+</xliff>

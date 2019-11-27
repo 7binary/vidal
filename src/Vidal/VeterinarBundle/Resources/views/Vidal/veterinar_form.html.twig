@@ -1,0 +1,10 @@
+<form id="veterinar_form" method="GET" action="{{ path('veterinar') }}">
+
+	{% include 'VidalVeterinarBundle:Vidal:search_form.html.twig' %}
+
+	<input type="hidden" name="p" id="s_page" value="{{ p }}"/>
+
+	{% include 'VidalVeterinarBundle:Vidal:search_letters.html.twig' %}
+
+	<div class="clear"></div>
+</form>

@@ -1,0 +1,184 @@
+{% extends 'VidalMainBundle::layout_promo.html.twig' %}
+
+
+{#{% block nav %}#}
+    {#<div class="breadcrumbs">#}
+        {#<a href="{{ path('index') }}">Видаль</a>#}
+        {#<i></i>#}
+        {#<a href="{{ path('astrazeneca_index') }}">Школа гастрита</a>#}
+        {#<i></i>#}
+        {#<span>Главная</span>#}
+    {#</div>#}
+{#{% endblock %}#}
+
+{% block title %}
+	<h1>Школа гастрита</h1>
+{% endblock %}
+
+{% block content %}
+	<div class="menu-drugs">
+		<div class="tabs" style="width: 520px">
+			<table style="width: 100%" border="0" cellpadding="0" cellspacing="0">
+				<tr>
+					<td style="width: 15%; text-align: center;">
+						<a href="{{ path('astrazeneca_index') }}" class="active">Главная</a>
+					</td>
+					<td style="width: 15%; text-align: center;">
+						<a href="{{ path('astrazeneca_video') }}">Видео</a>
+					</td>
+					<td style="width: 15%; text-align: center;">
+						<a href="{{ path('astrazeneca_news') }}">Статьи</a>
+					</td>
+					<td style="width: 20%; text-align: center;">
+						<a href="{{ path('astrazeneca_faq') }}">Консультация</a>
+					</td>
+					<td style="width: 20%; text-align: center;">
+						<a href="{{ path('astrazeneca_testing') }}">Тестирование</a>
+					</td>
+					<td style="width: 15%; text-align: center;">
+						<a href="{{ path('astrazeneca_map') }}">Карта</a>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+	<div class="intro">
+		Для профилактики гастрита, рекомендуем Вам проконсультироваться со специалистом.
+		Найти специалиста рядом с Вами Вы можете с помощью
+		<a href="{{ path('astrazeneca_map') }}">нашей карты</a>
+	</div>
+
+	<div class="sliderPanel">
+		<img src="{{ asset('bundles/vidalmain/images/Slider/icon_left.png') }}" class="sliderBtnLeft">
+		<img src="{{ asset('bundles/vidalmain/images/Slider/icon_right.png') }}" class="sliderBtnRight">
+
+		<div class="slider">
+			<div class="sliderBox">
+				{% for blog in blogs %}
+					<div class="item">
+						<div class="img"><img src="{{ blog.photo.path }}"></div>
+						<div class="asline"></div>
+						<div class="text">{{ blog.text|raw }}</div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<style>
+
+		.content .active {
+			background: #d71344 !important;
+		}
+		.tabs {
+			background: url("{{ asset('bundles/vidalmain/images/bg-menu.png') }}");
+		}
+		.tabs a:hover {
+			background: url("{{ asset('bundles/vidalmain/images/bg-menu2.png') }}");
+		}
+		.tabs a {
+			/*width: 100%;*/
+			display:    block;
+			text-align: center;
+			padding:    7px 0;
+		}
+		.img img {
+			width: 500px;
+		}
+		.slider {
+			width:         500px;
+			/*width: 502px;*/
+			position:      absolute;
+			overflow:      hidden;
+			border-bottom: none;
+		}
+		.sliderBox .img {
+			width: 500px;
+		}
+		.sliderBox {
+			width:    4000px;
+			overflow: hidden;
+		}
+		.sliderPanel {
+			width:      500px;
+			/*width: 502px;*/
+			min-height: 700px;
+			position:   relative;
+			/*margin: 0 auto;*/
+		}
+		.sliderBtnLeft {
+			position: absolute;
+			z-index:  999;
+			top:      150px;
+			left:     10px;
+			cursor:   pointer;
+			opacity:  0.5;
+		}
+
+		.sliderBtnRight {
+			position: absolute;
+			z-index:  999;
+			top:      150px;
+			right:    10px;
+			cursor:   pointer;
+			opacity:  0.5;
+		}
+		.sliderPanel:hover .sliderBtnLeft, .sliderPanel:hover .sliderBtnRight {
+			opacity: 1;
+		}
+		.item {
+			float: left;
+			/*border: 1px solid #CC3333;*/
+		}
+		.item .text {
+			text-align: justify;
+			color:      #444444;
+			font-size:  14px;
+			width:      480px;
+			padding:    10px;
+		}
+		.asline {
+			border-bottom: 1px solid #CCC;
+			height:        1px;
+			width:         440px;
+			margin-left:   30px;
+			margin-top:    10px;
+		}
+		.intro {
+			font-size:     13px;
+			color:         #444;
+			margin-bottom: 17px;
+		}
+	</style>
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<script>
+		$(document).ready(function() {
+			$('.sliderBtnLeft').click(function() {
+				$('.sliderBox .item').css('display', 'block');
+				var item = $('.sliderBox .item').eq(0);
+				$('.sliderBox .item').eq(0).fadeOut(200, function() {$('.sliderBox').append(item);});
+				//,function(){$('.sliderBox .item').eq(0).remove();}
+			});
+
+			$('.sliderBtnRight').click(function() {
+				var item = $('.sliderBox .item').eq(4);
+				item.css('display', 'none');
+				$('.sliderBox').prepend(item);
+				item.fadeIn('slow');
+				$('.sliderBox .item').eq(5).remove();
+			});
+		});
+		setInterval(function() {
+			$('.sliderBox .item').css('display', 'block');
+			var item = $('.sliderBox .item').eq(0);
+			$('.sliderBox .item').eq(0).fadeOut(300, function() {$('.sliderBox').append(item);});
+		}, 45000);
+	</script>
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends 'VidalDrugBundle::vidal_layout.html.twig' %}
+
+
+{% block nav %}
+	<div class="breadcrumbs">
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('index') }}" itemprop="url">
+				<span itemprop="title">Видаль</span>
+			</a>
+		</div>
+		<i></i>
+
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('pharm') }}" itemprop="url"
+			   title="Фармако-терапевтические группы ГосРеестра МинЗдрава РФ">
+				<span itemprop="title">ФТГ</span>
+			</a>
+		</div>
+		<i></i>
+
+		<span>{{ phthgroup.Name|raw }}</span>
+	</div>
+{% endblock %}
+
+
+{% block vidal %}
+	<div class="publication" itemscope itemtype="http://schema.org/Article">
+		<h1 itemprop="name" style="margin:0;">{{ phthgroup.Name|raw }}</h1>
+
+		<div class="publication-body text" itemprop="articleBody">
+			<div class="anons anons-head">
+				<span>Фармако-терапевтическая группа ГосРеестра МинЗдрава РФ</span>
+			</div>
+
+			{% if products is defined and products is not empty %}
+				<div class="block">
+					<div class="block-head">Препараты группы</div>
+					{% include 'VidalDrugBundle:Vidal:render_products.html.twig' %}
+				</div>
+			{% else %}
+				<div class="no-results">
+					Не найдено препаратов
+					<span>{{ phthgroup.Name|capitalize }}</span>
+				</div>
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+	<script>
+		$(document).ready(function() {
+			{# MICRODATA #}
+			$('.publication img').each(function() {
+				var $this = $(this);
+				$this.attr('itemprop', 'image');
+			});
+
+			$('.publication a').each(function() {
+				$(this).attr({
+					itemprop: "url"
+				});
+			});
+
+			$('.publication-body a').each(function() {
+				var $a = $(this);
+				if (this.href.charAt(0) != '/'
+					&& this.href.indexOf('vidal.ru') === -1
+					&& this.href.indexOf('localhost:97') === -1
+				) {
+					$a.attr('rel', 'nofollow');
+				}
+			});
+		});
+	</script>
+{% endblock %}

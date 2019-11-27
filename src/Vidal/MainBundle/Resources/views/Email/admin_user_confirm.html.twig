@@ -1,0 +1,7 @@
+{% extends 'VidalMainBundle:Email:email.html.twig' %}
+
+{% block content %}
+	<p style="font-style:italic;">
+		Уважаемый {{ user.getPoliteReference() }},<br/>
+		Спасибо за загруженный документ!
+{% endblock %}

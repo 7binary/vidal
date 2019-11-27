@@ -1,0 +1,5 @@
+<td style="width:20%">
+	{% if object.DocumentID and object.DocumentID.infoPages[0] is defined %}
+		{{ object.DocumentID.infoPages[0]|raw }}
+	{% endif %}
+</td>

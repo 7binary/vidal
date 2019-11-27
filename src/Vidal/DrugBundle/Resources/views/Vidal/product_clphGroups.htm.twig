@@ -1,0 +1,34 @@
+{# Клинико-фармакологическая группа #}
+{% if product is defined and product.clphGroups.count %}
+	<div class="block" id="clphgroup">
+		{% if product.clphGroups|length == 1 %}
+			{% if product.ProductTypeCode in ['BAD', 'MI', 'COSM', 'PARA', 'NUTR'] %}
+				<span class="block-head">Групповая принадлежность:</span>
+			{% else %}
+				<span class="block-head">Клинико-фармакологическая группа:</span>
+			{% endif %}
+			<span class="block-content">
+				<a href="{{ path('clinic_group', {'id':product.clphGroups[0].ClPhGroupsID}) }}" class="no-underline">
+					{{ product.clphGroups[0].Name|raw }}
+				</a>
+			</span>
+		{% else %}
+			{% if product.ProductTypeCode in ['BAD', 'MI', 'COSM', 'PARA', 'NUTR'] %}
+				<h2 class="block-head">Групповая принадлежность:</h2>
+			{% else %}
+				<h2 class="block-head">Клинико-фармакологические группы</h2>
+			{% endif %}
+			<div class="block-content">
+				<ul class="ul-style">
+					{% for clphGroup in product.clphGroups %}
+						<li>
+							<a href="{{ path('clinic_group', {'id':clphGroup.ClPhGroupsID}) }}" class="no-underline">
+								{{ clphGroup.Name|raw }}
+							</a>
+						</li>
+					{% endfor %}
+				</ul>
+			</div>
+		{% endif %}
+	</div>
+{% endif %}

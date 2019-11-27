@@ -1,0 +1,18 @@
+{# Объявление, описание чего пойдет ниже #}
+<div class="anons relative">
+	<div class="anons-head">
+		{% if isCosm is defined and isCosm %}
+		<span>Описание лечебной косметики</span>
+		{% elseif isMI is defined and isMI %}
+			<span>Описание медицинского изделия</span>
+		{% else %}
+			<span>Описание биологически активной добавки</span>
+		{% endif %}
+		<span class="anons-product">{{ document.RusName|raw }}</span>
+		<span>({{ document.EngName|raw }})</span>
+	</div>
+	<div class="anons-content">
+		Основано на официально утвержденных материалах и сделано в
+		{{ document.YearEdition > 'now'|date('Y') ? 'now'|date('Y') : document.YearEdition }} году.
+	</div>
+</div>

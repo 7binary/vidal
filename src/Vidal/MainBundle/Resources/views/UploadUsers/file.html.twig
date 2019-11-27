@@ -1,0 +1,97 @@
+{% extends 'VidalMainBundle::layout_blank.html.twig' %}
+
+
+{% block content %}
+	{% if app.session.flashBag.get('saved')|length %}
+		<div class="alert alert-success">Файл загружен</div>
+	{% endif %}
+
+	{# форма #}
+	<form id="form" method="POST" action="{{ path('upload_users_file') }}" {{ form_enctype(form) }}
+		  novalidate autocomplete="off">
+		{{ form_widget(form) }}
+	</form>
+
+	<div id="email">
+		<small>После загрузки файла статус по умолчанию "Новый"<br/>
+			Начинается обработка в течении 5 минут, статус "Участники загружаются"<br/>
+			Когда участники загрузились, статус сменяется на "Участники загружены"<br/>
+			Рассылка по загруженным не подтвердившим, статус "Идет рассылка"<br/>
+			Когда список разослан, статус меняется на "Разослан"
+		</small>
+	</div>
+
+	<table class="products-table">
+		<thead>
+		<tr>
+			<th>Статус</th>
+			<th>Дата загрузки</th>
+			<th>Участники</th>
+			<th>Города не найдены</th>
+			<th>Специальности не найдены</th>
+			<th>ИД рассылки</th>
+			<th>Файл</th>
+			<th></th>
+		</tr>
+		</thead>
+		<tbody>
+		{% for upload in uploads if upload.total > 0 %}
+			<tr>
+				<td>{{ upload.statusLabel }}</td>
+				<td>{{ upload.created|date('d.m.Y H:i') }}</td>
+				<td>
+					Всего: {{ upload.total }}<br/>
+					Новых: {{ upload.new }}
+					Старых: {{ upload.old }}
+				</td>
+				<td>{{ upload.noCity }}</td>
+				<td>{{ upload.noSpecialty }}</td>
+				<td>
+					<a href="{{ path('delivery_stats_item', {'deliveryName':upload.deliveryId}) }}"
+					   class="no-underline">
+						{{ upload.deliveryId }}
+					</a>
+				</td>
+				<td>
+					<a href="{{ upload.file.path }}" target="_blank"
+					   class="no-underline">{{ upload.file.originalName }}</a>
+				</td>
+				<td>
+					<a href="{{ path('upload_users_remove', {'id':upload.id}) }}"
+					   title="Удалить данную запись"
+					   class="btn-red">X</a>
+				</td>
+			</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<style type="text/css">
+		.products-table th {
+			padding: 0 10px 15px;
+		}
+		.products-table thead tr {
+			border-bottom: 1px dashed #ccc;
+		}
+		.products-table td {
+			text-align: center;
+			padding:    10px 5px;
+		}
+		#form, #email {
+			padding:   5px 10px;
+			border:    1px solid #ccc;
+			max-width: 500px;
+			margin:    20px auto 30px;
+		}
+		#email {
+			text-align: center;
+		}
+		#email > div {
+			text-align: left;
+		}
+	</style>
+{% endblock %}

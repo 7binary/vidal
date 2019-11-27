@@ -1,0 +1,60 @@
+{% set video = article.video and article.video.path is defined ? article.video.path : null %}
+
+<div class="article-wrap text" itemscope itemtype="http://schema.org/Article">
+	<h1 itemprop="name">
+		{{ article.title|raw }}
+		{# админам карандашик редактирования #}
+		{% if app.user is not null and is_granted('ROLE_ADMIN') %}
+			<a class="admin-edit fade" target="_blank"
+			   href="{{ path('admin_vidal_drug_article_edit', {'id':article.id}) }}">
+				<img src="{{ asset('bundles/vidalmain/images/edit.png') }}"/>
+			</a>
+		{% endif %}
+	</h1>
+
+	{% if article.video and article.video.path is defined %}
+		{% set width = article.videoWidth > 480 ? 480 : article.videoWidth %}
+		{% set height = article.videoWidth > 480
+		? (article.videoHeight * 480 / article.videoWidth) | number_format(0)
+		: article.videoHeight %}
+
+		<p id="player1"></p>
+
+		<script src="{{ asset('bundles/vidalmain/javascripts/swfobject.js') }}" type="text/javascript"></script>
+		<script type="text/javascript">
+			var so = new SWFObject('/players/uppod.swf', 'mpl', {{ width }}, {{ height }}, '8');
+			so.addParam('allowscriptaccess', 'always');
+			so.addParam('allowfullscreen', 'true');
+			so.addVariable('height', '{{ height }}');
+			so.addVariable('width', '{{ width }}');
+			so.addVariable('file', '{{ article.video.path }}');
+			so.addVariable('bufferlength', '10');
+			so.addVariable('autostart', 'false');
+			so.addVariable('enablejs', 'true');
+			so.write('player1');
+		</script>
+	{% endif %}
+
+	{# видео вручную #}
+	{% for video in article.videos if video.enabled %}
+		{% include 'VidalMainBundle:Article:render_video.html.twig' with {'path':video.path, 'width':video.width, 'height':video.height, 'id':'video' ~ video.id} %}
+	{% endfor %}
+
+	<div class="article-body text" itemprop="articleBody">
+	    {% if article.authors is defined and article.authors %}
+            {{ article.authors|relative|raw  }}
+	    {% endif %}
+
+		{{ text is defined ? text|relative|raw : article.body|relative|raw }}
+
+		{% if article.code is not empty %}
+			{{ article.code|raw }}
+		{% endif %}
+	</div>
+
+	{#<div class="article-footer">#}
+		{#<span class="article-date">{{ article.date|date('d.m.Y') }}</span>#}
+	{#</div>#}
+
+	{{ render(controller('VidalMainBundle:Tag:tags', {'object':article})) }}
+</div>

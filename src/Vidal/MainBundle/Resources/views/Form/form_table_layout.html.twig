@@ -1,0 +1,75 @@
+{% use 'form_div_layout.html.twig' %}
+
+{% block form_label %}
+	{% spaceless %}
+		{% if label is not sameas(false) %}
+			{% if not compound %}
+				{% set label_attr = label_attr|merge({'for': id}) %}
+			{% endif %}
+			{% if required %}
+				{% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
+			{% endif %}
+			{% if label is empty %}
+				{% set label = name|humanize %}
+			{% endif %}
+			<label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}
+			>{{ label }}{{ required? '<span class="raspberry asterisk">*</span>' }}</label>
+		{% endif %}
+	{% endspaceless %}
+{% endblock form_label %}
+
+{% block form_row %}
+	{% spaceless %}
+		<tr class="row row_{{ name }}">
+			<td class="label">
+				<div class="form_label">{{ form_label(form) }}</div>
+				{% if attr['data-help'] is defined %}
+					<div class="data-help">{{ attr['data-help'] }}</div>
+				{% endif %}
+			</td>
+			<td class="widget">
+				<div class="form_widget">{{ form_widget(form) }}</div>
+				<div class="form_error">{{ form_errors(form) }}</div>
+			</td>
+		</tr>
+	{% endspaceless %}
+{% endblock form_row %}
+
+{% block button_row %}
+	{% spaceless %}
+		<tr class="row">
+			<td class="label"></td>
+			<td class="widget form_button">
+				{{ form_widget(form) }}
+			</td>
+		</tr>
+	{% endspaceless %}
+{% endblock button_row %}
+
+{% block hidden_row %}
+	{% spaceless %}
+		<tr style="display: none">
+			<td colspan="2">
+				{{ form_widget(form) }}
+			</td>
+		</tr>
+	{% endspaceless %}
+{% endblock hidden_row %}
+
+{% block form_widget_compound %}
+	{% spaceless %}
+		<table {{ block('widget_container_attributes') }} class="form_table">
+			{% if form.parent is empty and errors|length > 0 %}
+				<tr class="row">
+					<td colspan="2">
+						<div class="form_errors">
+							{{ form_errors(form) }}
+						</div>
+					</td>
+				</tr>
+			{% endif %}
+			{{ block('form_rows') }}
+			{{ form_rest(form) }}
+		</table>
+	{% endspaceless %}
+{% endblock form_widget_compound %}

@@ -1,0 +1,30 @@
+<div class="menu-drugs">
+	<div class="links menu-buttons">
+		<a href="{{ path('interaction') }}" class="btn-blue first{{ menu_drugs == 'interaction' ? ' active' }}">
+			Проверка лекарственного взаимодействия
+		</a>
+		<a href="{{ path('searche_google') }}" class="btn-blue last{{ menu_drugs == 'google' ? ' active' }}"
+		   title="Поиск Google по открытым разделам сайта">
+			Поиск Google по сайту
+		</a>
+	</div>
+
+	<div class="tabs menu-drugs-tabs">
+		<a href="{{ path('searche') }}" {{ menu_drugs == 'searche' ? 'class="active"' }}
+		   title="Поиск по категориям">Поиск</a><a
+			href="{{ path('products') }}" {{ menu_drugs == 'products' ? 'class="active"' }}
+			title="Поиск препаратов и БАД">По алфавиту</a><a
+			href="{{ path('atc') }}" {{ menu_drugs == 'atc' ? 'class="active"' }}
+			title="Анатомо-Терапевтически-Химическая (АТХ) система классификации (ATC)">АТХ</a><a
+			href="{{ path('nosology') }}" {{ menu_drugs == 'nosology' ? 'class="active"' }}
+			title="Нозологический указатель">Нозология</a><a
+			href="{{ path('kfu') }}" {{ menu_drugs == 'kfu' ? 'class="active"' }}
+			title="Клинико-фармакологические указатели">КФУ</a><a
+			href="{{ path('pharm') }}" {{ menu_drugs == 'pharm' ? 'class="active"' }}
+			title="Фармако-терапевтические группы ГосРеестра МинЗдрава РФ">ФТГ</a><a
+			href="{{ path('companies') }}" {{ menu_drugs == 'companies' ? 'class="active"' }}
+			title="Представительства и фирмы-производители">Компании</a><a
+			href="{{ path('disease') }}" {{ menu_drugs == 'disease' ? 'class="active"' }}
+			>Заболевания</a>
+	</div>
+</div>

@@ -1,0 +1,120 @@
+{% extends 'VidalDrugBundle::vidal_layout.html.twig' %}
+
+
+{% set isDoctor = app.user is not null and is_granted('ROLE_DOCTOR') %}
+
+
+{% block nav %}
+	<div class="breadcrumbs">
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('index') }}" itemprop="url">
+				<span itemprop="title">Видаль</span>
+			</a>
+		</div>
+		<i></i>
+
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('molecules') }}" itemprop="url">
+				<span itemprop="title">Активные вещества</span>
+			</a>
+		</div>
+		<i></i>
+
+		<span>{{ molecule.LatName|upper|raw }}</span>
+	</div>
+{% endblock %}
+
+
+{% block vidal %}
+	<div class="schema" itemscope itemtype="http://schema.org/Article">
+		<h1 itemprop="name">{{ molecule.LatName|upper|raw }}
+			{% if molecule.RusName is not empty %}
+				<span>({{ molecule.RusName|upper|raw }})</span>
+			{% endif %}
+		</h1>
+		{% if molecule.GNParent is not empty %}
+			<div class="mnn anons">
+				<a title="Международное непатентованное наименование (МНН)" href="{{ path('gnp') }}"
+				   class="no-underline mnn">{{ molecule.GNParent }}</a>
+				<span class="small italic">{{ molecule.GNParent.description }}</span>
+			</div>
+		{% endif %}
+
+		{% if document %}
+			{% include 'VidalDrugBundle:Vidal:document_navigation.html.twig' %}
+		{% endif %}
+
+        {% if hasProducts is defined and hasProducts >0 %}
+    		<div class="block">
+    			<span class="block-head">Входит в состав препаратов: </span>
+    			<a href="{{ path('molecule_included', {'MoleculeID':molecule.MoleculeID}) }}">список</a>
+    		</div>
+		{% endif %}
+
+		<div itemprop="articleBody">
+			{% if document %}
+				{% include 'VidalDrugBundle:Vidal:document_info.html.twig' %}
+			{% endif %}
+		</div>
+	</div>
+
+	{#{% include 'VidalMainBundle:Article:documents.html.twig' with {'object':molecule, 'label':'автивному веществу', 'item':molecule.RusName is empty ? molecule.LatName : molecule.RusName} %}#}
+
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<style type="text/css">
+		.mkb {
+			margin-top: 6px;
+		}
+		.mkb .products-table {
+			display: none;
+		}
+		#vidal .mnn.anons {
+			margin-left: 0;
+			font-size:   15px;
+		}
+		#vidal .mnn.anons a {
+			font-weight: bold;
+		}
+	</style>
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('.copy textarea')
+				.focus(function() { $(this).css('opacity', '1'); })
+				.blur(function() { $(this).css('opacity', '0.5'); });
+
+			$('.mkb-show').click(function() {
+				$('.mkb .products-table').show();
+				$(this).hide();
+				return false;
+			});
+
+			$('.schema img').each(function() {
+				$(this).attr({
+					itemprop: "image"
+				});
+			});
+
+			$('.schema a').each(function() {
+				var $a = $(this);
+				$a.attr('itemprop', 'url');
+				if (this.href.length
+					&& this.href.charAt(0) != '/'
+					&& this.href.indexOf('vidal.ru') === -1
+					&& this.href.indexOf('localhost:97') === -1
+				) {
+					$a.attr('rel', 'nofollow');
+				}
+			});
+		});
+	</script>
+{% endblock %}
+

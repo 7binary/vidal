@@ -1,0 +1,74 @@
+{% extends 'VidalMainBundle::layout.html.twig' %}
+
+
+{% block nav %}
+	<div class="breadcrumbs">
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('index') }}" itemprop="url">
+				<span itemprop="title">Видаль</span>
+			</a>
+		</div>
+		<i></i>
+
+		<span>О компании</span>
+	</div>
+{% endblock %}
+
+
+{% block content %}
+	<div class="schema" itemscope itemtype="http://schema.org/Article">
+		<h1 itemprop="name">О КОМПАНИИ</h1>
+
+		<div class="divisions">
+			{% for about in items %}
+				<div class="division">
+					<a href="{{ path('about_item', {'url':about.url}) }}" class="division-link">
+						{{ about.title }}
+					</a>
+					{% if isAdmin %}
+						<a class="admin-edit fade" target="_blank"
+						   href="{{ path('admin_vidal_main_about_edit', {'id':about.id}) }}">
+							<img src="{{ asset('bundles/vidalmain/images/edit.png') }}"/>
+						</a>
+					{% endif %}
+				</div>
+			{% endfor %}
+		</div>
+
+		<div itemprop="articleBody">
+			{{ render(controller('VidalMainBundle:Index:Module', {'moduleId':2})) }}
+		</div>
+	</div>
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/divisions.css') }}"/>
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('.schema img').each(function() {
+				$(this).attr({
+					itemprop: "image"
+				});
+			});
+
+			$('.schema a').each(function() {
+				var $a = $(this);
+				$a.attr('itemprop', 'url');
+				if (this.href.length
+					&& this.href.charAt(0) != '/'
+					&& this.href.indexOf('vidal.ru') === -1
+					&& this.href.indexOf('localhost:97') === -1
+				) {
+					$a.attr('rel', 'nofollow');
+				}
+			});
+		});
+	</script>
+{% endblock %}

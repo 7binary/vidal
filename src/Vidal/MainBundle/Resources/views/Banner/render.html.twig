@@ -1,0 +1,110 @@
+{% set isLogged = app.user is defined and app.user %}
+{% set isMobile = is_mobile() %}
+{% set mustShow = mustShow is defined and mustShow %}
+
+{% if env_local != 'true' %}
+	{% for banner in banners %}
+		{% set specOnlyUrl = null %}
+		{% set group = 'banner_' ~ banner.id %}
+		{% set name = 'banner-' ~ banner.group.name %}
+		{% set ga_title = isMobile and banner.titleMobile is not empty ? banner.titleMobile : banner.title %}
+		{% set width = (banner.width != null ? banner.width : banner.group.width ) %}
+		{% set height = (banner.height != null ? banner.height : banner.group.height ) %}
+		{% set bannerLink = banner.loggedLink is not empty and app.user ? banner.loggedLink : (isMobile and banner.linkMobile is not empty ? banner.linkMobile : banner.link) %}
+
+		{% if not isLogged and banner.specOnly %}
+			{% set specOnlyUrl = '/banner/spec-only?url=' ~ bannerLink|url_encode %}
+		{% endif %}
+
+		{% if is_mobile() %}
+			{% if banner.mobileWidth is not empty %}
+				{% set width = banner.mobileWidth %}
+			{% endif %}
+			{% if banner.mobileHeight is not empty %}
+				{% set height = banner.mobileHeight %}
+			{% endif %}
+		{% endif %}
+
+		{% if mustShow or banner.mustShow or not banner.testMode or request.get('t') == 't' %}
+			{% if mustShow or banner.mustShow or banner.notForPage is empty or (pathInfo not in banner.notForPage|explodeList and (routeName != 'publication' or '/novosti/*' not in banner.notForPage|explodeList)) %}
+				{% if mustShow or banner.mustShow or banner.displayTo is empty or (banner.displayTo == 'logged' and isLogged) or (banner.displayTo == 'guest' and not isLogged) %}
+					{% if mustShow or banner.mustShow or not banner.indexPage or (indexPage is defined and indexPage) %}
+						{% if mustShow or banner.mustShow or isMobile == false or productPage == false or banner.mobileProduct == false %}
+							{% if mustShow or banner.mustShow or banner.forPage is empty or pathInfo in banner.forPage|explodeList
+							or (routeName == 'publication' and '/novosti/*' in banner.forPage|explodeList) %}
+								<div id="{{ group }}" class="banner {{ name }}"
+									 style="width:{{ width }}px; height:{{ height }}px; margin-bottom:20px; {{ style is defined ? style : '' }} {% if banner.mobileHtmlBanner is not empty or banner.htmlBanner is not empty %} border: none;{% endif %}">
+									<a href="{{ not isLogged and banner.specOnly
+									? '/banner/spec-only?url=' ~ bannerLink|url_encode
+									: bannerLink }}"
+									   class="banner-link"
+									   target="_blank"
+									   data-clickEvent="{{ banner.clickEvent }}"
+									   data-showEvent="{{ banner.showEvent }}"
+									   data-title="{{ ga_title }}"
+									   data-link="{{ bannerLink }}"
+									   data-group="{{ group }}"
+									   data-id="{{ banner.id }}"
+									   data="{{ bannerLink }}"
+									   rel="{{ nofollow is defined and nofollow ? 'nofollow' }}"
+									   style="width:{{ width }}px; height:{{ height }}px">
+
+                                        {% if (isMobile and banner.mobileBanner is not empty) or banner.banner is not empty %}
+										<img
+											src="{{ isMobile and banner.mobileBanner is not empty ? banner.mobileBanner.path : banner.banner.path }}"
+											alt="{{ banner.alt }}"
+											style="width:{{ width }}px; height:{{ height }}px"/>
+                                        {% else %}
+                                            {% if isMobile and banner.mobileHtmlBanner is not empty %}
+                                                {{ banner.mobileHtmlBanner|raw }}
+                                            {% else %}
+                                                {{ banner.htmlBanner|raw }}
+                                            {% endif %}
+                                        {% endif %}
+									</a>
+
+									{# админам карандашик редактирования #}
+									{% if app.user is not null and is_granted('ROLE_ADMIN') %}
+										<a class="admin-edit fade" target="_blank"
+										   href="{{ path('admin_vidal_main_banner_edit', {'id':banner.id}) }}">
+											<img src="{{ asset('bundles/vidalmain/images/edit.png') }}"/>
+										</a>
+									{% endif %}
+								</div>
+
+								{% if via_ajax is not defined or not via_ajax %}
+									<script type="text/javascript">
+										$(document).ready(function() {
+											ga('send', 'event', 'Показ баннера: {{ ga_title }}', 'show', '{{ bannerLink }}');
+											{% if banner.showEvent is not empty %}
+											ga('send', 'event', '{{ banner.showEvent }}', 'click', '{{ bannerLink }}');
+											{% endif %}
+
+											$('#{{ group }} .banner-link').click(function() {
+												ga('send', 'event', 'Клик баннера: {{ ga_title }}', 'click', '{{ bannerLink }}');
+												{% if banner.clickEvent is not empty %}
+												ga('send', 'event', '{{ banner.clickEvent }}', 'click', '{{ bannerLink }}');
+												{% endif %}
+												$.get('/banner-clicked/{{ banner.id }}');
+											});
+										});
+									</script>
+								{% endif %}
+
+								{% if banner.trackImageUrlMobile is not empty and isMobile %}
+									<img style="display:block; position:fixed; top: -3000px; left: -3000px;"
+										 src="{{ banner.trackImageUrlMobile }}"/>
+								{% elseif banner.trackImageUrl is not empty %}
+									<img style="display:block; position:fixed; top: -3000px; left: -3000px;"
+										 src="{{ banner.trackImageUrl }}"/>
+								{% endif %}
+
+								{# конец условий показа баннера #}
+							{% endif %}
+						{% endif %}
+					{% endif %}
+				{% endif %}
+			{% endif %}
+		{% endif %}
+	{% endfor %}
+{% endif %}

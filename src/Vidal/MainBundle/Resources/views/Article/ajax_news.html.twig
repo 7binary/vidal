@@ -1,0 +1,33 @@
+{% set isAdmin = app.user is not null and is_granted('ROLE_ADMIN') %}
+
+<div class="more-news to-show">
+	{% for publication in news %}
+		{% set withPhoto = publication.photo and is_file(publication.photo.path) %}
+		<div class="text publication{{ withPhoto ? ' with-photo' }}">
+			{# админам карандашик редактирования #}
+			{% if isAdmin %}
+				<a class="admin-edit fade" target="_blank"
+				   href="{{ path('admin_vidal_drug_publication_edit', {'id':publication.id}) }}">
+					<img src="{{ asset('bundles/vidalmain/images/edit.png') }}"/>
+				</a>
+			{% endif %}
+
+			{% if withPhoto %}
+				<a class="photo" href="{{ path('publication', {id:publication.link ~ '-' ~ publication.id}) }}">
+					<img src="{{ publication.photo.path }}" alt="{{ publication.title }}"/>
+				</a>
+			{% endif %}
+			<div>
+				<div class="publication-title">
+					<a href="{{ path('publication', {id:publication.link ~ '-' ~ publication.id}) }}">{{ publication.title|raw }}</a>
+				</div>
+				<div class="publication-announce text">
+					{{ publication.announce|raw }}
+				</div>
+				<div class="publication-date">
+					{{ publication.date|date('d.m.Y') }}
+				</div>
+			</div>
+		</div>
+	{% endfor %}
+</div>

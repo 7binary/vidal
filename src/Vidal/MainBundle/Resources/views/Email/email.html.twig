@@ -1,0 +1,67 @@
+{% extends 'VidalMainBundle::minimal_layout.html.twig' %}
+
+{% set adminEmail = adminEmail is defined ? adminEmail : 'm.vlasenko@vidal.ru' %}
+
+{% block body %}
+	<div style="background-color: #eee; padding: 5px 0;">
+		<table cellpadding="0" cellspacing="0" border="0" width="600"
+			   style="background:white; margin: {{ header is defined ? 0 : 20 }}px auto;">
+
+			<tr>
+				{% spaceless %}
+					<td style="vertical-align:top; padding:6px; margin:0; color:#eee;
+				background: #d33b5c; padding: 8px 10px;
+background: -moz-linear-gradient(top,  #d33b5c 0%, #d71344 50%, #d3022f 100%);
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#d33b5c), color-stop(50%,#d71344), color-stop(100%,#d3022f));
+background: -webkit-linear-gradient(top,  #d33b5c 0%,#d71344 50%,#d3022f 100%);
+background: -o-linear-gradient(top,  #d33b5c 0%,#d71344 50%,#d3022f 100%);
+background: -ms-linear-gradient(top,  #d33b5c 0%,#d71344 50%,#d3022f 100%);
+background: linear-gradient(to bottom,  #d33b5c 0%,#d71344 50%,#d3022f 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d33b5c', endColorstr='#d3022f',GradientType=0 );
+">
+						<a href="https://www.vidal.ru" style="margin:0; padding:0; color:#eee; display: block;
+					text-decoration: none; font-weight: bold; font-size: 17px; letter-spacing: 1px;">
+							VIDAL - справочник лекарственных препаратов
+						</a>
+					</td>
+				{% endspaceless %}
+			</tr>
+
+			<tr>
+				<td style="padding: 18px 35px 28px;">
+					{% block content %}
+						<p style="font-family:Verdana,sans-serif; font-size:14px;">
+							Уважаемые коллеги,</p>
+
+						<p style="font-family:Verdana,sans-serif; font-size:14px;">
+							это тестовая рассылка, которую проводит портал <a href="https://www.vidal.ru">vidal.ru</a>.
+							Пожалуйста, сообщите о получении письма, отправив сообщение на адрес
+							<a href="mailto:myudintseva@gmail.com">myudintseva@gmail.com</a></p>
+					{% endblock %}
+
+					{% include 'VidalMainBundle:Email:signature.html.twig' %}
+				</td>
+			</tr>
+			<tr>
+				<td style="
+			vertical-align:top; padding:6px; font-family:Verdana,sans-serif; font-size:12px; color:#eee; line-height:14px;
+			background: #d71344;
+background: -moz-linear-gradient(top,  #d71344 0%, #d60a3a 50%, #d60233 100%);
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#d71344), color-stop(50%,#d60a3a), color-stop(100%,#d60233)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #d71344 0%,#d60a3a 50%,#d60233 100%);
+background: -o-linear-gradient(top,  #d71344 0%,#d60a3a 50%,#d60233 100%);
+background: -ms-linear-gradient(top,  #d71344 0%,#d60a3a 50%,#d60233 100%);
+background: linear-gradient(to bottom,  #d71344 0%,#d60a3a 50%,#d60233 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d71344', endColorstr='#d60233',GradientType=0 ); /* IE6-9 */
+
+">
+					По всем вопросам, связанным с регистрацией на сайте
+					<a href="https://vidal.ru" style="color:#99ccd1;">vidal.ru</a>, а также
+					Вашим предложениям по улучшению работы сайта и сотрудничества с порталом вы можете написать по
+					адресу:
+					<a href="mailto:{{ adminEmail }}" style="color:#99ccd1;">{{ adminEmail }}</a>.
+				</td>
+			</tr>
+		</table>
+	</div>
+{% endblock %}

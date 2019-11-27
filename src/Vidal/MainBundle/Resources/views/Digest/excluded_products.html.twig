@@ -1,0 +1,23 @@
+{% extends 'VidalDrugBundle:Sonata:mini_layout.html.twig' %}
+
+
+{% block content %}
+	<h1>{{ title }}</h1>
+
+	{% if app.session.flashBag.get('notice')|length %}
+		<div class="saved">Сохранено</div>
+	{% endif %}
+
+	{# форма #}
+	<form id="form" method="POST" action="{{ path('excluded_products') }}">
+		{{ form_widget(form) }}
+	</form>
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<style type="text/css">
+
+	</style>
+{% endblock %}

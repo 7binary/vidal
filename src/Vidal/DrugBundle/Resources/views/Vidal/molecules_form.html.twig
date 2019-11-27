@@ -1,0 +1,39 @@
+<form id="form" method="GET" action="{{ path('molecules') }}">
+	<div id="form_controls">
+		<input id="form_submit" type="submit" value="Найти" class="btn-red">
+		<input id="form_input" type="text" name="q" placeholder="Введите слово для поиска..."
+			   value="{{ q is defined and q is not empty and not l ? q }}"/>
+	</div>
+	{% include 'VidalVeterinarBundle:Vidal:molecules_letters.html.twig' %}
+</form>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#form_input-000')
+			.autocomplete({
+				minLength: 2,
+				source:    function(request, response) {
+					var url ='/elastic/autocomplete/molecule/' + request.term.trim();
+					$.getJSON(url, function(data) {
+						response($.map(data.hits.hits, function(item) {
+							return {
+								label: item.highlight.name,
+								value: item._source.name,
+								type:  item._source.type
+							}
+						}));
+					});
+				},
+				select:    function(event, ui) {
+					if (ui.item) {
+						$(this).val(ui.item.value);
+					}
+				}
+			}).data("ui-autocomplete")._renderItem = function(ul, item) {
+			return $("<li></li>")
+				.data("item.autocomplete", item)
+				.append("<a>" + item.label + "</a>")
+				.appendTo(ul);
+		};
+	});
+</script>

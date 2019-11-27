@@ -1,0 +1,173 @@
+{% extends 'VidalMainBundle::layout_promo.html.twig' %}
+
+
+{#{% block nav %}#}
+    {#<div class="breadcrumbs">#}
+        {#<a href="{{ path('index') }}">Видаль</a>#}
+        {#<i></i>#}
+        {#<a href="{{ path('astrazeneca_index') }}">astraZeneca</a>#}
+        {#<i></i>#}
+        {#<span>Тестирование</span>#}
+    {#</div>#}
+{#{% endblock %}#}
+
+{% block title %}
+	<h1>Школа гастрита</h1>
+{% endblock %}
+
+{% block content %}
+	<div class="menu-drugs">
+		<div class="tabs" style="width: 520px">
+			<table style="width: 100%" border="0" cellpadding="0" cellspacing="0">
+				<tr>
+					<td style="width: 15%; text-align: center;">
+						<a href="{{ path('astrazeneca_index') }}" >Главная</a>
+					</td>
+					<td style="width: 15%; text-align: center;">
+						<a href="{{ path('astrazeneca_video') }}">Видео</a>
+					</td>
+					<td style="width: 15%; text-align: center;">
+						<a href="{{ path('astrazeneca_news') }}">Статьи</a>
+					</td>
+					<td style="width: 20%; text-align: center;">
+						<a href="{{ path('astrazeneca_faq') }}">Консультация</a>
+					</td>
+					<td style="width: 20%; text-align: center;">
+						<a href="{{ path('astrazeneca_testing') }}" class="active">Тестирование</a>
+					</td>
+					<td style="width: 15%; text-align: center;">
+						<a href="{{ path('astrazeneca_map') }}" >Карта</a>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	{#<h1>#}
+	{#Тестирование#}
+	{#</h1>#}
+	<div class="tests">
+		{% for test in tests %}
+			<div id="t{{ test.id }}" class="test">
+				<table>
+					<tr>
+						<td style="width: 220px; text-align: center">
+							<img src="{{ asset('bundles/vidalmain/images/test' ~test.id~ '.jpg') }}" style="width: 220px; border: 1px solid #D6DADD;">
+						</td>
+						<td style="width: 250px; text-align: center;" valign="center">
+							{{ test.title }}
+							<br/>
+							<br/>
+							<table style="width: 100%">
+								<tr>
+									<td style="width: 50%; text-align: right;">
+										<a class="btn-red yes" id="y{{ test.id }}" href="#" {% if loop.last %} data-type="last" {% endif %}>Да</a>
+									</td>
+									<td style="width: 50%; text-align: left;">
+										<a class="btn-red no" id="n{{ test.id }}" href="#" {% if loop.last %} data-type="last" {% endif %}>Нет</a>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</div>
+		{% endfor %}
+		<div class="test" style="display: none;" id="test-success">
+			<br />
+			У Вас высока вероятность гастрита, рекомендуем Вам пройти консультацию у врача-гастроэнтеролога. Найти специалистов Вы можете с помощью <br /><a href="https://www.vidal.ru/astrazeneca/map">нашей карты</a>
+		</div>
+		<div class="test" style="display: none;" id="test-fail">
+			<br />
+			Скорее всего у Вас нет гастрита, но, для его профилактики проконсультируйтесь со специалистом. Найти специалистов Вы можете с <br /><a href="https://www.vidal.ru/astrazeneca/map">нашей карты</a>
+		</div>
+	</div>
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<style>
+		.content .active{
+			background: #d71344 !important;
+		}
+		.tabs{
+			background: url("{{ asset('bundles/vidalmain/images/bg-menu.png') }}");
+		}
+		.tabs a:hover{
+			background: url("{{ asset('bundles/vidalmain/images/bg-menu2.png') }}");
+		}
+		.tests{
+			/*border: 1px solid #d71344;*/
+			padding: 10px;
+			text-align: center;
+			position: relative;
+			width: 500px;
+			/*min-height: 73px;*/
+			overflow: hidden;
+		{#background: url('{{ asset('bundles/vidalmain/images/bg-menu.png') }}');#}
+
+		}
+		.test{
+		{#background: url('{{ asset('bundles/vidalmain/images/bg-menu.png') }}');#}
+
+			/*position: absolute;*/
+			width: 530px;
+			/*height: 83px;*/
+			/*background: #FFFFFF;*/
+			display: none;
+		}
+		.tabs a{
+			display: block;
+			text-align: center;
+			padding: 7px 0;
+		}
+		#t1{
+			display: block;
+		}
+		.yes, .no{
+			margin-right: 5px;
+			display: inline-block;
+		}
+	</style>
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<script>
+		var next = 1;
+		var t = 0;
+		$(document).ready(function(){
+			$('.yes').click(function(){
+				next ++;
+				$('.test').css('display','none');
+				$('#t1').css('display','none');
+				$('#t'+next).css('display','block');
+
+				t++;
+				$(this).parent().parent().parent().parent().parent().css('display','none');
+				if ( $(this).attr('data-type') == 'last' ){
+					showResult()
+				}
+				return false;
+			});
+			$('.no').click(function(){
+				next ++;
+				$('.test').css('display','none');
+				$('#t1').css('display','none');
+				$('#t'+next).css('display','block');
+				$(this).parent().parent().parent().parent().parent().css('display','none');
+				if ( $(this).attr('data-type') == 'last' ){
+					showResult()
+				}
+				return false;
+			})
+
+			function showResult(){
+				if ( t > 3 ){
+					$('#test-success').show();
+				}else{
+					$('#test-fail').show();
+				}
+			}
+		})
+	</script>
+{% endblock %}

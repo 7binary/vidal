@@ -1,0 +1,39 @@
+{# Яндекс.Директ #}
+{% if app.environment == 'prod' and noYad is not defined and hideYandexDirect is not defined %}
+	<div id="yad_right" class="yad">
+		<!-- Яндекс.Директ -->
+		<script type="text/javascript">
+			yandex_partner_id = 49912;
+			yandex_site_bg_color = 'FFFFFF';
+			yandex_ad_format = 'direct';
+			yandex_font_size = 0.9;
+			yandex_direct_type = 'flat';
+			yandex_direct_border_type = 'block';
+			yandex_direct_limit = 4;
+			yandex_direct_title_font_size = 2;
+			yandex_direct_links_underline = false;
+			yandex_direct_bg_color = 'F3F3F3';
+			yandex_direct_border_color = 'EEEEEE';
+			yandex_direct_title_color = '222222';
+			yandex_direct_url_color = 'D71344';
+			yandex_direct_text_color = '666666';
+			yandex_direct_hover_color = 'D71344';
+			yandex_direct_sitelinks_color = '0000CC';
+			yandex_direct_favicon = false;
+			yandex_no_sitelinks = false;
+			document.write('<scr'+'ipt type="text/javascript" src="//an.yandex.ru/system/context.js"></scr'+'ipt>');
+
+			$(document).ready(function() {
+				var urls = ['zdravzona.ru', 'rlsnet.ru', 'eapteka.ru', 'piluli.ru'];
+				var contains = [];
+				for (var i = 0; i < urls.length; i++) {
+					contains.push('.yad a:contains(' + urls[i] + ')');
+				}
+				$(contains.join(', ')).each(function(i, e) {
+					var $tr = $(this).closest('tr');
+					$tr.remove();
+				});
+			});
+		</script>
+	</div>
+{% endif %}

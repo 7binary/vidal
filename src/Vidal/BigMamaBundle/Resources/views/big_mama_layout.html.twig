@@ -1,0 +1,175 @@
+{% extends 'VidalMainBundle::layout_promo.html.twig' %}
+
+{% set showMobileSocial = false %}
+{% block middle %}
+    <div class="big-mama">
+        {% block top %}
+            {% if  app.request.get('banners') %}
+                <div class="top-banners">
+                    <a href="#"><div class="banner"></div></a>
+                </div>
+            {% endif %}
+        {% endblock %}
+
+        <a href="{{path('big_mama')}}{% if isTestMode() %}?test=1{%endif %}">
+            <div class="logo-header"></div>
+        </a>
+        {% include 'VidalBigMamaBundle::_top_menu.html.twig' %}
+        <div style="clear:both;"></div>
+        {% block left %}
+            {% if  app.request.get('banners') %}
+                <div class="left-banners">
+                    <a href="#">
+                        <div class="banner"></div>
+                    </a>
+                </div>
+            {% endif %}
+        {% endblock %}
+
+        {% block content %}
+        {% endblock %}
+
+        {% block right %}
+            {% if  app.request.get('banners') %}
+                <div class="right-banners">
+                    <a href="#">
+                        <div class="banner"></div>
+                    </a>
+                </div>
+            {% endif %}
+        {% endblock %}
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalbigmama/stylesheets/main.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalbigmama/stylesheets/publication.css') }}"/>
+
+    <style>
+        .banner {
+            border:none;
+        }
+
+        .big-mama .right-banners {
+            position: absolute;
+            top:280px;
+            right: -210px;
+        }
+
+        .big-mama .left-banners {
+            position: absolute;
+            left: -210px;
+            top:280px;
+        }
+
+        body {
+            background-color: #f3f3f2;
+        }
+
+        @media (max-width: 9000px) {
+            .top-banners .banner {
+                margin-left: -7px !important;
+                margin-right: -7px !important;
+            }
+            .top-banners .banner {
+                background: url(/bundles/vidalbigmama/images/bm_branding/main_1010x150px.png) no-repeat;
+                height:150px !important;
+                background-size: contain;
+            }
+        }
+        @media (max-width: 750px) {
+            .top-banners .banner {
+                margin-left: 0px !important;
+                margin-right: 0px !important;
+            }
+            .top-banners .banner {
+                background: url(/bundles/vidalbigmama/images/bm_branding/main_950x150px.png) no-repeat;
+                background-size: contain;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .top-banners .banner {
+                margin-left: 0px !important;
+                margin-right: 0px !important;
+            }
+            .top-banners .banner {
+                background: url(/bundles/vidalbigmama/images/bm_branding/main_590x150px.png) no-repeat;
+                background-size: contain;
+            }
+        }
+        @media (max-width: 400px) {
+            .top-banners .banner {
+                margin-left: 0px !important;
+                margin-right: 0px !important;
+            }
+            .top-banners .banner {
+                background: url(/bundles/vidalbigmama/images/bm_branding/main_590x150px.png) no-repeat;
+                background-size: contain;
+            }
+        }
+        @media (max-width: 250px) {
+            .top-banners .banner {
+                margin-left: 0px !important;
+                margin-right: 0px !important;
+            }
+            .top-banners .banner {
+                background: url(/bundles/vidalbigmama/images/bm_branding/main_240x150px.png) no-repeat;
+                background-size: contain;
+            }
+        }
+
+        @media (max-width: 9000px) {
+            .right-banners {
+                right: -315px !important;
+            }
+            .right-banners .banner {
+                background: url(/bundles/vidalbigmama/images/bm_branding/right_300x500px.png) no-repeat;
+                width:300px !important;
+                height:500px !important;
+            }
+        }
+
+        @media (max-width: 1660px) {
+            .right-banners {
+                right: -210px !important;
+            }
+            .right-banners .banner {
+                background: url(/bundles/vidalbigmama/images/bm_branding/right_200x500px.png) no-repeat;
+                width:200px !important;
+                height:500px !important;
+            }
+        }
+
+        @media (max-width: 9000px) {
+            .left-banners {
+                left: -315px !important;
+            }
+
+            .left-banners .banner {
+                background: url(/bundles/vidalbigmama/images/bm_branding/left_300x500px.png) no-repeat;
+                width:300px !important;
+                height:500px !important;
+            }
+        }
+
+        @media (max-width: 1660px) {
+            .big-mama .left-banners {
+                left: -210px !important;
+            }
+            .left-banners .banner {
+                background: url(/bundles/vidalbigmama/images/bm_branding/left_200x500px.png) no-repeat;
+                width: 200px !important;
+                height:500px !important;
+            }
+        }
+
+        @media (max-width: 1429px) {
+            .left-banners {
+                display:none;
+            }
+        }
+
+    </style>
+{% endblock %}

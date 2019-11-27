@@ -1,0 +1,112 @@
+{% extends 'VidalDrugBundle::vidal_layout.html.twig' %}
+
+
+{% block vidal %}
+	{% if menu_drugs is defined %}
+		{% include 'VidalDrugBundle:Drugs:menu_drugs.html.twig' %}
+	{% endif %}
+
+	<div class="description">
+		<span>Нозологический указатель</span>
+
+		<div>
+			Позволяет искать препараты по их показаниям.
+			Cоставлен на основе Международной классификации болезней и проблем, связанных со здоровьем -
+			10 пересмотр (МКБ-10), ВОЗ 1995.
+			{% if not nosologyCode %}
+				<br/><i>Например</i>:
+				<a href="#I00-I99" data="I20-I25">Ишемическая болезнь сердца</a>,
+				<a href="#G00-G99" data="G00-G99">БОЛЕЗНИ НЕРВНОЙ СИСТЕМЫ</a>
+			{% endif %}
+		</div>
+	</div>
+
+	<form id="select_form" action="{{ path('nosology') }}" method="GET">
+		<select name="c">
+			<option></option>
+			{% for code, text in choices %}
+				<option value="{{ code }}"{{ nosologyCode == code ? ' selected' }}>
+					{{ text }}
+				</option>
+			{% endfor %}
+		</select>
+		<input type="submit" value="Найти" class="btn-red"/>
+	</form>
+
+	{% if nosologyCode %}
+		{{ render(controller('VidalDrugBundle:Drugs:nosologyItem', {'Code':nosologyCode, 'search':1})) }}
+	{% else %}
+		{% include 'VidalDrugBundle:Drugs:nosology_generated.html.twig' %}
+	{% endif %}
+
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/treeview/jquery.treeview.css') }}"/>
+	<style type="text/css">
+		#select_form {
+			margin: 20px 0 20px;
+		}
+		#select_form input[type="submit"] {
+			float: right;
+		}
+		#select_form select {
+			width: 420px;
+		}
+	</style>
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+	<script src="{{ asset('bundles/vidalmain/treeview/jquery.treeview.js') }}" type="text/javascript"></script>
+	<script src="{{ asset('bundles/vidalmain/treeview/jquery.treeview.edit.js') }}" type="text/javascript"></script>
+	<script src="{{ asset('bundles/vidalmain/treeview/jquery.treeview.async.nosology.js') }}" type="text/javascript"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#select_form select').chosen({
+				placeholder_text_single: "Поиск по Нозологическому указателю..."
+			});
+
+			var $tree = $('.treeview');
+
+			$tree.treeview({
+				animated:  "fast",
+				collapsed: true,
+				url:       '/drugs/nosology-ajax',
+				ajax:      {
+					type: "post"
+				}
+			});
+
+			$('#tree_collapse').on('click', function() {
+				$tree.find('ul').hide();
+				$tree.find('div.collapsable-hitarea').removeClass('collapsable-hitarea').addClass('expandable-hitarea');
+				$tree.find('div.lastCollapsable-hitarea').removeClass('lastCollapsable-hitarea').addClass('lastExpandable-hitarea');
+				$tree.find('li.collapsable').removeClass('collapsable').addClass('expandable');
+				$tree.find('li.lastCollapsable').removeClass('lastCollapsable').addClass('lastExpandable');
+				return false;
+			});
+
+			$('a[data="G00-G99"]').click(function() {
+				$('#tree_collapse').click();
+				$tree.find('span').removeClass('highlight');
+				$('#G00-G99 > div').click();
+				$('#G00-G99 > span').addClass('highlight');
+			});
+
+			$('a[data="I20-I25"]').click(function() {
+				$('#tree_collapse').click();
+				$tree.find('span').removeClass('highlight');
+				$('#I00-I99 > div').click();
+				$('#I00-I99 > span').addClass('highlight');
+				setTimeout(function() {
+					$('#I20-I25 > div').click();
+					$('#I20-I25 > span').addClass('highlight');
+				}, 1000);
+			});
+		});
+	</script>
+{% endblock %}

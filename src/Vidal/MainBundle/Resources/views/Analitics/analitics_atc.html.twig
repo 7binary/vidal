@@ -1,0 +1,77 @@
+{% extends 'VidalMainBundle::layout.html.twig' %}
+
+{% block title %}
+	<h1>Аналитика Google по препаратам. АТХ</h1>
+{% endblock %}
+
+{% block content %}
+	<div class="info">
+		{% if atcChildrenJoined is defined %}
+			<p>Найденные АТХ коды: <a href="#" class="no-underline">показать</a><br/>
+				<small>{{ atcChildrenJoined }}</small>
+			</p>
+			<p>Найдено препаратов: {{ atcGaCount ? atcGaCount : 0 }}</p>
+			<p>Найдено открытий страниц препаратов за временной интервал: {{ atcGa ? atcGa : 0 }}</p>
+			<hr/>
+		{% endif %}
+
+		<h4>Найденные препараты</h4>
+		<table>
+			<tr>
+				<td><b>ProductID</b></td>
+				<td><b>Название</b></td>
+				<td><b>URL-страницы</b></td>
+				<td><b>Визиты</b></td>
+			</tr>
+			{% for product in products %}
+				<tr>
+					<td>{{ product.ProductID }}</td>
+					<td>{{ product.RusName|raw }}</td>
+					<td>{{ product.loc }}</td>
+					<td>{{ product.ga_pageviews }}</td>
+				</tr>
+			{% endfor %}
+		</table>
+	</div>
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<style>
+		.info {
+			font-size:12px;
+		}
+		.info small {
+			display:none;
+		}
+		.info table {
+			width: 100%;
+			border-collapse: collapse;
+		}
+		.info table td {
+			border: 1px solid #ccc;
+			padding: 0px 5px;
+		}
+	</style>
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#form select').chosen({
+				search_contains:           true,
+				no_results_text:           "не найдено",
+				placeholder_text_single:   "Выберите",
+				placeholder_text_multiple: "Выберите"
+			});
+
+			$('.info a').click(function() {
+				$(this).hide();
+				$(this).closest('p').find('small').show();
+			});
+		});
+	</script>
+{% endblock %}

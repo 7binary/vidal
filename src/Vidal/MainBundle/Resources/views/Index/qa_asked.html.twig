@@ -1,0 +1,25 @@
+{% extends 'VidalMainBundle::layout.html.twig' %}
+
+
+{% block title %}
+	<h1>ОТВЕТЫ ФАРМАКОЛОГОВ</h1>
+{% endblock %}
+
+
+{% block content %}
+    <div class="asked">
+        <p>Спасибо! Ваш вопрос отправлен.</p>
+
+        <p>Ответ на вопрос Вы получите на указанный Вами e-mail: <b>{{ qa.authorEmail }}</b>.</p>
+
+        <p><a href="{{ path('qa') }}">Вернуться в раздел</a></p>
+    </div>
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+    <style type="text/css">
+
+    </style>
+{% endblock %}

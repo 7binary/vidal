@@ -1,0 +1,13 @@
+<td style="width:60%; font-size:11px;">
+	<ul class="tags">
+		{% for price in object.prices %}
+			<li style="margin:0; {{ loop.last ? '' : 'border-bottom:1px dashed #CCC' }}">
+				{{ price.price is empty ? '-' : price.price }} | {{ price.region.title }}
+				{% if price.link is not empty %}
+					| <a href="{{ price.link }}" target="_blank">{{ price.link }}</a>
+				{% endif %}
+				| {{ price.updated|date('d.m.Y') }}
+			</li>
+		{% endfor %}
+	</ul>
+</td>

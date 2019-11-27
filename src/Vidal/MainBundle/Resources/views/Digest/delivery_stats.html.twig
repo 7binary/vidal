@@ -1,0 +1,80 @@
+{% extends 'VidalMainBundle::layout_blank.html.twig' %}
+
+{% set isAdmin = app.user is not null and is_granted('ROLE_ADMIN') %}
+
+{% block content %}
+	{% if isAdmin %}
+		{% include 'VidalMainBundle:Digest:menu.html.twig' %}
+	{% endif %}
+
+	<div class="outer">
+		{% for msg in app.session.flashbag.get('msg') %}
+			<div class="msg">{{ msg }}</div>
+		{% endfor %}
+
+		<table class="stats">
+			<thead>
+			<tr>
+				<th>Название рассылки</th>
+				<th>Начало рассылки</th>
+				<th>Отправлено писем</th>
+				<th>Ошибок доставки</th>
+				<th>Открыто писем всего</th>
+				<th>Открыто писем уникальных</th>
+				<th>Коэф открытий</th>
+				<th>Коэф отправок</th>
+				<th>Управление</th>
+			</tr>
+			</thead>
+			<tbody>
+			{% for uniqueid, group in grouped if group.total is defined %}
+				<tr>
+					<td>
+						<a href="{{ path('delivery_stats_item', {'deliveryName':uniqueid}) }}" class="no-underline">
+							{{ group.title is defined and group.title is not empty ? group.title : uniqueid }}
+						</a>
+					</td>
+					<td>{{ group.created }}</td>
+					<td>{{ group.total }}</td>
+					<td>{{ group.failed }}</td>
+					<td>{{ group.opened }}</td>
+					<td>{{ group.opened_unique }}</td>
+					<td>{{ group.coef is defined and group.coef is not empty and group.coef != 1 ? group.coef : '' }}</td>
+					<td>{{ group.coefSent is defined and group.coefSent is not empty and group.coefSent != 1 ? group.coefSent : '' }}</td>
+					<td>
+						<a href="{{ path('delivery_edit', {'uniqueid':uniqueid}) }}" class="btn-red">></a>
+					</td>
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+	</div>
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<style>
+		table.stats {
+			width:           100%;
+			border-collapse: collapse;
+			font-size:       14px;
+		}
+		table.stats td, table.stats th {
+			border:  1px solid #ccc;
+			padding: 3px 5px;
+		}
+		table.stats th {
+			font-size: 16px;
+			padding:   8px 5px;
+		}
+	</style>
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+	<script src="{{ asset('bundles/vidalmain/ckeditor/ckeditor.js') }}" type="text/javascript"></script>
+	<script src="{{ asset('bundles/vidalmain/ckeditor/adapters/jquery.js') }}" type="text/javascript"></script>
+	<script src="{{ asset('bundles/vidalmain/javascripts/ckeditor-config.js') }}"></script>
+{% endblock %}

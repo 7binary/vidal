@@ -1,0 +1,12 @@
+<a href="https://www.vidal.ru/novosti/6273" target="_blank" class="cardio cardio-right"
+   style="display:block;margin-left:21px;margin-bottom:25px;">
+	<img src="{{ asset('bundles/vidalmain/images/banners/cardio.gif') }}"/>
+</a>
+
+<script>
+	$(document).ready(function() {
+		$('.cardio').click(function() {
+			ga('send', 'event', 'Banner Cardio novosti-6273', 'click', $(this).attr('href'));
+		});
+	});
+</script>

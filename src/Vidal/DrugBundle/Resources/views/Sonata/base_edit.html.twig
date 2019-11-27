@@ -1,0 +1,110 @@
+{#
+
+This file is part of the Sonata package.
+
+(c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+
+#}
+
+{% extends base_template %}
+{% set route = app.request.attributes.get('_route') %}
+
+{% block title %}
+	{% if admin.id(object) is not null %}
+		{{ "title_edit"|trans({'%name%': admin.toString(object) }, 'SonataAdminBundle') }}
+	{% else %}
+		{{ "title_create"|trans({}, 'SonataAdminBundle') }}
+	{% endif %}
+{% endblock %}
+
+
+{% block actions %}
+	{% for label, flashes in app.session.flashbag.all if label == 'msg' %}
+		{% for flash in flashes %}
+			<div class="alert alert-{{ label }}">
+				{{ flash|raw }}
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+			</div>
+		{% endfor %}
+	{% endfor %}
+
+	<div class="sonata-actions btn-group">
+		{% include 'SonataAdminBundle:Button:show_button.html.twig' %}
+		{% include 'SonataAdminBundle:Button:history_button.html.twig' %}
+		{% include 'SonataAdminBundle:Button:acl_button.html.twig' %}
+		{% include 'SonataAdminBundle:Button:create_button.html.twig' %}
+		{% include 'SonataAdminBundle:Button:list_button.html.twig' %}
+
+		{# кпопка клонирования документа #}
+		{% if route == 'admin_vidal_drug_document_edit' %}
+			<a href="#" id="clone_document" class="btn sonata-action-element">Клонировать</a>
+			<script type="text/javascript">
+				$(document).ready(function(e) {
+					$('#clone_document').click(function() {
+						var id = prompt('Пожалуйста, укажите новый свободный идентификатор документа');
+						var url = '/admin/check-document/' + id;
+						$.getJSON(url, function(isFree) {
+							isFree
+								? window.location = '/admin/clone-document/{{ object.DocumentID }}/' + id
+								: alert('Такой идентификатор документа уже занят!');
+						});
+					});
+					return false;
+				});
+			</script>
+		{% endif %}
+
+		{# кпопка клонирования продукта #}
+		{% if route == 'admin_vidal_drug_product_edit' %}
+			<a href="#" id="clone_product" class="btn sonata-action-element">Клонировать</a>
+			<script type="text/javascript">
+				$(document).ready(function(e) {
+					$('#clone_product').click(function() {
+						var id = prompt('Пожалуйста, укажите новый свободный идентификатор препарата');
+						var url = '/admin/check-product/' + id;
+						$.getJSON(url, function(isFree) {
+							isFree
+								? window.location = '/admin/clone-product/{{ object.ProductID }}/' + id
+								: alert('Такой идентификатор документа уже занят!');
+						});
+					});
+					return false;
+				});
+			</script>
+			<a href="{{ path('product_update_imanges', {'ProductID':object.ProductID}) }}" class="btn sonata-action-element">Обновить изображения</a>
+		{% endif %}
+
+		{# кнопки управления тегами #}
+		{% if route == 'admin_vidal_drug_tag_edit' %}
+			{% include 'VidalDrugBundle:Sonata:tag_edit.html.twig' %}
+		{% endif %}
+
+		{% if route in ['admin_vidal_drug_ads_edit', 'admin_vidal_drug_ads_create'] %}
+			{% include 'VidalDrugBundle:Sonata:ads_edit.html.twig' %}
+		{% endif %}
+	</div>
+
+
+	<script>
+		$(document).ready(function() {
+			$('.sonata-ba-field-inline-table th').each(function() {
+				var $this = $(this);
+				if ($this.text() == '') {
+					$this.html('Отметить для удаления');
+					$this.addClass('removal');
+				}
+			});
+		});
+	</script>
+{% endblock %}
+
+{% block side_menu %}{{ knp_menu_render(admin.sidemenu(action), {'currentClass' : 'active'}, 'list') }}{% endblock %}
+
+{% use 'SonataAdminBundle:CRUD:base_edit_form.html.twig' with form as parentForm %}
+
+{% block form %}
+	{{ block('parentForm') }}
+{% endblock %}

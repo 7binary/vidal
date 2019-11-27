@@ -1,0 +1,45 @@
+<div class="content-title">Вопросы и ответы</div>
+<div class="line"></div>
+<div class="pages" id="page-questions">
+	{% if app.session.flashbag.get('questioned')|length %}
+		<div class="questioned">
+			Спасибо за ваш вопрос! В ближайшее время наш специалист на него ответит.
+		</div>
+	{% else %}
+		<div class="ask-form">
+			<form method="POST" action="{{ path('big_mama') }}#questions">
+				{{ form_widget(form) }}
+			</form>
+		</div>
+	{% endif %}
+
+
+	<table class="qas">
+		{% for row in questions|batch(2) %}
+			<tr {{ loop.index > 1 ? 'class="rest"' }}>
+				{% for qa in row %}
+					<td class="qa {{ loop.first ? 'first' : 'last' }}">
+						<div class="qa-question">{{ qa.question|raw }}</div>
+						<a href="#" class="link">ОТВЕТ</a>
+
+						<div class="qa-answer">
+							<div class="qa-answer-label">
+								<a href="#" class="qa-answer-close">
+									<img src="{{ asset('bundles/vidalmain/images/shkola/close.png') }}"/>
+								</a>
+								<span>ОТВЕТ:</span>
+							</div>
+							<div class="qa-answer-text">{{ qa.answer|raw }}</div>
+						</div>
+					</td>
+				{% endfor %}
+			</tr>
+		{% endfor %}
+	</table>
+
+	{% if questions|length > 2 %}
+		<div class="center">
+			<a class="link qa-rest" href="#">ПОКАЗАТЬ ЕЩЕ</a>
+		</div>
+	{% endif %}
+</div>

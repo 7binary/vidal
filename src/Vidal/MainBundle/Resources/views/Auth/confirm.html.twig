@@ -1,0 +1,52 @@
+{% extends 'VidalMainBundle::layout.html.twig' %}
+
+
+{% block content %}
+	<div class="auth-required">
+		<div>В данном разделе размещена информация для медицинских специалистов.</div>
+		<div>Для доступа необходимо подтвердить e-mail.</div>
+		<div class="auth-resend">Если после регистрации письмо не пришло на Ваш почтовый ящик,
+			<a href="{{ path('registration_resend') }}" id="resend">перейдите по ссылке</a>,
+			и мы отправим его заново.
+		</div>
+	</div>
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<style type="text/css">
+		.auth-required {
+			width:       450px;
+			margin:      40px auto 0;
+			text-align:  center;
+			font-weight: bold;
+			font-size:   16px;
+			color:       #2f4053;
+		}
+		.auth-required a {
+			text-decoration: none;
+		}
+		.auth-required a:hover {
+			text-decoration: underline;
+		}
+		.auth-required > div {
+			margin-bottom: 24px;
+		}
+	</style>
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#resend').click(function() {
+				$.getJSON(this.href, function(data) {
+					$('.auth-resend').html('<span class="good">Письмо отослано на адрес {{ user.username }}</span>');
+				});
+				return false;
+			});
+		});
+	</script>
+{% endblock %}

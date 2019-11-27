@@ -1,0 +1,62 @@
+<script type="text/javascript">
+	$(document).ready(function() {
+		// ATC: список
+		{% if object.nozologies is not empty %}
+		var ulNozologies = $('<ul class="list nozologies-list">{% for n in object.nozologies %}<li data="{{ n.NozologyCode }}"><b><a href="{{ path('nozology_remove', {'type':object|type, 'id':object.id, 'NozologyCode':n.NozologyCode}) }}">X</a></b>' + '{{ n.Code }} - {{ n.Name|raw }}' + '</li>{% endfor %}</ul>');
+		$('.nozologies-text').parent().append(ulNozologies);
+		{% endif %}
+
+		// ATC: автодополнение
+		$('.nozologies-text')
+			.autocomplete({
+				minLength: 1,
+				source:    function(request, response) {
+					var url = '/autocomplete/nozology/' + request.term.trim();
+					$.getJSON(url, function(data) {
+						var ids = $('.nozologies-list li').map(function(element) {
+							return $(this).attr("data");
+						});
+						var values = [];
+
+						for (var i = 0; i < data.length; i++) {
+							if ($.inArray(data[i].id, ids) == -1) {
+								values.push({
+									'id':   data[i].id,
+									'text': data[i].text
+								});
+							}
+						}
+
+						response(values);
+					});
+				},
+				select:    function(event, ui) {
+					if (ui.item) {
+						var urlAdd = '/admin/nozology-add/{{ object|type }}/{{ object.id }}/' + ui.item.id;
+						var urlRemove = '/admin/nozology-remove/{{ object|type }}/{{ object.id }}/' + ui.item.id;
+
+						$.getJSON(urlAdd, function(data) {
+							if (data == 'OK') {
+								var li = '<li data="' + ui.item.id + '"><b><a href="' + urlRemove + '">X</a></b>' + ui.item.text + '</li>';
+								var $li = $(li);
+								var $list = $('.nozologies-list');
+								if (!$list.length) {
+									$('.nozologies-text').parent().append($('<ul class="list nozologies-list"></ul>'));
+									$list = $('.nozologies-list');
+								}
+								$list.append($li);
+							}
+						});
+					}
+
+					$(this).val('');
+
+					return false;
+				}
+			})
+			.data("ui-autocomplete")._renderItem =
+			function(ul, item) {
+				return $("<li></li>").data("item.autocomplete", item).append("<a>" + item.text + "</a>").appendTo(ul);
+			};
+	});
+</script>

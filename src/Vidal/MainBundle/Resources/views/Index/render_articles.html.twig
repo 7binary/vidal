@@ -1,0 +1,61 @@
+{% if articles is not empty %}
+	<div class="articles">
+		{% for article in articles %}
+			{% if article.isArticle %}
+				{% set href = path('article', {'rubrique':article.rubrique.rubrique, 'link':article.link}) %}
+				<div class="article">
+					{# админам карандашик редактирования #}
+					{% if isAdmin %}
+						<a class="admin-edit fade" target="_blank"
+						   href="{{ path('admin_vidal_drug_article_edit', {'id':article.id}) }}">
+							<img src="{{ asset('bundles/vidalmain/images/edit.png') }}"/>
+						</a>
+					{% endif %}
+
+					<a class="article-title" href="{{ href }}">{{ article.title|raw }}</a>
+					<div class="article-announce text">
+                	    {% if article.authors is defined and article.authors %}
+                            {{ article.authors|relative|raw  }}
+                	    {% endif %}
+					    {{ article.announce|raw }}
+                    </div>
+
+					{% if hideRubrique is not defined or not hideRubrique %}
+						<div class="article-footer">
+							<span>Рубрика:</span>
+							<a href="{{ path('rubrique', {'rubrique':article.rubrique.rubrique}) }}"
+								>{{ article.rubrique.title }}</a>
+						</div>
+					{% endif %}
+				</div>
+			{% else %}
+				{% set href = path('art', {'url':article.rubrique.url ~ '/' ~ (article.type ? article.type.url ~ '/') ~ (article.category ? article.category.url ~ '/') ~ article.link ~ '~' ~ article.id}) %}
+				{# отдельная статья специалистам - Art #}
+				<div class="article">
+					{# админам карандашик редактирования #}
+					{% if isAdmin %}
+						<a class="admin-edit fade" target="_blank"
+						   href="{{ path('admin_vidal_drug_art_edit', {'id':article.id}) }}">
+							<img src="{{ asset('bundles/vidalmain/images/edit.png') }}"/>
+						</a>
+					{% endif %}
+
+					<a class="article-title" href="{{ href }}">{{ article.title|raw }}</a>
+
+					<div class="article-announce text">
+                	    {% if article.authors is defined and article.authors %}
+                            {{ article.authors|relative|raw  }}
+                	    {% endif %}
+					    {{ article.announce|raw }}
+                    </div>
+
+					<div class="article-footer">
+						<span>Рубрика:</span>
+						<a href="{{ path('vracham') }}">Статьи для специалистов</a>,
+						<a href="{{ path('art', {'url':article.rubrique.url}) }}">{{ article.rubrique }}</a>
+					</div>
+				</div>
+			{% endif %}
+		{% endfor %}
+	</div>
+{% endif %}

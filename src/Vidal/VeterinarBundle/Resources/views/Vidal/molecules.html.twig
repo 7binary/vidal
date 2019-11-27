@@ -1,0 +1,135 @@
+{% extends 'VidalDrugBundle::vidal_layout.html.twig' %}
+
+
+{% block title %}
+	<h1>Активные вещества</h1>
+{% endblock %}
+
+
+{% block nav %}
+	<div class="breadcrumbs">
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('index') }}" itemprop="url">
+				<span itemprop="title">Видаль</span>
+			</a>
+		</div>
+		<i></i>
+
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('veterinar') }}" itemprop="url">
+				<span itemprop="title">Видаль-Ветеринар</span>
+			</a>
+		</div>
+		<i></i>
+		<span>Активные вещества</span>
+	</div>
+{% endblock %}
+
+
+{% block vidal %}
+	{% include 'VidalDrugBundle:Vidal:molecules_form.html.twig' %}
+
+	<div class="info-line">
+		{% if l %}
+			Найдено активных веществ букву <i>{{ l }}</i>:
+			<span>{{ pagination.totalItemCount }}</span>
+		{% elseif q %}
+			{% if pagination.totalItemCount %}
+				Найдено активных веществ по запросу <i>{{ q }}</i>:
+				<span>{{ pagination.totalItemCount }}</span>
+			{% else %}
+				Не найдено активных веществ по запросу <i>{{ q }}</i>
+			{% endif %}
+		{% else %}
+			Найдено активных веществ:
+			<span>{{ pagination.totalItemCount }}</span>
+		{% endif %}
+	</div>
+
+	{% if pagination is defined and pagination.totalItemCount %}
+		<table class="products-table molecules">
+			{% if l in ['A','B', 'C',  'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'X', 'Y', 'Z'] %}
+				<tr class="products-table-header">
+					<td style="width:30%">Название латинское</td>
+					<td style="width:30%">Название русское</td>
+					<td style="width:40%" title="Международное непатентованное наименование (МНН)">МНН</td>
+				</tr>
+				{% for molecule in pagination %}
+					<tr>
+						<td>
+							<a href="{{ path('v_molecule', {'url':molecule.url}) }}">{{ molecule.LatName|raw }}</a>
+						</td>
+						<td>
+							<a href="{{ path('v_molecule', {'url':molecule.url}) }}">{{ molecule.RusName|raw }}</a>
+						</td>
+						<td>
+							{% if molecule.GNParent is not empty %}
+								<a title="Международное непатентованное наименование (МНН)" href="{{ path('gnp') }}"
+								   class="no-underline mnn">{{ molecule.GNParent }}
+								</a>
+								<span class="small italic">{{ molecule.GNParent.description }}</span>
+							{% endif %}
+						</td>
+					</tr>
+				{% endfor %}
+			{% else %}
+				<tr class="products-table-header">
+					<td style="width:30%">Название русское</td>
+					<td style="width:30%">Название латинское</td>
+					<td style="width:40%" title="Международное непатентованное наименование (МНН)">МНН</td>
+				</tr>
+				{% for molecule in pagination %}
+					<tr>
+						<td>
+							<a href="{{ path('v_molecule', {'url':molecule.url}) }}">{{ molecule.RusName|raw }}</a>
+						</td>
+						<td>
+							<a href="{{ path('v_molecule', {'url':molecule.url}) }}">{{ molecule.LatName|raw }}</a>
+						</td>
+						<td>
+							{% if molecule.GNParent is not empty %}
+								<a title="Международное непатентованное наименование (МНН)" href="{{ path('gnp') }}"
+								   class="no-underline mnn">{{ molecule.GNParent }}
+								</a>
+								<span class="small italic">{{ molecule.GNParent.description }}</span>
+							{% endif %}
+						</td>
+					</tr>
+				{% endfor %}
+			{% endif %}
+		</table>
+
+		<div class="navigation">
+			{{ knp_pagination_render(pagination) }}
+		</div>
+	{% endif %}
+
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/letters.css') }}"/>
+	<style type="text/css">
+		#form > * {
+			vertical-align: top;
+		}
+		#form_controls {
+			clear: both;
+		}
+		#form_submit {
+			float: right;
+		}
+		#form_input {
+			width: 408px;
+		}
+		.molecules a {
+			display:         block;
+			text-decoration: none;
+			margin:          0 !important;
+		}
+		.molecules a:hover {
+			text-decoration: underline;
+		}
+	</style>
+{% endblock %}

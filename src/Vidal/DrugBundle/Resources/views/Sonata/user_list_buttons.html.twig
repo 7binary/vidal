@@ -1,0 +1,63 @@
+{#<a href="#" id="excel_users" class="btn sonata-action-element"#}
+   {#title="Скачать пользователей Видаля в файле Excel">Выгрузка в Excel</a>#}
+
+<a href="#" id="excel" class="btn sonata-action-element"
+   title="Скачать пользователей Видаля в файле Excel">Выгрузить пользователей</a>
+
+<div style="display:none; float:right; font-size: 14px; font-weight:bold; white-space:normal;" id="excel_select">
+	<p>Выберите год или месяц для начала загрузки.</p>
+	<p><a href="/archive/users.xlsx">все</a></p>
+	<p><a href="/archive/users_2019.xlsx">2019</a></p>
+	<p><a href="/archive/users_2018.xlsx">2018</a></p>
+	<p><a href="/archive/users_2017.xlsx">2017</a></p>
+	<p><a href="/archive/users_2016.xlsx">2016</a></p>
+	<p><a href="/archive/users_2015.xlsx">2015</a></p>
+	<p><a href="/archive/users_2014.xlsx">2014</a></p>
+	<p><a href="/archive/users_1.xlsx">январь (текущего года)</a></p>
+	<p><a href="/archive/users_2.xlsx">февраль (текущего года)</a></p>
+	<p><a href="/archive/users_3.xlsx">март (текущего года)</a></p>
+	<p><a href="/archive/users_4.xlsx">апрель (текущего года)</a></p>
+	<p><a href="/archive/users_5.xlsx">май (текущего года)</a></p>
+	<p><a href="/archive/users_6.xlsx">июнь (текущего года)</a></p>
+	<p><a href="/archive/users_7.xlsx">июль (текущего года)</a></p>
+	<p><a href="/archive/users_8.xlsx">август (текущего года)</a></p>
+	<p><a href="/archive/users_9.xlsx">сентябрь (текущего года)</a></p>
+	<p><a href="/archive/users_10.xlsx">октябрь (текущего года)</a></p>
+	<p><a href="/archive/users_11.xlsx">ноябрь (текущего года)</a></p>
+	<p><a href="/archive/users_12.xlsx">декабрь (текущего года)</a></p>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#excel').click(function(e) {
+			e.preventDefault();
+			$('#excel_select').show();
+			return false;
+		});
+
+		$('#excel_select select').on('change', function() {
+			var val = this.value;
+			if (val == '0') {
+				
+			}
+			if (val != '') {
+				window.stop();
+				window.location = '/admin/excel-users/' + val;
+			}
+		});
+
+		$('#excel_users').click(function(e) {
+			e.preventDefault();
+			var pw = prompt('Для загрузки необходимо ввести пароль');
+			$.getJSON('/check-keyvalue/users/' + pw, function(isMatch) {
+				if (isMatch) {
+					window.location = '/download?filename=users.xls&pw=' + pw;
+				}
+				else {
+					alert('Неверно введен пароль');
+				}
+			});
+			return false;
+		});
+	});
+</script>

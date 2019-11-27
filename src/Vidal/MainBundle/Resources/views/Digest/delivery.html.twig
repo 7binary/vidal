@@ -1,0 +1,153 @@
+{% extends 'VidalMainBundle::layout_blank.html.twig' %}
+
+{% block content %}
+	{% include 'VidalMainBundle:Digest:menu.html.twig' %}
+
+	{% for msg in app.session.flashbag.get('msg') %}
+		<div class="msg">{{ msg }}</div>
+	{% endfor %}
+
+	<div class="center">
+		<a class="btn btn-red" href="{{ path('delivery_test_by_id', {'id':digest.id}) }}"
+		   title="Отправить на тестовые e-mail адреса">Тестовая рассылка</a>
+	</div>
+
+	<div class="outer">
+		{% include 'VidalMainBundle:Digest:render.html.twig' with {'digest':digest} %}
+
+		<table cellpadding="0" cellspacing="0" border="0" style="width: 600px; margin:0 auto 20px;">
+			<tr>
+				<td style="font-family:{{ digest.font }}, sans-serif; font-size:13px; color:gray;">
+					Вы получили это письмо, потому что подписаны на рассылку новостей портала
+					<a href="https://www.vidal.ru">Vidal.ru</a><br/>
+					<span
+						style="color:gray">Если Вы не хотите больше получать нашу рассылку, Вы можете отписаться по</span>
+					<a href="https://www.vidal.ru/unsubscribe-digest/{{ app.user.id }}/{{ app.user.created|date('Y-m-d_H:i:s') }}"
+					>этой ссылке</a>.
+				<td>
+			</tr>
+		</table>
+	</div>
+
+	{# форма #}
+	<form id="delivery_form" method="POST" action="{{ path('delivery', {'id':digest.id}) }}">
+		{{ form_widget(form.text) }}
+		{{ form_widget(form) }}
+	</form>
+
+	{# Подписанные и отписавшиеся #}
+	<div class="subs">
+		<table>
+			<tr>
+				<td class="first">Всего пользователей</td>
+				<td>{{ total }}</td>
+			</tr>
+			<tr>
+				<td class="first">Подписано</td>
+				<td>{{ subscribed }}
+					<span>(рассылаем тем, кто НЕ отписался от рассылки, и чей адрес действительно существует)</span>
+				</td>
+			</tr>
+			<tr>
+				<td class="first">Отписались за день</td>
+				<td>{{ unsubscribed.day }}</td>
+			</tr>
+			<tr>
+				<td class="first">Отписались за неделю</td>
+				<td>{{ unsubscribed.week }}</td>
+			</tr>
+			<tr>
+				<td class="first">Отписались за месяц</td>
+				<td>{{ unsubscribed.month }}</td>
+			</tr>
+			<tr>
+				<td class="first">Отписались за год</td>
+				<td>{{ unsubscribed.year }}</td>
+			</tr>
+		</table>
+	</div>
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<style type="text/css">
+		.outer {
+			margin: 0 0 20px;
+		}
+		.msg {
+			background:    rgb(193, 232, 214);
+			padding:       6px 10px;
+			margin-bottom: 25px;
+		}
+		#form_textPlain {
+			display: block;
+			width:   100%;
+			height:  230px;
+		}
+		#delivery_form select, #delivery_form input[type="text"], #delivery_form input[type="number"] {
+			width: 600px;
+		}
+		#delivery_form td.label {
+			width: 200px;
+		}
+		#delivery_form td.widget {
+			width: auto;
+		}
+		#form_subject {
+			margin-top: 10px;
+		}
+		.outer a {
+			color: #00F;
+		}
+		.subs {
+			border-top:  1px solid #ddd;
+			margin-top:  25px;
+			padding-top: 15px;
+		}
+		.subs > table {
+			width:           100%;
+			border-collapse: collapse;
+		}
+		.subs .first {
+			color:       slategrey;
+			font-weight: bold;
+			width:       185px;
+		}
+		.subs span {
+			color:     gray;
+			font-size: 12px;
+		}
+		.form_table input[type=checkbox] {
+			margin-left: 0;
+			width:       18px;
+			height:      18px;
+		}
+		.controls {
+			text-align:    center;
+			margin-bottom: 28px;
+		}
+		.control {
+			display:          inline-block;
+			text-decoration:  none;
+			font-weight:      bold;
+			color:            #2e3f51;
+			margin-right:     6px;
+			height:           24px;
+			line-height:      24px;
+			border:           1px solid #2e3f51;
+			padding:          0 7px;
+			border-radius:    4px;
+			background-color: white;
+			vertical-align:   top;
+		}
+	</style>
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+	<script src="{{ asset('bundles/vidalmain/ckeditor/ckeditor.js') }}" type="text/javascript"></script>
+	<script src="{{ asset('bundles/vidalmain/ckeditor/adapters/jquery.js') }}" type="text/javascript"></script>
+	<script src="{{ asset('bundles/vidalmain/javascripts/ckeditor-config.js') }}"></script>
+{% endblock %}

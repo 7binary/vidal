@@ -1,0 +1,35 @@
+<div class="footer-info">
+	Информация о препаратах, отпускаемых по рецепту, размещенная на сайте, предназначена только для специалистов.
+	Информация, содержащаяся на сайте, не должна использоваться пациентами для принятия самостоятельного
+	решения о применении представленных лекарственных препаратов и не может служить заменой очной
+	консультации врача.
+</div>
+<div class="footer-info footer-info-margin">
+    Свидетельство о регистрации средства массовой информации ЭЛ № ФС77-67837 выдано Федеральной службой по надзору
+    в сфере связи, информационных технологий и массовых коммуникаций (Роскомнадзор) 28 ноября 2016 года.
+</div>
+
+{% set is_mobile = is_mobile() %}
+<div class="footer-info footer-info-margin">
+    <span>
+        <a href="{{path('eula') }}">Пользовательское соглашение</a>
+    </span>
+    {% if is_mobile %}
+        <br/>
+    {% endif %}
+    <span>
+        <a href="{{path('privacy_policy') }}">Политика конфиденциальности</a>
+    </span>
+</div>
+
+<div class="footer-copyright caption">
+	Copyright <span>&copy;</span> Справочник Видаль &laquo;Лекарственные препараты в России&raquo;
+</div>
+
+<img class="footer-logo" src="{{ asset('bundles/vidalmain/images/vidal-group.jpg') }}" alt="Vidal group"/>
+
+<div class="footer-contacts">
+	<a href="{{ path('about_item', {'url':'kontakty'}) }}">Контакты</a>
+	<a href="{{ path('sitemap') }}">Карта сайта</a>
+	<a href="{{ path('about_item', {'url':'license'}) }}">Лицензии</a>
+</div>

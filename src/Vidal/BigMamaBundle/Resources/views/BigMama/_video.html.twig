@@ -1,0 +1,38 @@
+{% if videos is defined and videos|length >0 %}
+    <div class="pages" id="page-video">
+        <div class="content-title short">ВИДЕО</div>
+        <div class="line"></div>
+        {% set is_mobile = is_mobile() %}
+        <ul class="bxslider">
+            {% for video in videos %}
+                <li>
+                    <div class="media">
+                        {% if is_mobile %}
+                            {% set width = 300 %}
+                            {% set height = 200 %}
+                        {% else %}
+                            {% set width = 800 %}
+                            {% set height = 500 %}
+                        {% endif %}
+
+                        <a href="{{ path('big_mama_video_item', {'link':video.link}) }}{% if isTestMode() %}?test=1{%endif %}" class="media-title">
+                            {{ video.title|raw }}
+                        </a>
+                        <div class="media-body">{{ video.body|raw }}</div>
+
+                        <div class="center">
+                            <video width="{{ width }}" height="{{ height }}" controls class="vb-mp4">
+                                {% if video.video %}
+                                    <source src="{{video.video.path}}" type="video/mp4">
+                                {% endif %}
+                            </video>
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+        <div class="main-news-link">
+            <a href="{{path('big_mama_video')}}{% if isTestMode() %}?test=1{%endif %}">Все видео</a>
+        </div>
+    </div>
+{% endif %}

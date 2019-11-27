@@ -1,0 +1,50 @@
+<form id="form" method="GET" action="{{ path('pharm') }}">
+
+	<div id="form_controls">
+		<input id="form_submit" type="submit" value="Найти" class="btn-red">
+		<input id="form_input" type="text" name="q" placeholder="Введите слово для поиска..."
+			   value="{{ q is defined and q is not empty and not l ? q }}"/>
+	</div>
+
+	<div class="letters">
+		<div>
+			{% for codeRus, codeEng in codesMenu %}
+				<a href="{{ path('pharm', {'l':codeEng}) }}" {{ l == codeEng ? ' class="active"' }}>{{ codeRus }}</a>
+			{% endfor %}
+		</div>
+	</div>
+</form>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#form_input')
+			.autocomplete({
+				minLength: 2,
+				source:    function(request, response) {
+					var url ='/elastic/autocomplete_pharm/' + request.term.trim();
+					$.getJSON(url, function(data) {
+						response($.map(data.hits.hits, function(item) {
+							return {
+								label: item.highlight.name,
+								value: item._source.name
+							}
+						}));
+					});
+				},
+				select:    function(event, ui) {
+					if (ui.item) {
+						$(this).val(ui.item.value);
+					}
+				}
+			}).data("ui-autocomplete")._renderItem = function(ul, item) {
+			return $("<li></li>")
+				.data("item.autocomplete", item)
+				.append("<a>" + item.label + "</a>")
+				.appendTo(ul);
+		};
+
+		$('.letters input').click(function() {
+			$('#form_input').attr('disabled', 'disabled');
+		});
+	});
+</script>

@@ -1,0 +1,33 @@
+{% extends 'VidalMainBundle::layout.html.twig' %}
+
+
+{% block middle %}
+	{% for g in geo %}
+		{% if loop.first %}
+			<h1 style="margin-bottom: 4px;">Ваш текущий IP-адрес</h1>
+		{% else %}
+			<div style="color: gray; font-style:italic">пример</div>
+		{% endif %}
+		<div class="g">
+			<div>ip: {{ g.ip }}</div>
+
+			<div>Город: {{ g.city }}</div>
+
+			<div>Область: {{ g.region }}</div>
+
+			<div>Округ: {{ g.district }}</div>
+		</div>
+	{% endfor %}
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<style type="text/css">
+		.g {
+			margin-bottom: 10px;
+			padding-bottom: 10px;
+			border-bottom: 2px solid gray;
+		}
+	</style>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% if products is not empty %}
+	<table style="width:100%" id="protec-table">
+		<tr>
+			<td style="width:50%">
+				<h2 class="buy-header">Заказать в интернет</h2>
+			</td>
+			<td style="width:50%">
+				<img src="{{ asset('bundles/vidalmain/images/apteka/zdrav.png') }}"
+					 style="max-height: 20px; margin-top: 11px;"/>
+			</td>
+		</tr>
+	</table>
+	<table class="buy-table">
+		{% for product in products %}
+			{% if loop.index > 1 %}
+				{% if loop.index == 2 %}
+				<tr>
+					<td colspan=4 style="text-align:center">
+						<button class="btn-red btn-protec-more">Еще</button>
+					</td>
+				</tr>
+				{% endif %}
+				<tr class="protec-hidden">
+					<td class="buy-name">
+						<div>{{ product.title|raw }}</div>
+					</td>
+					<td class="buy-form">{{ product.form }}</td>
+					<td class="buy-price">{{ product.price }} руб.</td>
+					<td class="buy-last">
+						<a rel="nofollow" href="{{ product.link ~ append }}" target="_blank" class="btn-red"
+						   data-id="{{ product.id }}">Заказать</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td class="buy-name">
+						<div>{{ product.title|raw }}</div>
+					</td>
+					<td class="buy-form">{{ product.form }}</td>
+					<td class="buy-price">{{ product.price }} руб.</td>
+					<td class="buy-last">
+						<a rel="nofollow" href="{{ product.link ~ append }}" target="_blank" class="btn-red"
+						   data-id="{{ product.id }}">Заказать</a>
+					</td>
+				</tr>
+			{% endif %}
+		{% endfor %}
+	</table>
+	<div style="color: gray; padding: 10px;">
+		{{ products[0].regionTitle2 is empty ? products[0].regionTitle : products[0].regionTitle2 }}
+	</div>
+	<i style="display: none" id="regionFound" data-value="{{ regionFound ? 'Да' : 'Нет' }}"></i>
+	<i style="display: none" id="regionTitle" data-value="{{ regionTitle }}"></i>
+	<i style="display: none" id="regionIp" data-value="{{ regionIp }}"></i>
+	<i style="display: none" id="regionNotFound" data-value="{{ regionNotFound }}"></i>
+{% endif %}

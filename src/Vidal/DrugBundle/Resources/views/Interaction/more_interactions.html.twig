@@ -1,0 +1,8 @@
+{% for interaction in interactions %}
+	<li>
+		<a href="{{ path('interaction_item', {'EngName':interaction.EngName|lower}) }}"
+		   class="no-underline">
+			{{ interaction.RusName|raw }}
+		</a>
+	</li>
+{% endfor %}

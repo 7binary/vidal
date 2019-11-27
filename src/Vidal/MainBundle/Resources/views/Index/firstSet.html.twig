@@ -1,0 +1,110 @@
+<style>
+    .gray{
+        position: fixed;
+        background: #000;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        opacity: 0.8;
+        display: none;
+        z-index: 999;
+    }
+    body{
+
+    }
+    .popup-btn{
+        position: absolute;
+        top: 517px;
+        left: 10px;
+        padding: 7px;
+        width: 141px;
+        background: #FFFFFF;
+        z-index: 999;
+        display: none;
+
+    }
+    .popup, .popup2{
+        position: absolute;
+        left: 50%;
+        width: 400px;
+        margin-left: -200px;
+        top: 180px;
+        height: 60px;
+        background: #FFFFFF;
+        padding: 10px;
+        border-radius: 5px;
+        z-index: 999999;
+        display: none;
+    }
+    .popup2{
+        bottom: 491px;
+        top: auto;
+        height: 115px;
+    }
+    .popup-title{
+        color: #d71344;
+        font-size: 24px;
+        font-weight: normal;
+        margin-bottom: 10px;
+    }
+
+</style>
+
+<div class="gray"></div>
+<div class="popup-btn">
+    <a href="/app_dev.php/otvety_specialistov_doctor" class="dotted" style="font-size: 25px; font-weight: bold ">Ответы</a>
+</div>
+<div class="popup" style="text-align: center">
+    <span class="popup-title">Теперь Вы можете отвечать на вопросы пациентов!</span>
+</div>
+
+<div class="popup2" style="text-align: center">
+    <span class="popup-title">Для ответа на вопросы пациентов загрузите Ваш сертификат</span>
+    <br />
+    <br />
+    <button type="button" class="btn-red" id="dfg">Продолжить</button>
+
+</div>
+
+<script>
+    $(document).ready(function(){
+
+        {% if firstset == true %}
+            $('.gray').fadeIn();
+            $('.popup-btn').fadeIn();
+            $('.popup').fadeIn();
+            $('#qanswer a').css('fontSize','25px');
+            $('body').css('overflow', 'hidden');
+            $('.popup-btn').css('display', 'block');
+        {% endif %}
+
+        if ( location.hash == '#work' ){
+            $('.gray').fadeIn();
+//            $('.popup-btn').fadeIn();
+            $('.popup2').fadeIn();
+//            $('#qanswer a').css('fontSize','25px');
+        }
+
+
+        $('#dfg').click(function(){
+            $('.gray').fadeOut();
+            $('.popup-btn').fadeOut();
+            $('.popup').fadeOut();
+            $('.popup2').fadeOut();
+            $('body').css('overflow','auto');
+            $('#qanswer a').css('fontSize','16px');
+        });
+
+        $('.gray').click(function(){
+            $('.gray').fadeOut();
+            $('.popup-btn').fadeOut();
+            $('.popup').fadeOut();
+            $('.popup2').fadeOut();
+            $('body').css('overflow','auto');
+            $('#qanswer a').css('fontSize','16px');
+        });
+
+
+    });
+</script>

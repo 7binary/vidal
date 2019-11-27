@@ -1,0 +1,31 @@
+{% if path is not empty %}
+	<div style="margin-bottom:20px">
+		{% if width is empty %}
+			{% set width = 480 %}
+		{% endif %}
+		{% if height is empty %}
+			{% set height = 360 %}
+		{% endif %}
+		{% if id is not defined %}
+			{% set id = 'player1' %}
+		{% endif %}
+		{% set w = width > 480 ? 480 : width %}
+		{% set h = width > 480 ? (height * 480 / width) | number_format(0) : height %}
+
+		<p id="{{ id }}"></p>
+
+		<script src="{{ asset('bundles/vidalmain/javascripts/swfobject.js') }}" type="text/javascript"></script>
+		<script type="text/javascript">
+			var so = new SWFObject('/players/uppod.swf', 'mpl', '{{ w }}', '{{ h }}', '8');
+			so.addParam('allowscriptaccess', 'always');
+			so.addParam('allowfullscreen', 'true');
+			so.addVariable('height', '{{ h }}');
+			so.addVariable('width', '{{ w }}');
+			so.addVariable('file', '{{ path }}');
+			so.addVariable('bufferlength', '10');
+			so.addVariable('autostart', 'false');
+			so.addVariable('enablejs', 'true');
+			so.write('{{ id }}');
+		</script>
+	</div>
+{% endif %}

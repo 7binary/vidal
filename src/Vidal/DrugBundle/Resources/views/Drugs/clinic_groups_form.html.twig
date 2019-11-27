@@ -1,0 +1,58 @@
+<form id="form" method="GET" action="{{ path('clinic_groups') }}">
+
+	<div id="form_controls">
+		<input id="form_submit" type="submit" value="Найти" class="btn-red">
+		<input id="form_input" type="text" name="q" placeholder="Введите слово для поиска..."
+			   value="{{ q is defined and q is not empty and not l ? q }}"/>
+	</div>
+
+	<div class="letters">
+		<div class="ru">
+			{% for code in codesMenu %}
+				<a href="{{ path('clinic_groups', {'l':code}) }}" {{ l == code ? ' class="active"' }}>{{ code }}</a>
+			{% endfor %}
+
+			{% set code = 'C' %}
+			<a href="{{ path('clinic_groups', {'l':code}) }}" class="en {{ l == code ? 'active' }}">{{ code }}</a>
+		</div>
+	</div>
+</form>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#form_input')
+			.autocomplete({
+				minLength: 2,
+				source:    function(request, response) {
+					$.ajax({
+						url:      "https://www.vidal.ru:9000/website/autocomplete_clinic/_search",
+						type:     "POST",
+						dataType: "JSON",
+						data:     '{ "query":{"query_string":{"query":"' + request.term + '*"}}, "fields":["name"], "size":15, "highlight":{"fields":{"name":{}}} }',
+						success:  function(data) {
+							response($.map(data.hits.hits, function(item) {
+								return {
+									label: item.highlight.name,
+									value: item.fields.name
+								}
+							}));
+						}
+					});
+				},
+				select:    function(event, ui) {
+					if (ui.item) {
+						$(this).val(ui.item.value);
+					}
+				}
+			}).data("ui-autocomplete")._renderItem = function(ul, item) {
+			return $("<li></li>")
+				.data("item.autocomplete", item)
+				.append("<a>" + item.label + "</a>")
+				.appendTo(ul);
+		};
+
+		$('.letters input').click(function() {
+			$('#form_input').attr('disabled', 'disabled');
+		});
+	});
+</script>

@@ -1,0 +1,597 @@
+https://www.vidal.ru/veterinar/FERRANIMALUM-75-27637	ФЕРРАНИМАЛ-75
+https://www.vidal.ru/veterinar/SEDIMIN-27638	СЕДИМИН
+https://www.vidal.ru/veterinar/SUIFERROVIT-A-27639	СУИФЕРРОВИТ-А
+https://www.vidal.ru/veterinar/AMOKSIKLAV 62.5%-27640	АМОКСИКЛАВ 62.5%
+https://www.vidal.ru/veterinar/AGITA 10 WG-27641	АГИТА 10 WG
+https://www.vidal.ru/veterinar/VIRUCIDAL EXTRA-27642	ВИРУЦИДАЛ ЭКСТРА
+https://www.vidal.ru/veterinar/PRATEL-27643	ПРАТЕЛ
+https://www.vidal.ru/veterinar/PRAC-TIC<SUP>&trade;</SUP>-27644	ПРАК-ТИК
+https://www.vidal.ru/veterinar/PANOLOG<SUP>&trade;</SUP>-27645	ПАНОЛОГ
+https://www.vidal.ru/veterinar/MILBEMAX<SUP>&reg;</SUP> TABLETS FOR CATS-27646	МИЛЬБЕМАКС ТАБЛЕТКИ ДЛЯ КОШЕК
+https://www.vidal.ru/veterinar/MILBEMAX<SUP>&reg;</SUP> TABLETS FOR CATS-27647	МИЛЬБЕМАКС ТАБЛЕТКИ ДЛЯ КОШЕК
+https://www.vidal.ru/veterinar/MILBEMAX<SUP>&reg;</SUP> TABLETS FOR DOGS-27648	МИЛЬБЕМАКС ТАБЛЕТКИ ДЛЯ СОБАК
+https://www.vidal.ru/veterinar/MILBEMAX<SUP>&reg;</SUP> TABLETS FOR DOGS-27650	МИЛЬБЕМАКС ТАБЛЕТКИ ДЛЯ СОБАК
+https://www.vidal.ru/veterinar/DENAGARD<SUP>&reg;</SUP> 80% POWDER-27651	ДЕНАГАРД 80% ПОРОШОК
+https://www.vidal.ru/veterinar/DENAGARD<SUP>&reg;</SUP> 10%-27652	ДЕНАГАРД 10%
+https://www.vidal.ru/veterinar/XICLAV<SUP>&reg;</SUP>-27653	КСИКЛАВ
+https://www.vidal.ru/veterinar/XICLAV<SUP>&reg;</SUP>-27654	КСИКЛАВ
+https://www.vidal.ru/veterinar/NUTRIL SE-27655	НУТРИЛ SE
+https://www.vidal.ru/veterinar/DENAGARD<SUP>&reg;</SUP> 10% INJECTION SOLUTION-27657	ДЕНАГАРД 10% ИНЪЕКЦИОННЫЙ РАСТВОР
+https://www.vidal.ru/veterinar/DENAGARD<SUP>&reg;</SUP> 45%-27658	ДЕНАГАРД 45%
+https://www.vidal.ru/veterinar/VERACOL-27659	ВЕРАКОЛ
+https://www.vidal.ru/veterinar/VERACOL-27660	ВЕРАКОЛ
+https://www.vidal.ru/veterinar/KANTAREN-27661	КАНТАРЕН
+https://www.vidal.ru/veterinar/KANTAREN-27662	КАНТАРЕН
+https://www.vidal.ru/veterinar/CAPHORSEN-27663	КАФОРСЕН
+https://www.vidal.ru/veterinar/CAPHORSEN-27664	КАФОРСЕН
+https://www.vidal.ru/veterinar/COVERTAL-27665	КОВЕРТАЛ
+https://www.vidal.ru/veterinar/LYARSIN-27666	ЛИАРСИН
+https://www.vidal.ru/veterinar/LYARSIN-27667	ЛИАРСИН
+https://www.vidal.ru/veterinar/MASTOMETRIN-27668	МАСТОМЕТРИН
+https://www.vidal.ru/veterinar/ОVARIOVIT-27669	ОВАРИОВИТ
+https://www.vidal.ru/veterinar/TRAVMATIN-27670	ТРАВМАТИН
+https://www.vidal.ru/veterinar/TRAVMA-GEL-27671	ТРАВМА-ГЕЛЬ
+https://www.vidal.ru/veterinar/PHOSPASIM-27672	ФОСПАСИМ
+https://www.vidal.ru/veterinar/PHOSPASIM-27673	ФОСПАСИМ
+https://www.vidal.ru/veterinar/CHONDARTRON-27674	ХОНДАРТРОН
+https://www.vidal.ru/veterinar/CHONDARTRON-27675	ХОНДАРТРОН
+https://www.vidal.ru/veterinar/EVINTON-27676	ЭВИНТОН
+https://www.vidal.ru/veterinar/EVINTON-27677	ЭВИНТОН
+https://www.vidal.ru/veterinar/EVL-Se COMPOSITION-27678	ЭВЛ-Se КОМПОЗИЦИЯ
+https://www.vidal.ru/veterinar/POLISORB VP-27679	ПОЛИСОРБ ВП
+https://www.vidal.ru/veterinar/BIOPROTEСTIN-27680	БИОПРОТЕКТИН
+https://www.vidal.ru/veterinar/BIFIDUM-SHG-27681	БИФИДУМ-СХЖ
+https://www.vidal.ru/veterinar/ZOONORM-27682	ЗООНОРМ
+https://www.vidal.ru/veterinar/ALVET-27683	АЛЬВЕТ
+https://www.vidal.ru/veterinar/ALVET-SUSPENSIO-27684	АЛЬВЕТ-СУСПЕНЗИЯ
+https://www.vidal.ru/veterinar/ALVET-SUSPENSIОN-27685	АЛЬВЕТ-СУСПЕНЗИЯ
+https://www.vidal.ru/veterinar/AMOXYCILLIN150-27686	АМОКСИЦИЛЛИН 150
+https://www.vidal.ru/veterinar/GAN-27687	ГАН
+https://www.vidal.ru/veterinar/DITRIM-27688	ДИТРИМ
+https://www.vidal.ru/veterinar/DITRIM PULVIS-27689	ДИТРИМ ПОРОШОК
+https://www.vidal.ru/veterinar/CLOZATREM-27690	КЛОЗАТРЕМ
+https://www.vidal.ru/veterinar/XYLANIT-27691	КСИЛАНИТ
+https://www.vidal.ru/veterinar/LEVAMIZOL 75-27692	ЛЕВАМИЗОЛ 75
+https://www.vidal.ru/veterinar/MASTISAN-A-27693	МАСТИСАН-А
+https://www.vidal.ru/veterinar/MASTOMICIN-27694	МАСТОМИЦИН
+https://www.vidal.ru/veterinar/METRONID 50-27695	МЕТРОНИД 50
+https://www.vidal.ru/veterinar/NEOZIDIN-27696	НЕОЗИДИН
+https://www.vidal.ru/veterinar/NEOZIDIN М-27697	НЕОЗИДИН М
+https://www.vidal.ru/veterinar/NITOX 200-27698	НИТОКС 200
+https://www.vidal.ru/veterinar/PNEVMOTIL-27699	ПНЕВМОТИЛ
+https://www.vidal.ru/veterinar/COFFEINUM-NATRII BENZOAS 20%-27700	КОФЕИН-БЕНЗОАТ НАТРИЯ 20%
+https://www.vidal.ru/veterinar/ENRONIT OR-27701	ЭНРОНИТ OP
+https://www.vidal.ru/veterinar/ENRONIT-27702	ЭНРОНИТ
+https://www.vidal.ru/veterinar/FLOROX-27703	ФЛОРОКС
+https://www.vidal.ru/veterinar/UTEROTON-27704	УТЕРОТОН
+https://www.vidal.ru/veterinar/CALCII BOROGLUCONAS-27705	КАЛЬЦИЯ БОРГЛЮКОНАТ
+https://www.vidal.ru/veterinar/COMPLEX OF VITAMINS А, D<SUB>3</SUB>, E IN OIL-27706	КОМПЛЕКС ВИТАМИНОВ А, D3, E В МАСЛЕ
+https://www.vidal.ru/veterinar/TIALONG-27707	ТИАЛОНГ
+https://www.vidal.ru/veterinar/TILOZIN 50-27708	ТИЛОЗИН 50
+https://www.vidal.ru/veterinar/TILOZIN 200-27709	ТИЛОЗИН 200
+https://www.vidal.ru/veterinar/IVERMEC-27710	ИВЕРМЕК
+https://www.vidal.ru/veterinar/IVERMEC-GEL-27711	ИВЕРМЕК-ГЕЛЬ
+https://www.vidal.ru/veterinar/IVERMEC-SPREY-27712	ИВЕРМЕК-СПРЕЙ
+https://www.vidal.ru/veterinar/SEPTO-SPRAY-27713	СЕПТО-СПРЕЙ
+https://www.vidal.ru/veterinar/SEPTOGEL-27715	СЕПТОГЕЛЬ
+https://www.vidal.ru/veterinar/NITAMIN-27716	НИТАМИН
+https://www.vidal.ru/veterinar/NITAMIN OR-27717	НИТАМИН OR
+https://www.vidal.ru/veterinar/TETRAGIDROVIT-27718	ТЕТРАГИДРОВИТ
+https://www.vidal.ru/veterinar/E-SELEN OR-27719	Е-СЕЛЕН OR
+https://www.vidal.ru/veterinar/E-SELEN-27720	Е-СЕЛЕН
+https://www.vidal.ru/veterinar/TETRAVIT-27721	ТЕТРАВИТ
+https://www.vidal.ru/veterinar/FERRAN-27722	ФЕРРАН
+https://www.vidal.ru/veterinar/IODOPEN-27723	ЙОДОПЕН
+https://www.vidal.ru/veterinar/TSIPAM-27724	ЦИПАМ
+https://www.vidal.ru/veterinar/ASPERSIO TSAMAX-27725	ПРИСЫПКА ЦАМАКС
+https://www.vidal.ru/veterinar/TSAMAX-27726	ЦАМАКС
+https://www.vidal.ru/veterinar/DORYNUM-27728	ДОРИН
+https://www.vidal.ru/veterinar/ANANDINUM<SUP>&reg;</SUP>-27729	АНАНДИН
+https://www.vidal.ru/veterinar/UNGUENTUM ANANDINI-27730	МАЗЬ АНАНДИН
+https://www.vidal.ru/veterinar/GUTTAE OPHTHALMICAE ET INTRANASALAE ANANDINI-27731	КАПЛИ ГЛАЗНЫЕ И ИНТРАНАЗАЛЬНЫЕ АНАНДИН
+https://www.vidal.ru/veterinar/GUTTAE AURICULARIS ANANDINUM-27732	КАПЛИ УШНЫЕ АНАНДИН
+https://www.vidal.ru/veterinar/GUTTAE AURICULARIS ANANDINI PLUS-27733	КАПЛИ УШНЫЕ АНАНДИН ПЛЮС
+https://www.vidal.ru/veterinar/CARDANON-27734	КАРДАНОН
+https://www.vidal.ru/veterinar/LIV 52 PROTEC-27735	ЛИВ 52 ПРОТЕК
+https://www.vidal.ru/veterinar/LIV 52 VET-27736	ЛИВ 52 ВЕТ
+https://www.vidal.ru/veterinar/SCAVON VET CREAM-27737	СКАВОН ВЕТ КРЕМ
+https://www.vidal.ru/veterinar/POLYOXIDONIUM<SUP>&reg;</SUP> - VET SOLUTION-27738	ПОЛИОКСИДОНИЙ-ВЕТ РАСТВОР
+https://www.vidal.ru/veterinar/POLYOXIDONIUM<SUP>&reg;</SUP> - VET SOLUTION-27739	ПОЛИОКСИДОНИЙ-ВЕТ РАСТВОР
+https://www.vidal.ru/veterinar/GLIKOPIN<SUP>&reg;</SUP>-27740	ГЛИКОПИН
+https://www.vidal.ru/veterinar/AVERSECT K&amp;S-27741	АВЕРСЕКТ К&С
+https://www.vidal.ru/veterinar/AVERSECT K&amp;S-27742	АВЕРСЕКТ К&С
+https://www.vidal.ru/veterinar/AVERSECT-2-27743	АВЕРСЕКТ-2
+https://www.vidal.ru/veterinar/AVERSECT-2VK-27744	АВЕРСЕКТ-2ВК
+https://www.vidal.ru/veterinar/APILINOL-27745	АПИЛИНОЛ
+https://www.vidal.ru/veterinar/APILINOL-27746	АПИЛИНОЛ
+https://www.vidal.ru/veterinar/IVERSECT-27747	ИВЕРСЕКТ
+https://www.vidal.ru/veterinar/CLOSANTIN PRO INECTIONIBUS-27748	КЛОЗАНТИН ИНЪЕКЦИОННЫЙ
+https://www.vidal.ru/veterinar/CLOSANTIN PRO INECTIONIBUS-27749	КЛОЗАНТИН ИНЪЕКЦИОННЫЙ
+https://www.vidal.ru/veterinar/CLOSANTIN PRO INECTIONIBUS-27750	КЛОЗАНТИН ИНЪЕКЦИОННЫЙ
+https://www.vidal.ru/veterinar/UNIVERM-27751	УНИВЕРМ
+https://www.vidal.ru/veterinar/UNGUENTUM AVERSEKTINI 0.05%-27752	МАЗЬ АВЕРСЕКТИНОВАЯ 0.05%
+https://www.vidal.ru/veterinar/EQUISECT PASTA-27753	ЭКВИСЕКТ ПАСТА
+https://www.vidal.ru/veterinar/UNGUENTUM PHARMAIODI ANTISEPTIC-27754	МАЗЬ ФАРМАЙОДНАЯ АНТИСЕПТИЧЕСКАЯ
+https://www.vidal.ru/veterinar/PRAZITEL SUSPENSION-27755	ПРАЗИТЕЛ СУСПЕНЗИЯ
+https://www.vidal.ru/veterinar/SEX BARRIER GUTTAE PRO FELIS FEMININUM ET MASCULINUM-27756	СЕКС БАРЬЕР КАПЛИ ДЛЯ КОШЕК И КОТОВ
+https://www.vidal.ru/veterinar/SEX BARRIER GUTTAE PRO FELIS FEMININUM ET MASCULINUM-27757	СЕКС БАРЬЕР КАПЛИ ДЛЯ КОШЕК И КОТОВ
+https://www.vidal.ru/veterinar/BLOСHNET GUTTAE-27758	БЛОХНЭТ КАПЛИ
+https://www.vidal.ru/veterinar/IN-AP COMPLEX-27759	ИН-АП КОМПЛЕКС
+https://www.vidal.ru/veterinar/AKVITIN-27761	АКВИТИН
+https://www.vidal.ru/veterinar/AKVIMAG-27762	АКВИМАГ
+https://www.vidal.ru/veterinar/DOXYMAG-27763	ДОКСИМАГ
+https://www.vidal.ru/veterinar/GENTAMICIN PULVIS-27764	ГЕНТАМИЦИН ПОРОШОК
+https://www.vidal.ru/veterinar/GIRAXA<SUP>&reg;</SUP>-27765	ГИРАКСА
+https://www.vidal.ru/veterinar/DEHINEL PLUS-27766	ДЕХИНЕЛ ПЛЮС
+https://www.vidal.ru/veterinar/EGOCIN <SUP>&reg;</SUP>20 POWDER-27767	ЭГОЦИН 20 ПОРОШОК
+https://www.vidal.ru/veterinar/TRISULFON<SUP>&reg;</SUP>-27768	ТРИСУЛЬФОН
+https://www.vidal.ru/veterinar/CALFOSET<SUP>&reg;</SUP>-27769	КАЛЬФОСЕТ
+https://www.vidal.ru/veterinar/TOLTAROX<SUP>&reg;</SUP>-27770	ТОЛТАРОКС
+https://www.vidal.ru/veterinar/FLUBACTIN<SUP>&reg;</SUP>-27771	ФЛУБАКТИН
+https://www.vidal.ru/veterinar/FLUBACTIN<SUP>&reg;</SUP> 10%-27772	ФЛУБАКТИН 10%
+https://www.vidal.ru/veterinar/RYCARFA TABLETS WITH MEAT FLAVOUR-27773	РИКАРФА ТАБЛЕТКИ СО ВКУСОМ МЯСА
+https://www.vidal.ru/veterinar/RYCARFA TABLETS WITH MEAT FLAVOUR-27774	РИКАРФА ТАБЛЕТКИ СО ВКУСОМ МЯСА
+https://www.vidal.ru/veterinar/RYCARFA TABLETS WITH MEAT FLAVOUR-27775	РИКАРФА ТАБЛЕТКИ СО ВКУСОМ МЯСА
+https://www.vidal.ru/veterinar/EGOCIN L.A.-27776	ЭГОЦИН L.A.
+https://www.vidal.ru/veterinar/KVESTIGIN-27777	КВЕСТИГИН
+https://www.vidal.ru/veterinar/ENROXIL<SUP>&reg;</SUP> TABLETS WITH MEAT FLAVOUR-27778	ЭНРОКСИЛ ТАБЛЕТКИ СО ВКУСОМ МЯСА
+https://www.vidal.ru/veterinar/ENROXIL<SUP>&reg;</SUP> TABLETS WITH MEAT FLAVOUR-27779	ЭНРОКСИЛ ТАБЛЕТКИ СО ВКУСОМ МЯСА
+https://www.vidal.ru/veterinar/ENROXIL<SUP>&reg;</SUP> TABLETS WITH MEAT FLAVOUR-27780	ЭНРОКСИЛ ТАБЛЕТКИ СО ВКУСОМ МЯСА
+https://www.vidal.ru/veterinar/ENROXIL<SUP>&reg;</SUP> 5% POWDER-27781	ЭНРОКСИЛ 5% ПОРОШОК
+https://www.vidal.ru/veterinar/DOXYMAG-O-27782	ДОКСИМАГ-О
+https://www.vidal.ru/veterinar/ENROXIL<SUP>&reg;</SUP> 5% SOLUTIO PRO INJECTIONIBUS-27783	ЭНРОКСИЛ 5% РАСТВОР ДЛЯ ИНЪЕКЦИЙ
+https://www.vidal.ru/veterinar/ENROXIL<SUP>&reg;</SUP> 10% SOLUTIO PER USUM ORAL-27784	ЭНРОКСИЛ 10% РАСТВОР ДЛЯ ПЕРОРАЛЬНОГО ПРИМЕНЕНИЯ
+https://www.vidal.ru/veterinar/ENROXIL<SUP>&reg;</SUP> 10% SOLUTIO PRO INJECTIONIBUS-27785	ЭНРОКСИЛ 10% РАСТВОР ДЛЯ ИНЪЕКЦИЙ
+https://www.vidal.ru/veterinar/ENROXIL<SUP>&reg;</SUP> MAX-27786	ЭНРОКСИЛ МАКС
+https://www.vidal.ru/veterinar/FLORON<SUP>&reg;</SUP> 10%-27787	ФЛОРОН 10%
+https://www.vidal.ru/veterinar/FLORON<SUP>&reg;</SUP> 30%-27788	ФЛОРОН 30%
+https://www.vidal.ru/veterinar/FYPRYST SPOT ON-27789	ФИПРИСТ СПОТ ОН
+https://www.vidal.ru/veterinar/SOLVIMIN<SUP>&reg;</SUP> SELEN-27790	СОЛВИМИН СЕЛЕН
+https://www.vidal.ru/veterinar/ECOCID<SUP>&reg;</SUP> S-27791	ЭКОЦИД С
+https://www.vidal.ru/veterinar/IVERMAG-27792	ИВЕРМАГ
+https://www.vidal.ru/veterinar/KOKCISAN 12% GRANULATE-27793	КОКЦИСАН 12% ГРАНУЛЯТ
+https://www.vidal.ru/veterinar/ANIMAVIT GRANULATE-27794	АНИМАВИТ ГРАНУЛЯТ
+https://www.vidal.ru/veterinar/KINORON-27795	КИНОРОН
+https://www.vidal.ru/veterinar/MAGESTROFAN-27796	МАГЭСТРОФАН
+https://www.vidal.ru/veterinar/METRAMAG-27797	МЕТРАМАГ
+https://www.vidal.ru/veterinar/MIXOFERON-27800	МИКСОФЕРОН
+https://www.vidal.ru/veterinar/MIXOFERON-27801	МИКСОФЕРОН
+https://www.vidal.ru/veterinar/OXYTETRAMAG 20-27802	ОКСИТЕТРАМАГ 20
+https://www.vidal.ru/veterinar/PIGULIN<SUP>&reg;</SUP>-27803	ПИГУЛИН
+https://www.vidal.ru/veterinar/SELEMAG-27804	СЕЛЕМАГ
+https://www.vidal.ru/veterinar/SPERMYCIN-27805	СПЕРМИЦИН
+https://www.vidal.ru/veterinar/SUPRIMYCIN-27806	СУПРИМИЦИН
+https://www.vidal.ru/veterinar/TYLOMAG-27807	ТИЛОМАГ
+https://www.vidal.ru/veterinar/TYLOMAG-27808	ТИЛОМАГ
+https://www.vidal.ru/veterinar/TRIVIT-27809	ТРИВИТ
+https://www.vidal.ru/veterinar/TRICHOVET-27810	ТРИХОВЕТ
+https://www.vidal.ru/veterinar/PHARMOXIDIN-27811	ФАРМОКСИДИН
+https://www.vidal.ru/veterinar/FOLLIMAG-27821	ФОЛЛИМАГ
+https://www.vidal.ru/veterinar/FOLLIMAG-27822	ФОЛЛИМАГ
+https://www.vidal.ru/veterinar/ENROMAG-27825	ЭНРОМАГ
+https://www.vidal.ru/veterinar/ENROMAG-27826	ЭНРОМАГ
+https://www.vidal.ru/veterinar/AZINOX FOR DOGS AND CATS-27836	АЗИНОКС ДЛЯ СОБАК И КОШЕК
+https://www.vidal.ru/veterinar/AZINOX PLUS-27837	АЗИНОКС ПЛЮС
+https://www.vidal.ru/veterinar/ALEZAN<SUP>&reg;</SUP>-27838	АЛЕЗАН
+https://www.vidal.ru/veterinar/ALEZAN<SUP>&reg;</SUP> ANTISEPTIC CREAM-27839	АЛЕЗАН КРЕМ АНТИСЕПТИЧЕСКИЙ
+https://www.vidal.ru/veterinar/ALEZAN<SUP>&reg;</SUP> CREAM FOR ARTICULATION-27840	АЛЕЗАН КРЕМ ДЛЯ СУСТАВОВ
+https://www.vidal.ru/veterinar/ALBEN<SUP>&reg;</SUP> С-27841	АЛЬБЕН С
+https://www.vidal.ru/veterinar/AMIT-27842	АМИТ
+https://www.vidal.ru/veterinar/AMIT FORTE-27843	АМИТ ФОРТЕ
+https://www.vidal.ru/veterinar/TABULETTAE DIRONETUM<SUP>&reg;</SUP>-27844	ДИРОНЕТ ТАБЛЕТКИ
+https://www.vidal.ru/veterinar/SUSPENSIO DIRONETUM<SUP>&reg;</SUP>-27845	ДИРОНЕТ СУСПЕНЗИЯ
+https://www.vidal.ru/veterinar/GUTTAE OPHTHALMICAE ALEZAN<SUP>&reg;</SUP>-27846	КАПЛИ ГЛАЗНЫЕ АЛЕЗАН
+https://www.vidal.ru/veterinar/GUTTAE OPHTALMICAE BARS<SUP>&reg;</SUP>-27847	КАПЛИ ГЛАЗНЫЕ БАРС
+https://www.vidal.ru/veterinar/GUTTAE OPHTALMICAE IRIS-27848	КАПЛИ ГЛАЗНЫЕ ИРИС
+https://www.vidal.ru/veterinar/GUTTAE INSECTOACARICIDAE BARS<SUP>&reg;</SUP> <BR />FORTE-27849	КАПЛИ ИНСЕКТОАКАРИЦИДНЫЕ БАРС ФОРТЕ
+https://www.vidal.ru/veterinar/GUTTAE AURICULARES BARS<SUP>&reg;</SUP>-27851	КАПЛИ УШНЫЕ БАРС
+https://www.vidal.ru/veterinar/GUTTAE AURICULARES BARS<SUP>&reg;</SUP> FORTE-27852	КАПЛИ УШНЫЕ БАРС ФОРТЕ
+https://www.vidal.ru/veterinar/SPREY INSECTOACARICIDAE BARS<SUP>&reg;</SUP> FORTE-27853	СПРЕЙ ИНСЕКТОАКАРИЦИДНЫЙ БАРС ФОРТЕ
+https://www.vidal.ru/veterinar/FEBTAL<SUP>&reg;</SUP>-COMBO-27855	ФЕБТАЛ-КОМБО
+https://www.vidal.ru/veterinar/GUTTAE OPHTHALMICAE OCULUS ADAMANTE-27856	КАПЛИ ГЛАЗНЫЕ БРИЛЛИАНТОВЫЕ ГЛАЗА
+https://www.vidal.ru/veterinar/GUTTAE OPHTHALMICAE CIPROVET<SUP>&reg;</SUP>-27857	ЦИПРОВЕТ КАПЛИ ГЛАЗНЫЕ
+https://www.vidal.ru/veterinar/SULFUM 120-27858	СУЛЬФ 120
+https://www.vidal.ru/veterinar/SULFUM 480-27859	СУЛЬФ 480
+https://www.vidal.ru/veterinar/SUSPENSIO SHUSTRIK<SUP>&reg;</SUP>-27860	ШУСТРИК СУСПЕНЗИЯ
+https://www.vidal.ru/veterinar/TABULETTAE FEBTALUM<SUP>&reg;</SUP>-27861	ФЕБТАЛ ТАБЛЕТКИ
+https://www.vidal.ru/veterinar/BARS<SUP>&reg;</SUP> SPOT-ON-27862	БАРС СПОТ-ОН
+https://www.vidal.ru/veterinar/MIGSTIM<SUP>&reg;</SUP>-27863	МИГСТИМ
+https://www.vidal.ru/veterinar/COLLAR INSECTOAKARICIDAE BARS<SUP>&reg;</SUP>-27864	ОШЕЙНИК ИНСЕКТОАКАРИЦИДНЫЙ БАРС
+https://www.vidal.ru/veterinar/ZOOSHAMPOO BARS<SUP>&reg;</SUP>-27865	ЗООШАМПУНЬ БАРС
+https://www.vidal.ru/veterinar/ZOOSHAMPOO ELITA MEDICINAL-27866	ЗООШАМПУНЬ ЭЛИТА ЛЕЧЕБНЫЙ
+https://www.vidal.ru/veterinar/ZOOSHAMPOO LUGOVOI INSECTICIDAL-27867	ЗООШАМПУНЬ ИНСЕКТИЦИДНЫЙ ЛУГОВОЙ
+https://www.vidal.ru/veterinar/ASD<SUP>&reg;</SUP>-2F - Antiseptic-stimulator Dorogova fraction 2-27868	АСД-2Ф - Антисептик-стимулятор Дорогова фракция 2
+https://www.vidal.ru/veterinar/ASD<SUP>&reg;</SUP>-3F - Antiseptic-stimulator Dorogova fraction 3-27869	АСД-3Ф - Антисептик-стимулятор Дорогова фракция 3
+https://www.vidal.ru/veterinar/BALSAM DOROGOVOI<SUP>&reg;</SUP>-27870	БАЛЬЗАМ ДОРОГОВОЙ
+https://www.vidal.ru/veterinar/BALSAM DOROGOVOI<SUP>&reg;</SUP>-27871	БАЛЬЗАМ ДОРОГОВОЙ
+https://www.vidal.ru/veterinar/BALSAM DOROGOVOI<SUP>&reg;</SUP>-27872	БАЛЬЗАМ ДОРОГОВОЙ
+https://www.vidal.ru/veterinar/FIPREX 75 SPOT-ON-27873	ФИПРЕКС 75 СПОТ-ОН
+https://www.vidal.ru/veterinar/FIPREX SPREI FORTE-27874	ФИПРЕКС СПРЕЙ ФОРТЕ
+https://www.vidal.ru/veterinar/GLUTAMAX-27875	ГЛЮТАМАКС
+https://www.vidal.ru/veterinar/FLORENTIN-27876	ФЛОРЕНТИН
+https://www.vidal.ru/veterinar/FLORENTIN-27877	ФЛОРЕНТИН
+https://www.vidal.ru/veterinar/GAMAVITFORTE-27878	ГАМАВИТФОРТЕ
+https://www.vidal.ru/veterinar/GAMAPREN-27879	ГАМАПРЕН
+https://www.vidal.ru/veterinar/GAMAVIT-27880	ГАМАВИТ
+https://www.vidal.ru/veterinar/PHOSPRENYL-27881	ФОСПРЕНИЛ
+https://www.vidal.ru/veterinar/RODOTIUM 10% SOLUTIO PRO INJECTIONIBUS-27882	РОДОТИУМ 10% РАСТВОР ДЛЯ ИНЪЕКЦИЙ
+https://www.vidal.ru/veterinar/RODOTIUM 45%-27883	РОДОТИУМ 45%
+https://www.vidal.ru/veterinar/GLUTAMAX-27885	ГЛЮТАМАКС
+https://www.vidal.ru/veterinar/RODOTET-27886	РОДОТЕТ
+https://www.vidal.ru/veterinar/COYDEN 25%-27887	КОЙДЕН 25%
+https://www.vidal.ru/veterinar/SALINOPHARM 12%-27888	САЛИНОФАРМ 12%
+https://www.vidal.ru/veterinar/SACOX 120-27889	САКОКС 120
+https://www.vidal.ru/veterinar/PHARMASIN 500 PULVIS HYDROSOLUBILIS-27890	ФАРМАЗИН 500 ПОРОШОК ВОДОРАСТВОРИМЫЙ
+https://www.vidal.ru/veterinar/PHARMASIN 1000-27891	ФАРМАЗИН 1000
+https://www.vidal.ru/veterinar/PHARMASIN 50-27892	ФАРМАЗИН 50
+https://www.vidal.ru/veterinar/PHARMASIN 200-27893	ФАРМАЗИН 200
+https://www.vidal.ru/veterinar/TILMOVET 25%-27894	ТИЛМОВЕТ 25%
+https://www.vidal.ru/veterinar/MEXIDOL-VET-27895	МЕКСИДОЛ-ВЕТ
+https://www.vidal.ru/veterinar/TILMOVET 20%-27896	ТИЛМОВЕТ 20%
+https://www.vidal.ru/veterinar/PULCOX 10%-27897	ПУЛКОКС 10%
+https://www.vidal.ru/veterinar/MEXIDOL-VET-27899	МЕКСИДОЛ-ВЕТ
+https://www.vidal.ru/veterinar/PULCOX 20%-27900	ПУЛКОКС 20%
+https://www.vidal.ru/veterinar/MEXIDOL-VET-27901	МЕКСИДОЛ-ВЕТ
+https://www.vidal.ru/veterinar/SOLUTIO APRAMYCINI PRO INJECTIONIBUS-27902	АПРАМИЦИН РАСТВОР ДЛЯ ИНЪЕКЦИЙ
+https://www.vidal.ru/veterinar/MEXIDOL-VET-27903	МЕКСИДОЛ-ВЕТ
+https://www.vidal.ru/veterinar/PULVIS APRAMYCINI HYDROSOLUBILIS-27904	АПРАМИЦИН ВОДОРАСТВОРИМОЙ ПОРОШОК
+https://www.vidal.ru/veterinar/YUMAMYCIN 1%-27905	ЮМАМИЦИН 1%
+https://www.vidal.ru/veterinar/FLAVOMYCIN 80-27907	ФЛАВОМИЦИН 80
+https://www.vidal.ru/veterinar/HOSTAZYM С-500-27909	ХОСТАЗИМ С-500
+https://www.vidal.ru/veterinar/HOSTAZYM Х-500-27910	ХОСТАЗИМ Х-500
+https://www.vidal.ru/veterinar/HOSTAZYM P-5000-27914	ХОСТАЗИМ Р-5000
+https://www.vidal.ru/veterinar/VACCINE-27917	ВАКЦИНА ЭМУЛЬГИРОВАННАЯ ПРОТИВ ПАСТЕРЕЛЛЕЗА КРУПНОГО РОГАТОГО СКОТА, БУЙВОЛОВ И ОВЕЦ
+https://www.vidal.ru/veterinar/HELAVIT A-27918	ХЕЛАВИТ А
+https://www.vidal.ru/veterinar/HELAVIT B-27919	ХЕЛАВИТ В
+https://www.vidal.ru/veterinar/HELAVIT C-27920	ХЕЛАВИТ С
+https://www.vidal.ru/veterinar/HELAVITUM SOLUTION PRO INJECTIONIBUS-27921	ХЕЛАВИТ РАСТВОР ДЛЯ ИНЪЕКЦИЙ
+https://www.vidal.ru/veterinar/VACCINE OKZ-27922	ВАКЦИНА ОКЗ
+https://www.vidal.ru/veterinar/BRADSOT, OVINE ENTEROTOXAEMIA AND LAMB DYSENTERY VACCINE POLYVALENT CONCENTRATED-27923	ВАКЦИНА КОНЦЕНТРИРОВАННАЯ ПОЛИВАЛЕНТНАЯ ГИДРООКИСЬАЛЮМИНИЕВАЯ ПРОТИВ БРАДЗОТА, ИНФЕКЦИОННОЙ ЭНТЕРОТОКСЕМИИ, ЗЛОКАЧЕСТВЕННОГО ОТЕКА ОВЕЦ И ДИЗЕНТЕРИИ ЯГНЯТ
+https://www.vidal.ru/veterinar/VACCINE-27924	ВАКЦИНА ПРОТИВ БРУЦЕЛЛЕЗА ОВЕЦ И КОЗ И ИНФЕКЦИОННОГО ЭПИДИДИМИТА БАРАНОВ ИЗ ШТАММА BRUCELLA MELITENSIS REV-1ЖИВАЯ СУХАЯ
+https://www.vidal.ru/veterinar/VACCINE-27925	ФОРМОЛВАКЦИНА ПРОТИВ ЭМФИЗЕМАТОЗНОГО КАРБУНКУЛА КРУПНОГО РОГАТОГО СКОТА И ОВЕЦ КОНЦЕНТРИРОВАННАЯ ГИДРООКИСЬАЛЮМИНИЕВАЯ
+https://www.vidal.ru/veterinar/DIAGNOSTICS-27926	НАБОР КОМПОНЕНТОВ ДЛЯ ДИАГНОСТИКИ БРУЦЕЛЛЕЗА СОБАК, ВЫЗЫВАЕМОГО BRUCELLA CANIS, В РЕАКЦИИ АГГЛЮТИНАЦИИ И ИММУНОДИФФУЗИИ В АГАРОВОМ ГЕЛЕ
+https://www.vidal.ru/veterinar/AINIL-27927	АЙНИЛ
+https://www.vidal.ru/veterinar/ALBENDAZOL 2.5%-27928	АЛЬБЕНДАЗОЛ 2.5%
+https://www.vidal.ru/veterinar/ALBENDAZOL 10%-27929	АЛЬБЕНДАЗОЛ 10%
+https://www.vidal.ru/veterinar/AMOXICILLIN 10%-27930	АМОКСИЦИЛЛИН 10%
+https://www.vidal.ru/veterinar/AMOXICILLIN 15%-27931	АМОКСИЦИЛЛИН 15%
+https://www.vidal.ru/veterinar/GANAMECTIN-27932	ГАНАМЕКТИН
+https://www.vidal.ru/veterinar/DOXIPREX-27933	ДОКСИПРЕКС
+https://www.vidal.ru/veterinar/ZINAPRIM-27934	ЗИНАПРИМ
+https://www.vidal.ru/veterinar/ZINAPRIM-27935	ЗИНАПРИМ
+https://www.vidal.ru/veterinar/LEVAMISOL 10%-27936	ЛЕВАМИЗОЛ 10%
+https://www.vidal.ru/veterinar/GENTAPRIM-27937	ГЕНТАПРИМ
+https://www.vidal.ru/veterinar/MASTILEX-27938	МАСТИЛЕКС
+https://www.vidal.ru/veterinar/ROLENOL-27939	РОЛЕНОЛ
+https://www.vidal.ru/veterinar/RHEMOX 500-27940	РЕМОКС 500
+https://www.vidal.ru/veterinar/RHEMOX MICROGRANULATE-27941	РЕМОКС МИКРОГРАНУЛЯТ
+https://www.vidal.ru/veterinar/OXYTETRACYCLIN 200-27942	ОКСИТЕТРАЦИКЛИН 200
+https://www.vidal.ru/veterinar/KADOREX-27943	КАДОРЕКС
+https://www.vidal.ru/veterinar/TROMEXIN-27944	ТРОМЕКСИН
+https://www.vidal.ru/veterinar/LINESOL-27945	ЛИНЕСОЛ
+https://www.vidal.ru/veterinar/POLODOXIN-27946	ПОЛЬОДОКСИН
+https://www.vidal.ru/veterinar/ENROFLOX 5%-27947	ЭНРОФЛОКС 5%
+https://www.vidal.ru/veterinar/ENROFLOX 10%-27948	ЭНРОФЛОКС 10%
+https://www.vidal.ru/veterinar/ENROFLOX 10%-27949	ЭНРОФЛОКС 10%
+https://www.vidal.ru/veterinar/TIERKAL-27950	ТИЕРКАЛ
+https://www.vidal.ru/veterinar/COMPLEJO В-27951	КОМПЛЕКС В
+https://www.vidal.ru/veterinar/AMIDEL-GEL-27952	АМИДЕЛЬ-ГЕЛЬ
+https://www.vidal.ru/veterinar/PENBEX-27953	ПЕНБЕКС
+https://www.vidal.ru/veterinar/AMOXISAN-27954	АМОКСИСАН
+https://www.vidal.ru/veterinar/GANAMINOVIT-27955	ГАНАМИНОВИТ
+https://www.vidal.ru/veterinar/GANASUPERVIT-27956	ГАНАСУПЕРВИТ
+https://www.vidal.ru/veterinar/GENTAM-27957	ГЕНТАМ
+https://www.vidal.ru/veterinar/VITAMIN АD<SUB>3</SUB>Е-27958	ВИТАМИН АD3Е
+https://www.vidal.ru/veterinar/HEPATOVET-27959	ГЕПАТОВЕТ
+https://www.vidal.ru/veterinar/MULTIVIT-27960	МУЛЬТИВИТ
+https://www.vidal.ru/veterinar/ANTIDIARREICO-27961	АНТИДИАРЕЙКО
+https://www.vidal.ru/veterinar/CHICKTONIC-27962	ЧИКТОНИК
+https://www.vidal.ru/veterinar/PIRO-STOP-27963	ПИРО-СТОП
+https://www.vidal.ru/veterinar/CHEMI SPRAY-27964	ЧЕМИ СПРЕЙ
+https://www.vidal.ru/veterinar/STOP-ARTHRITIS-27965	СТОП-АРТРИТ
+https://www.vidal.ru/veterinar/GALAPAN-27966	ГАЛАПАН
+https://www.vidal.ru/veterinar/STOP-ITCH SPRAY-27967	СТОП-ЗУД СПРЕЙ
+https://www.vidal.ru/veterinar/STOP-ITCH-27968	СТОП-ЗУД
+https://www.vidal.ru/veterinar/STOP-CYSTITIS-27969	СТОП-ЦИСТИТ
+https://www.vidal.ru/veterinar/STOP-CYSTITIS-27970	СТОП-ЦИСТИТ
+https://www.vidal.ru/veterinar/FUNGINUM-27971	ФУНГИН
+https://www.vidal.ru/veterinar/GELACAN DARLING-27972	ГЕЛАКАН ДАРЛИНГ
+https://www.vidal.ru/veterinar/GELACAN PROFI-27973	ГЕЛАКАН ПРОФИ
+https://www.vidal.ru/veterinar/GELACAN FAST-27974	ГЕЛАКАН ФАСТ
+https://www.vidal.ru/veterinar/GELACAN BABY-27975	ГЕЛАКАН БЕЙБИ
+https://www.vidal.ru/veterinar/CHONDROCAN-27976	ХОНДРОКАН
+https://www.vidal.ru/veterinar/GELAPONY ARTRO-27977	ГЕЛАПОНИ АРТРО
+https://www.vidal.ru/veterinar/GELAPONY CHONDRO-27978	ГЕЛАПОНИ ХОНДРО
+https://www.vidal.ru/veterinar/GELACAN CHAMPION FOR COLOR DOG-27979	ГЕЛАКАН ЧЕМПИОН ДЛЯ СОБАК РАЗНОЦВЕТНЫХ ОКРАСОВ
+https://www.vidal.ru/veterinar/ALBAMELINUM-27980	АЛЬБАМЕЛИН
+https://www.vidal.ru/veterinar/ASEPURUM-27981	АСЕПУР
+https://www.vidal.ru/veterinar/ASEPURUM-27982	АСЕПУР
+https://www.vidal.ru/veterinar/GELACAN CHAMPION FOR BLACK AND WHITE DOGS-27983	ГЕЛАКАН ЧЕМПИОН ДЛЯ СОБАК БЕЛОГО И ЧЕРНОГО ОКРАСА
+https://www.vidal.ru/veterinar/BIOREX-GH-27984	БИОРЕКС-ГХ
+https://www.vidal.ru/veterinar/BIOREX-GH-27985	БИОРЕКС-ГХ
+https://www.vidal.ru/veterinar/GLICOSANUM-27986	ГЛИКОСАН
+https://www.vidal.ru/veterinar/KREOLIN-X-27987	КРЕОЛИН-Х
+https://www.vidal.ru/veterinar/KREOLIN-X-27988	КРЕОЛИН-Х
+https://www.vidal.ru/veterinar/UNGUENTUM TETRACYCLINI OPHTHALMICUM 1%-27989	МАЗЬ ТЕТРАЦИКЛИНОВАЯ ГЛАЗНАЯ 1%
+https://www.vidal.ru/veterinar/UNGUENTUM LAEVOMECOLUM-27990	МАЗЬ ЛЕВОМЕКОЛЬ
+https://www.vidal.ru/veterinar/UNGUENTUM ICHTYOLI-27991	МАЗЬ ИХТИОЛОВАЯ
+https://www.vidal.ru/veterinar/UNGUENTUM ICHTYOLI-27992	МАЗЬ ИХТИОЛОВАЯ
+https://www.vidal.ru/veterinar/UNGUENTUM CAMPHORATUM 10%-27993	МАЗЬ КАМФОРНАЯ 10%
+https://www.vidal.ru/veterinar/UNGUENTUM YAHALIMPUM-27994	МАЗЬ ЯХАЛИМП
+https://www.vidal.ru/veterinar/UNGUENTUM "YAM BK"-27995	МАЗЬ "ЯМ БК"
+https://www.vidal.ru/veterinar/IODUM MONOCHLORATUM-27996	ЙОД ОДНОХЛОРИСТЫЙ
+https://www.vidal.ru/veterinar/CIPROMAG-27997	ЦИПРОМАГ
+https://www.vidal.ru/veterinar/IODINOKOLUM-27998	ЙОДИНОКОЛЬ
+https://www.vidal.ru/veterinar/IODTRIETHYLENGLICOLUM (ITEG)- A-27999	ЙОДТРИЭТИЛЕНГЛИКОЛЬ (ИТЭГ)-А
+https://www.vidal.ru/veterinar/LINIMENTUM SYNTHOMYCINI-28000	ЛИНИМЕНТ СИНТОМИЦИНА
+https://www.vidal.ru/veterinar/LINIMENTUM SYNTHOMYCINI-28001	ЛИНИМЕНТ СИНТОМИЦИНА
+https://www.vidal.ru/veterinar/LINIMENTUM SYNTHOMYCINI-28002	ЛИНИМЕНТ СИНТОМИЦИНА
+https://www.vidal.ru/veterinar/LERSINUM-28003	ЛЕРСИН
+https://www.vidal.ru/veterinar/CREOLINUM ANPHENOLICUM CARBONICUM-28004	КРЕОЛИН БЕСФЕНОЛЬНЫЙ КАМЕННОУГОЛЬНЫЙ
+https://www.vidal.ru/veterinar/CIPROMAG-O-28005	ЦИПРОМАГ-О
+https://www.vidal.ru/veterinar/PICHTOINUM-28006	ПИХТОИН
+https://www.vidal.ru/veterinar/ANTISEPTICEMULSION FOR UDDER TEATS OF COWS-28007	ЭМУЛЬСИЯ АНТИСЕПТИЧЕСКАЯ ДЛЯ СОСКОВ ВЫМЕНИ КОРОВ
+https://www.vidal.ru/veterinar/OVASEPTUM-K-28008	ОВАСЕПТ-К
+https://www.vidal.ru/veterinar/TROCOXIL-28009	ТРОКОКСИЛ
+https://www.vidal.ru/veterinar/TROCOXIL-28010	ТРОКОКСИЛ
+https://www.vidal.ru/veterinar/TROCOXIL-28011	ТРОКОКСИЛ
+https://www.vidal.ru/veterinar/TROCOXIL-28012	ТРОКОКСИЛ
+https://www.vidal.ru/veterinar/TROCOXIL-28013	ТРОКОКСИЛ
+https://www.vidal.ru/veterinar/DOSALID-28014	ДОСАЛИД
+https://www.vidal.ru/veterinar/DOSALID-28015	ДОСАЛИД
+https://www.vidal.ru/veterinar/RIMADYL-28016	РИМАДИЛ Р
+https://www.vidal.ru/veterinar/RIMADYL-28017	РИМАДИЛ Р
+https://www.vidal.ru/veterinar/RIMADYL-28018	РИМАДИЛ Р
+https://www.vidal.ru/veterinar/RIMADYL INJECTION-28019	РИМАДИЛ РАСТВОР ДЛЯ ИНЪЕКЦИЙ
+https://www.vidal.ru/veterinar/SYNULOX-28020	СИНУЛОКС
+https://www.vidal.ru/veterinar/SYNULOX-28021	СИНУЛОКС
+https://www.vidal.ru/veterinar/СERENIA-28022	СЕРЕНИЯ
+https://www.vidal.ru/veterinar/CONVENIA-28023	КОНВЕНИЯ
+https://www.vidal.ru/veterinar/STRONGHOLD-28024	СТРОНГХОЛД
+https://www.vidal.ru/veterinar/STRONGHOLD-28025	СТРОНГХОЛД
+https://www.vidal.ru/veterinar/FEL-O-VAX IV-28026	ФЕЛОВАКС-4
+https://www.vidal.ru/veterinar/FELOCELL CVR-C-28027	ФЕЛОЦЕЛ CVR-C
+https://www.vidal.ru/veterinar/DURAMUNE MAX 5-СVK/4L-28028	ДЮРАМУН МАКС 5-СVK/4L
+https://www.vidal.ru/veterinar/DEFENSOR-3-28029	ДЕФЕНСОР-3
+https://www.vidal.ru/veterinar/PRIMUCELL FIP-28030	ПРИМУЦЕЛ FIP
+https://www.vidal.ru/veterinar/VANGUARD 5/L-28031	ВАНГАРД 5/L
+https://www.vidal.ru/veterinar/VANGUARD 7-28032	ВАНГАРД 7
+https://www.vidal.ru/veterinar/PROMERIS DUO SPOT-ON FOR DOGS-28034	ПРОМЕРИС ДУО СПОТ ОН ДЛЯ СОБАК
+https://www.vidal.ru/veterinar/DUPHALYTE-28035	ДЮФАЛАЙТ
+https://www.vidal.ru/veterinar/DURAMUNE MAX 5/4L-28036	ДЮРАМУН МАКС 5/4L
+https://www.vidal.ru/veterinar/DRAXXIN-28037	ДРАКСИН
+https://www.vidal.ru/veterinar/MEFLOSYL-28038	МЕФЛОЗИЛ
+https://www.vidal.ru/veterinar/NAXCEL-28039	НАКСЕЛ
+https://www.vidal.ru/veterinar/CYGRO-28040	ЦИГРО
+https://www.vidal.ru/veterinar/CYCOSTAT 66G-28041	ЦИКОСТАТ 66G
+https://www.vidal.ru/veterinar/AVATEC 150G-28042	АВАТЕК 150G
+https://www.vidal.ru/veterinar/ORBENIN EDC-28043	ОРБЕНИН EDC
+https://www.vidal.ru/veterinar/ORBESEAL-28044	ОРБЕСИЛ
+https://www.vidal.ru/veterinar/ASIDIVIT-28045	АЙСИДИВИТ
+https://www.vidal.ru/veterinar/BABEZAN-28046	БАБЕЗАН
+https://www.vidal.ru/veterinar/TETRA-DELTA-28047	ТЕТРА-ДЕЛЬТА
+https://www.vidal.ru/veterinar/CIDR-28048	СИДР
+https://www.vidal.ru/veterinar/AVATEC 15% CC-28049	АВАТЕК 15% СС
+https://www.vidal.ru/veterinar/DINOLYTIC-28050	ДИНОЛИТИК
+https://www.vidal.ru/veterinar/IMPROVAC-28051	ИМПРОВАК
+https://www.vidal.ru/veterinar/FARROWSURE GOLD B-28052	ФАРОШУР ГОЛД В
+https://www.vidal.ru/veterinar/SUVAXYN MH-ONE-28053	СУВАКЦИН MH-ОДИН
+https://www.vidal.ru/veterinar/SUVAXYN MH-HPS-28054	СУВАКЦИН MH-HPS
+https://www.vidal.ru/veterinar/LARYNGO-VAC-28055	ЛАРИНГО ВАК
+https://www.vidal.ru/veterinar/BOVI-SHIELD GOLD FP5 L5-28056	БОВИ-ШИЛД ГОЛД FP5 L5
+https://www.vidal.ru/veterinar/POULVAC TRT-28057	ПУЛВАК TRT
+https://www.vidal.ru/veterinar/POULVAC IB PRIMER-28058	ПУЛВАК IB ПРАЙМЕР
+https://www.vidal.ru/veterinar/PROVAC 4-28059	ПРОВАК 4
+https://www.vidal.ru/veterinar/MS ВАС-28060	МС БАК
+https://www.vidal.ru/veterinar/SCOURGUARD 4KC-28061	СКОУГАРД 4КС
+https://www.vidal.ru/veterinar/LITTERGUARD LT-C-28062	ЛИТЕРГАРД LT-C
+https://www.vidal.ru/veterinar/CATTLEMASTER GOLD FP5 L5-28063	КЭТЛМАСТЕР ГОЛД FP5 L5
+https://www.vidal.ru/veterinar/BURSINE PLUSE-28064	БУРСИН ПЛЮС
+https://www.vidal.ru/veterinar/ONESHOTULTRA 8-28065	ВАНШОТУЛЬТРА 8
+https://www.vidal.ru/veterinar/BABEZAN-28066	БАБЕЗАН
+https://www.vidal.ru/veterinar/SYNULOX-28067	СИНУЛОКС
+https://www.vidal.ru/veterinar/OCTACILLIN-28068	ОКТАЦИЛЛИН
+https://www.vidal.ru/veterinar/ALBAC GRANULATAE 15%-28069	АЛЬБАК ГРАНУЛЯТ 15%
+https://www.vidal.ru/veterinar/ALPHAFLOR S-28070	АЛЬФАФЛОР S
+https://www.vidal.ru/veterinar/INSPECTOR TOTAL К-28071	ИНСПЕКТОР ТОТАЛ К
+https://www.vidal.ru/veterinar/INSPECTOR TOTAL С-28072	ИНСПЕКТОР ТОТАЛ С
+https://www.vidal.ru/veterinar/ALBENDASOL 25-28073	АЛЬБЕНДАЗОЛ 25
+https://www.vidal.ru/veterinar/ALBENDASOL 100-28074	АЛЬБЕНДАЗОЛ 100
+https://www.vidal.ru/veterinar/ALBENDASOL 200-28075	АЛЬБЕНДАЗОЛ 200
+https://www.vidal.ru/veterinar/OXYTETRACYCLINUM 100-28076	ОКСИТЕТРАЦИКЛИН 100
+https://www.vidal.ru/veterinar/OXYTETRACYCLINUM 200 LA-28077	ОКСИТЕТРАЦИКЛИН 200 LA
+https://www.vidal.ru/veterinar/ENROFLOXACIN 50 PRO INJEСTABLE-28078	ЭНРОФЛОКСАЦИН 50 РАСТВОР ДЛЯ ИНЪЕКЦИЙ
+https://www.vidal.ru/veterinar/ENROFLOXACIN 100 PULVIS-28079	ЭНРОФЛОКСАЦИН 100 ПОРОШОК
+https://www.vidal.ru/veterinar/ENROFLOXACIN 100 SOLUTIO PRO ADHIBITIONIS PER OS-28080	ЭНРОФЛОКСАЦИН 100 РАСТВОР ДЛЯ ПЕРОРАЛЬНОГО ПРИМЕНЕНИЯ
+https://www.vidal.ru/veterinar/MISOXIN-28081	МИЗОКСИН
+https://www.vidal.ru/veterinar/DEHINEL<SUP>&reg;</SUP> PLUS TABLETS WITH MEAT FLAVOUR-28082	ДЕХИНЕЛ ПЛЮС ТАБЛЕТКИ СО ВКУСОМ МЯСА
+https://www.vidal.ru/veterinar/FLORON<SUP>&reg;</SUP> 2% POWDER-28083	ФЛОРОН 2% ПОРОШОК
+https://www.vidal.ru/veterinar/TIACYCLIN-28084	ТИАЦИКЛИН
+https://www.vidal.ru/veterinar/ENROFLON 10% SOLUTIO PER USUM ORAL-28086	ЭНРОФЛОН 10% РАСТВОР ДЛЯ ОРАЛЬНОГО ПРИМЕНЕНИЯ
+https://www.vidal.ru/veterinar/FLORICOL-28087	ФЛОРИКОЛ
+https://www.vidal.ru/veterinar/DOXYLOX-28088	ДОКСИЛОКС
+https://www.vidal.ru/veterinar/FLORYDOX-28089	ФЛОРИДОКС
+https://www.vidal.ru/veterinar/FLUNEX-28090	ФЛУНЕКС
+https://www.vidal.ru/veterinar/CEFTONIT-28091	ЦЕФТОНИТ
+https://www.vidal.ru/veterinar/CYFLUNIT-28092	ЦИФЛУНИТ
+https://www.vidal.ru/veterinar/VETALGIN-28093	ВЕТАЛЬГИН
+https://www.vidal.ru/veterinar/VETALGIN-28094	ВЕТАЛЬГИН
+https://www.vidal.ru/veterinar/DIRONET JUNIOR-28095	ДИРОНЕТ ДЖУНИОР
+https://www.vidal.ru/veterinar/IMMUNOFAN-28096	ИММУНОФАН
+https://www.vidal.ru/veterinar/FITODOC-IMMUNOSTIM-28097	ФИТОДОК-ИММУНОСТИМ
+https://www.vidal.ru/veterinar/FITODOC-NEFROSPAS-28098	ФИТОДОК-НЕФРОСПАС
+https://www.vidal.ru/veterinar/TABULETTAE CIPROVETUM-28099	ЦИПРОВЕТ ТАБЛЕТКИ
+https://www.vidal.ru/veterinar/TABULETTAE CIPROVETUM-28100	ЦИПРОВЕТ ТАБЛЕТКИ
+https://www.vidal.ru/veterinar/LAEVOTETRASULFINUM-28101	ЛЕВОТЕТРАСУЛЬФИН
+https://www.vidal.ru/veterinar/PCHELODAR-VIEV-28102	ПЧЕЛОДАР-ВИЭВ
+https://www.vidal.ru/veterinar/DIAGNOSTICS-28103	ВД-БС ИФА ВИЭВ
+https://www.vidal.ru/veterinar/DIAGNOSTICS-28104	НАБОР ДЛЯ ДИАГНОСТИКИ КОРОНАВИРУСНОГО ЭНТЕРИТА КРУПНОГО РОГАТОГО СКОТА МЕТОДОМ ГЕМАГГЛЮТИНАЦИИ
+https://www.vidal.ru/veterinar/DIAGNOSTICS-28105	РОДИКОР-ТЕСТ ВИЭВ
+https://www.vidal.ru/veterinar/DIAGNOSTICS-28106	РОТА-ИФА ВИЭВ
+https://www.vidal.ru/veterinar/8 IN 1<SUP>&reg;</SUP> EXCEL<SUP>&reg;</SUP> MOBILE FLEX<SUP>+</SUP>-28107	8 В 1 ЭКСЕЛЬ МОБАЙЛ ФЛЕКС ПЛЮС
+https://www.vidal.ru/veterinar/8 IN 1<SUP>&reg;</SUP> EXCEL<SUP>&reg;</SUP> CALCIUM-28108	8 В 1 ЭКСЕЛЬ КАЛЬЦИЙ
+https://www.vidal.ru/veterinar/8IN1<SUP>&reg;</SUP> EXCEL<SUP>&reg;</SUP> BREWER'S YEAST-28109	8 В 1 ЭКСЕЛЬ ПИВНЫЕ ДРОЖЖИ
+https://www.vidal.ru/veterinar/8 IN 1<SUP>&reg;</SUP> EXCEL<SUP>&reg;</SUP> MULTI VITAMIN - SMALL BREED-28110	8 В 1 ЭКСЕЛЬ МУЛЬТИВИТАМИНЫ ДЛЯ СОБАК МЕЛКИХ ПОРОД
+https://www.vidal.ru/veterinar/8 IN 1<SUP>&reg;</SUP> EXCEL<SUP>&reg;</SUP> MULTI VITAMIN - SENIOR-28111	8 В 1 ЭКСЕЛЬ МУЛЬТИВИТАМИНЫ ДЛЯ СТАРЫХ СОБАК
+https://www.vidal.ru/veterinar/8 IN 1<SUP>&reg;</SUP> EXCEL<SUP>&reg;</SUP> MULTI VITAMIN - PUPPY-28112	8 В 1 ЭКСЕЛЬ МУЛЬТИВИТАМИНЫ ДЛЯ ЩЕНКОВ
+https://www.vidal.ru/veterinar/8 IN 1<SUP>&reg;</SUP> EXCEL<SUP>&reg;</SUP> MULTI VITAMIN - ADULT-28113	8 В 1 ЭКСЕЛЬ МУЛЬТИВИТАМИНЫ ДЛЯ ВЗРОСЛЫХ СОБАК
+https://www.vidal.ru/veterinar/SCAVON VET SPRAY-28114	СКАВОН ВЕТ СПРЕЙ
+https://www.vidal.ru/veterinar/NEFROTEC VET LIQUID-28115	НЕФРОТЕК ВЕТ ЖИДКОСТЬ
+https://www.vidal.ru/veterinar/GERIFORTE VET LIQUID-28116	ГЕРИФОРТЕ ВЕТ ЖИДКОСТЬ
+https://www.vidal.ru/veterinar/IMMUNOL VET-28117	ИММУНОЛ ВЕТ
+https://www.vidal.ru/veterinar/DIGYTON DROPS-28118	ДИГИТОН КАПЛИ
+https://www.vidal.ru/veterinar/ERINA-ЕР SHAMPOO-28119	ЕРИНА-ЕР ШАМПУНЬ
+https://www.vidal.ru/veterinar/VACCINE-28120	ВАКЦИНА ЭМУЛЬСИОННАЯ ИНАКТИВИРОВАННАЯ ПРОТИВ РЕПРОДУКТИВНО-РЕСПИРАТОРНОГО СИНДРОМА СВИНЕЙ И ПАРВОВИРУСНОЙ ИНФЕКЦИИ СВИНЕЙ
+https://www.vidal.ru/veterinar/VACCINE-28121	ВАКЦИНА ПРОТИВ СИНДРОМА СНИЖЕНИЯ ЯЙЦЕНОСКОСТИ-76 ИНАКТИВИРОВАННАЯ ЭМУЛЬГИРОВАННАЯ
+https://www.vidal.ru/veterinar/VACCINE-28122	ВАКЦИНА АССОЦИИРОВАННАЯ ПРОТИВ ПАСТЕРЕЛЛЕЗА И САЛЬМОНЕЛЛЕЗА СВИНЕЙИНАКТИВИРОВАННАЯ ЭМУЛЬГИРОВАННАЯ
+https://www.vidal.ru/veterinar/VACCINE-28123	ВИРУСВАКЦИНА ПРОТИВ БОЛЕЗНИ АУЕСКИ СВИНЕЙ И ОВЕЦ СУХАЯ КУЛЬТУРАЛЬНАЯ ИЗМАРКИРОВАННОГО ШТАММА "ВК"
+https://www.vidal.ru/veterinar/VACCINE-28124	ВАКЦИНА АССОЦИИРОВАННАЯ ПРОТИВ ПАРАГРИППА-3, ИНФЕКЦИОННОГО РИНОТРАХЕИТА И ВИРУСНОЙ ДИАРЕИ КРУПНОГО РОГАТОГО СКОТА ЭМУЛЬСИОННАЯ ИНАКТИВИРОВАННАЯ
+https://www.vidal.ru/veterinar/VACCINE-28125	ВИРУСВАКЦИНА ПРОТИВ ИНФЕКЦИОННОЙ БУРСАЛЬНОЙ БОЛЕЗНИ ИЗ ШТАММА "ВИНТЕРФИЛД 2512".
+https://www.vidal.ru/veterinar/VACCINE-28126	ВАКЦИНА ПРОТИВ СИНДРОМА ГИДРОПЕРИКАРДИТА КУР ИНАКТИВИРОВАННАЯ СОРБИРОВАННАЯ
+https://www.vidal.ru/veterinar/VACCINE-28127	ВАКЦИНА ПРОТИВ ИНФЕКЦИОННОГО БРОНХИТА КУР ИЗ ШТАММА "Н-120" ЖИВАЯ СУХАЯ
+https://www.vidal.ru/veterinar/VACCINE-28128	ВАКЦИНА ПРОТИВ НЬЮКАСЛСКОЙ БОЛЕЗНИ ИЗ ШТАММА "ЛА-СОТА" СУХАЯ ЖИВАЯ С ИММУНОСТИМУЛЯТОРОМ
+https://www.vidal.ru/veterinar/ARTHROFIT-28129	АРТРОФИТ
+https://www.vidal.ru/veterinar/IMMUNKUR-28130	ИММУНКУР
+https://www.vidal.ru/veterinar/MULTIVITAMIN MINERAL-28131	МУЛЬТИВИТАМИН МИНЕРАЛ
+https://www.vidal.ru/veterinar/HAAR SPEZIAL-28132	ХААР СПЕЦИАЛ
+https://www.vidal.ru/veterinar/FARMAVIT NEO PRO CANES-28133	ФАРМАВИТ NEO ДЛЯ СОБАК
+https://www.vidal.ru/veterinar/FARMAVIT NEO PRO FELES-28134	ФАРМАВИТ NEO ДЛЯ КОШЕК
+https://www.vidal.ru/veterinar/PLACENTA DENATURATA EMULGATA PRO INJECTIONIBUS-28135	ПЛАЦЕНТА ДЕНАТУРИРОВАННАЯ ЭМУЛЬГИРОВАННАЯ ДЛЯ ИНЪЕКЦИЙ (ПДЭ)
+https://www.vidal.ru/veterinar/NEPOREX<SUP>&reg;</SUP> 2 SG-28136	НЕПОРЕКС 2 SG
+https://www.vidal.ru/veterinar/NEPOREX<SUP>&reg;</SUP> 50 SP-28137	НЕПОРЕКС 50 SP
+https://www.vidal.ru/veterinar/FORTEKOR&trade;-28139	ФОРТЕКОР
+https://www.vidal.ru/veterinar/FORTEKOR&trade;-28140	ФОРТЕКОР
+https://www.vidal.ru/veterinar/VOLVAC<SUP>&reg;</SUP> AC Plus+ND+IB+EDS KV-28141	ВОЛЬВАК АС Плюс+ND+IB+EDS KV
+https://www.vidal.ru/veterinar/VOLVAC<SUP>&reg;</SUP> IBD MLV-28142	ВОЛЬВАК IBD MLV
+https://www.vidal.ru/veterinar/SEPRANOL-28143	СЕПРАНОЛ
+https://www.vidal.ru/veterinar/INGELVAC<SUP>&reg;</SUP> HP-1-28144	ИНГЕЛЬВАК HP-1
+https://www.vidal.ru/veterinar/INGELVAC<SUP>&reg;</SUP> AUJESZKY MLV-28145	ИНГЕЛЬВАК АУЕСКИ MLV
+https://www.vidal.ru/veterinar/BIOZOL-28146	БИОЗОЛЬ
+https://www.vidal.ru/veterinar/ALUMISPREUM-28147	АЛЮМИСПРЕЙ
+https://www.vidal.ru/veterinar/BIOSANIT-28148	БИОСАНИТ
+https://www.vidal.ru/veterinar/BIOMETROSANIT-28149	БИОМЕТРОСАНИТ
+https://www.vidal.ru/veterinar/INGELVAC<SUP>&reg;</SUP> APPX-28150	ИНГЕЛЬВАК APPX
+https://www.vidal.ru/veterinar/INGELVAC CircoFLEX<SUP>&reg;</SUP>-28151	ИНГЕЛЬВАК ЦиркоФЛЕКС
+https://www.vidal.ru/veterinar/INGELVAC MycoFLEX<SUP>&reg;</SUP>-28152	ИНГЕЛЬВАК МикоФЛЕКС
+https://www.vidal.ru/veterinar/AMOXIMAG-28153	АМОКСИМАГ
+https://www.vidal.ru/veterinar/COMULIN-28154	КОМУЛИН
+https://www.vidal.ru/veterinar/MAGCOLISTIN-28155	МАГКОЛИСТИН
+https://www.vidal.ru/veterinar/ENTERISOL<SUP>&reg;</SUP> ILEITIS-28156	ЭНТЕРИЗОЛ ИЛЕИТИС
+https://www.vidal.ru/veterinar/PNEUMOSTOP-28157	ПНЕВМОСТОП
+https://www.vidal.ru/veterinar/METACAM<SUP>&reg;</SUP>-28158	МЕТАКАМ
+https://www.vidal.ru/veterinar/ENDOMETRAMAG-K-28159	ЭНДОМЕТРАМАГ-К
+https://www.vidal.ru/veterinar/ENDOMETRAMAG - BIO-28160	ЭНДОМЕТРАМАГ-БИО
+https://www.vidal.ru/veterinar/STOP-COCCID-28161	СТОП-КОКЦИД
+https://www.vidal.ru/veterinar/EPRIMEC-28162	ЭПРИМЕК
+https://www.vidal.ru/veterinar/MONCLAVIT-1-28163	МОНКЛАВИТ-1
+https://www.vidal.ru/veterinar/BIOSEPTIN-28164	БИОСЕПТИН
+https://www.vidal.ru/veterinar/VETOM 1.1-28165	ВЕТОМ 1.1
+https://www.vidal.ru/veterinar/VETOM 2-28166	ВЕТОМ 2
+https://www.vidal.ru/veterinar/VETOM 3-28167	ВЕТОМ 3
+https://www.vidal.ru/veterinar/VETOM 4-28168	ВЕТОМ 4
+https://www.vidal.ru/veterinar/VELES 6.59-28169	ВЕЛЕС 6.59
+https://www.vidal.ru/veterinar/SALMOKRON-28170	САЛЬМОКРОН
+https://www.vidal.ru/veterinar/AVICOCS-28171	АВИКОКС
+https://www.vidal.ru/veterinar/VACCINE-28172	ВАКЦИНА ПРОТИВ МЕТАПНЕВМОВИРУСНОЙ ИНФЕКЦИИ ПТИЦ ЖИВАЯ СУХАЯ
+https://www.vidal.ru/veterinar/AVIKRON-28173	АВИКРОН
+https://www.vidal.ru/veterinar/VACCINE-28174	ВИРУСВАКЦИНА ЖИВАЯ СУХАЯ ПРОТИВ НЬЮКАСЛСКОЙ БОЛЕЗНИ ИЗ ЛЕНТОГЕННЫХ ШТАММОВ
+https://www.vidal.ru/veterinar/IRUXOVETYNUM-28175	ИРУКСОВЕТИН
+https://www.vidal.ru/veterinar/DOSTIMUM-28176	ДОСТИМ
+https://www.vidal.ru/veterinar/ANTISTAPHYLOCOCCAL DRUG-28177	АНТИСТАФИЛОКОККОВЫЙ ПРЕПАРАТ (АСП)
+https://www.vidal.ru/veterinar/ASD<SUP> </SUP>FRACTION 2-28178	АСД ФРАКЦИЯ 2
+https://www.vidal.ru/veterinar/DOXY VS 50-28179	ДОКСИ ВС 50
+https://www.vidal.ru/veterinar/ENROSOL 10% ORAL SOLUTION-28180	ЭНРОСОЛ 10% ОРАЛЬНЫЙ РАСТВОР
+https://www.vidal.ru/veterinar/ENROSOL 5%-28181	ЭНРОСОЛ 5%
+https://www.vidal.ru/veterinar/ENROSOL 10%-28182	ЭНРОСОЛ 10%
+https://www.vidal.ru/veterinar/BELKOHELP-28183	БЕЛКОХЕЛП
+https://www.vidal.ru/veterinar/DEHINEL<SUP>&reg;</SUP> PLUS-28184	ДЕХИНЕЛ ПЛЮС
+https://www.vidal.ru/veterinar/CANIGUARD SPOT ON-28185	КАНИГАРД СПОТ ОН
+https://www.vidal.ru/veterinar/BEAPHAR FLEA DROPS 15% FOR CAT-28186	КАПЛИ ОТ БЛОХ И КЛЕЩЕЙ БЕАФАР 15% ДЛЯ КОШЕК
+https://www.vidal.ru/veterinar/BEAPHAR FLEA DROPS 30% FOR DOG-28187	КАПЛИ ОТ БЛОХ И КЛЕЩЕЙ БЕАФАР 30% ДЛЯ СОБАК
+https://www.vidal.ru/veterinar/ANTIPARASITE FLEA COLLAR MULTI-X FOR CAT-28188	ОШЕЙНИК АНТИПАРАЗИТАРНЫЙ МУЛЬТИКС ДЛЯ КОШЕК
+https://www.vidal.ru/veterinar/BIO BAND COLLAR-28189	ОШЕЙНИК БИО
+https://www.vidal.ru/veterinar/BEAPHAR FLEA COLLAR FOR DOG AND CAT S.O.S.-28190	ОШЕЙНИК ИНСЕКТОАКАРИЦИДНЫЙ БЕАФАР ДЛЯ СОБАК И КОШЕК S.О.S.
+https://www.vidal.ru/veterinar/BEAPHAR ANTIPARASITE SHAMPOO-28191	ИНСЕКТИЦИДНЫЙ ШАМПУНЬ БЕАФАР
+https://www.vidal.ru/veterinar/BEAPHAR FLEA COLLAR FOR CAT-28192	БЕАФАР ОШЕЙНИК ИНСЕКТОАКАРИЦИДНЫЙ ДЛЯ КОШЕК
+https://www.vidal.ru/veterinar/BEAPHAR FLEA COLLAR FOR DOG-28193	БЕАФАР ОШЕЙНИК ИНСЕКТОАКАРИЦИДНЫЙ ДЛЯ СОБАК
+https://www.vidal.ru/veterinar/BIO SPOT ON SPRAY CAT-28194	БИО СПОТ ОН СПРЕЙ ДЛЯ КОШЕК
+https://www.vidal.ru/veterinar/BIO SPOT ON SPRAY DOG-28195	БИО СПОТ ОН СПРЕЙ ДЛЯ СОБАК
+https://www.vidal.ru/veterinar/BIO SPOT ON DROPS CATS AND DOGS-28196	БИО СПОТ ОН КАПЛИ ДЛЯ КОШЕК И СОБАК
+https://www.vidal.ru/veterinar/VACCINE-28197	ВАКЦИНА ПРОТИВ РОТАВИРУСНОЙ И КОРОНАВИРУСНОЙ ИНФЕКЦИЙ КРУПНОГО РОГАТОГО СКОТА СОРБИРОВАННАЯ ИНАКТИВИРОВАННАЯ
+https://www.vidal.ru/veterinar/KOKCISAN<SUP>&reg;</SUP> 120G GRANULATE-28198	КОКЦИСАНА 120Г ГРАНУЛЯТ
+https://www.vidal.ru/veterinar/MARFLOXIN TABLETS-28199	МАРФЛОКСИН ТАБЛЕТКИ
+https://www.vidal.ru/veterinar/MARFLOXIN TABLETS-28200	МАРФЛОКСИН ТАБЛЕТКИ
+https://www.vidal.ru/veterinar/MARFLOXIN TABLETS-28201	МАРФЛОКСИН ТАБЛЕТКИ
+https://www.vidal.ru/veterinar/MARFLOXIN <SUB><SUP>2% SOLUTION FOR INJECTION</SUP></SUB>-28202	МАРФЛОКСИН 2% РАСТВОР ДЛЯ ИНЪЕКЦИЙ
+https://www.vidal.ru/veterinar/MARFLOXIN 10<SUB><SUP>% SOLUTION FOR INJECTION</SUP></SUB>-28203	МАРФЛОКСИН 10% РАСТВОР ДЛЯ ИНЪЕКЦИЙ
+https://www.vidal.ru/veterinar/RYCARFA-28204	РИКАРФА
+https://www.vidal.ru/veterinar/TYAWALT-28205	ТИАВАЛТ
+https://www.vidal.ru/veterinar/TRISULFON <SUP>&reg;</SUP>ORAL SUSPENSION-28206	ТРИСУЛЬФОН СУСПЕНЗИЯ ДЛЯ ОРАЛЬНОГО ПРИМЕНЕНИЯ
+https://www.vidal.ru/veterinar/FYPRYST SPRAY-28207	ФИПРИСТ СПРЕЙ
+https://www.vidal.ru/veterinar/FLIMABEND-28208	ФЛИМАБЕНД
+https://www.vidal.ru/veterinar/ECOCID ADVANCED<SUP>&reg;</SUP>-28209	ЭкоСайд Адванс
+https://www.vidal.ru/veterinar/VOLVAC<SUP>&reg;</SUP> AC Plus-28210	ВОЛЬВАК АС Плюс
+https://www.vidal.ru/veterinar/VOLVAC<SUP>&reg;</SUP> ND Conc. KV-28211	ВОЛЬВАК ND Conc. KV
+https://www.vidal.ru/veterinar/VOLVAC<SUP>&reg;</SUP> ND+IB+EDS KV-28212	ВОЛЬВАК ND+IB+EDS KV
+https://www.vidal.ru/veterinar/VOLVAC<SUP>&reg;</SUP> ND LaSota MLV-28213	ВОЛЬВАК ND LaSota MLV
+https://www.vidal.ru/veterinar/VOLVAC<SUP>&reg;</SUP> IB Mass MLV-28214	ВОЛЬВАК IB Mass MLV
+https://www.vidal.ru/veterinar/CUSTOVAC<SUP>&reg;</SUP> D-28215	КУСТОВАК D
+https://www.vidal.ru/veterinar/PIGULIN<SUP>&reg;</SUP>-28216	ПИГУЛИН
+https://www.vidal.ru/veterinar/ACILOMAG-28217	АЦИЛОМАГ
+https://www.vidal.ru/veterinar/BACTIMAG-O-28218	БАКТИМАГ-О
+https://www.vidal.ru/veterinar/BROMCOLIN-O-28219	БРОМКОЛИН-О
+https://www.vidal.ru/veterinar/COMPLEX OF VITAMINS OF GROUP B-28220	КОМПЛЕКС ВИТАМИНОВ ГРУППЫ В
+https://www.vidal.ru/veterinar/CEFTIMAG-28221	ЦЕФТИМАГ
+https://www.vidal.ru/veterinar/FLORFENICOL 100-28222	ФЛОРФЕНИКОЛ 100
+https://www.vidal.ru/veterinar/FLORFENICOL 300-28223	ФЛОРФЕНИКОЛ 300
+https://www.vidal.ru/veterinar/RIBAFLOXUM-28224	РИБАФЛОКС
+https://www.vidal.ru/veterinar/TOLTARAZURILUM 25-28225	ТОЛТРАЗУРИЛ 25
+https://www.vidal.ru/veterinar/TOLTARAZURILUM 50-28226	ТОЛТРАЗУРИЛ 50
+https://www.vidal.ru/veterinar/TILMYCOSINUM 250-28227	ТИЛМИКОЗИН 250
+https://www.vidal.ru/veterinar/FLORFENICOL VS 10-28228	ФЛОРФЕНИКОЛ ВС 10
+https://www.vidal.ru/veterinar/TIAMULIN VS 45-28229	ТИАМУЛИН ВС 45
+https://www.vidal.ru/veterinar/IRISH CAL-28230	АЙРИШ КАЛЬ
+https://www.vidal.ru/veterinar/VITAMIN CAL-28231	ВИТАМИН КАЛЬ
+https://www.vidal.ru/veterinar/CAT SNAPS-28232	КЭТ СНЭПС
+https://www.vidal.ru/veterinar/RENALETTEN-28233	РЕНАЛЕТТЕН
+https://www.vidal.ru/veterinar/KITTY'S-28234	КИТТИС
+https://www.vidal.ru/veterinar/DOGGY'S-28235	ДОГГИС
+https://www.vidal.ru/veterinar/TOP 10-28236	ТОП 10
+https://www.vidal.ru/veterinar/TOP 10 WITH TAURINE FOR CAT-28237	ТОП 10 С ТАУРИНОМ ДЛЯ КОШЕК
+https://www.vidal.ru/veterinar/LAVETA SUPER FOR DOG-28238	ЛАВЕТА СУПЕР ДЛЯ СОБАК
+https://www.vidal.ru/veterinar/LAVETA SUPER FOR CATS-28239	ЛАВЕТА СУПЕР ДЛЯ КОШЕК
+https://www.vidal.ru/veterinar/COMPLEX OF VITAMINS OF GROUP B-28240	КОМПЛЕКС ВИТАМИНОВ ГРУППЫ В
+https://www.vidal.ru/veterinar/SPRAY MILBENZERSTAUBER-28241	СПРЕЙ МИЛЬБЕНЗЕРСТАУБЕР
+https://www.vidal.ru/veterinar/ALGOLITH-28242	АЛГОЛИТ
+https://www.vidal.ru/veterinar/DRUCAL-28243	ДРУКАЛ
+https://www.vidal.ru/veterinar/MALT-PASTE-28244	МАЛТ-ПАСТА
+https://www.vidal.ru/veterinar/DUO MALT-PASTE-28245	МАЛТ-ПАСТА ДВОЙНОГО ДЕЙСТВИЯ ДЛЯ КОШЕК
+https://www.vidal.ru/veterinar/BEAPHAR NATURE NEEM SHAMPOO DOG AND CAT-28246	БИО ШАМПУНЬ С НАТУРАЛЬНЫМИ МАСЛАМИ ДЛЯ УХОДА ЗА КОШКАМИ И СОБАКАМИ
+https://www.vidal.ru/veterinar/IVERMEK-28247	ИВЕРМЕК
+https://www.vidal.ru/veterinar/BUTOFAN-28248	БУТОФАН
+https://www.vidal.ru/veterinar/BUTOFAN OR-28249	БУТОФАН ОР
+https://www.vidal.ru/veterinar/IVERMEK-ON-28250	ИВЕРМЕК-ON
+https://www.vidal.ru/veterinar/STROLITINE-28251	СТРОЛИТИН
+https://www.vidal.ru/veterinar/DOXYLOX OR-28252	ДОКСИЛОКС ОР
+https://www.vidal.ru/veterinar/CYFLUNIT-ON-28253	ЦИФЛУНИТ-ON
+https://www.vidal.ru/veterinar/GELERON-28254	ГЕЛЕРОН
+https://www.vidal.ru/veterinar/SOLUTIO FLORICOLI PRO INJECTIONIBUS-28255	ФЛОРИКОЛ РАСТВОР ДЛЯ ИНЪЕКЦИЙ
+https://www.vidal.ru/veterinar/PULMOKIT-28256	ПУЛЬМОКИТ
+https://www.vidal.ru/veterinar/TYLANIC WATER-SOLUBLE POWDER-28257	ТИЛАНИК ВОДОРАСТВОРИМЫЙ ПОРОШОК
+https://www.vidal.ru/veterinar/ENROFLON-K (COLIQUINOL)-28258	ЭНРОФЛОН-К (КОЛИКВИНОЛ)
+https://www.vidal.ru/veterinar/URSOFERRAN-200-28259	УРСОФЕРРАН-200
+https://www.vidal.ru/veterinar/KYNOVITA+-28260	КИНОВИТА+
+https://www.vidal.ru/veterinar/KYNOSIL-28261	КИНОСИЛ
+https://www.vidal.ru/veterinar/KYNO3-28262	КИНО3
+https://www.vidal.ru/veterinar/KASEPTURINUM-28263	КАСЕПТУРИН
+https://www.vidal.ru/veterinar/UNGUENTUM ECZECONTUM-28264	МАЗЬ ЭКЗЕКОНТ
+https://www.vidal.ru/veterinar/TSAMAX CUM ALGA-28265	ЦАМАКС С ВОДОРОСЛЯМИ
+https://www.vidal.ru/veterinar/TSEOKOLIN-28266	ЦЕОКОЛИН
+https://www.vidal.ru/veterinar/8 IN 1 EXCEL GLUCOSAMINE-28267	8 В 1 ЭКСЕЛЬ ГЛЮКОЗАМИН
+https://www.vidal.ru/veterinar/SOLUTIO FELIFERONI PRO INJECTIONIBUS-28268	ФЕЛИФЕРОН РАСТВОР ДЛЯ ИНЪЕКЦИЙ
+https://www.vidal.ru/veterinar/DORYNUM-R-28269	ДОРИН-Р
+https://www.vidal.ru/veterinar/MILPRAZON<SUP>&reg;</SUP> TABLETS FOR CATS-28270	МИЛПРАЗОН ТАБЛЕТКИ ДЛЯ КОШЕК
+https://www.vidal.ru/veterinar/MILPRAZON<SUP>&reg;</SUP> TABLETS FOR CATS-28271	МИЛПРАЗОН ТАБЛЕТКИ ДЛЯ КОШЕК
+https://www.vidal.ru/veterinar/MILPRAZON<SUP>&reg;</SUP> TABLETS FOR DOGS-28272	МИЛПРАЗОН ТАБЛЕТКИ ДЛЯ СОБАК
+https://www.vidal.ru/veterinar/MILPRAZON<SUP>&reg;</SUP> TABLETS FOR DOGS-28273	МИЛПРАЗОН ТАБЛЕТКИ ДЛЯ СОБАК
+https://www.vidal.ru/veterinar/forvet-28276	ФОРВЕТ

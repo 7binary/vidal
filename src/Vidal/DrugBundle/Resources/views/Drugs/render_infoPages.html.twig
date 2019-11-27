@@ -1,0 +1,21 @@
+{% if infoPages is not empty %}
+	<table class="products-table">
+		<tr class="products-table-header">
+			<td>Название</td>
+			<td>Страна</td>
+		</tr>
+		{% for inf in infoPages %}
+			<tr>
+				<td>
+					<a class="no-underline"
+					   href="{{ path('inf_item', {'InfoPageID':inf.InfoPageID}) }}">{{ inf.RusName|raw }}</a>
+				</td>
+				<td>
+					{% if inf.CountryCode is not empty %}
+						{{ inf.CountryCode.RusName }}
+					{% endif %}
+				</td>
+			</tr>
+		{% endfor %}
+	</table>
+{% endif %}

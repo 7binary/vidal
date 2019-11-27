@@ -1,0 +1,7 @@
+<td>
+	{% if object.confirmationScan %}
+		<a href="{{ object.confirmationScan.path }}" target="_blank">
+			<img src="{{ object.confirmationScan.path }}" style="max-width:200px;max-height:150px;"/>
+		</a>
+	{% endif %}
+</td>

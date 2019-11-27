@@ -1,0 +1,334 @@
+{% extends 'VidalMainBundle::layout_promo.html.twig' %}
+
+{% block middle %}
+    <div class="heli pages">
+        <div class="heli-green" style="font-size: 25px">ХЕЛИНОРМ&#174;</div>
+        <br />
+        <br />
+        <div class="heli-block">
+            <h2>Тест на наличие Helicobacter pylori</h2>
+            <div id="heli-replace-block">
+                <b>ВОПРОС №1 Из 6:</b>&nbsp;&nbsp;&nbsp;&nbsp; Были/есть ли у Ваших родственников серьезные случаи заболевания желудка (рак, язвенная болезнь)?
+                <br />
+                <ul class="heli-test">
+                    <li data-num="0" class="active"><div>нет</div></li>
+                    <li data-num="1"><div>были/есть но не такие серьезные</div></li>
+                    <li data-num="2"><div>были есть</div></li>
+                </ul>
+                <input type="hidden" name="number" value="1" id="number">
+                <input type="hidden" name="value" value="0" id="value">
+                <br />
+            </div>
+            <span class="heli-btn" id="heli-test-next">ПРОДОЛЖИТЬ</span>
+            <span class="heli-btn" id="heli-test-first" style="display: none">ПРОЙТИ ТЕСТ ЗАНОВО</span>
+        </div>
+        <br />
+        <br />
+        <div class="heli-block" style="text-align: center">
+            <object id="идентификатор" type="application/x-shockwave-flash" data="{{ asset('bundles/vidalmain/helinorm/uppod-video.swf') }}" width="645" height="364">
+                <param name="bgcolor" value="#ffffff" />
+                <param name="allowFullScreen" value="true" />
+                <param name="allowScriptAccess" value="always" />
+                <param name="wmode" value="window" />
+                <param name="movie" value="{{ asset('bundles/vidalmain/helinorm/uppod-video.swf') }}" />
+                <param name="flashvars" value="st={{ asset('bundles/vidalmain/helinorm/videostyle.txt') }}&m=video&file=/upload/HELINORM_8.mp4&poster={{ asset('bundles/vidalmain/helinorm/heli-video-first.png') }}" />
+            </object>
+
+            {#<img src="{{ asset('bundles/vidalmain/helinorm/heli-video.png') }}" style="width: 645px">#}
+        </div>
+        <br />
+        <div class="heli-block">
+            <div class="heli-title">
+                <a class="heliPages" href="#heli-text-1">Хеликобактер пилори: нормальная бактерия или опасный возбудитель заболеваний ЖКТ?</a>
+            </div>
+            <div class="heli-text">
+                <b>Мифы об остром вопросе</b><br />
+                Существует множество заблуждений, связанных с причинами развития гастрита. Самое распространенное – из серии «все болезни от нервов».
+                Не менее популярное звучит так: если я не пью крепких напитков и ограничиваю себя в жирных блюдах, то могу не переживать за здоровье своего пищеварения.
+                Учеными доказано: гастрит не всегда происходит от стрессов и излишеств в еде и не от алкоголя.  Основной  «виновник» развития гастрита – бактерия хеликобактер пилори
+                (Helicobacter pylori), та самая, за <a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&bt=2&ad=511031&pid=1919501&bid=3782873&bn=3782873&rnd=2031419984" target="_blank">открытие</a>
+                которой австралийским исследователям Робину Уоррену и Барри Маршаллу в 2005 году дали Нобелевскую премию.
+            </div>
+            <div class="heli-more">
+                <a class="heliPages" href="#heli-text-1"><img src="{{ asset('bundles/vidalmain/helinorm/heli-more.png') }}"></a>
+            </div>
+        </div>
+        <br style="clear: both"/>
+        <br />
+        <div class="heli-block">
+            <div class="heli-title">
+                <a class="heliPages" href="#heli-text-2">Гастроскопия — не приговор! Несколько гуманных методов диагностики гастрита</a>
+            </div>
+            <div class="heli-text">
+                Вы подозреваете, что у вас обострение гастрита, но не решаетесь обратиться к доктору, чтобы пройти обследование, помня, что гастроскопия — это длительный и
+                довольно неприятный процесс? Не стоит сомневаться и раздумывать: медицина шагнула далеко вперед, и теперь диагностику Хеликобактер пилори, основную причину
+                гастрита, можно провести в считанные минуты и без лишнего стресса.
+            </div>
+            <div class="heli-more">
+                <a class="heliPages" href="#heli-text-2"><img src="{{ asset('bundles/vidalmain/helinorm/heli-more.png') }}"></a>
+            </div>
+        </div>
+        <div class="heli-block">
+
+        </div>
+        <br style="clear: both"/>
+        <br />
+        <div class="heli-block" style="text-align: center">
+            <img src="{{ asset('bundles/vidalmain/helinorm/heli-box.png') }}" style="width: 340px;">
+        </div>
+        <div class="heli-green" style="font-size: 25px">ХЕЛИНОРМ&#174;</div>
+    </div>
+
+
+    <div id="heli-text-1" style="display: none">
+        <div class="heli-title">
+            Хеликобактер пилори: нормальная бактерия или опасный возбудитель заболеваний ЖКТ?
+        </div>
+        <div class="heli-full-text">
+            <b>Мифы об остром вопросе</b><br />
+            <img src="{{ asset('bundles/vidalmain/helinorm/img_text_2.png') }}" style="width: 250px; float: right; margin: 0 0 0 10px">
+            Существует множество заблуждений, связанных с причинами развития гастрита. Самое распространенное – из серии «все болезни от нервов».
+            Не менее популярное звучит так: если я не пью крепких напитков и ограничиваю себя в жирных блюдах, то могу не переживать за здоровье
+            своего пищеварения. Учеными доказано: гастрит не всегда происходит от стрессов и излишеств в еде и не от алкоголя.  Основной  «виновник»
+            развития гастрита – бактерия хеликобактер пилори (Helicobacter pylori), та самая, за
+            <a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&bt=2&ad=511031&pid=1919501&bid=3782873&bn=3782873&rnd=2031419984" target="_blank">открытие</a> которой
+            австралийским исследователям Робину Уоррену и Барри Маршаллу в 2005 году дали Нобелевскую премию.
+            <br/>
+            <br/>
+            <img src="{{ asset('bundles/vidalmain/helinorm/img_text_3.jpg') }}" style="width: 250px; float: left; margin: 0 10px 0 0 ">
+            С помощью научных изысканий Британского общества гастроэнтерологов (2013) удалось установить, что у большинства (до 90%) инфицированных
+            носителей Helicobacter pylori не обнаруживается никаких симптомов заболевания, пока не возникают благоприятные для активного размножения
+            «агрессора», но неблагоприятные для нашего здоровья условия. Еще немного медицинской статистики, теперь уже отечественной: считается, что
+            более 75% населения России инфицированы бактерией Helicobacter pylori. К болезням, связанным с этим микроорганизмом, относятся хронический
+            гастрит, язвенная болезнь желудка и двенадцатиперстной кишки.Стоит ли ждать, когда эта мина замедленного действия даст о себе знать? Разумеется, нет.
+            <br/>
+            <br/>
+            При подозрении на гастрит, если беспокоят характерные симптомы, нужно обязательно показаться врачу. А профилактическую борьбу с опасной
+            бактерией можно вести, принимая современное профилактическое средство.
+            <br/>
+            <br/>
+            <b>Предотвратить легче, чем лечить</b><br />
+            Недавно на российском рынке появилось новое средство для борьбы с Хеликобактер пилори в составе которого, открытая зарубежными учеными
+            субстанция <a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&bt=2&ad=511031&pid=1919501&bid=3782874&bn=3782874&rnd=915526715" target="_blank">Pylopass™</a>
+            (торговая марка Lonza Ltd., Швейцария). Pylopass™
+            связывает бактерии Хеликобактер пилори при помощи особых рецепторов и выводит вместе с собой из организма естественным путем. Курсовой
+            прием Хелинорм содействует профилактике заболеваний желудка.
+            <br/>
+            <br/>
+            Препараты, содержащие Pylopass™, успешно выпускаются и продаются во многих странах мира, включая Испанию, Италию, Францию, Румынию, Вьетнам.
+            <br />
+            <br />
+            <a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&bt=2&ad=511031&pid=1919501&bid=3782875&bn=3782875&rnd=703765876" target="_blank" >Семь бед в один
+                обед. Какие болезни вызывает Хеликобактер пилори?</a>
+            <br />
+            <br />
+            <div style="text-align: center"><img src="{{ asset('bundles/vidalmain/helinorm/img_text_1.png') }}" style="width: 250px"></div>
+        </div>
+    </div>
+
+    <div id="heli-text-2" style="display: none">
+        <div class="heli-title">
+            Гастроскопия — не приговор! Несколько гуманных методов диагностики гастрита
+        </div>
+        <div class="heli-full-text">
+            <b>Вы подозреваете, что у вас обострение гастрита, но не решаетесь обратиться к доктору, чтобы пройти обследование, помня, что гастроскопия —
+                это длительный и довольно неприятный процесс? Не стоит сомневаться и раздумывать: медицина шагнула далеко вперед, и теперь диагностику
+                Хеликобактер пилори, основную причину гастрита, можно провести в считанные минуты и без лишнего стресса.</b>
+            <br/>
+            <br/>
+            <div style="text-align: center"><img src="{{ asset('bundles/vidalmain/helinorm/img_text_1.png') }}" style="width: 250px"></div>
+            <br/>
+            <br/>
+            Обратимся к истории: о существовании спиралевидной бактерии Хеликобактер пилори в желудке человека было известно еще в XIX веке. Но только
+            работа, проделанная Робином Уорреном и Барри Маршаллом, раскрыла опасные свойства этого микроорганизма. Австралийские ученые предположили,
+            что большинство язв желудка и гастритов у человека вызывает инфицирование микроорганизмом Хеликобактер пилори, а не только стресс или острая пища,
+            как предполагалось ранее. В чем революционность этого открытия? Ранее считалось: в кислой среде желудка не способна выжить ни одна бактерия.
+            Хеликобактер пилори оказалась исключением из правил: эта бактерия существует в агрессивной среде, а благодаря наличию жгутиков быстро перемещается
+            и внедряется в слизистую желудка. Там Хеликобактер пилори прочно закрепляется и может существовать годами. Продукты ее жизнедеятельности приводят
+            к развитию воспалительных процессов, эрозиям, язвам и, по некоторым данным, могут способствовать злокачественным новообразованиям. Если ваш организм
+            достаточно силен, он будет справляться с патогенной бактерией до определенного предела. Однако стоит иммунитету дать сбой — и Хеликобактер пилори
+            начнет активно размножаться. К сожалению, гастрит — не худший сценарий дальнейшего развития.
+            <br/>
+            <br/>
+            Коварный микроорганизм непросто обнаружить: заражение зачастую протекает бессимптомно, а поставить диагноз можно только после специального
+            обследования. По статистике, три четверти россиян — носители бактерии Хеликобактер пилори, но далеко не каждый догадывается о существующей
+            проблеме. Тем не менее, известен
+            <a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&bt=2&ad=511031&pid=1919501&bid=3782876&bn=3782876&rnd=683644348" target="_blank">ряд тревожных
+                симптомов</a>:
+            <br/>
+            <br/>
+            <ul>
+                <li>Изжога, то есть ощущение жжения и дискомфорта в желудке.</li>
+                <li>Тяжесть в желудке, которая может усиливаться или проходить после еды.</li>
+                <li>Изменения аппетита: вы или слишком быстро насыщаетесь, или постоянно ощущаете голод, даже если только что встали из-за стола.</li>
+                <li>Расстройства стула, когда запоры чередуются с диареей.</li>
+                <li>Отрыжка.</li>
+                <li>Тошнота.</li>
+                <li>Неприятный запах изо рта.</li>
+            </ul>
+            <br/>
+            <br/>
+            Зачастую эти проявления связаны с присутствием Хеликобактер пилори в организме. Если вам знакомы хотя бы некоторые из них, лучше, не откладывая, записаться к гастроэнтерологу.
+            <br/>
+            <br/>
+            <b>Тест на Хеликобактер</b><br />
+            Врач на свое усмотрение может предложить один из тестов, которые помогут обнаружить бактерию. Первый — иммуноферментный анализ на антитела к Хеликобактер
+            пилори. Биохимический анализ крови показывает: инфицирован ли пациент, как давно это произошло, помогла ли назначенная терапия. Другой тест — обнаружение
+            ДНК бактерий Хеликобактер пилори в кале методом полимеразной цепной реакции. Этот способ позволяет выявить заражение даже при совсем незначительном количестве
+            Хеликобактер пилори и зафиксировать болезнь на ранней стадии.
+            <br/>
+            <br/>
+            Еще один распространенный метод диагностики — уреазный дыхательный тест. Перед исследованием пациенту предлагается выпить раствор мочевины (карбамида), а
+            затем подышать в трубочку. В процессе жизнедеятельности Хеликобактер пилори вырабатывает фермент уреазу, который активизирует переработку мочевины до аммиака
+            и углекислого газа. По изотопному составу выдыхаемого воздуха можно вычислить — есть в организме бактерия или нет.
+            <br/>
+            <br/>
+            Но самым надежным методом обнаружения бактерии все же остается биопсия, которая проводится во время эндоскопии (гастроскопии) желудка и двенадцатиперстной
+            кишки. Этот метод неприятнее вышеперечисленных, однако, именно он позволяет провести самую точную диагностику и назначить эффективное лечение.
+            <br/>
+            <br/>
+            <img src="{{ asset('bundles/vidalmain/helinorm/img_text_3.jpg') }}" style="width: 250px; float: right; margin: 0 0 0 10px ">
+            Если вы все еще сомневаетесь, стоит ли обращаться к врачу, советуем пройти тест. Он покажет, есть ли у вас симптомы, свидетельствующие о возможной патологии
+            желудка. Своевременность в этом случае крайне важна: лечение стоит
+            <a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&bt=2&ad=511031&pid=1919501&bid=3782877&bn=3782877&rnd=921686800" target="_blank">начать раньше</a>, чем результаты жизнедеятельности бактерии повлекут за собой серьезные последствия для желудочно-кишечного тракта.
+            <br />
+            <br />
+            <a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&bt=2&ad=511031&pid=1919501&bid=3782878&bn=3782878&rnd=1693777187" target="_blank">Как диагностировать наличие Хеликобактер пилори?</a>
+            <br/>
+            <br/>
+            <b>Пройти обследование на наличие Хеликобактер пилори можно здесь:</b>
+            <ul>
+                <li>Клиника «Медси» (<a href="http://medsi.ru" target="_blank">medsi.ru</a>);</li>
+                <li>Поликлиника Министерства сельского хозяйства РФ (<a href="http://medmcx.ru" target="_blank">medmcx.ru</a>);</li>
+                <li>Клиника «Будь здоров» (<a href="http://klinikabudzdorov.ru" target="_blank">klinikabudzdorov.ru</a>);</li>
+                <li>Центральная поликлиника РЖД (<a href="http://cprzd.ru" target="_blank">cprzd.ru</a>);</li>
+                <li>Поликлиника № 2 Минэкономразвития (<a href="http://medcity.ru" target="_blank">medcity.ru</a>);</li>
+                <li>и в других клиниках Москвы и крупных городов страны.</li>
+            </ul>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/fancybox/source/jquery.fancybox.css') }}"/>
+    <style>
+        @font-face {
+            font-family: PFBeauSansPro; /* Имя шрифта */
+            src:         url("{{ asset('bundles/vidalmain/helinorm/PFBeauSansPro-Bbook.ttf') }}");
+        }
+        .heli{
+            background: url("{{ asset('bundles/vidalmain/helinorm/heli-bg.png') }}") repeat-y;
+        }
+        .heli * {
+            font-family: PFBeauSansPro;
+            color: #304e10;
+        }
+
+        .heli-green{
+            background: url("{{ asset('bundles/vidalmain/helinorm/line-bg.png') }}") repeat-y;
+            max-width: 1160px;
+            color: #fdfafd;
+            line-height: 75px;
+            height: 75px;
+            padding: 0 20px;
+        }
+        .heli-block{
+            width: 650px;
+            margin: 20px auto;
+
+        }
+        .heli-btn{
+            color: #ffffdd;
+            background: #2c4e33;
+            padding: 12px 40px;
+            cursor: pointer;
+        }
+        .heli-title{
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #304e10;
+        }
+        .heli-text{
+            width: 565px;
+            float: left;
+            color: #304e10;
+        }
+        .heli-full-text{
+            color: #304e10;
+            text-align: justify;
+        }
+        .heli-more{
+            float: right;
+            margin-top: 30px;
+        }
+        .heli-test li{
+            list-style: url("{{ asset('bundles/vidalmain/helinorm/heli-list.png') }}");
+            line-height: 17px;
+            cursor: pointer;
+        }
+        .heli-test li div{
+            display: inline-block;
+            vertical-align: top;
+            margin-top: 1px;
+        }
+        .heli-test li.active{
+            list-style: url("{{ asset('bundles/vidalmain/helinorm/heli-list-act.png') }}");
+            line-height: 17px;
+        }
+
+    </style>
+
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/vidalmain/fancybox/source/jquery.fancybox.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/vidalmain/helinorm/uppod_api.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+           $(document).on('click','.heli-test li', function(){
+              $('.heli-test li').removeClass('active');
+              $(this).addClass('active');
+              $('#value').val($(this).attr('data-num'));g
+           });
+
+            $('#heli-test-next').click(function(){
+                $.ajax({
+                    type: "POST",
+                    url: '/helinorm-test/' + $('#number').val(),
+                    data: "answerNum="+$('#value').val(),
+                    success: function(msg){
+                        $('#heli-replace-block').html(msg);
+//                        alert($('#number').val());
+                        if ($('#number').val() > 6){
+                            $('#heli-test-next').css('display','none');
+                            $('#heli-test-first').css('display','inline');
+                        }
+                    }
+                });
+            });
+
+            $('#heli-test-first').click(function(){
+                $.ajax({
+                    type: "GET",
+                    url: '/helinorm-test/0',
+                    success: function(msg){
+                        $('#heli-replace-block').html(msg);
+                        $('#heli-test-first').css('display','none');
+                        $('#heli-test-next').css('display','inline');
+                    }
+                });
+            });
+
+            $(".heliPages").fancybox({
+                'maxWidth'          : '800'
+            });
+
+//            $(".pages").click(function(){ return false});
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,133 @@
+{% extends 'VidalMainBundle::layout.html.twig' %}
+
+
+{% block title %}
+	<h1>Школа здоровья</h1>
+{% endblock %}
+
+
+{% block content %}
+	<style>
+		.shkola {
+			width:           100%;
+			border-collapse: collapse;
+		}
+		.shkola td {
+			width:          50%;
+			padding-right:  13px;
+			padding-bottom: 13px;
+		}
+		.shkola td > a {
+			display:         block;
+			overflow:        hidden;
+			border:          3px solid #eee;
+			text-decoration: none;
+			font-size:       13px;
+			color:           #333;
+		}
+		.shkola td > a:hover {
+			border-color: #e1e1e1;
+		}
+		.shkola span {
+			display:       block;
+			background:    #f5f5f5;
+			padding:       4px 12px 7px;
+			color:         #476173;
+			font-size:     15px;
+			border-bottom: 1px solid #eee;
+		}
+		.shkola img {
+			display:      inline-block;
+			float:        left;
+			width:        80px;
+			margin-right: 7px;
+		}
+		.shkola td > a > div {
+			overflow: hidden;
+			padding:  6px;
+		}
+		.shkola b {
+			display:       block;
+			margin-bottom: 8px;
+			color:         #2f4053 !important;
+			font-weight:   bold;
+			font-size:     14px;
+		}
+	</style>
+
+	<table class="shkola">
+		<tr>
+			<td>
+				<a href="#">
+					<span>Зима без гриппа и ОРВИ — с комплексом «Долфин»</span>
+
+					<div>
+						<img src="http://www.likar.info/pictures_ckfinder/images/Allergy.jpg"/>
+						Зима без гриппа и ОРВИ — с комплексом «Долфин».
+					</div>
+				</a>
+			</td>
+			<td>
+				<a href="#">
+					<span>Зима без гриппа и ОРВИ — с комплексом «Долфин»</span>
+
+					<div>
+						<img src="http://www.likar.info/pictures_ckfinder/images/Allergy.jpg"/>
+						Зима без гриппа и ОРВИ — с комплексом «Долфин».
+					</div>
+				</a>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<a href="#">
+					<span>Зима без гриппа и ОРВИ — с комплексом «Долфин»</span>
+
+					<div>
+						<img src="http://www.likar.info/pictures_ckfinder/images/Allergy.jpg"/>
+						Зима без гриппа и ОРВИ — с комплексом «Долфин».
+					</div>
+				</a>
+			</td>
+			<td>
+				<a href="#">
+					<span>Зима без гриппа и ОРВИ — с комплексом «Долфин»</span>
+
+					<div>
+						<img src="http://www.likar.info/pictures_ckfinder/images/Allergy.jpg"/>
+						Зима без гриппа и ОРВИ — с комплексом «Долфин».
+					</div>
+				</a>
+			</td>
+		</tr>
+	</table>
+
+	{#<div class="articles">#}
+	{#{% for article in articles %}#}
+	{#<div class="article">#}
+	{#&#123;&#35; админам карандашик редактирования &#35;&#125;#}
+	{#{% if isAdmin %}#}
+	{#<a class="admin-edit fade" target="_blank"#}
+	{#href="{{ path('admin_vidal_drug_article_edit', {'id':article.id}) }}">#}
+	{#<img src="{{ asset('bundles/vidalmain/images/edit.png') }}"/>#}
+	{#</a>#}
+	{#{% endif %}#}
+	{#<div class="article-title">#}
+	{#<a href="{{ path('shkola_article', {'link':article.link}) }}">{{ article.title|raw }}</a>#}
+	{#</div>#}
+	{#<div class="article-announse">#}
+	{#{{ article.announce|raw }}#}
+	{#</div>#}
+	{#<div class="article-footer">#}
+	{#<span class="article-date">{{ article.date|date('d.m.Y') }}</span>#}
+	{#</div>#}
+	{#</div>#}
+	{#{% endfor %}#}
+	{#</div>#}
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/article.css') }}"/>
+{% endblock %}

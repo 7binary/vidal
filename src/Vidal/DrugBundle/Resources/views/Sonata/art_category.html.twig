@@ -1,0 +1,115 @@
+<script type="text/javascript">
+	$(document).ready(function() {
+		var $selectRubrique = $('.art-rubrique, #filter_rubrique_value');
+		var $selectType = $('.art-type, #filter_type_value');
+		var $selectCategory = $('.art-category, #filter_category_value');
+
+		$selectRubrique.select2('destroy');
+		$selectType.select2('destroy');
+		$selectCategory.select2('destroy');
+
+		$selectRubrique.change(function() {
+			if (this.value) {
+				var url = '/admin/types-of-rubrique/' + this.value;
+				$.getJSON(url, null, function(data) {
+					if (data.length == 0) {
+						$selectType.prop('disabled', 'disabled');
+					}
+					else {
+						$selectType.find('option').remove();
+						$selectType.append($('<option></option>'));
+						$.each(data, function(index, option) {
+							$selectType.append($('<option></option>').val(option.id).text(option.title));
+						});
+						$selectType.prop('disabled', false);
+					}
+				});
+			}
+			else {
+				$selectType.prop('disabled', 'disabled');
+			}
+		});
+
+		$selectType.change(function() {
+			if (this.value) {
+				$.getJSON('/admin/categories-of-type/' + this.value, null, function(data) {
+					if (data.length == 0) {
+						$selectCategory.prop('disabled', 'disabled');
+					}
+					else {
+						$selectCategory.find('option').remove();
+						$selectCategory.append($('<option></option>'));
+						$.each(data, function(index, option) {
+							$selectCategory.append($('<option></option>').val(option.id).text(option.title));
+						});
+						$selectCategory.prop('disabled', false);
+					}
+				});
+			}
+			else {
+				$selectCategory.prop('disabled', 'disabled');
+			}
+		});
+
+		{% if object is defined %}
+		{% if object.rubrique %}
+		$.getJSON('/admin/types-of-rubrique/{{ object.rubrique.id }}', null, function(data) {
+			if (data.length == 0) {
+				$selectType.prop('disabled', 'disabled');
+			}
+			else {
+				$selectType.find('option').remove();
+				$selectType.append($('<option></option>'));
+				$.each(data, function(index, option) {
+					var $tag = $('<option></option>').val(option.id).text(option.title);
+					{% if object.type %}
+					if (option.id == '{{ object.type.id }}') {
+						$tag.attr('selected', 'selected')
+					}
+					{% endif %}
+					$selectType.append($tag);
+				});
+				$selectType.prop('disabled', false);
+			}
+		});
+		{% endif %}
+		{% else %}
+		$selectType.find('option').remove();
+		$selectType.append($('<option></option>'));
+		{% endif %}
+
+		{% if object is defined %}
+		{% if object.type %}
+		$.getJSON('/admin/categories-of-type/{{ object.type.id }}', null, function(data) {
+			if (data.length == 0) {
+				$selectCategory.prop('disabled', 'disabled');
+			}
+			else {
+				$selectCategory.find('option').remove();
+				$selectCategory.append($('<option></option>'));
+				$.each(data, function(index, option) {
+					var $tag = $('<option></option>').val(option.id).text(option.title);
+					{% if object.category %}
+					if (option.id == '{{ object.category.id }}') {
+						$tag.attr('selected', 'selected')
+					}
+					{% endif %}
+					$selectCategory.append($tag);
+				});
+				$selectCategory.prop('disabled', false);
+			}
+		});
+		{% endif %}
+		{% else %}
+		$selectCategory.find('option').remove();
+		$selectCategory.append($('<option></option>'));
+		{% endif %}
+
+		if ($selectType.find('option').length < 2) {
+			$selectType.prop('disabled', 'disabled');
+		}
+		if ($selectCategory.find('option').length < 2) {
+			$selectCategory.prop('disabled', 'disabled');
+		}
+	});
+</script>

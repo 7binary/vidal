@@ -1,0 +1,75 @@
+{% extends 'VidalMainBundle::layout.html.twig' %}
+
+
+{% block title %}
+	<h1>{{ title }}</h1>
+{% endblock %}
+
+
+{% block content %}
+	<div class="grey_btn">
+		<b>
+			<a href="https://www.vidal.ru/novosti/vidal-box-novyj-podhod-k-opisaniyam-preparatov-6236" target="_blank">О VIDAL BOX</a>
+		</b>
+	</div>
+
+	<div class="products-box">
+		{% for product in products %}
+			<div class="product">
+				<a class="theme_button boxx no-underline"
+				   href="{{ path('product_url', {'EngName':product.uri}) }}">
+					<strong>{{ product.RusName|raw }}</strong><br/>
+						<span
+							style="margin-left: 15px; font-size:13px; color: #ddd; display: block; margin: 4px 1px 4px;">
+							{{ product.ZipInfo|raw }}
+						</span>
+				</a>
+			</div>
+		{% endfor %}
+	</div>
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<style>
+		.product {
+			margin-bottom: 15px;
+		}
+		.theme_button.boxx {
+			font-size:  1.6em;
+			text-align: left;
+		}
+		a.theme_button {
+			background:      url(/bundles/vidalmain/images/button_w.png) no-repeat scroll 4% center #c70036;
+			border-radius:   5px;
+			box-shadow:      0 1px 0 0 #999;
+			color:           #fff;
+			display:         block;
+			font-size:       1.1em;
+			padding:         5px 5px 5px 10%;
+			text-align:      center;
+			text-decoration: none;
+			width:           auto;
+		}
+		a.theme_button:hover {
+			text-decoration: none;
+		}
+		.grey_btn {
+			margin-bottom: 20px;
+		}
+		.grey_btn {
+			font-size:     1.2em;
+			background:    url(/bundles/vidalmain/images/right_arrow_black.png) no-repeat scroll 10px 11px #e2e2e2;
+			height:        auto;
+			margin-bottom: 15px;
+			padding:       7px 10px 8px 22px;
+			border-radius: 2px;
+		}
+		.grey_btn * {
+			color:     #666;
+		!important;
+			font-size: 15px;
+		}
+	</style>
+{% endblock %}

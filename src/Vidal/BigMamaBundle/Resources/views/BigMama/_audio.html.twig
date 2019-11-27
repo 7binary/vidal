@@ -1,0 +1,38 @@
+{% if audios is defined and audios|length >0 %}
+    <div class="pages" id="page-audio">
+        <div class="content-title short">АУДИО</div>
+        <div class="line"></div>
+        <ul class="bxslider">
+            {% for audio in audios %}
+                <li>
+                    <div class="media">
+                        {% if audio.photo %}
+                            <div class="title-image">
+                                <img src="{{audio.photo.path}}" width="200px" />
+                            </div>
+                        {% endif %}
+                        <div>
+                            <a href="{{path('big_mama_audio_item', {'link':audio.link}) }}{% if isTestMode() %}?test=1{%endif %}" class="media-title">
+                                {{ audio.title|raw }}
+                            </a>
+                            <div class="media-body">{{ audio.body|raw }}</div>
+    
+                            <div class="center">
+                                {% if audio.audio %}
+                                <audio controls>
+                                    <source src="{{audio.audio.path}}" type="audio/mpeg">
+                                    Ваш браузер не поддерживает воспроизведение mp3 файлов.
+                                </audio>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <div class="main-news-link">
+            <a href="{{path('big_mama_audio')}}{% if isTestMode() %}?test=1{%endif %}">Все аудио</a>
+        </div>
+    </div>
+{% endif %}

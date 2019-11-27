@@ -1,0 +1,85 @@
+{# новости #}
+{% set hasItems = 0 %}
+{% for publication in object.publications if publication.enabled %}
+	{% set hasItems = hasItems + 1 %}
+{% endfor %}
+
+{% if hasItems %}
+	<div class="announcement">
+		<div class="anons-footer no-selection">
+			Новости по {{ label }} <span>«{{ item|raw }}»</span>
+			<i>{{ hasItems }}</i>
+		</div>
+		<ul class="ul-style black" style="display:none">
+			{% for publication in object.publications %}
+				<li>
+					<a href="{{ path('publication', {'id':publication.link ~ '-' ~ publication.id}) }}" target="_blank" class="no-underline">
+						{{ publication.title|raw }}
+					</a>
+
+					<div class="anons-info">{{ publication.date|date('d.m.Y') }}</div>
+				</li>
+			{% endfor %}
+		</ul>
+	</div>
+{% endif %}
+
+{# энциклопедия #}
+{% set hasItems = 0 %}
+{% for article in object.articles if article.enabled and article.rubrique.enabled %}
+	{% set hasItems = hasItems + 1 %}
+{% endfor %}
+
+{% if hasItems %}
+	<div class="announcement">
+		<div class="anons-footer no-selection">
+			Материалы медицинской энциклопедии по {{ label }} <span>«{{ item|raw }}»</span>
+			<i>{{ hasItems }}</i>
+		</div>
+		<ul class="ul-style black" style="display:none">
+			{% for article in object.articles if article.enabled and article.rubrique.enabled %}
+				<li>
+					<a href="{{ path('article', {'rubrique':article.rubrique.rubrique, 'link':article.link}) }}"
+					   target="_blank" class="no-underline">
+						{{ article.title|raw }}
+					</a>
+
+					<div class="anons-info">
+						Рубрика:
+						<a target="_blank"
+						   href="{{ path('rubrique', {'rubrique':article.rubrique.rubrique}) }}">{{ article.rubrique }}</a>
+					</div>
+				</li>
+			{% endfor %}
+		</ul>
+	</div>
+{% endif %}
+
+{# специалистам #}
+{% set hasItems = 0 %}
+{% for art in object.arts if art.enabled and art.rubrique.enabled %}
+	{% set hasItems = hasItems + 1 %}
+{% endfor %}
+
+{#
+{% if hasItems %}
+	<div class="announcement">
+		<div class="anons-footer no-selection">
+			Материалы для специалистов по {{ label }} <span>«{{ item|raw }}»</span>
+			<i>{{ hasItems }}</i>
+		</div>
+		<ul class="ul-style black" style="display:none">
+			{% for art in object.arts if art.enabled and art.rubrique.enabled %}
+				<li>
+					<a class="no-underline" target="_blank"
+					   href="{{ path('art', {'url':art.rubrique.url ~ '/' ~ (art.type ? art.type.url ~ '/') ~ (art.category ? art.category.url ~ '/') ~ art.link ~ '~' ~ art.id }) }}">{{ art.title|raw }}</a>
+
+					<div class="anons-info">
+						Рубрика: <a target="_blank" href="{{ path('art', {'url':art.rubrique.url}) }}">{{ art.rubrique.title }}</a>
+					</div>
+				</li>
+			{% endfor %}
+		</ul>
+	</div>
+{% endif %}
+#}

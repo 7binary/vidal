@@ -1,0 +1,203 @@
+{% set isMobile = is_mobile() %}
+
+{% if products is defined and products|length %}
+	{% if isMobile %}
+		<table class="products-table">
+			{% for id, product in products %}
+				{% set id = product.ProductID %}
+				<tr>
+					<td class="products-table-name" style="border-bottom:none">
+						<a class="no-underline" target="_blank"
+						   href="{{ path('v_product', {'EngName':product.Name, 'ProductID':product.ProductID}) }}">
+							{{ product.RusName|raw }}
+						</a>
+
+						{% if product.Indication is defined and product.Indication is not empty %}
+							<img class="m" src="{{ asset('bundles/vidalmain/images/more.png') }}"
+								 style="display: inline-block; margin: 0 0 -2px 14px;"/>
+							<div>{{ product.Indication|raw }}</div>
+						{% elseif indications is defined and indications[product.ProductID] is not empty %}
+							<img class="m" src="{{ asset('bundles/vidalmain/images/more.png') }}"
+								 style="display: inline-block; margin: 0 0 -2px 14px;"/>
+							<div>{{ indications[product.ProductID]|raw }}</div>
+						{% endif %}
+					</td>
+					<td class="products-table-picture" style="border-bottom:none">
+						{% if not product.hidePhoto %}
+							{% if product.photo %}
+								<a class="no-underline" target="_blank"
+								   href="{{ path('v_product', {'EngName':product.Name, 'ProductID':product.ProductID}) }}"
+								><img src="{{ product.photo.path }}"/></a>
+							{% elseif pictures[id] is defined %}
+								{% set path = '/upload/veterinar/' ~ pictures[id] %}
+								{% if is_file(path) %}
+									<a class="no-underline" target="_blank"
+									   href="{{ path('v_product', {'EngName':product.Name, 'ProductID':product.ProductID}) }}"
+									><img src="{{ path }}"/></a>
+								{% endif %}
+							{% endif %}
+						{% endif %}
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" class="products-table-zip" style="border-bottom:none; padding: 0 !important;">
+						<div>
+							<span style="font-weight:bold; color:#476173; font-size:12px;">Форма выпуска:</span>
+							<span class="hyphenate">{{ product.ZipInfo }}</span>
+						</div>
+						<span>рег. №: {{ product.RegistrationNumber }}
+							{% if product.RegistrationDate is not null %}
+								от {{ product.RegistrationDate|date('d.m.Y') }}
+							{% endif %}
+						</span>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" class="products-table-company">
+					<span title="Владелец регистрационного удостоверения"
+						  style="font-weight:bold; color:#476173; font-size:12px;">Владелец рег/уд:</span>
+						{# компании регистраторы/производители препарата #}
+						{% for company in companies[id] %}
+							<span class="tip">
+							{% if company.ItsMainCompany %}
+							{% elseif company.CompanyRusNote is not empty %}
+								, {{ company.CompanyRusNote }}:
+							{% else %}
+								, произведено:
+							{% endif %}
+						</span>
+							{% if company.Name|length == 0 %}
+								<span>{{ company.LocalName|raw }}</span>
+							{% else %}
+								<a class="no-underline" target="_blank"
+								   href="{{ path('v_company', {'Name':company.Name}) }}">
+									{{ company.LocalName|raw }}
+								</a>
+							{% endif %}
+
+							{% if company.Country is not empty %}
+								<span class="small">({{ company.Country }})</span>
+							{% endif %}
+							</div>
+						{% endfor %}
+					</td>
+				</tr>
+			{% endfor %}
+		</table>
+	{% else %}
+		<table class="products-table">
+			<tr class="products-table-header">
+				<td>Название</td>
+				<td title="Показания к применению"></td>
+				<td>Форма выпуска</td>
+				<td title="Владелец регистрационного удостоверения">Владелец рег/уд</td>
+			</tr>
+
+			{% for id, product in products %}
+				{% set id = product.ProductID %}
+				<tr>
+					<td class="products-table-name">
+						<a class="no-underline" target="_blank"
+						   href="{{ path('v_product', {'EngName':product.Name, 'ProductID':product.ProductID}) }}">
+							{{ product.RusName|raw }}
+						</a>
+
+						{% if product.Indication is defined and product.Indication is not empty %}
+							<img class="m" src="{{ asset('bundles/vidalmain/images/more.png') }}"/>
+							<div>{{ product.Indication|raw }}</div>
+						{% elseif indications is defined and indications[product.ProductID] is not empty %}
+							<img class="m" src="{{ asset('bundles/vidalmain/images/more.png') }}"/>
+							<div>{{ indications[product.ProductID]|raw }}</div>
+						{% endif %}
+					</td>
+					<td class="products-table-picture">
+						{% set alt = product.RusName|alt %}
+						{% if not product.hidePhoto %}
+							{% if product.photo %}
+								<a class="no-underline" target="_blank"
+								   href="{{ path('v_product', {'EngName':product.Name, 'ProductID':product.ProductID}) }}"
+								><img src="{{ product.photo.path }}" alt="{{ alt }}" title="{{ alt }}"/></a>
+							{% elseif pictures[id] is defined %}
+								{% set path = '/upload/veterinar/' ~ pictures[id] %}
+								{% if is_file(path) %}
+									<a class="no-underline" target="_blank"
+									   href="{{ path('v_product', {'EngName':product.Name, 'ProductID':product.ProductID}) }}"
+									><img src="{{ path }}" alt="{{ alt }}" title="{{ alt }}"/></a>
+								{% endif %}
+							{% endif %}
+						{% endif %}
+					</td>
+					<td class="products-table-zip" style="min-width:140px">
+						<div class="hyphenate">{{ product.ZipInfo }}</div>
+						<span>рег. №: {{ product.RegistrationNumber }}
+							{% if product.RegistrationDate is not null %}
+								от {{ product.RegistrationDate|date('d.m.Y') }}
+							{% endif %}
+						</span>
+					</td>
+					<td class="products-table-company">
+						{# компании регистраторы/производители препарата #}
+						{% if companies[id] is defined %}
+							{% for company in companies[id] %}
+								<div>
+									<span class="tip">
+										{% if company.ItsMainCompany %}
+										{% elseif company.CompanyRusNote is not empty %}
+											{{ company.CompanyRusNote }}:
+										{% else %}
+											произведено:
+										{% endif %}
+									</span>
+									{% if company.Name|length == 0 %}
+										<span>{{ company.LocalName|raw }}</span>
+									{% else %}
+										<a class="no-underline" target="_blank"
+										   href="{{ path('v_company', {'Name':company.Name}) }}">
+											{{ company.LocalName|raw }}
+										</a>
+									{% endif %}
+
+									{% if company.Country is not empty %}
+										<span class="small">({{ company.Country }})</span>
+									{% endif %}
+								</div>
+							{% endfor %}
+						{% endif %}
+					</td>
+				</tr>
+			{% endfor %}
+		</table>
+	{% endif %}
+{% endif %}
+
+
+<script type="text/javascript">
+	$.fn.hyphenate = function() {
+		var all = "[абвгдеёжзийклмнопрстуфхцчшщъыьэюя]",
+			glas = "[аеёиоуыэю\я]",
+			sogl = "[бвгджзклмнпрстфхцчшщ]",
+			zn = "[йъь]",
+			shy = "\xAD",
+			re = [];
+
+		re[1] = new RegExp("(" + zn + ")(" + all + all + ")", "ig");
+		re[2] = new RegExp("(" + glas + ")(" + glas + all + ")", "ig");
+		re[3] = new RegExp("(" + glas + sogl + ")(" + sogl + glas + ")", "ig");
+		re[4] = new RegExp("(" + sogl + glas + ")(" + sogl + glas + ")", "ig");
+		re[5] = new RegExp("(" + glas + sogl + ")(" + sogl + sogl + glas + ")", "ig");
+		re[6] = new RegExp("(" + glas + sogl + sogl + ")(" + sogl + sogl + glas + ")", "ig");
+		return this.each(function() {
+			var text = $(this).html();
+			for (var i = 1; i < 7; ++i) {
+				text = text.replace(re[i], "$1" + shy + "$2");
+			}
+			$(this).html(text);
+		});
+	};
+
+	$(document).ready(function() {
+		$(function() {
+			$('.hyphenate').hyphenate();
+		})
+	});
+</script>

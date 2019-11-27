@@ -1,0 +1,36 @@
+<style>
+	.more-publications .publication {
+		margin-top: 30px;
+	}
+	.more-publications.with-items {
+		border-top: 1px solid #ddd;
+	}
+	.block-next-publication {
+		margin-top: 30px;
+		text-align: center;
+	}
+</style>
+
+<script>
+	$(document).ready(function() {
+		$('#next_publication').click(function(e) {
+			e.preventDefault();
+			var currId = $('#curr_id').text();
+
+			var url = '/next-publication/' + currId;
+			$.getJSON(url, function(data) {
+				$('.more-publications').addClass('with-items').append(data.html);
+				$('#curr_id').text(data.nextId);
+			});
+			return false;
+		});
+	});
+</script>
+
+<div class="more-publications">
+
+</div>
+
+<div class="block-next-publication">
+	<a href="#" class="btn-red" id="next_publication">Читать далее</a>
+</div>

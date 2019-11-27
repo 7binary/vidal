@@ -1,0 +1,9 @@
+<td>
+	<ul>
+	{% for product in object.products %}
+		<li>{{ product.RusName|raw }}  ({{ product.ProductID }})<br/>
+			{{ product.ZipInfo|raw }}
+		</li>
+	{% endfor %}
+	</ul>
+</td>

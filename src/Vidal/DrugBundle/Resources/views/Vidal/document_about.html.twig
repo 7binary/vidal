@@ -1,0 +1,67 @@
+{# Объявление, описание чего пойдет ниже #}
+{% if document.IsShortened %}
+	<div class="anons relative" tyle="background:#FFE4E1">
+		<div class="anons-head">
+			<span>Описание лекарственного препарата</span>
+			<span class="anons-product">{{ document.RusName|raw }}</span>
+			<span>({{ document.EngName|raw }})</span>
+		</div>
+		<div class="anons-content">
+			Могут иметься расхождения с действующей инструкцией препарата, описание составлено в
+			{{ document.YearEdition > 'now'|date('Y') ? 'now'|date('Y') : document.YearEdition }}
+			году и приведено в сокращённом виде.
+		</div>
+	</div>
+{% else %}
+	<div class="anons relative">
+		{% if document.ArticleId in [1,4,8] %}
+			<div class="anons-head">
+				<span>Описание активных компонентов препарата</span>
+				{% if product is defined %}
+					<span class="anons-product">{{ product.RusName|raw }}</span>
+					<span>({{ product.EngName|raw }})</span>
+				{% else %}
+					<span class="anons-product">{{ document.RusName|raw }}</span>
+					<span>({{ document.EngName|raw }})</span>
+				{% endif %}
+			</div>
+			<div class="anons-content">
+				Приведенная научная информация является обобщающей и не может быть использована для принятия
+				решения о возможности применения конкретного лекарственного препарата.
+			</div>
+		{% elseif document.ArticleId == 5 %}
+			<div class="anons-head">
+				<span>Описание препарата</span>
+				<span class="anons-product">{{ document.RusName|raw }}</span>
+				<span>({{ document.EngName|raw }})</span>
+			</div>
+			<div class="anons-content">
+				создано в {{ document.YearEdition > 'now'|date('Y') ? 'now'|date('Y') : document.YearEdition }}
+				году на основании инструкции,
+				размещенной на официальном сайте Минздрава РФ
+			</div>
+		{% elseif document.ArticleId == 3 %}
+			<div class="anons-head">
+				<span>Короткое описание препарата</span>
+				<span class="anons-product">{{ document.RusName|raw }}</span>
+				<span>({{ document.EngName|raw }})</span>
+			</div>
+			<div class="anons-content">
+				создано в {{ document.YearEdition > 'now'|date('Y') ? 'now'|date('Y') : document.YearEdition }}
+				году на основании инструкции,
+				размещенной на официальном сайте Минздрава РФ
+			</div>
+		{% else %}
+			<div class="anons-head">
+				<span>Описание лекарственного препарата</span>
+				<span class="anons-product">{{ document.RusName|raw }}</span>
+				<span>({{ document.EngName|raw }})</span>
+			</div>
+			<div class="anons-content">
+				Основано на официально утвержденной инструкции по применению препарата
+				и сделано в {{ document.YearEdition > 'now'|date('Y') ? 'now'|date('Y') : document.YearEdition }}
+				году.
+			</div>
+		{% endif %}
+	</div>
+{% endif %}

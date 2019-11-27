@@ -1,0 +1,216 @@
+{% extends 'VidalMainBundle::layout_blank.html.twig' %}
+
+{% set isAdmin = app.user is not null and is_granted('ROLE_ADMIN') %}
+
+{% block content %}
+	{% if isAdmin %}
+		{% include 'VidalMainBundle:Digest:menu.html.twig' %}
+	{% endif %}
+
+	<h2 class="chart-title">График открытия писем по часам, всего: {{ openedTotal }}</h2>
+	<div id="opens-hour" class="chart"></div>
+
+	<h2 class="chart-title">График открытия писем по дням, всего: {{ openedTotal }}</h2>
+	<div id="opens" class="chart"></div>
+
+	<h2 class="chart-title">График рассылки писем, всего: {{ logsTotal }}</h2>
+	<div id="logs" class="chart"></div>
+
+	<h2 class="chart-title">Шаблон рассылки</h2>
+	<div class="outer">
+		{% include 'VidalMainBundle:Digest:render.html.twig' with {'digest':delivery} %}
+
+		<table cellpadding="0" cellspacing="0" border="0" style="width: 600px; margin:0 auto 20px;">
+			<tr>
+				<td style="font-family:{{ digest.font }}, sans-serif; font-size:12px; color:gray;">
+					Вы получили это письмо, потому что подписаны на рассылку новостей портала
+					<a href="https://www.vidal.ru">Vidal.ru</a><br/>
+					<span style="color:gray">Если Вы не хотите больше получать нашу рассылку, Вы можете отписаться по</span>
+					<a href="#">этой ссылке</a>.
+				<td>
+			</tr>
+		</table>
+	</div>
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/amcharts/plugins/export/export.css') }}"
+		  type="text/css" media="all"/>
+	<style>
+		.chart {
+			width:  100%;
+			height: 300px;
+		}
+		.chart-title {
+			margin:     30px 0 0;
+			text-align: center !important;
+		}
+		.outer {
+			margin: 0 0 20px;
+		}
+		.outer a {
+			color: #00F;
+		}
+	</style>
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+	<script type="text/javascript" src="{{ asset('bundles/vidalmain/amcharts/amcharts.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/vidalmain/amcharts/serial.js') }}"></script>
+	<script type="text/javascript"
+			src="{{ asset('bundles/vidalmain/amcharts/plugins/export/export.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/vidalmain/amcharts/themes/light.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/vidalmain/amcharts/lang/ru.js') }}"></script>
+
+	<script>
+		var opensChart = AmCharts.makeChart("opens", {
+			"type":           "serial",
+			"theme":          "light",
+			"language":       "ru",
+			"marginRight":    0,
+			"marginLeft":     50,
+			"dataDateFormat": "YYYY-MM-DD",
+			"valueAxes":      [{
+				"id":              "v1",
+				"axisAlpha":       0,
+				"position":        "left",
+				"ignoreAxisWidth": true
+			}],
+			"balloon":        {
+				"borderThickness": 1,
+				"shadowAlpha":     0
+			},
+			"graphs":         [{
+				"id":                          "g1",
+				"fillAlphas":                  0.2,
+				"bullet":                      "round",
+				"bulletBorderAlpha":           1,
+				"bulletColor":                 "#FFFFFF",
+				"bulletSize":                  5,
+				"hideBulletsCount":            50,
+				"lineThickness":               2,
+				"title":                       "red line",
+				"useLineColorForBulletBorder": true,
+				"valueField":                  "value",
+				"balloonText":                 "<span style='font-size:18px;'>Открыли: [[value]]</span>"
+			}],
+			"chartCursor":    {
+				"valueLineEnabled":        true,
+				"valueLineBalloonEnabled": true,
+				"cursorAlpha":             0,
+				"zoomable":                false,
+				"valueZoomable":           true,
+				"valueLineAlpha":          0.5
+			},
+			"valueScrollbar": {
+				"autoGridCount":   true,
+				"color":           "#000000",
+				"scrollbarHeight": 50
+			},
+			"categoryField":  "date",
+			"categoryAxis":   {
+				"parseDates":       true,
+				"dashLength":       1,
+				"minorGridEnabled": true
+			},
+			"export":         {
+				"enabled": true,
+			},
+			"dataProvider": {{ opens|raw }}
+		});
+
+		var opensHourChart = AmCharts.makeChart("opens-hour", {
+			"type":           "serial",
+			"theme":          "light",
+			"language":       "ru",
+			"marginRight":    18,
+			"marginLeft":     0,
+			"dataProvider": {{ opensHour|raw }},
+			"valueAxes":      [{
+				"position": "left",
+				"title":    null,
+			}],
+			"graphs":         [{
+				"id":          "g1",
+				"fillAlphas":  0.4,
+				"valueField":  "value",
+				"balloonText": "<div style='margin:5px; font-size:19px;'>Открытий: [[value]]</div>"
+			}],
+			"chartScrollbar": {
+				"graph":                   "g1",
+				"scrollbarHeight":         80,
+				"backgroundAlpha":         0,
+				"selectedBackgroundAlpha": 0.1,
+				"selectedBackgroundColor": "#888888",
+				"graphFillAlpha":          0,
+				"graphLineAlpha":          0.5,
+				"selectedGraphFillAlpha":  0,
+				"selectedGraphLineAlpha":  1,
+				"autoGridCount":           true,
+				"color":                   "#AAAAAA"
+			},
+			"chartCursor":    {
+				"categoryBalloonDateFormat": "JJ:NN, DD MMMM",
+				"cursorPosition":            "mouse"
+			},
+			"categoryField":  "date",
+			"categoryAxis":   {
+				"minPeriod":  "mm",
+				"parseDates": true
+			},
+			"export":         {
+				"enabled":    true,
+				"dateFormat": "YYYY-MM-DD HH:NN:SS"
+			}
+		});
+
+		var logsChart = AmCharts.makeChart("logs", {
+			"type":           "serial",
+			"theme":          "light",
+			"language":       "ru",
+			"marginRight":    18,
+			"marginLeft":     0,
+			"dataProvider": {{ logs|raw }},
+			"valueAxes":      [{
+				"position": "left",
+				"title":    null,
+			}],
+			"graphs":         [{
+				"id":          "g1",
+				"fillAlphas":  0.4,
+				"valueField":  "value",
+				"balloonText": "<div style='margin:5px; font-size:19px;'>Отправок: [[value]]</div>"
+			}],
+			"chartScrollbar": {
+				"graph":                   "g1",
+				"scrollbarHeight":         80,
+				"backgroundAlpha":         0,
+				"selectedBackgroundAlpha": 0.1,
+				"selectedBackgroundColor": "#888888",
+				"graphFillAlpha":          0,
+				"graphLineAlpha":          0.5,
+				"selectedGraphFillAlpha":  0,
+				"selectedGraphLineAlpha":  1,
+				"autoGridCount":           true,
+				"color":                   "#AAAAAA"
+			},
+			"chartCursor":    {
+				"categoryBalloonDateFormat": "JJ:NN, DD MMMM",
+				"cursorPosition":            "mouse"
+			},
+			"categoryField":  "date",
+			"categoryAxis":   {
+				"minPeriod":  "mm",
+				"parseDates": true
+			},
+			"export":         {
+				"enabled":    true,
+				"dateFormat": "YYYY-MM-DD HH:NN:SS"
+			}
+		});
+	</script>
+{% endblock %}

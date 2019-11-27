@@ -1,0 +1,18 @@
+<div class="letters-russian">
+	{% for letter in letters %}
+		<a href="{{ path('products', {'l':letter, 't':t, 'n':(n?'1':'false')}) }}"
+		   class="letter{{ l == letter ? ' active' }}"
+		   data="{{ letter }}">{{ letter }}</a>
+	{% endfor %}
+</div>
+
+<div class="letters-sub">
+	{% for l, subs in syllables %}
+		<div data="{{ l }}">
+			{% for sub in subs %}
+				<a href="{{ path('products', {'l':sub|capitalize, 't':t, 'n':(n?'1':'false')}) }}"
+				   class="letter" data="{{ sub|capitalize }}">{{ sub|capitalize }}</a>
+			{% endfor %}
+		</div>
+	{% endfor %}
+</div>

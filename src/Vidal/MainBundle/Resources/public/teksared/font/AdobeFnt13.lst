@@ -1,0 +1,451 @@
+%!Adobe-FontList 1.13
+%Locale:0x419
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Type1
+FontName:MuseoSansCyrl-500
+FamilyName:Museo Sans Cyrl
+StyleName:500
+MenuName:Museo Sans Cyrl 500
+StyleBits:0
+WeightClass:400
+WidthClass:5
+AngleClass:0
+FullName:Museo Sans Cyrl 500
+WritingScript:Roman
+OutlineFileName:\exljbris - MuseoSansCyrl-500.otf
+DataFormat:sfntData
+UsesStandardEncoding:yes
+isCFF:yes
+FileLength:106620
+FileModTime:1531151991
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:Helios-Bold
+FamilyName:Helios
+StyleName:Bold
+MenuName:Helios
+StyleBits:2
+WeightClass:700
+WidthClass:5
+AngleClass:0
+FullName:Helios Bold
+FamilyNameNative:
+StyleNameNative:Bold
+FullNameNative:
+WritingScript:Cyrillic
+OutlineFileName:\Helios Bold.ttf
+DataFormat:sfntData
+FileLength:43672
+FileModTime:1215018093
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:HeliosCond
+FamilyName:HeliosCond
+StyleName:Regular
+MenuName:HeliosCond
+StyleBits:0
+WeightClass:400
+WidthClass:5
+AngleClass:0
+FullName:HeliosCond
+FamilyNameNative:
+StyleNameNative:Regular
+FullNameNative:
+WritingScript:Cyrillic
+OutlineFileName:\HeliosCond.ttf
+DataFormat:sfntData
+FileLength:48008
+FileModTime:1215018095
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:HelveticaNeue-Bold
+FamilyName:Helvetica Neue
+StyleName:Bold
+MenuName:Helvetica Neue
+StyleBits:2
+WeightClass:700
+WidthClass:5
+AngleClass:0
+FullName:Helvetica Neue Bold
+WritingScript:Roman
+OutlineFileName:\HelveticaNeue.dfont
+DataFormat:sfntResource
+ResourceID:14151
+FileLength:5539739
+FileModTime:1389088170
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:HelveticaNeue
+FamilyName:Helvetica Neue
+StyleName:Regular
+MenuName:Helvetica Neue
+StyleBits:0
+WeightClass:400
+WidthClass:5
+AngleClass:0
+FullName:Helvetica Neue
+WritingScript:Roman
+OutlineFileName:\HelveticaNeue.dfont
+DataFormat:sfntResource
+ResourceID:15445
+FileLength:5539739
+FileModTime:1389088170
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:HelveticaNeue-UltraLight
+FamilyName:Helvetica Neue
+StyleName:UltraLight
+MenuName:Helvetica Neue
+StyleBits:0
+WeightClass:100
+WidthClass:5
+AngleClass:0
+FullName:Helvetica Neue UltraLight
+WritingScript:Roman
+OutlineFileName:\HelveticaNeue.dfont
+DataFormat:sfntResource
+ResourceID:8110
+FileLength:5539739
+FileModTime:1389088170
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:HelveticaNeue-Italic
+FamilyName:Helvetica Neue
+StyleName:Italic
+MenuName:Helvetica Neue
+StyleBits:1
+WeightClass:400
+WidthClass:5
+AngleClass:1
+FullName:Helvetica Neue Italic
+WritingScript:Roman
+OutlineFileName:\HelveticaNeue.dfont
+DataFormat:sfntResource
+ResourceID:18772
+FileLength:5539739
+FileModTime:1389088170
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:HelveticaNeue-Light
+FamilyName:Helvetica Neue
+StyleName:Light
+MenuName:Helvetica Neue
+StyleBits:0
+WeightClass:300
+WidthClass:5
+AngleClass:0
+FullName:Helvetica Neue Light
+WritingScript:Roman
+OutlineFileName:\HelveticaNeue.dfont
+DataFormat:sfntResource
+ResourceID:20609
+FileLength:5539739
+FileModTime:1389088170
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:HelveticaNeue-UltraLightItalic
+FamilyName:Helvetica Neue
+StyleName:UltraLight Italic
+MenuName:Helvetica Neue
+StyleBits:1
+WeightClass:100
+WidthClass:5
+AngleClass:1
+FullName:Helvetica Neue UltraLight Italic
+WritingScript:Roman
+OutlineFileName:\HelveticaNeue.dfont
+DataFormat:sfntResource
+ResourceID:24685
+FileLength:5539739
+FileModTime:1389088170
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:HelveticaNeue-CondensedBlack
+FamilyName:Helvetica Neue
+StyleName:Condensed Black
+MenuName:Helvetica Neue
+StyleBits:2
+WeightClass:900
+WidthClass:3
+AngleClass:0
+FullName:Helvetica Neue Condensed Black
+WritingScript:Roman
+OutlineFileName:\HelveticaNeue.dfont
+DataFormat:sfntResource
+ResourceID:28134
+FileLength:5539739
+FileModTime:1389088170
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:HelveticaNeue-CondensedBold
+FamilyName:Helvetica Neue
+StyleName:Condensed Bold
+MenuName:Helvetica Neue
+StyleBits:2
+WeightClass:700
+WidthClass:3
+AngleClass:0
+FullName:Helvetica Neue Condensed Bold
+WritingScript:Roman
+OutlineFileName:\HelveticaNeue.dfont
+DataFormat:sfntResource
+ResourceID:30606
+FileLength:5539739
+FileModTime:1389088170
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:HelveticaNeue-BoldItalic
+FamilyName:Helvetica Neue
+StyleName:Bold Italic
+MenuName:Helvetica Neue
+StyleBits:3
+WeightClass:700
+WidthClass:5
+AngleClass:1
+FullName:Helvetica Neue Bold Italic
+WritingScript:Roman
+OutlineFileName:\HelveticaNeue.dfont
+DataFormat:sfntResource
+ResourceID:12888
+FileLength:5539739
+FileModTime:1389088170
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:HelveticaNeue-LightItalic
+FamilyName:Helvetica Neue
+StyleName:Light Italic
+MenuName:Helvetica Neue
+StyleBits:1
+WeightClass:300
+WidthClass:5
+AngleClass:1
+FullName:Helvetica Neue Light Italic
+WritingScript:Roman
+OutlineFileName:\HelveticaNeue.dfont
+DataFormat:sfntResource
+ResourceID:13514
+FileLength:5539739
+FileModTime:1389088170
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:HelveticaNeue-Medium
+FamilyName:Helvetica Neue
+StyleName:Medium
+MenuName:Helvetica Neue
+StyleBits:0
+WeightClass:500
+WidthClass:5
+AngleClass:0
+FullName:Helvetica Neue Medium
+WritingScript:Roman
+OutlineFileName:\HelveticaNeue.dfont
+DataFormat:sfntResource
+ResourceID:14242
+FileLength:5539739
+FileModTime:1389088170
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Suitcase
+FontName:HelveticaNeue
+OutlineFileName:\HelveticaNeue.dfont
+ResourceID:4684
+MacStyle:0
+FileLength:5539739
+FileModTime:1389088170
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Suitcase
+FontName:HelveticaNeue-Bold
+OutlineFileName:\HelveticaNeue.dfont
+ResourceID:4684
+MacStyle:1
+FileLength:5539739
+FileModTime:1389088170
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Suitcase
+FontName:HelveticaNeue-Italic
+OutlineFileName:\HelveticaNeue.dfont
+ResourceID:4684
+MacStyle:2
+FileLength:5539739
+FileModTime:1389088170
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Suitcase
+FontName:HelveticaNeue-BoldItalic
+OutlineFileName:\HelveticaNeue.dfont
+ResourceID:4684
+MacStyle:3
+FileLength:5539739
+FileModTime:1389088170
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Suitcase
+FontName:HelveticaNeue-CondensedBold
+OutlineFileName:\HelveticaNeue.dfont
+ResourceID:4685
+MacStyle:0
+FileLength:5539739
+FileModTime:1389088170
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Suitcase
+FontName:HelveticaNeue-UltraLight
+OutlineFileName:\HelveticaNeue.dfont
+ResourceID:4688
+MacStyle:0
+FileLength:5539739
+FileModTime:1389088170
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Suitcase
+FontName:HelveticaNeue-UltraLightItalic
+OutlineFileName:\HelveticaNeue.dfont
+ResourceID:4688
+MacStyle:2
+FileLength:5539739
+FileModTime:1389088170
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Suitcase
+FontName:HelveticaNeue-Light
+OutlineFileName:\HelveticaNeue.dfont
+ResourceID:4846
+MacStyle:0
+FileLength:5539739
+FileModTime:1389088170
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Suitcase
+FontName:HelveticaNeue-LightItalic
+OutlineFileName:\HelveticaNeue.dfont
+ResourceID:4846
+MacStyle:2
+FileLength:5539739
+FileModTime:1389088170
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Suitcase
+FontName:HelveticaNeue-CondensedBlack
+OutlineFileName:\HelveticaNeue.dfont
+ResourceID:4889
+MacStyle:0
+FileLength:5539739
+FileModTime:1389088170
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Suitcase
+FontName:HelveticaNeue-Medium
+OutlineFileName:\HelveticaNeue.dfont
+ResourceID:128
+MacStyle:0
+FileLength:5539739
+FileModTime:1389088170
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Type1
+FontName:MagistralBlack-Regular
+FamilyName:MagistralBlack
+StyleName:Regular
+MenuName:MagistralBlack
+StyleBits:0
+WeightClass:400
+WidthClass:5
+AngleClass:0
+FullName:MagistralBlack
+WritingScript:Roman
+OutlineFileName:\MGS85___.otf
+DataFormat:sfntData
+UsesStandardEncoding:yes
+isCFF:yes
+FileLength:47496
+FileModTime:1099567270
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Type1
+FontName:MuseoSansCyrl-900
+FamilyName:Museo Sans Cyrl
+StyleName:900
+MenuName:Museo Sans Cyrl 900
+StyleBits:0
+WeightClass:700
+WidthClass:5
+AngleClass:0
+FullName:Museo Sans Cyrl 900
+WritingScript:Roman
+OutlineFileName:\MuseoSansCyrl 900.otf
+DataFormat:sfntData
+UsesStandardEncoding:yes
+isCFF:yes
+FileLength:104640
+FileModTime:1531151991
+%EndFont
+

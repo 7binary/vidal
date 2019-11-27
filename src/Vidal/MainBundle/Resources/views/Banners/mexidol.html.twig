@@ -1,0 +1,13 @@
+<div class="banner-vidalbox" style="text-align:center">
+	<a href="http://pharmasoft-vet.ru/mexidol" class="mexidol-banner">
+		<img style="" src="{{ asset('bundles/vidalmain/images/banners/mexidol.gif') }}">
+	</a>
+</div>
+
+<script>
+	$(document).ready(function () {
+		$('.mexidol-banner').click(function() {
+			ga('send', 'event', 'banner_vektorpharm', 'click', 'Баннер');
+		});
+	});
+</script>

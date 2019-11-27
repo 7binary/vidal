@@ -1,0 +1,34 @@
+{% extends 'VidalVeterinarBundle::vidal_layout.html.twig' %}
+
+
+{% block vidal %}
+	<h1>{{ nozology.Name|raw }}</h1>
+
+	<div class="anons anons-head">
+		Нозологический указатель по коду
+		<span>{{ nozology.NozologyCode }}</span>
+	</div>
+
+	<br/>
+
+	{# Препараты #}
+	{% if products is defined and products is not empty %}
+		<div class="block">
+			<div class="block-head">Препараты нозологической группы</div>
+			{% include 'VidalVeterinarBundle:Vidal:render_products.html.twig' %}
+		</div>
+	{% else %}
+		<div class="no-results">
+			Препаратов не найдено
+		</div>
+	{% endif %}
+
+	{# Описания активных веществ #}
+	{% if molecules is defined and molecules is not empty %}
+		<div class="block">
+			<div class="block-head">Описания активных веществ под международным непатентованным наименованием</div>
+			{% include 'VidalVeterinarBundle:Vidal:render_molecules.html.twig' %}
+		</div>
+	{% endif %}
+
+{% endblock %}

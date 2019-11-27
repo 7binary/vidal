@@ -1,0 +1,255 @@
+{% extends 'VidalMainBundle::layout_promo.html.twig' %}
+{% set showMobileSocial = false %}
+{% set customWrapper = 'customWrapper' %}
+{% block beforeWrapper %}
+    <div class="teksared_wrapper" style="border-bottom:5px solid #ee7000">
+        <div class="wrapper">
+            <div class="header">
+                {% include 'VidalMainBundle::header.html.twig' %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block top_banner %} {% endblock %}
+{% block header %}{% endblock %}
+
+{% block middle %}
+    <div class="teksared">
+        <div class="block-decription" id="main_block">
+            <div class="top-description">
+                <a href="#тексаред">
+                    <div class="block-decription__title" id="тексаред">Тексаред</div>
+                </a>
+                <div class="block-decription__title_reg">&reg;</div>
+                <div class="block-decription__sub_title">&nbsp;(МНН - Теноксикам)</div>
+            </div>
+            <div style="clear:both;"></div>
+            <img class="scale" src="{{ asset('bundles/vidalmain/teksared/img/product.png') }}"
+                width="270px" align="left">
+            <div class="block-decription__description">
+                <div>Высокая скорость</div>
+                <div>Действия и стабильный</div>
+                <div>Результат 24 часа <i><a href="#literature">1,2</a></i></div>
+            </div>
+        </div>
+        <div class="block-title" id="описание">
+            <div class="block-title-content">
+            <a href="#literature">
+                Теноксикам – нацеленный на результат, надежный, проверенный временем представитель группы нестероидных противовоспалительных препаратов (НПВП), который активно используется в мировой медицинской практике.<i><a href="#literature">1,2</a></i>
+            </a>
+            </div>
+        </div>
+        <div class="block-decription" id="block-formula" style="min-height:270px;padding-top:20px;padding-bottom:20px;">
+            <div>
+                <img id="formula" align="left" src="{{ asset('bundles/vidalmain/teksared/img/formula.png') }}"
+                    width="270px"/>
+            </div>
+            <div>
+                <ul class="branded" style="margin-top:40px;">
+                    <li>Скоростной результат - максимальная концетрация <b>через 15 минут</b>
+                        <i><a href="#literature">3,4</a></i>&nbsp;
+                    </li>
+                    <li>
+                        <b>До 24 часов</b> от боли и воспаления <i><a href="#literature">1,3</a></i>&nbsp;
+                    </li>
+                    <li>
+                        Удобство применения - <b>1  раз в сутки</b><i><a href="#literature">4,5,6</a></i>&nbsp;
+                    </li>
+                    <li>
+                        <b>Широкий спектр</b> показаний<i style="white-space:nowrap;"><a href="#literature">4,5</a></i>&nbsp;
+                    </li>
+                    <li>
+                        Инъекционная  и таблетированная формы
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="block-title">
+            <div class="block-title-content">
+                <div style="clear:both;"></div>
+                <div style="float:left;left:0px">
+                    <a href="#literature">
+                        <img id="simple" src="{{ asset('bundles/vidalmain/teksared/img/simple.png') }}" width="400px"/>
+                    </a>
+                </div>
+            <div class="right button_video1" style="float:right;right:0px;margin-right: 20px;">
+                <a class="video1" href="https://www.medznat.ru/ru/content/%D0%BC%D0%B2-%D1%87%D1%83%D1%80%D1%8E%D0%BA%D0%B0%D0%BD%D0%BE%D0%B2-%D0%B1%D0%BE%D0%BB%D1%8C-%D0%B2-%D1%81%D0%BF%D0%B8%D0%BD%D0%B5-%D0%BA%D0%B0%D0%BA-%D0%B8%D0%B7%D0%B1%D0%B5%D0%B6%D0%B0%D1%82%D1%8C-%D0%BE%D1%88%D0%B8%D0%B1%D0%BE%D0%BA-%D0%B2-%D0%B4%D0%B8%D0%B0%D0%B3%D0%BD%D0%BE%D1%81%D1%82%D0%B8%D0%BA%D0%B5-%D0%B8-%D0%BB%D0%B5%D1%87%D0%B5%D0%BD%D0%B8%D0%B8">
+                    <img class="scale" src="{{ asset('bundles/vidalmain/teksared/img/video.png') }}" width="180px" />
+                </a>
+            </div>
+            </div>
+        </div>
+        <div class="block-decription" id="man">
+            <div>
+                <img align="left" src="{{ asset('bundles/vidalmain/teksared/img/man.png') }}" width="270px"/>
+            </div>
+            <div>
+                <ul class="branded">
+                    <li>Ревматойдный артрит</li>
+                    <li>Остеоартрит</li>
+                    <li>Акилозирующий спондилит</li>
+                    <li>Суставной синдром при обострении подагры</li>
+                    <li>Бурсит, тендовагинит</li>
+                    <li>Болевой синдром: артралгия, миалгия, нервалгия, мигрень, зубная и головная боль, 
+                        альгодимернорея; боль при травмах, ожогах</li>
+                    <li>При воспалительных и дегенеративных заболеваниях опорно-двигательного аппарата
+                        ишиалгия, люмбаго, эпикондлит</li>
+                </ul>
+            </div>
+        </div>
+        <div class="block-title" style="min-height:1px;padding:2px;"></div>
+        <div class="block-decription" id="form">
+            <a href="#способ_примененения">
+                <div style="margin-top:15px;" class="block-decription__title">Тексаред</div>
+            </a>
+            <div class="block-decription__title_reg" style="margin-top:15px;font-size:18px">&reg;</div>
+            <div style="clear:both;"><br/><br/></div>
+            <table id="способ_примененения">
+                <thead>
+                    <tr>
+                        <td>Форма</td>
+                        <td>При&shy;менение</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <img class="scale table_img1" width="158px;"
+                                src="{{ asset('bundles/vidalmain/teksared/img/product1.png') }}"/>
+                        </td>
+                        <td>
+                            <div>Внутримышечно, внутривенно по 20 мг</div> 
+                            <div><b>1 раз в сутки.</div></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img class="scale table_img2" width="170px;"
+                                src="{{ asset('bundles/vidalmain/teksared/img/product2.png') }}">
+                        </td>
+                        <td>
+                            <div>Внутрь, по 20 мг (1 таблетка)</div>
+                            <div><b>1 раз в сутки.</b></div>
+                            <div>Пожилым пациентам назначают 20 мг/сут</div> 
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <br/><br/>
+            <center>
+                <a class="video1" href="https://www.medznat.ru/ru/content/%D0%BA%D0%B0%D1%80%D0%B0%D1%82%D0%B5%D0%B5%D0%B2-%D0%B0%D0%BD%D0%B4%D1%80%D0%B5%D0%B9-%D0%B5%D0%B2%D0%B3%D0%B5%D0%BD%D1%8C%D0%B5%D0%B2%D0%B8%D1%87-%D1%82%D0%B5%D0%BD%D0%BE%D0%BA%D1%81%D0%B8%D0%BA%D0%B0%D0%BC-%D0%B2%D0%BE%D0%B7%D0%B2%D1%80%D0%B0%D1%89%D0%B5%D0%BD%D0%B8%D0%B5-%D0%B3%D0%B5%D1%80%D0%BE%D1%8F"><img class="scale" src="{{ asset('bundles/vidalmain/teksared/img/video.png') }}" width="180px;"/></a>
+            </center>
+            <div class="ps" id="literature">
+                <ol>
+                    <li>«Теноксикам».А.Е.Каратеев. Клиническая фармакология и терапия, 2017, 26 (5)</li>
+                    <li>«Теноксикам (тексамен) в лечении острой цервикалгии: результаты открытого
+                        сравнительного исследования» Ю.Э. Азимова, Г.Р. Табеева. «Неврология и психиатрия» №4, 2014.
+                    </li>
+                    <li> SPC Tenoxicam 20 mg lyophilisate for solution for injection. http://www.mhra.gov.uk
+                        (от 28.06.18).
+                    </li>
+                    <li>Инструкции по медицинскому применению препарата Тексаред лиофилизат для приготовления
+                        раствора для инъекции 20 мг №1, РУ ЛС-000295 от 23.06.17; <br/>
+                        Тексаред таблетки 20 мг №10, РУ ЛС-000294, РУ ЛС-000295 от 23.06.17
+                    <li> Fenner H. Comparative biochemical pharmacology of the oxicams. Eur J Rheumatol
+                        Inflamm. 1987;9(2):3-7.18,28 SPC Tenoxicam
+                    </li>
+                    <li>«Эффективное лечение боли: важен системный подход» А.Б.Данилов «Медицинский совет»№17,2017г</li>
+                    <li>«Эффективность теноксикама у больных с анкилозирующим спондилитом» 
+                        И.З.Гайдукова, А.В.Апаркина, Э.В.Хондкарян, А.П.Ребров. «Неврология и психиатрия» №2,2018
+                    </li>
+                </ol>
+                <p>
+                    При возникновении вопросов обращаться: ООО «Др. Редди’с Лабораторис»,
+                    115035, г. Москва, Овчинниковская наб., д.20, стр.1, тел: +7(495)783-29-01
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}{% endblock %}
+
+{% block afterWrapper %}
+    <div class="teksared_wrapper" style="border-top: 5px solid #ee7000">
+        <div class="wrapper">
+            <div class="footer">
+                {% include 'VidalMainBundle::footer.html.twig' %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/teksared/style.css') }}"/>
+    <style>
+    body {
+        background-color:#ffde46;
+    }
+    .header {
+        background-color: white;
+    }
+    .footer {
+        background-color: white;
+    }
+    .teksared_wrapper {
+        background-color: white;
+    }
+    .wrapper #search_form .chosen-container-active.chosen-with-drop .chosen-single {
+        border: none;
+    }
+    .wrapper #search_form .chosen-container .chosen-drop {
+        border:        1px solid #eee;
+        border-radius: 0;
+        background:    #F6F6F6;
+    }
+    .wrapper .search .chosen-container-single .chosen-single {
+        border:     none;
+        height:     50px;
+        background: #F6F6F6;
+    }
+
+    /* chosen */
+    .wrapper .chosen-container-single .chosen-single {
+    	border:                1px solid #d71344;
+    	border-radius:         4px;
+    	-moz-border-radius:    4px;
+    	-webkit-border-radius: 4px;
+    }
+    .wrapper .chosen-container .chosen-drop {
+    	border:        1px solid #d71344;
+    	border-radius: 4px;
+    }
+    .wrapper .chosen-container-active.chosen-with-drop .chosen-single {
+    	border: 1px solid #d71344;
+    }
+    .wrapper .chosen-container-single .chosen-search input[type="text"] {
+    	border: 1px solid #d71344;
+    }
+    .wrapper .chosen-container-single .chosen-default {
+    	font-style: italic;
+    	font-size:  110%;
+    }
+    .wrapper .chosen-container .chosen-results li.highlighted {
+    	background: #d71344;
+    }
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(document).on('click', '.video1', function() {
+                ga('send', 'event', 'Переход на страницу видео: Боль в спине', 'Переход на страницу видео: Боль в спине со страницы лендинга ТЕКСАРЕД');
+            });
+
+            $(document).on('click', '.video2', function() {
+                ga('send', 'event', 'Переход на страницу видео: Теноксикам - возвращение героя', 'Переход на страницу видео: Теноксикам - возвращение героя со страницы лендинга ТЕКСАРЕД');
+            });
+        });
+    </script>
+{% endblock %}

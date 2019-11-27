@@ -1,0 +1,46 @@
+{% if env_local != 'true' %}
+	<script type="text/javascript" src="{{ asset('bundles/vidalmain/javascripts/swiffy.js') }}"></script>
+
+	<div id="swiffycontainer" style="width: 970px; height: 90px; margin-bottom:15px;">
+	</div>
+
+	<script>
+		$('#swiffycontainer').click(function() {
+			var url = 'http://chophytol.ru/';
+			ga('send', 'event', 'Outbond_chophytol', 'click', url);
+			window.open(url);
+			return false;
+		});
+
+		var stage = new swiffy.Stage(document.getElementById('swiffycontainer'),
+			swiffyobject, {});
+
+		stage.start();
+	</script>
+
+	<div class="banner-hofitol" style="display:none; text-align:center; margin:10px 0 15px;">
+		<a href="http://chophytol.ru/" target="_blank">
+			<img src="{{ asset('bundles/vidalmain/images/banners/hofitol.gif') }}">
+		</a>
+	</div>
+
+	<script>
+		$(document).ready(function() {
+			if ((navigator.userAgent.match(/Android/i)
+				|| navigator.userAgent.match(/webOS/i)
+				|| navigator.userAgent.match(/iPhone/i)
+				|| navigator.userAgent.match(/iPad/i)
+				|| navigator.userAgent.match(/iPod/i)
+				|| navigator.userAgent.match(/BlackBerry/i)
+				|| navigator.userAgent.match(/Windows Phone/i))
+				&& window.screen.width < 768
+			) {
+				$('#swiffycontainer').hide();
+				$('.banner-hofitol').show();
+				$('.banner-hofitol a').click(function() {
+					ga('send', 'event', 'Outbond_chophytol', 'click', 'http://chophytol.ru/');
+				});
+			}
+		});
+	</script>
+{% endif %}

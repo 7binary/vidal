@@ -1,0 +1,74 @@
+<script type="text/javascript">
+	$(document).ready(function() {
+		// Продукты: список
+		{% if object.products and object.products.count %}
+		var ul = $('<ul class="list ul-remove">{% for product in object.products %}<li data="{{ product.ProductID }}"><b><a href="{{ path('product_remove', {'type':object|type, 'id':object.id, 'ProductID':product.ProductID}) }}">X</a></b>' + '{{ product.RusName|raw }} {{ product.ProductID }}' + '</li>{% endfor %}</ul>');
+		$('.doc').parent().append(ul);
+		{% endif %}
+
+		// Продукты: автодополнение
+		$('.doc').attr('placeholder', 'Начните вводить препарат или ID препарата')
+			.autocomplete({
+				minLength: 1,
+				source:    function(request, response) {
+					var url ='/elastic/autocomplete_product/'+ request.term.trim();
+					$.getJSON(url, function(data) {
+						var hits = data.hits.hits;
+						var ids = $('.ul-remove li').map(function(element) {
+							return $(this).attr("data");
+						});
+						var values = [];
+
+						for (var i = 0; i < hits.length; i++) {
+							var item = hits[i];
+							if (jQuery.inArray(item._id, ids) == -1) {
+								values.push({
+									'label': item.highlight.name,
+									'value': item._source.name,
+									'id':    item._id
+								});
+							}
+						}
+						values.sort(function(a, b) {
+							return (a.value == b.value) ? 0 : ((a.value > b.value) ? 1 : -1);
+						});
+						response(values);
+					});
+				},
+				select:    function(event, ui) {
+					if (ui.item) {
+						var urlAdd = '/admin/product-add/{{ object|type }}/{{ object.id }}/' + ui.item.id;
+						$.getJSON(urlAdd, function() {
+							var urlRemove = '/admin/product-remove/{{ object|type }}/{{ object.id }}/' + ui.item.id;
+							var li = '<li data="' + ui.item.id + '"><b><a href="' + urlRemove + '">X</a></b>' + ui.item.value + '</li>';
+							var $li = $(li);
+							var $ul = $('.ul-remove');
+							if (!$ul.length) {
+								$('.doc').parent().append($('<ul class="ul-remove"></ul>'));
+								$ul = $('.ul-remove');
+							}
+							$ul.append($li);
+						});
+					}
+
+					$(this).val('');
+
+					return false;
+				}
+			})
+			.data("ui-autocomplete")._renderItem =
+			function(ul, item) {
+				return $("<li></li>").data("item.autocomplete", item).append("<a>" + item.label + "</a>").appendTo(ul);
+			};
+	});
+
+	$(document).on('click', '.list b a', function(e) {
+		e.preventDefault();
+		var $link = $(this);
+		$.getJSON(this.href, null, function(data) {
+			if (data == 'OK') {
+				$link.closest('li').remove();
+			}
+		});
+	});
+</script>

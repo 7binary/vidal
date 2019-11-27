@@ -1,0 +1,129 @@
+{% if t == 'all' and noResults is not defined and p == 1 %}
+	{% set items = 0 %}
+
+	<div class="navigation">
+		<i></i>
+
+		<div class="navigation-items">
+			{% if productsPagination is defined and productsPagination.totalItemCount %}
+				{% set items = items + 1 %}
+				<div>
+					<a href="#search_products">препарат{{ productsPagination.totalItemCount > 1 ? 'ов' }}:
+						<span>{{ productsPagination.totalItemCount }}</span></a>
+				</div>
+			{% endif %}
+
+			{% if mis is defined %}
+				{% set items = items + 1 %}
+				<div>
+					<a href="#search_mis">{% if mis|length == 1 %}медицинское изделие{% else %}медицинских изделий{% endif %}
+						:
+						<span>{{ mis|length }}</span></a>
+				</div>
+			{% endif %}
+
+			{% if bads is defined %}
+				{% set items = items + 1 %}
+				<div>
+					<a href="#search_bads">БАД: <span>{{ bads|length }}</span></a>
+				</div>
+			{% endif %}
+
+			{% if pits is defined %}
+				{% set items = items + 1 %}
+				<div>
+					<a href="#search_pits">ПИТ: <span>{{ pits|length }}</span></a>
+				</div>
+			{% endif %}
+
+			{% if cosms is defined %}
+				{% set items = items + 1 %}
+				<div>
+					<a href="#search_cosms">ЛК: <span>{{ cosms|length }}</span></a>
+				</div>
+			{% endif %}
+
+			{% if paras is defined %}
+				{% set items = items + 1 %}
+				<div>
+					<a href="#search_paras">ПР: <span>{{ paras|length }}</span></a>
+				</div>
+			{% endif %}
+
+			{% if molecules is defined and molecules|length %}
+				{% set items = items + 1 %}
+				<div>
+					<a href="#search_molecules">{% if molecules|length == 1 %}активное вещество{% else %}активных веществ{% endif %}
+						:
+						<span>{{ molecules|length }}</span></a>
+				</div>
+			{% endif %}
+
+			{% if atcCodes is defined and atcCodes|length %}
+				{% set items = items + 1 %}
+				<div>
+					<a href="#search_atc">код{{ atcCodes|length > 1 ? 'ов' }} АТХ:
+						<span>{{ atcCodes|length }}</span></a>
+				</div>
+			{% endif %}
+
+			{% if search_infoPages is defined and search_infoPages|length %}
+				{% set items = items + 1 %}
+				<div>
+					<a href="#search_infoPages">представительств{{ search_infoPages|length == 1 ? 'о' }}:
+						<span>{{ search_infoPages|length }}</span></a>
+				</div>
+			{% endif %}
+
+			{% if search_companies is defined and search_companies|length %}
+				{% set items = items + 1 %}
+				<div>
+					<a href="#search_companies">производител{{ search_companies|length == 1 ? 'ь' : 'ей' }}:
+						<span>{{ search_companies|length }}</span></a>
+				</div>
+			{% endif %}
+
+			{% if articles is defined and articles|length %}
+				{% set items = items + 1 %}
+				<div>
+					<a href="#search_articles">медицинская энциклопедия:
+						<span>{{ articles|length }}</span></a>
+				</div>
+			{% endif %}
+
+			{% if nozologies is defined and nozologies|length %}
+				{% set items = items + 1 %}
+				<div>
+					<a href="#search_nozologies">{% if nozologies|length == 1 %}нозологий указатель{% else %}нозологических указалетей{% endif %}: <span>{{ nozologies|length }}</span></a>
+				</div>
+			{% endif %}
+
+			{% if clphgroups is defined and clphgroups|length %}
+				{% set items = items + 1 %}
+				<div>
+					<a href="#search_clphgroups">
+						клинико-фармакологич. групп{{ clphgroups|length == 1 ? 'а' }}: <span>{{ clphgroups|length }}</span>
+					</a>
+				</div>
+			{% endif %}
+
+			{% if phthgroups is defined and phthgroups|length %}
+				{% set items = items + 1 %}
+				<div>
+					<a href="#search_phthgroups">
+						фармако-терапевтических групп{{ phthgroups|length == 1 ? 'а' }}: <span>{{ phthgroups|length }}</span>
+					</a>
+				</div>
+			{% endif %}
+		</div>
+	</div>
+
+	{% if items < 3 %}
+		<style type="text/css">
+			#vidal .navigation {
+				display: none;
+			}
+		</style>
+	{% endif %}
+
+{% endif %}

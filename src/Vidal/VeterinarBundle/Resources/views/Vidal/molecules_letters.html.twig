@@ -1,0 +1,36 @@
+{% set letter_routing = 'molecules_letter' %}
+{% if forDrug is defined %}
+    {% set letter_routing = 'drug_molecules_letter' %}
+{% endif %}
+
+<div class="letters veterinar-letters">
+	<div class="p">
+		<a href="{{ path(letter_routing, {'letter': 'a'}) }}" {{ l == 'А' ? ' class="active"' }}>А</a>
+		<a href="{{ path(letter_routing, {'letter': 'b'}) }}" {{ l == 'Б' ? ' class="active"' }}>Б</a>
+		<a href="{{ path(letter_routing, {'letter': 'v'}) }}" {{ l == 'В' ? ' class="active"' }}>В</a>
+		<a href="{{ path(letter_routing, {'letter': 'g'}) }}" {{ l == 'Г' ? ' class="active"' }}>Г</a>
+		<a href="{{ path(letter_routing, {'letter': 'd'}) }}" {{ l == 'Д' ? ' class="active"' }}>Д</a>
+		<a href="{{ path(letter_routing, {'letter': 'zh'}) }}" {{ l == 'Ж' ? ' class="active"' }}>Ж</a>
+		<a href="{{ path(letter_routing, {'letter': 'z'}) }}" {{ l == 'З' ? ' class="active"' }}>З</a>
+		<a href="{{ path(letter_routing, {'letter': 'i'}) }}" {{ l == 'И' ? ' class="active"' }}>И</a>
+		<a href="{{ path(letter_routing, {'letter': 'j'}) }}" {{ l == 'Й' ? ' class="active"' }}>Й</a>
+		<a href="{{ path(letter_routing, {'letter': 'k'}) }}" {{ l == 'К' ? ' class="active"' }}>К</a>
+		<a href="{{ path(letter_routing, {'letter': 'l'}) }}" {{ l == 'Л' ? ' class="active"' }}>Л</a>
+		<a href="{{ path(letter_routing, {'letter': 'm'}) }}" {{ l == 'М' ? ' class="active"' }}>М</a>
+		<a href="{{ path(letter_routing, {'letter': 'n'}) }}" {{ l == 'Н' ? ' class="active"' }}>Н</a>
+		<a href="{{ path(letter_routing, {'letter': 'o'}) }}" {{ l == 'О' ? ' class="active"' }}>О</a>
+		<a href="{{ path(letter_routing, {'letter': 'p'}) }}" {{ l == 'П' ? ' class="active"' }}>П</a>
+		<a href="{{ path(letter_routing, {'letter': 'r'}) }}" {{ l == 'Р' ? ' class="active"' }}>Р</a>
+		<a href="{{ path(letter_routing, {'letter': 's'}) }}" {{ l == 'С' ? ' class="active"' }}>С</a>
+		<a href="{{ path(letter_routing, {'letter': 't'}) }}" {{ l == 'Т' ? ' class="active"' }}>Т</a>
+		<a href="{{ path(letter_routing, {'letter': 'u'}) }}" {{ l == 'У' ? ' class="active"' }}>У</a>
+		<a href="{{ path(letter_routing, {'letter': 'f'}) }}" {{ l == 'Ф' ? ' class="active"' }}>Ф</a>
+		<a href="{{ path(letter_routing, {'letter': 'h'}) }}" {{ l == 'Х' ? ' class="active"' }}>Х</a>
+		<a href="{{ path(letter_routing, {'letter': 'c'}) }}" {{ l == 'Ц' ? ' class="active"' }}>Ц</a>
+		<a href="{{ path(letter_routing, {'letter': 'ch'}) }}" {{ l == 'Ч' ? ' class="active"' }}>Ч</a>
+		<a href="{{ path(letter_routing, {'letter': 'sh'}) }}" {{ l == 'Ш' ? ' class="active"' }}>Ш</a>
+		<a href="{{ path(letter_routing, {'letter': 'je'}) }}" {{ l == 'Э' ? ' class="active"' }}>Э</a>
+		<a href="{{ path(letter_routing, {'letter': 'ja'}) }}" {{ l == 'Я' ? ' class="active"' }}>Я</a>
+		<a href="{{ path(letter_routing, {'letter': 'n-eng'}) }}" class="en{{ l == 'N' ? ' active' }}">N</a>
+	</div>
+</div>

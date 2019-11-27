@@ -1,0 +1,122 @@
+.products-table {
+	font-size: 13px;
+}
+.block-anons {
+	padding: 6px 10px;
+}
+.no-results {
+	margin: 30px 0 24px;
+}
+.ul-style li {
+	padding-top: 2px;
+}
+.query {
+	text-decoration: underline;
+}
+#vidal h1 {
+	color: #d71344;
+}
+
+/* searche_form */
+#searche_form {
+	position: relative;
+}
+#searche_form > * {
+	vertical-align: top;
+}
+#searche_form .search-query {
+	display:  block;
+	position: absolute;
+	width:    250px;
+	top:      0;
+	right:    0;
+}
+#searche_form .controls {
+	position:   relative;
+	margin:     16px 0 10px;
+	clear:      both;
+	text-align: right;
+}
+#searche_form .search-type, #searche_form .chosen-container .chosen-drop {
+	width: 250px;
+}
+#searche_form .search-bad {
+	display:   inline-block;
+	position:  absolute;
+	left:      0;
+	top:       0;
+	font-size: 14px;
+	color:     #999;
+}
+#search_bad {
+	vertical-align: bottom;
+	margin:         0 0 0 4px;
+}
+
+/* searche_filter */
+#searche_filter .searche-filter-title {
+	font-weight:   bold;
+	margin-bottom: 8px;
+	margin-top:    12px;
+	color:         #476173;
+}
+#searche_filter .searche-filter-title span {
+	border-bottom: 1px solid transparent;
+}
+#searche_filter .searche-filter-title span:hover {
+	cursor:        pointer;
+	border-bottom: 1px dashed #476173;
+}
+#searche_filter .searche-nozologies,
+#searche_filter .searche-contraindications {
+	overflow:      hidden;
+	margin-bottom: 8px;
+}
+#searche_filter .label {
+	width:      128px;
+	float:      left;
+	margin-top: 6px;
+	font-size:  14px;
+}
+#searche_filter .searche-contraindications .label {
+	margin-top: 0;
+}
+#searche_filter .items {
+	margin-left: 130px;
+}
+#searche_filter ul {
+	list-style: none;
+	padding:    0;
+	margin:     6px 0;
+}
+#searche_filter input {
+	margin: 0;
+	width:  386px;
+}
+#searche_filter li {
+	margin-bottom: 2px;
+}
+#searche_filter li i {
+	display:        inline-block;
+	width:          16px;
+	height:         16px;
+	vertical-align: top;
+	background:     url(../images/cross_gray.png) top left no-repeat;
+	cursor:         pointer;
+	margin-right:   5px;
+}
+#searche_filter li i:hover {
+	background: url(../images/cross_red.png) top left no-repeat;
+}
+#searche_filter li span {
+	vertical-align: top;
+	margin-left:    2px;
+	font-size:      14px;
+}
+#searche_filter li b {
+	display: none;
+}
+#wrapper #searche_form .chosen-container .chosen-drop, #searche_form .search-option, .option-wrap {
+	display: inline-block;
+	width:   266px;
+}

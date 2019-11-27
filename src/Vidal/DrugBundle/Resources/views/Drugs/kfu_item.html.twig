@@ -1,0 +1,113 @@
+{% extends 'VidalDrugBundle::vidal_layout.html.twig' %}
+
+
+{% block title %}
+	<h1>{{ kfu.Name|raw }}</h1>
+{% endblock %}
+
+
+{% block nav %}
+	<div class="breadcrumbs">
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('index') }}" itemprop="url">
+				<span itemprop="title">Видаль</span>
+			</a>
+		</div>
+		<i></i>
+
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('kfu') }}" itemprop="url">
+				<span itemprop="title">КФУ</span>
+			</a>
+		</div>
+		<i></i>
+
+		<span>{{ kfu.Name|raw }}</span>
+	</div>
+{% endblock %}
+
+
+{% block vidal %}
+
+	{% if kfu.parent %}
+		<div class="block">
+			<span class="block-head">Входит в группу:</span>
+			<a href="{{ path('kfu_item', {'code':kfu.parent.Code}) }}" class="no-underline">{{ kfu.parent.Code }}</a> -
+			<span>{{ kfu.parent.Name|raw }}</span>
+		</div>
+	{% endif %}
+
+	{% for molecule in moleculesRest %}
+		<div class="molecules">
+			<span>Активное вещество: </span>
+			<a href="{{ path('molecule', {'MoleculeID':molecule.MoleculeID}) }}">
+				{{ molecule.RusName|upper|raw }}
+			</a>
+		</div>
+	{% endfor %}
+
+	{% if groups is defined %}
+		{% for name, group in groups %}
+			<div class="group">
+				<div class="molecules">
+					{% if group.moleculeIds|length == 1 %}
+						<span>Активное вещество: </span>
+					{% elseif group.moleculeIds|length > 1 %}
+						<div>Активные вещества</div>
+					{% endif %}
+
+					{% for MoleculeID in group.moleculeIds %}
+						<a href="{{ path('molecule', {'MoleculeID':MoleculeID}) }}">
+							{{ molecules[MoleculeID]['RusName']|upper|raw }}
+						</a>
+						{% if not loop.last %}
+							+
+						{% endif %}
+					{% endfor %}
+				</div>
+				{% include 'VidalDrugBundle:Vidal:render_products.html.twig' with {'products':group.products} %}
+			</div>
+		{% endfor %}
+	{% else %}
+		<div class="no-results block">
+			Не найдено препаратов
+		</div>
+	{% endif %}
+
+	{% if unusedProducts is defined and unusedProducts is not empty %}
+		<div class="group">
+			<div class="molecules">
+				<span>{{ groups is empty ? 'Препараты группы' : 'Остальные препараты группы' }}</span>
+			</div>
+		</div>
+		{% include 'VidalDrugBundle:Vidal:render_products.html.twig' with {'products':unusedProducts} %}
+	{% endif %}
+
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<style type="text/css">
+		.molecules {
+			margin-top: 15px;
+			padding:    3px 5px;
+			background: #e6e6e6;
+			border:     1px solid #ccc;
+		}
+		.molecules > div, .molecules > span {
+			font-size:     12px;
+			color:         #476173;
+			margin-bottom: 2px;
+		}
+		.molecules a {
+			text-decoration: none;
+			font-weight:     bold;
+			color:           #333;
+			font-size:       12px;
+		}
+		.molecules a:hover {
+			text-decoration: underline;
+		}
+	</style>
+{% endblock %}

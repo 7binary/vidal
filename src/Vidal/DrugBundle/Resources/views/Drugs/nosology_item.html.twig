@@ -1,0 +1,165 @@
+{% extends 'VidalDrugBundle::vidal_layout.html.twig' %}
+
+
+{% block nav %}
+	<div class="breadcrumbs">
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('index') }}" itemprop="url">
+				<span itemprop="title">Видаль</span>
+			</a>
+		</div>
+		<i></i>
+
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('nosology') }}" itemprop="url">
+				<span itemprop="title">Нозологический указатель</span>
+			</a>
+		</div>
+		<i></i>
+
+		<span>{{ nozology.Name|raw }}</span>
+	</div>
+{% endblock %}
+
+
+{% block vidal %}
+	<div class="publication" itemscope itemtype="http://schema.org/Article">
+		<h1 style="margin:0" itemprop="name">
+			{{ nozology.Name|raw }}
+			<span>({{ nozology.Code }})</span>
+		</h1>
+
+		<div class="publication-body text" itemprop="articleBody">
+			{% if nozology.parent and nozology.parent.countProducts %}
+				<div class="block">
+					<span class="block-head">Входит в группу:</span>
+					<a href="{{ path('nosology_item', {'Code':nozology.parent.Code|lower}) }}"
+					   class="no-underline">{{ nozology.parent.Code }}</a> -
+					<span>{{ nozology.parent.Name|raw }}</span>
+				</div>
+			{% endif %}
+
+			{# новости #}
+			{#{% if publications is not empty %}#}
+			{#<div class="announcement">#}
+			{#<div class="anons-footer no-selection">#}
+			{#Новости по нозологическому указателю <span>«{{ nozology.Code|raw }}»</span>#}
+			{#<i>{{ publications|length }}</i>#}
+			{#</div>#}
+			{#<ul class="ul-style black" style="display:none">#}
+			{#{% for publication in publications %}#}
+			{#<li>#}
+			{#<a href="{{ path('publication', {'id':publication.id}) }}" target="_blank" class="no-underline">#}
+			{#{{ publication.title|raw }}#}
+			{#</a>#}
+
+			{#<div class="anons-info">{{ publication.date|date('d.m.Y') }}</div>#}
+			{#</li>#}
+			{#{% endfor %}#}
+			{#</ul>#}
+			{#</div>#}
+			{#{% endif %}#}
+
+			{# энциклопедия #}
+			{#{% if articles is not empty %}#}
+			{#<div class="announcement">#}
+			{#<div class="anons-footer no-selection">#}
+			{#Материалы медицинской энциклопедии по нозологическому указателю <span>«{{ nozology.Code|raw }}»</span>#}
+			{#<i>{{ articles|length }}</i>#}
+			{#</div>#}
+			{#<ul class="ul-style black" style="display:none">#}
+			{#{% for article in articles %}#}
+			{#<li>#}
+			{#<a href="{{ path('article', {'rubrique':article.rubrique.rubrique, 'link':article.link}) }}"#}
+			{#target="_blank" class="no-underline">#}
+			{#{{ article.title|raw }}#}
+			{#</a>#}
+
+			{#<div class="anons-info">#}
+			{#Рубрика:#}
+			{#<a target="_blank"#}
+			{#href="{{ path('rubrique', {'rubrique':article.rubrique.rubrique}) }}">{{ article.rubrique }}</a>#}
+			{#</div>#}
+			{#</li>#}
+			{#{% endfor %}#}
+			{#</ul>#}
+			{#</div>#}
+			{#{% endif %}#}
+
+			{# специалистам #}
+			{#{% if arts is not empty %}#}
+			{#<div class="announcement">#}
+			{#<div class="anons-footer no-selection">#}
+			{#Материалы для специалистов по нозологическому указателю <span>«{{ nozology.Code|raw }}»</span>#}
+			{#<i>{{ arts|length }}</i>#}
+			{#</div>#}
+			{#<ul class="ul-style black" style="display:none">#}
+			{#{% for art in arts %}#}
+			{#<li>#}
+			{#<a class="no-underline" target="_blank"#}
+			{#href="{{ path('art', {'url':art.rubrique.url ~ '/' ~ (art.type ? art.type.url ~ '/') ~ (art.category ? art.category.url ~ '/') ~ art.link ~ '~' ~ art.id }) }}">{{ art.title|raw }}</a>#}
+
+			{#<div class="anons-info">#}
+			{#Рубрика: <a target="_blank"#}
+			{#href="{{ path('art', {'url':art.rubrique.url}) }}">{{ art.rubrique.title }}</a>#}
+			{#</div>#}
+			{#</li>#}
+			{#{% endfor %}#}
+			{#</ul>#}
+			{#</div>#}
+			{#{% endif %}#}
+
+			{# Препараты #}
+			{% if products is defined and products is not empty %}
+				<div class="block">
+					<div class="block-head">Препараты нозологической группы <span>{{ nozology.Code }}</span></div>
+					{% include 'VidalDrugBundle:Vidal:render_products.html.twig' %}
+				</div>
+			{% else %}
+				<div class="no-results">
+					Препаратов не найдено
+				</div>
+			{% endif %}
+
+			{# Описания активных веществ #}
+			{% if molecules is defined and molecules is not empty %}
+				<div class="block">
+					<div class="block-head">Описания активных веществ под международным непатентованным наименованием
+					</div>
+					{% include 'VidalDrugBundle:Vidal:render_molecules.html.twig' %}
+				</div>
+			{% endif %}
+
+		</div>
+	</div>
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+	<script>
+		$(document).ready(function() {
+			{# MICRODATA #}
+			$('.publication img').each(function() {
+				var $this = $(this);
+				$this.attr('itemprop', 'image');
+			});
+
+			$('.publication a').each(function() {
+				$(this).attr({
+					itemprop: "url"
+				});
+			});
+
+			$('.publication-body a').each(function() {
+				var $a = $(this);
+				if (this.href.charAt(0) != '/'
+					&& this.href.indexOf('vidal.ru') === -1
+					&& this.href.indexOf('localhost:97') === -1
+				) {
+					$a.attr('rel', 'nofollow');
+				}
+			});
+		});
+	</script>
+{% endblock %}

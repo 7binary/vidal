@@ -1,0 +1,89 @@
+{# выбор истории #}
+<select id="history">
+	<option value="">----- ИСТОРИЯ -----</option>
+	{% if object.history is not empty %}
+		{% for history in object.history %}
+			<option value="{{ history }}">{{ history }} {{ history.preview }}</option>
+		{% endfor %}
+	{% endif %}
+</select>
+
+
+{# дополнительные кнопки #}
+<a class="btn btn-small tag-clean tag" href="{{ path('tag_clean', {'tagId':object.id}) }}"
+   title="Очистить все связи тега с материалами">
+	<img src="{{ asset('bundles/vidalmain/images/delete.png') }}"/>
+</a>
+
+<a class="btn btn-small tag-set-partly tag" href="#" title="Выставить по слову ЧАСТИЧНО">
+	<img src="{{ asset('bundles/vidalmain/images/Reload.png') }}"/>
+</a>
+
+<a class="btn btn-small tag-set tag" href="#" title="Выставить по слову ЦЕЛИКОМ">
+	<img src="{{ asset('bundles/vidalmain/images/icons/circle.png') }}"/>
+</a>
+
+<a class="btn btn-small tag-unset tag" href="#" title="Очистить по слову">
+	<img src="{{ asset('bundles/vidalmain/images/icons/list-remove.png') }}"/>
+</a>
+
+<a class="btn btn-small tag-list tag" href="#" title="Материалы">
+	<img src="{{ asset('bundles/vidalmain/images/icons/list.png') }}"/>
+</a>
+
+
+{# скрипты #}
+<script type="text/javascript">
+	$(document).ready(function() {
+		var tagId = '{{ object.id }}';
+		var $history = $('#history');
+
+		$("#history").select2('destroy');
+
+		$('.tag-set-partly').click(function(e) {
+			e.preventDefault();
+			var text = prompt('Укажите слово частично', '{{ object.search is empty ? object.text : object.search }}');
+			window.location = '/admin/tag-set/' + tagId + '/' + text + "?partly=1";
+		});
+
+		$('.tag-set').click(function(e) {
+			e.preventDefault();
+			var text = prompt('Укажите слово полностью', '{{ object.search is empty ? object.text : object.search }}');
+			window.location = '/admin/tag-set/' + tagId + '/' + text;
+		});
+
+		$('.tag-unset').click(function(e) {
+			e.preventDefault();
+			window.location = '/admin/tag-unset/' + tagId + '/' + $history.val();
+		});
+
+		$('.tag-list').click(function(e) {
+			e.preventDefault();
+			var url =  '/admin/tag-list/' + tagId + '/' + $history.val();
+			window.open(url, "_blank");
+		});
+
+		$.getJSON('/admin/admin-tag-total/' + tagId, function(data) {
+			$('.tagTotal').text(data).attr('value', data);
+		});
+	});
+</script>
+
+{# стили #}
+<style type="text/css">
+	.sonata-actions.btn-group {
+		width: 800px;
+	}
+	.span4.offset2 {
+		margin:     0;
+		width:      auto;
+		text-align: right;
+	}
+	.span6 .breadcrumb {
+		width: 400px;
+	}
+	#history {
+		vertical-align: top;
+		margin:         0 40px;
+	}
+</style>

@@ -1,0 +1,68 @@
+{% set type = app.request.get('t') %}
+
+<table>
+	<tr>
+		<td class="header-1">
+			<a href="{{ envLocal ? '/app_dev.php' : path('index') }}" class="header-link">
+				<img src="{{ asset('bundles/vidalmain/images/vidal.png') }}" alt="Vidal Logo" />
+			</a>
+		</td>
+		<td class="header-2">
+			<img src="{{ asset('bundles/vidalmain/images/header-about.jpg') }}" alt="About header" />
+		</td>
+		<td class="header-3">
+			<img src="{{ asset('bundles/vidalmain/images/header-search.jpg') }}" alt="Search header" />
+		</td>
+		<td class="header-4">
+			<form id="search_form" class="search" method="get" action="{{ path('search') }}">
+				<table>
+					<tr class="row1">
+						<td class="bg-gray">
+							<select class="search-type" name="t">
+								<option value="all" {{ type == 'all' ? 'selected="selected"' }}>
+									ВЕЗДЕ
+								</option>
+								<option value="product" {{ type == 'product' ? 'selected="selected"' }}>
+									ПО ПРЕПАРАТУ
+								</option>
+								<option value="company" {{ type == 'company' ? 'selected="selected"' }}>
+									ПО КОМПАНИИ
+								</option>
+								<option value="molecule" {{ type == 'molecule' ? 'selected="selected"' }}>
+									ПО ВЕЩЕСТВУ
+								</option>
+								<option value="atc" {{ type == 'atc' ? 'selected="selected"' }}>
+									ПО АТХ КОДУ
+								</option>
+								<option value="disease" {{ type == 'disease' ? 'selected="selected"' }}>
+									ПО ЗАБОЛЕВАНИЮ
+								</option>
+							</select>
+						</td>
+						<td class="sf">
+							<input type="submit" value="" class="search-submit"/>
+							<input class="search-query" type="text" name="q" autocomplete="off"
+								   placeholder="Аспирин, Байер, грипп..."
+								   value="{{ app.request.attributes.get('_route') == 'search' ? app.request.get('q') }}"/>
+						</td>
+					</tr>
+                    {% if isPromo is not defined %}
+                        {% set isPromo = false %}
+                    {% endif %}
+					<tr>
+						<td class="st no-selection" colspan="2">
+						    {% if not isPromo %}
+							<input type="checkbox" id="bad" name="bad" class="checkbox" checked="checked"/>
+							<label for="bad" class="searchl">включая БАД</label>
+							<a id="searche_link" href="{{ path('drugs') }}">расширенный поиск</a>
+                            <div id="social_top_buttons" style="float: right; clear:both; margin-top: 10px; height: 21px;">
+                                {% include 'VidalMainBundle:Index:social_top_buttons.html.twig' %}
+                            </div>
+                            {% endif %}
+						</td>
+					</tr>
+				</table>
+			</form>
+		</td>
+	</tr>
+</table>

@@ -1,0 +1,124 @@
+{% extends 'VidalMainBundle::layout_blank.html.twig' %}
+
+{% set isAdmin = app.user is not null and is_granted('ROLE_ADMIN') %}
+
+{% block content %}
+	{% if app.session.flashBag.get('notice')|length %}
+		<div class="saved">Сохранено</div>
+	{% endif %}
+
+	<form method="POST" id="export" action="{{ path('export_atc_mkb') }}">
+		<button type="submit" class="btn btn-red">Сохранить</button>
+		<button type="submit" class="btn btn-red" name="product" value="1">
+			Сохранить с пересчетом препаратов
+		</button>
+		<button type="submit" class="btn btn-red" name="export" value="1">Экспорт</button>
+
+		<table>
+			<thead>
+				<tr>
+					<th style="width:25%">Рубрика</th>
+					<th>ATХ коды</th>
+					<th>МКБ-10 коды</th>
+					<th style="min-width:5%">Препараты</th>
+					<th style="min-width:5%">Новости</th>
+					<th style="min-width:5%">Статьи специалистам</th>
+					<th style="min-width:5%">Статьи энциклопедии</th>
+				</tr>
+			</thead>
+			{% for line in lines %}
+				<tr>
+					<td>
+						<input type="hidden" name="line[{{ line.i }}][i]" value="{{ line.i }}"/>
+						<input name="line[{{ line.i }}][name]" value="{{ line.name }}"/>
+					</td>
+					<td><input name="line[{{ line.i }}][atc]" value="{{ line.atc }}"/></td>
+					<td><input name="line[{{ line.i }}][mkb]" value="{{ line.mkb }}"/></td>
+					<td>
+						{% if line.product is defined and line.product is not empty %}
+							<div class="list">
+								<span>все ({{ line.product|length }})</span>
+								<div>
+									{% for link in line.product %}
+										<div>{{ link|raw }}</div>
+									{% endfor %}
+								</div>
+							</div>
+						{% endif %}
+					</td>
+					<td>
+						{% if line.publication is defined and line.publication is not empty %}
+							<div class="list">
+								<span>все ({{ line.publication|length }})</span>
+								<div>
+									{% for link in line.publication %}
+										<div>{{ link|raw }}</div>
+									{% endfor %}
+								</div>
+							</div>
+						{% endif %}
+					</td>
+					<td>
+						{% if line.art is defined and line.art is not empty %}
+							<div class="list">
+								<span>все ({{ line.art|length }})</span>
+								<div>
+									{% for link in line.art %}
+										<div>{{ link|raw }}</div>
+									{% endfor %}
+								</div>
+							</div>
+						{% endif %}
+					</td>
+					<td>
+						{% if line.article is defined and line.article is not empty %}
+							<div class="list">
+								<span>все ({{ line.article|length }})</span>
+								<div>
+									{% for link in line.article %}
+										<div>{{ link|raw }}</div>
+									{% endfor %}
+								</div>
+							</div>
+						{% endif %}
+					</td>
+				</tr>
+			{% endfor %}
+		</table>
+	</form>
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<style type="text/css">
+		#wrapper {
+			width: 98%;
+		}
+		#export table {
+			width: 100%;
+			border-collapse: collapse;
+		}
+		td input {
+			width: 100%;
+		}
+		#export table td {
+			padding: 3px 6px;
+		}
+		.list div {
+			display: none;
+			font-size: 11px;
+		}
+	</style>
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('.list span').click(function() {
+				$(this).closest('.list').find('div').toggle();
+			});
+		});
+	</script>
+{% endblock %}

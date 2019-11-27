@@ -1,0 +1,378 @@
+@font-face {
+    font-family: teksaredBold;
+    src: url(./font/MGS85___.otf);
+}
+
+@font-face {
+    font-family: teksaredNorm;
+    src: url(./font/MGS65___.otf);
+}
+
+@font-face {
+    font-family: teksaredUl;
+    src: url(./font/HeliosCond.ttf);
+}
+
+@font-face {
+    font-family: teksaredTdBold;
+    src: url(./font/exljbris_MuseoSansCyrl_500.otf);
+}
+
+@font-face {
+    font-family: teksaredUlBold;
+    src: url(./font/Helios_Bold.ttf);
+}
+
+.footer {
+    border-top:none;
+}
+.customWrapper {
+    width: 100%;
+    padding: 0;
+}
+
+.teksared .block-decription {
+    width: 995px;
+    position: relative;
+    margin: 0 auto;
+    background-position: right;
+    background-color: #ffde46;
+}
+
+.teksared .block-title-content {
+    width: 995px;
+    position: relative;
+    margin: 0 auto;
+    padding-left: 10px;
+}
+
+@media (max-width: 800px) {
+    .customWrapper {
+        width: 100%;
+    }
+    .teksared .block-decription {
+        width: 100%;
+    }
+    .teksared .block-title-content {
+        width: 98%;
+    }
+}
+
+.teksared .sub-title {
+    background-color: #ee7000;
+}
+
+.teksared .block-decription {
+    padding: 40px;
+    padding-bottom: 50px;
+}
+
+@media (max-width: 850px) {
+    .teksared .block-decription {
+        padding: 0px;
+    }
+}
+
+.teksared .block-decription .block-decription__title {
+    color: #ee7000;
+    font-size: 50px;
+    text-transform: uppercase;
+    font-family: teksaredBold;
+    letter-spacing: 2px;
+    font-style: italic;
+    position: relative;
+    float:left;
+}
+.teksared .block-decription .block-decription__title_reg {
+    color: #ee7000;
+    font-size: 25px;
+    float:left;
+    margin-top: -5px;
+}
+
+.teksared .block-decription .block-decription__sub_title {
+    color: #ee7000;
+    font-size: 25px;
+    font-family: teksaredBold;
+    letter-spacing: 1px;
+    padding-top: 13px;
+    padding-left: 10px;
+    font-style: italic;
+}
+
+.teksared .block-decription .block-decription__description {
+    text-transform: uppercase;
+    margin-top: 100px;
+    color: #5c338a;
+    font-size: 27px;
+    font-family: teksaredBold;
+    font-style: italic;
+    letter-spacing: 1px;
+}
+
+.teksared .block-decription .block-decription__description a {
+    color: #5c338a;
+}
+.teksared .block-decription .block-decription__description  div{
+    padding: 5px;
+}
+.teksared .block-decription .block-decription__description i {
+    font-size: 13px;
+    position: absolute;
+    margin-top: -4px;
+}
+
+.teksared .block-title i {
+    font-size: 12px;
+    font-weight: bold;
+    position: absolute;
+    margin-top: -2px;
+}
+
+.teksared .block-title {
+    font-family: teksaredNorm;
+    font-style: italic;
+    letter-spacing: 1px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: #ee7000;
+    color: #ffffff;
+    font-size: 19px;
+    min-height: 50px;
+}
+
+
+.teksared .block-title a {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.teksared .block-title i a {
+    text-decoration: underline;
+}
+
+@media (max-width: 500px) {
+    .teksared .block-title {
+        padding-left: 15px;
+        min-height: 125px;
+    }
+
+    .teksared .block-title div{
+        padding: 5px;
+        float: left !important;
+    }
+}
+
+.teksared ul.branded {
+    list-style-image: url("./img/li_point.png");
+    list-style-position: outside;
+    margin: 0px;
+    padding: 1px;
+    padding-left: 30px;
+}
+
+.teksared ul.branded b {
+    font-family: teksaredUlBold;
+    font-size: 21px;
+}
+
+.teksared ul.branded i {
+    font-size: 13px;
+    font-family: teksaredUlBold;
+    position: absolute;
+}
+.teksared ul.branded i a {
+    color: #5c338a;
+}
+
+.teksared ul.branded li {
+    font-size: 22px;
+    font-family: teksaredUl;
+    color: #5c338a;
+    margin-bottom: 10px;
+}
+
+.teksared table {
+    width: 100%;
+}
+
+.teksared table thead td {
+    color: #ee7000;
+    text-transform: uppercase;
+    font-size: 25px;
+    font-family: teksaredBold;
+    letter-spacing: 1px;
+    font-style: italic;
+    word-break: break-all;
+    text-align: center;
+}
+
+.teksared table tbody td {
+    text-align: center;
+    color: #502282;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: teksaredUl;
+}
+
+.teksared table tbody td  div{
+    padding-top: 5px;
+}
+    
+.teksared table tbody td b {
+    font-family: teksaredUlBold;
+    letter-spacing: -1px;
+}
+
+.teksared table td {
+    border: 1px solid #502282;
+    padding: 15px;
+}
+
+.teksared .ps {
+    font-size: 14px;
+    padding-top: 20px;
+}
+
+.teksared #main_block {
+    min-height:200px
+}
+
+.teksared #main_block img {
+    padding: 20px;
+}
+
+.teksared #main_block .top-description {
+    margin-left: 200px;
+    margin-top:35px;
+    position: absolute;
+    width: 630px;
+}
+
+@media (max-width: 850px) {
+    .teksared #main_block .top-description {
+        margin-left: 165px;
+    }
+}
+
+@media (max-width: 770px) {
+    .teksared #main_block .top-description {
+        position: relative;
+        margin-left:15px;
+        width: 98%;
+    }
+}
+
+.teksared #man {
+    min-height:312px;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+}
+
+
+.teksared #man img {
+    padding-left:30px;
+    padding-right:50px;
+}
+
+@media (max-width: 700px) {
+    .teksared #man img {
+        padding-left:0px;
+        padding-right:25px;
+    }
+}
+
+.teksared #form .block-decription__title {
+    margin-left:40px;
+    font-size:40px;
+}
+
+@media (max-width: 600px) {
+    .teksared #form table {
+        margin-left:0px;
+    }
+}
+
+.teksared #formula {
+    padding-left: 10px;
+    padding-right: 60px;
+}
+
+@media (min-width: 650px) {
+    .teksared img.scale {
+        transform: scale(1);
+        transition: all 1s;
+    }
+
+    .teksared img.scale:hover {
+        transform: scale(1.1);
+        transition: all 1s;
+    }
+}
+
+@media (max-width: 380px) {
+    .teksared table td {
+        padding: 10px;
+    }
+
+    .teksared #main_block .top-description {
+        margin-left: 0px;
+    }
+
+    .teksared .block-decription .block-decription__title {
+        font-size: 44px;
+    }
+    
+    .teksared #form .block-decription__title {
+        margin-left: 20px;
+    }
+
+    .teksared .block-decription .block-decription__sub_title {
+        padding-left: 0px;
+    }
+
+    .teksared .block-decription .block-decription__title_reg {
+        float: none;
+    }
+
+    .teksared #simple {
+        width: 296px;
+        margin-top: 10px;
+    }
+
+    .teksared .block-title {
+        min-height: 160px;
+        padding-left: 5px;
+    }
+    .teksared #formula {
+        padding:10px;
+        padding-right:10px;
+    }
+
+    .teksared #block-formula div{
+        clear:both;
+    }
+    .teksared #block-formula {
+        padding-bottom: 0px !important;
+    }
+    .teksared #man div {
+        clear:both;
+    }
+    
+    .teksared .table_img1 {
+        width: 120px !important;
+    }
+
+    .teksared .table_img2 {
+        width: 130px !important;
+    }
+
+    .teksared .block-title div {
+        padding: 0px !important;
+    }
+    
+    .teksared .button_video1 {
+        margin-top: 30px;
+        margin-left: 25%;
+    }
+}

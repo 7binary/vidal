@@ -1,0 +1,93 @@
+{% extends 'VidalMainBundle::layout.html.twig' %}
+
+
+{% block title %}
+	<h1>{{ rubrique }}</h1>
+{% endblock %}
+
+
+{% block nav %}
+	<div class="breadcrumbs">
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('index') }}" itemprop="url">
+				<span itemprop="title">Видаль</span>
+			</a>
+		</div>
+
+		<i></i>
+
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('articles') }}" itemprop="url">
+				<span itemprop="title">Медицинская энциклопедия</span>
+			</a>
+		</div>
+
+		<i></i>
+		<span>{{ rubrique }}</span>
+	</div>
+{% endblock %}
+
+
+{% block content %}
+	{% if rubrique.categories is not empty %}
+		<div class="divisions">
+			{% for category in rubrique.categories %}
+				<div>
+					{% if isAdmin %}
+						<a class="admin-edit fade" target="_blank"
+						   href="{{ path('admin_vidal_drug_articlecategory_edit', {'id':category.id}) }}">
+							<img src="{{ asset('bundles/vidalmain/images/edit.png') }}"/>
+						</a>
+					{% endif %}
+					<a class="link"
+					   href="{{ path('article', {'rubrique':rubrique.rubrique, 'link':category.url }) }}">{{ category.title }}</a>
+
+					{% if category.announce is not empty %}
+						<div class="announce">{{ category.announce|raw }}</div>
+					{% endif %}
+				</div>
+			{% endfor %}
+		</div>
+	{% endif %}
+
+	{% include 'VidalMainBundle:Index:render_articles.html.twig' %}
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/publication.css') }}"/>
+	<style>
+		.divisions > div {
+			position:      relative;
+			margin-bottom: 15px;
+			padding:       9px 12px 10px;
+			border:        3px solid #eee;
+			font-size:     14px;
+		}
+		.divisions .link {
+			font-size:       16px;
+			color:           #2f4053;
+			font-weight:     bold;
+			text-decoration: none;
+		}
+		.divisions .link:hover {
+			text-decoration: underline;
+		}
+		.divisions .announce {
+			margin-top: 10px;
+		}
+		.divisions. announce * {
+			font-size: 14px;
+		}
+		.divisions .announce p {
+			margin: 6px 0;
+		}
+		.divisions .announce p:first-child {
+			margin-top: 0;
+		}
+		.divisions .announce p:last-child {
+			margin-bottom: 0;
+		}
+	</style>
+{% endblock %}

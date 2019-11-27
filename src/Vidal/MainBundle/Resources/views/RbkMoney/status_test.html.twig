@@ -1,0 +1,39 @@
+{% extends 'VidalMainBundle::layout.html.twig' %}
+
+{% block title %}
+	<h1>{{ title }}</h1>
+{% endblock %}
+
+{% block content %}
+	{% for msg in app.session.flashbag.get('msg') %}
+		<div class="msg">{{ msg }}</div>
+	{% endfor %}
+
+	<form method="POST" action="http://localhost:97/app_dev.php/rbkmoney/status">
+		<input type="text" name="eshopId" value="{{ shopId }}">
+		<input type="text" name="paymentId" value="2007022292">
+		<input type="text" name="orderId" value="59abec71a602d">
+		<input type="text" name="eshopAccount" value="RU123456789">
+		<input type="text" name="serviceName" value="Kniga">
+		<input type="text" name="recipientAmount" value="12.30">
+		<input type="text" name="recipientCurrency" value="RUR">
+		<input type="text" name="paymentStatus" value="5">
+		<input type="text" name="userName" value="Petrov Alexander">
+		<input type="text" name="userEmail" value="admin@rbkmoney.ru">
+		<input type="text" name="paymentData" value="2003-09-17 13:12:03">
+		<input type="text" name="secretKey" value="myKey">
+		<input type="text" name="hash" value="f849a1c57c66b372ec4a3a2e04d2feba">
+		<input type="text" name="userField_1" value="value_1">
+		<input type="text" name="userField_2" value="value_2">
+
+		<input type="submit" name="button" value="Тестировать">
+	</form>
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<style>
+
+	</style>
+{% endblock %}

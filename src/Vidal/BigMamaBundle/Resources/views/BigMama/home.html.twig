@@ -1,0 +1,313 @@
+{% extends 'VidalBigMamaBundle::big_mama_layout.html.twig' %}
+
+{% block content %}
+    {% include 'VidalBigMamaBundle:BigMama:_news.html.twig' %}
+    {% if  app.request.get('banners') %}
+        <div class="top-banners">
+            <div class="banner">
+                Banner 995x100
+            </div>
+        </div>
+    {% endif %}
+	{% include 'VidalBigMamaBundle:BigMama:_video.html.twig' %}
+	{% include 'VidalBigMamaBundle:BigMama:_audio.html.twig' %}
+	{% include 'VidalBigMamaBundle:BigMama:_specialist.html.twig' %}
+	{% include 'VidalBigMamaBundle:BigMama:_questions.html.twig' %}
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" type="text/css"
+		  href="{{ asset('bundles/vidalmain/bxslider/jquery.bxslider.min.css') }}"/>
+	<style type="text/css">
+		.center {
+			text-align: center;
+		}
+		.qas {
+			color: white;
+		}
+		.qas .rest {
+			display: none;
+		}
+		.qa-header {
+			margin-bottom: 28px;
+			position:      relative;
+		}
+		.qa-answer {
+			display: none;
+		}
+		.qa-answer-text {
+			overflow-y: auto;
+			box-shadow: inset 0 0 10px yellow;
+			padding:    5px 10px;
+			max-height: 300px;
+		}
+		.qa {
+			position:       relative;
+			width:          50%;
+			vertical-align: top;
+			padding-bottom: 30px;
+			text-align:     justify;
+		}
+		.qa.first {
+			padding-right: 25px;
+		}
+		.qa.last {
+			padding-left: 25px;
+		}
+		.qa-question {
+			margin-bottom: 10px;
+		}
+		.qa-answer-label {
+			font-weight:   bold;
+			margin-bottom: 5px;
+		}
+		.qa-answer-close {
+			text-decoration: none;
+		}
+		.qa-answer-close img {
+			width: 16px;
+		}
+		.qa-answer-label span {
+			vertical-align: top;
+			margin-left:    5px;
+			color:          yellow;
+		}
+		.ask-form {
+			padding-top: 25px;
+		}
+		#form_captcha {
+			width:        100px;
+			float:        left;
+			margin-right: 18px;
+		}
+		.form_button {
+			padding: 20px 0 26px !important;
+		}
+		.form_label {
+			color:     white;
+			font-size: 15px;
+		}
+		.questioned {
+			margin-top:    80px;
+			font-size:     17px;
+			margin-bottom: 20px;
+			font-style:    italic;
+			color:         yellow;
+			text-align:    center;
+		}
+		.stat {
+			display:  inline-block;
+			position: absolute;
+			top:      15px;
+			right:    61px;
+			height:   100px;
+			border:   1px solid #fff;
+		}
+	</style>
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+	<script type="text/javascript"
+			src="{{ asset('bundles/vidalmain/bxslider/jquery.bxslider.min.js') }}"></script>
+	<script type="text/javascript">
+		var sliderTimeout = 25000;
+		var next = 1;
+		var t = 0;
+
+		$(document).ready(function() {
+			// bxslider
+			$('.bxslider').bxSlider({
+				adaptiveHeight: true
+			});
+			$('.bxslider').css('visibility', 'visible');
+
+
+			var sliderInterval = setInterval(slider, sliderTimeout);
+
+			// slider
+			$('.slider a').click(function(e) {
+				e.preventDefault();
+				var $this = $(this);
+				var id = $this.attr('data');
+
+				$('.slider a.active, .images div.active, .texts div.active').removeClass('active');
+				$this.addClass('active');
+				$('.image-' + id).addClass('active');
+				$('.text-' + id).addClass('active');
+
+				clearInterval(sliderInterval);
+				sliderInterval = setInterval(slider, sliderTimeout);
+
+				return false;
+			});
+			$('.r-left').click(function() {
+				$('.slider a.active').removeClass('active').prevOrLast().addClass('active');
+				$('.images div.active').removeClass('active').prevOrLast().addClass('active');
+				$('.texts div.active').removeClass('active').prevOrLast().addClass('active');
+				clearInterval(sliderInterval);
+				sliderInterval = setInterval(slider, sliderTimeout);
+			});
+			$('.r-right').click(function() {
+				$('.slider a.active').removeClass('active').nextOrFirst().addClass('active');
+				$('.images div.active').removeClass('active').nextOrFirst().addClass('active');
+				$('.texts div.active').removeClass('active').nextOrFirst().addClass('active');
+				clearInterval(sliderInterval);
+				sliderInterval = setInterval(slider, sliderTimeout);
+			});
+
+			// articles
+			$('.p-left').click(function(e) {
+				e.preventDefault();
+				$('.articles .active').removeClass('active').prevOrLast().addClass('active');
+				$('.roller .active').removeClass('active').prevOrLast().addClass('active');
+				resetArticles();
+
+				return false;
+			});
+
+			$('.p-right').click(function(e) {
+				e.preventDefault();
+				$('.articles .active').removeClass('active').nextOrFirst().addClass('active');
+				$('.roller .active').removeClass('active').nextOrFirst().addClass('active');
+				resetArticles();
+
+				return false;
+			});
+
+			$('.roller a').click(function(e) {
+				e.preventDefault();
+				var $this = $(this);
+				var id = $this.attr('data');
+				$('.articles .active, .roller .active').removeClass('active');
+				$this.addClass('active');
+				$('.article-' + id).addClass('active');
+				resetArticles();
+
+				return false;
+			});
+
+			$('.article').click(function() {
+				var $this = $(this);
+				$this.find('.article-text, .article-img').hide();
+				$this.find('.article-body').show();
+			});
+
+			$('.article-body').click(function(e) {
+				e.stopPropagation();
+				var $this = $(this);
+				var $article = $this.closest('.article');
+				$article.find('.article-body').hide();
+				$article.find('.article-text, .article-img').show();
+			});
+
+			// test
+			$('.test-buttons a').click(function(e) {
+				e.preventDefault();
+				next++;
+				var $question = $('.question.active');
+
+				if ($question.hasClass('last')) {
+					showResult();
+					return false;
+				}
+
+				$question.removeClass('active').next().addClass('active');
+				$('.test-images .active').removeClass('active').next().addClass('active');
+
+				if ($(this).hasClass('yes')) {
+					t++;
+				}
+			});
+
+			// question-answer
+			$('.qa > a').click(function(e) {
+				e.preventDefault();
+				var $this = $(this);
+				var $qa = $this.closest('.qa');
+				var $qaNext = $qa.nextOrFirst();
+				$this.hide();
+				$qa.find('.qa-answer').show();
+			});
+
+			$('.qa-answer-close').click(function(e) {
+				e.preventDefault();
+				var $this = $(this);
+				var $qa = $this.closest('.qa');
+				$this.closest('.qa-answer').hide();
+				$qa.find('> a').show();
+			});
+
+			if ($('.form_error ul').length) {
+				$('#ask').hide();
+				$('.ask-form').show();
+			}
+
+			$('.qa-rest').click(function(e) {
+				var $link = $(this);
+				e.preventDefault();
+				$('.qas .rest').slideDown('fast', function() {
+					$link.remove();
+				});
+			});
+
+			// video
+			$('.s-left').click(function(e) {
+				e.preventDefault();
+				$('.videos .active').removeClass('active').prevOrLast().addClass('active');
+				$('.scroller .active').removeClass('active').prevOrLast().addClass('active');
+
+				return false;
+			});
+
+			$('.s-right').click(function(e) {
+				e.preventDefault();
+				$('.videos .active').removeClass('active').nextOrFirst().addClass('active');
+				$('.scroller .active').removeClass('active').nextOrFirst().addClass('active');
+
+				return false;
+			});
+
+			$('.scroller a').click(function(e) {
+				e.preventDefault();
+				var $this = $(this);
+				var id = $this.attr('data');
+				$('.videos .active, .scroller .active').removeClass('active');
+				$this.addClass('active');
+				$('.video-' + id).addClass('active');
+
+
+				return false;
+			});
+		});
+
+		jQuery.fn.nextOrFirst = function(selector) {
+			var next = this.next(selector);
+			return (next.length) ? next : this.prevAll(selector).last();
+		};
+		jQuery.fn.prevOrLast = function(selector) {
+			var prev = this.prev(selector);
+			return (prev.length) ? prev : this.nextAll(selector).last();
+		};
+
+		function resetArticles() {
+			$('.article-body').hide();
+			$('.article-img, .article-text').show();
+		}
+
+		function slider() {
+			$('.slider a.active').removeClass('active').nextOrFirst().addClass('active');
+			$('.images div.active').removeClass('active').nextOrFirst().addClass('active');
+			$('.texts div.active').removeClass('active').nextOrFirst().addClass('active');
+		}
+
+		function showResult() {
+			$('.question, .test-buttons').hide();
+			t > 3
+				? $('.result.positive').addClass('active')
+				: $('.result.negative').addClass('active');
+		}
+	</script>
+{% endblock %}

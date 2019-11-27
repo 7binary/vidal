@@ -1,0 +1,29 @@
+{% extends layout | default('EvrikaMainBundle::minimal_layout.html.twig') %}
+
+{% block body %}
+	<p>
+		{% if comment.author %}
+			Пользователь <a style="color:#586E85; font-weight:bold;"
+							href="{{ url('user_feed', {'userId': comment.author.id }) }}">{{ comment.author }}</a>
+		{% else %}
+			Гость, представившийся как <span style="color:#586E85; font-weight:bold;">{{ comment.authorName }}</span>
+		{% endif %}
+
+		{# комментарий к публикации или событию #}
+		{% if comment.publication is defined %}
+			оставил комментарий к публикации&nbsp;
+			<a href="{{ url('show_publication', {'publicationId': comment.publication.id}) }}#comment_{{ comment.id }}">
+				&laquo;{{ comment.publication.title | raw }}&raquo;
+			</a>
+		{% elseif comment.event is defined %}
+			оставил комментарий к событию&nbsp;
+			<a href="{{ url('show_publication', {'publicationId': comment.event.id, 'feedType': 'event'}) }}#comment_{{ comment.id }}">
+				&laquo;{{ comment.event.title | raw }}&raquo;
+			</a>
+		{% endif %}
+	</p>
+
+	<div style="padding:5px 20px; max-width: 700px; background:#E8F2F4;">
+		{{ comment.text | raw }}
+	</div>
+{% endblock %}

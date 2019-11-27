@@ -1,0 +1,12 @@
+{% extends 'VidalMainBundle::minimal_layout.html.twig' %}
+
+{% block body %}
+	{% if text is not empty %}
+		<p>{{ text }}</p>
+	{% endif %}
+
+	<p>
+		{{ title }}<br/>
+		<a href="{{ url }}" target="_blank">{{ url }}</a>
+	</p>
+{% endblock %}

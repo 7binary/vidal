@@ -1,0 +1,112 @@
+{% extends 'VidalMainBundle::layout.html.twig' %}
+
+
+{% set document = portfolio.DocumentID %}
+{% set infoPage = document.infoPages[0] is defined ? document.infoPages[0] : null %}
+
+
+{% block title %}
+	<h1>{{ portfolio.title|raw }}</h1>
+{% endblock %}
+
+{% block nav %}
+	<div class="breadcrumbs">
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{  path('index') }}" itemprop="url">
+				<span itemprop="title">Видаль</span>
+			</a>
+		</div>
+		<i></i>
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('vracham') }}" itemprop="url">
+				<span itemprop="title">Информация для специалистов</span>
+			</a>
+		</div>
+		<i></i>
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('art', {'url':'podrobno-o-preparate'}) }}" itemprop="url">
+				<span itemprop="title">Портфели препаратов</span>
+			</a>
+		</div>
+		<i></i>
+		<span>{{ portfolio.title|raw }}</span>
+	</div>
+{% endblock %}
+
+
+{% block content %}
+	{# Публикация #}
+	<div class="publication text relative">
+
+		{# видео одиночное, загружаемое через админку #}
+		{% if portfolio.video %}
+			{% include 'VidalMainBundle:Article:render_video.html.twig' with {'path':portfolio.video.path, 'width':portfolio.videoWidth, 'height':portfolio.videoHeight, 'id':'player1'} %}
+		{% endif %}
+
+		{{ portfolio.body|raw }}
+
+		{# видео вручную #}
+		{% for video in portfolio.videos if video.enabled %}
+			{% include 'VidalMainBundle:Article:render_video.html.twig' with {'path':video.path, 'width':video.width, 'height':video.height, 'id':'video' ~ video.id} %}
+		{% endfor %}
+	</div>
+
+	{# Препарат #}
+	{% if products is not empty %}
+		{% if products|length == 1 %}
+			<div class="block product">
+				<span class="block-head">Препарат:</span>
+				<a href="{{ path('product_url', {'EngName':products[0].uri}) }}"
+				   class="no-underline bold">
+					{{ products[0].RusName|raw }}
+				</a>
+			</div>
+		{% else %}
+			<div class="block product">
+				<div class="block-head">Препараты</div>
+				<ul class="ul-style">
+					{% for product in products %}
+						<li>
+							<a href="{{ path('product_url', {'EngName':product.uri}) }}"
+							   class="no-underline bold">
+								{{ product.RusName|raw }}
+							</a>
+							<span class="zip">
+								{{ product.ZipInfo }}
+							</span>
+						</li>
+					{% endfor %}
+				</ul>
+			</div>
+		{% endif %}
+	{% endif %}
+
+	{# Представительство #}
+	{% if infoPage %}
+		<div class="block">
+			<span class="block-head">Представительство:</span>
+			<a href="{{ path('inf_item', {'InfoPageID':infoPage.InfoPageID}) }}"
+			   class="no-underline bold">
+				{{ infoPage.RusName|raw }}
+			</a>
+		</div>
+	{% endif %}
+
+	{% include 'VidalMainBundle::yad_horizontal.html.twig' %}
+
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<style type="text/css">
+		.product {
+			border-top:  1px solid #ccc;
+			padding-top: 16px;
+		}
+		.zip {
+			font-size:   13px;
+			margin-left: 5px;
+		}
+	</style>
+{% endblock %}

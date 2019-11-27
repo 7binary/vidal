@@ -1,0 +1,281 @@
+#share-buttons {
+	margin-bottom: 15px;
+}
+#share-buttons > div.bold {
+	vertical-align: top;
+	display:        inline-block;
+	color:          #666;
+	margin-top:     9px;
+	margin-right:   5px;
+	font-weight:    bold;
+	border:         none;
+	padding:        0px
+}
+#share-buttons > div {
+	overflow:      hidden;
+	display:       inline-block;
+	border:        1px solid #ccc;
+	border-radius: 4px;
+	height:        26px;
+	padding:       3px 4px;
+}
+#share-buttons a {
+	display:     inline-block;
+	float:       left;
+	margin-left: 3px;
+}
+#share-buttons a.first {
+	margin-left: 0;
+}
+#share-buttons img {
+	width:      26px;
+	border:     0;
+	box-shadow: 0;
+}
+#share-email {
+	display: none;
+}
+#share-email .share-title {
+	color:         #d71344;
+	font-size:     17px;
+	font-weight:   bold;
+	margin-bottom: 18px;
+}
+#share-email div {
+	margin-bottom: 10px;
+	width:         418px;
+}
+#share-email input[type="text"], #share-email textarea {
+	width: 400px;
+}
+#share-email .submit {
+	text-align: right;
+}
+.share-error, .share-message {
+	display: none;
+}
+.counter {
+	vertical-align: top;
+	position:       relative;
+	line-height:    26px;
+	padding:        3px 7px;
+	margin-left:    7px;
+	border:         1px solid #ccc;
+	border-radius:  4px;
+	display:        none;
+}
+.counter i {
+	display:       inline-block;
+	position:      absolute;
+	top:           10px;
+	left:          -5px;
+	width:         0;
+	height:        0;
+	border-top:    6px solid transparent;
+	border-bottom: 6px solid transparent;
+	border-right:  6px solid white;
+}
+.counter b {
+	display:       inline-block;
+	position:      absolute;
+	top:           9px;
+	left:          -7px;
+	width:         0;
+	height:        0;
+	border-top:    7px solid transparent;
+	border-bottom: 7px solid transparent;
+	border-right:  7px solid #ccc;
+}
+
+.social-sprite {
+    background-image: url('../../images/social/social-sprite.png');
+    background-repeat: no-repeat;
+    display: block;
+    float: left;
+    margin-right: 4px;
+}
+
+.social-email-b {
+    display: block;
+    width: 80px;
+    height: 80px;
+    background-position: -10px -10px;
+}
+.social-email-m {
+    width: 26px;
+    height: 26px;
+    background-position: -3px -3px;
+    background-size: 500%;
+
+}
+.social-email-s {
+    width: 18px;
+    height: 18px;
+    background-position: -3px -3px;
+    background-size: 500%;
+}
+
+.social-mail-b {
+    width: 80px;
+    height: 80px;
+    background-position: -110px -110px;
+}
+.social-mail-m {
+    width: 26px;
+    height: 26px;
+    background-position: -35px -36px;
+    background-size: 500%;
+}
+.social-mail-s {
+    width: 18px;
+    height: 18px;
+    background-position: -35px -36px;
+    background-size: 500%;
+}
+
+.social-ok-b {
+    width: 80px;
+    height: 80px;
+    background-position: -310px -10px;
+}
+.social-ok-m {
+    width: 26px;
+    height: 26px;
+    background-position: -101px -3px;
+    background-size: 500%;
+}
+.social-ok-s {
+    width: 18px;
+    height: 18px;
+    background-position: -70px -3px;
+    background-size: 500%;
+}
+
+.social-gplus-b {
+    width: 80px;
+    height: 80px;
+    background-position: -210px -110px;
+}
+.social-gplus-m {
+    width: 26px;
+    height: 26px;
+    background-position: -68px -35px;
+    background-size: 500%;
+}
+.social-gplus-s {
+    width: 18px;
+    height: 18px;
+    background-position: -47px -25px;
+    background-size: 500%;
+}
+
+.social-livejournal-b {
+    width: 80px;
+    height: 80px;
+    background-position: -10px -110px;
+}
+.social-livejournal-m {
+    width: 26px;
+    height: 26px;
+    background-position: -3px -35px;
+    background-size: 500%;
+}
+.social-livejournal-s {
+    width: 18px;
+    height: 18px;
+    background-position: -2px -25px;
+    background-size: 500%;
+}
+
+.social-twitter-b {
+    width: 80px;
+    height: 80px;
+    background-position: -3px -3px;
+}
+.social-twitter-m {
+    width: 26px;
+    height: 26px;
+    background-position: -68px -68px;
+    background-size: 500%;
+}
+.social-twitter-s {
+    width: 18px;
+    height: 18px;
+    background-position: -48px -47px;
+    background-size: 500%;
+}
+
+.social-facebook-b {
+    width: 80px;
+    height: 80px;
+    background-position: -3px -3px;
+}
+.social-facebook-m {
+    width: 26px;
+    height: 26px;
+    background-position: -36px -3px;
+    background-size: 500%;
+}
+.social-facebook-s {
+    width: 18px;
+    height: 18px;
+    background-position: -25px -3px;
+    background-size: 500%;
+}
+
+.social-vk-b {
+    width: 80px;
+    height: 80px;
+    background-position: -3px -3px;
+    background-size: 500%;
+}
+.social-vk-m {
+    width: 26px;
+    height: 26px;
+    background-position: -36px -68px;
+    background-size: 500%;
+}
+.social-vk-s {
+    width: 18px;
+    height: 18px;
+    background-position: -25px -48px;
+    background-size: 500%;
+}
+
+.social-blogspot-b {
+    width: 80px;
+    height: 80px;
+    background-position: -101px -3px;
+    background-size: 500%;
+}
+.social-blogspot-m {
+    width: 26px;
+    height: 26px;
+    background-position: -68px -3px;
+    background-size: 500%;
+}
+.social-blogspot-s {
+    width: 18px;
+    height: 18px;
+    background-position: -47px -3px;
+    background-size: 500%;
+}
+
+.social-linkedin-b {
+    width: 80px;
+    height: 80px;
+    background-position: -3px -68px;
+    background-size: 500%;
+}
+.social-linkedin-m {
+    width: 26px;
+    height: 26px;
+    background-position: -3px -68px;
+    background-size: 500%;
+}
+.social-linkedin-s {
+    width: 18px;
+    height: 18px;
+    background-position: -3px -68px;
+    background-size: 500%;
+}

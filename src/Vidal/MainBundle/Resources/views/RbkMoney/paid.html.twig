@@ -1,0 +1,18 @@
+{% extends 'VidalMainBundle::layout.html.twig' %}
+
+{% block title %}
+	<h1>{{ title }}</h1>
+{% endblock %}
+
+{% block content %}
+	{% for msg in app.session.flashbag.get('msg') %}
+		<div class="msg">{{ msg }}</div>
+	{% endfor %}
+
+	<div style="margin: 0 0 20px; padding: 3px 5px; background:beige; border:1px solid #a4a75f;">
+		<b>Платеж выполнен!</b><br/><br/>
+		Идентификатор платежа: {{ rbk.orderId }}<br/>
+		Товар: {{ rbk.product }}<br/>
+		Сумма: {{ rbk.price }} рублей.<br/>
+	</div>
+{% endblock %}

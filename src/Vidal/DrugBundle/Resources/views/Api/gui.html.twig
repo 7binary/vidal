@@ -1,0 +1,266 @@
+{% extends 'VidalMainBundle::layout.html.twig' %}
+
+{% set isAdmin = app.user is not null and is_granted('ROLE_ADMIN') %}
+{% set is_user = app.user ? true : false %}
+
+{% block title %}
+	<h1>{{ title|raw }}</h1>
+{% endblock %}
+
+{% block nav %}
+	<div class="breadcrumbs">
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('index') }}" itemprop="url">
+				<span itemprop="title">Видаль</span>
+			</a>
+		</div>
+		<i></i>
+
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('products') }}" itemprop="url">
+				<span itemprop="title">Препараты</span>
+			</a>
+		</div>
+		<i></i>
+
+		{% if product is not empty %}
+			<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+				<a href="{{ path('product_url', {'EngName':product.uri}) }}" itemprop="url">
+					<span itemprop="title">
+						{{ product.RusName|raw }}
+					</span>
+				</a>
+			</div>
+			<i></i>
+
+			<span>Аналоги</span>
+		{% else %}
+			<span>Аналоги</span>
+		{% endif %}
+	</div>
+{% endblock %}
+
+
+{% block content %}
+    {% if product is not empty %}
+        <div>&#128138; Аналоги препарата {{ product.RusName|ucwords|raw }}</div>
+        <div style="display:none;" id="analog-count">&#9989;Более __COUNT__ аналогов {{ product.RusName|ucwords|raw }}</div>
+    {% endif %}
+
+
+	<div style="margin-bottom: 15px;">
+		<h3 style="overflow:hidden; line-height:40px; margin: 0;">Выбранный препарат
+			<img id="loader" src="/bundles/vidalmain/images/bx_loader.gif"
+				 style="float:right; display: none; margin: 0; width: 40px; height: 40px;"/>
+		</h3>
+		<div id="selected" style="font-size: 13px;"></div>
+	</div>
+
+	<div class="analog-form">
+		<table style="width:100%">
+			<tr>
+				<td style="width:60%">
+					<input name="product" id="product" placeholder="начните вводить препарат..."/>
+				</td>
+				<td style="width:40%">
+					<select name="type" id="type">
+						<option value="4">Полные аналоги</option>
+						{% if is_user %}
+							<option value="1">Групповые аналоги</option>
+							<option value="2">Нозологические аналоги</option>
+						{% endif %}
+					</select>
+					<input type="hidden" id="ProductID" name="ProductID"/>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div>
+		<h3>Результаты поиска аналогов</h3>
+		<div id="results"></div>
+	</div>
+
+	<div id="about"></div>
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+	<script>
+		$(document).ready(function() {
+
+			var $ul = $('#results');
+			var $type = $('#type');
+			var ProductID = null;
+
+			$.getJSON('{{ path('analog_about') }}', function(html) {
+				$('#about').html(html);
+			});
+
+			$('#product').focus()
+				.autocomplete({
+					minLength: 2,
+					source:    function(request, response) {
+						var url = "{{ app.environment == 'dev' ? '/app_dev.php' }}" + '/api/drug/autocomplete-product/' + $('#product').val() + '/' + $('#type').val() + '?uniqid={{ uniqid }}';
+						// $('#loader').show();
+						$.getJSON(url, function(data) {
+							var values = [];
+							for (var i = 0; i < data.length; i++) {
+								values.push({
+									'id':   data[i].ProductID,
+									'text': data[i].RusName2 + ' : ' + data[i].ZipInfo + ' (' + data[i].GDDBName
+											+ ', ' + data[i].countryName + ') #' + data[i].ProductID
+								});
+							}
+
+							// $('#loader').hide();
+							response(values);
+						});
+					},
+					select:    function(event, ui) {
+						location.href = "{{ app.environment == 'dev' ? '/app_dev.php' }}" + '/analog/' + ui.item.id + +'?uniqid={{ uniqid }}';
+
+//						$('#loader').show();
+//						var url = '/api/drug/equal-ajax/' + ui.item.id + '/' + $('#type').val();
+//						$('#selected').text(ui.item.text);
+//						$('#ProductID').val(ui.item.id);
+//						ProductID = ui.item.id;
+//
+//						$('#results').empty();
+//						$.getJSON(url, function(html) {
+//							$('#results').html(html);
+//							$('#loader').hide();
+//						});
+					}
+				})
+				.data("ui-autocomplete")._renderItem =
+				function(ul, item) {
+					return $("<li></li>").data("item.autocomplete", item).append("<a>" + item.text + "</a>").appendTo(ul);
+				};
+
+			$type.change(function() {
+				if (!ProductID) {
+					return;
+				}
+
+				$('#loader').show();
+				var url = "{{ app.environment == 'dev' ? '/app_dev.php' }}" + '/api/drug/equal-ajax/' + ProductID + '/' + $('#type').val() + '?uniqid={{ uniqid }}';
+
+				$('#results').empty();
+				$.getJSON(url, function(html) {
+					$('#results').html(html);
+					$('#loader').hide();
+					$('.hyphenate').hyphenate();
+        			var $productAnalogs = $("#results .product-analogs-count");
+                    if($productAnalogs && $productAnalogs.attr('data-count')) {
+                        var analogCountText = $("#analog-count").html();
+                        analogCountText = analogCountText.replace("__COUNT__", $productAnalogs.attr('data-count'));
+                        $("#analog-count").html(analogCountText);
+                        $("#analog-count").show();
+                    }
+				});
+			});
+		});
+
+		{% if product %}
+		ProductID = '{{ product.ProductID }}';
+		var url = "{{ app.environment == 'dev' ? '/app_dev.php' }}" + '/api/drug/equal-ajax/' + ProductID + '/' + $('#type').val() + '?uniqid={{ uniqid }}';
+		$('#selected').html('{{ product.RusName2|raw }} {{ product.zipInfo }}');
+		$('#ProductID').val(ProductID);
+
+		$('#loader').show();
+		$('#results').empty();
+
+		$.getJSON(url, function(html) {
+			$('#results').html(html);
+			$('#loader').hide();
+			$('.hyphenate').hyphenate();
+			var $productAnalogs = $("#results .product-analogs-count");
+            if($productAnalogs && $productAnalogs.attr('data-count')) {
+                var analogCountText = $("#analog-count").html();
+                analogCountText = analogCountText.replace("__COUNT__", $productAnalogs.attr('data-count'));
+                $("#analog-count").html(analogCountText);
+                $("#analog-count").show();
+            }
+		});
+		{% endif %}
+
+		$.fn.hyphenate = function() {
+			var all = "[абвгдеёжзийклмнопрстуфхцчшщъыьэюя]",
+				glas = "[аеёиоуыэюя]",
+				sogl = "[бвгджзклмнпрстфхцчшщ]",
+				zn = "[йъь]",
+				shy = "\xAD",
+				re = [];
+
+			re[1] = new RegExp("(" + zn + ")(" + all + all + ")", "ig");
+			re[2] = new RegExp("(" + glas + ")(" + glas + all + ")", "ig");
+			re[3] = new RegExp("(" + glas + sogl + ")(" + sogl + glas + ")", "ig");
+			re[4] = new RegExp("(" + sogl + glas + ")(" + sogl + glas + ")", "ig");
+			re[5] = new RegExp("(" + glas + sogl + ")(" + sogl + sogl + glas + ")", "ig");
+			re[6] = new RegExp("(" + glas + sogl + sogl + ")(" + sogl + sogl + glas + ")", "ig");
+			return this.each(function() {
+				var text = $(this).html();
+				for (var i = 1; i < 7; ++i) {
+					text = text.replace(re[i], "$1" + shy + "$2");
+				}
+				$(this).html(text);
+			});
+		};
+
+		$(document).ready(function() {
+			$('.hyphenate').hyphenate();
+
+			$('body').on('click', '.any-btn', function(e) {
+				e.preventDefault();
+				$('.any-list').slideToggle();
+				return false;
+			});
+		});
+	</script>
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<style type="text/css">
+		@media (max-width: 800px) {
+			.analog-form td {
+				display: block !important;
+				width:   100% !important;
+				margin:  15px 0;
+			}
+		}
+		.ui-menu .ui-menu-item {
+			border-bottom: 1px dotted gray !important;
+		}
+		#product, #type {
+			width:     223px;
+			font-size: 12px;
+		}
+		#product, #type {
+			width:                 240px;
+			height:                27px;
+			padding:               0 8px 2px;
+			border-radius:         4px;
+			-webkit-border-radius: 4px;
+			-moz-border-radius:    4px;
+			border:                1px solid #d71344;
+		}
+		#product {
+			height: 23px;
+		}
+		.any-btn {
+			margin:     20px 0;
+			text-align: center;
+		}
+		.any-alert {
+			background: beige;
+			padding:    5px 8px;
+			border:     1px solid #b4b49d;
+			font-size:  12px;
+		}
+		.any-list {
+			display: none;
+		}
+	</style>
+{% endblock %}

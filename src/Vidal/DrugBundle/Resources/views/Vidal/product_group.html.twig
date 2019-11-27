@@ -1,0 +1,13 @@
+{% extends 'VidalDrugBundle::vidal_layout.html.twig' %}
+
+
+{% block title %}
+	{% if products[0] and products[0].RusName is not empty %}
+		<h1>{{ products[0].RusName|raw }}</h1>
+	{% endif %}
+{% endblock %}
+
+
+{% block vidal %}
+	{% include 'VidalDrugBundle:Vidal:render_products.html.twig' %}
+{% endblock %}

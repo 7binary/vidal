@@ -1,0 +1,16 @@
+{% if is_mobile() and productAnalogs is defined and productAnalogs %}
+    <div class="block" id="product_analogs">
+        <h2 class="block-head">Аналоги препарата</h2>
+        <div class="block-content">
+            {% for productAnalog in productAnalogs %}
+                {% if loop.index <10 %}
+                    <p>
+                        <a href="{{ path('product_url', {'EngName':productAnalog['uri']}) }}">
+                            {{ productAnalog['RusName'] |raw }}</a>
+                        ({{productAnalog['GDDBName']}}, {{productAnalog['countryName']}})
+                    </p>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+{% endif %}

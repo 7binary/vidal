@@ -1,0 +1,1181 @@
+@charset "utf-8";
+/* CSS Reset */
+
+html, body {
+	position:relative;
+	width:100%;
+	height:100%;
+}
+
+body {
+	overflow-x:hidden;
+}
+
+h1 {
+	color:#fff;
+	font:normal 30px/30px Arial, sans-serif;
+}
+
+table, th, tr, td {
+	border:1px black solid;
+}
+
+.h1-first {
+	display:block;
+	color:#fff;
+	font:normal 13px/13px Arial, sans-serif;
+	margin:4px 0 5px 0;
+}
+
+.h1-second {
+	color:#fff;
+	font:normal 15px/15px Arial, sans-serif;
+}
+
+h2  {	
+	color:#9c3339;
+	font:normal 18px/18px Arial, sans-serif;
+	margin-bottom:13px;
+}
+
+h2.dettol {
+	color:#014289;
+}
+
+h2.gaviscon {
+	color:#007780;
+}
+
+h2.lemspip {
+	color:#155a11;
+}
+h2.strepsils {
+	margin-bottom:0px;
+}
+
+h2.strepsils.warm {
+	margin-top:-19px;
+	color:#ff9415;
+}
+
+h2.strepsils.warm span{
+	color:#cf1189;
+}
+
+h2.strepsils span {
+	font:normal 18px/18px Arial, sans-serif;
+}
+
+h2 span{	
+	color:#585655;
+	font:normal 11px/11px Arial, sans-serif;
+}
+
+table, tr, td {
+	font:normal 14px/14px Arial, sans-serif;
+}
+
+td, th
+{
+	padding:10px;
+}
+
+.left {
+	float:left;
+}
+
+.right {
+	float:right;
+}
+
+.no-margin {
+	margin:0;
+}
+
+.wrapper {
+	width:960px;
+	margin:0 auto;
+}
+
+/*start of header section*/
+
+.header {
+	width:926px;
+	height:108px;
+	padding:30px 35px 0 1px;
+}
+
+.logo {
+	display:block;
+	width:146;
+	height:64px;
+	float:left;
+}
+
+.agreement {
+	width:185px;
+	float:right;
+}
+
+.agreement p.info-text {
+	font:normal 22px/20px Arial, sans-serif;
+	color:#cdcccc;
+	margin:0 0 5px;
+}
+
+.agreement a {
+	color:#828181;
+	font:normal 12px/12px Arial, sans-serif;
+	text-decoration:underline;
+}
+
+.agreement a:hover {
+	text-decoration:none;
+}
+
+.menu {
+	width:960px;
+	height:37px;	
+}
+
+.menu li {
+	float:left;
+	margin-right:6px;
+}
+
+.menu li a {
+	display:block;
+	height:17px;
+	width:132px;
+	color:#585655;
+	font:normal 18px/18px Arial, sans-serif;
+	text-decoration:none;
+	padding:10px 0;
+	text-align:center;
+}
+
+.menu li.selected a{
+	color:#fff;
+}
+
+#index {
+	background:url(../i/index_menu_item_bg.jpg) no-repeat;	
+}
+
+#strepsils {
+	background:url(../i/strepsils_menu_item_bg.jpg) no-repeat;	
+}
+
+#nurofen {
+	background:url(../i/nurofen_menu_item_bg.jpg) no-repeat;	
+}
+
+#dettol {
+	background:url(../i/dettol_menu_item_bg.jpg) no-repeat;	
+}
+
+#gaviscon {
+	background:url(../i/gaviscon_menu_item_bg.jpg) no-repeat;	
+}
+
+#lemsip {
+	background:url(../i/lemsip_menu_item_bg.jpg) no-repeat;	
+}
+
+.drug-header {
+	width:552px;
+	padding:14px 265px 0 683px;
+	margin:0 0 0 -265px;
+}
+
+#index-header-bg {
+	width:880px;
+	padding:16px 0 0 645px;
+	background:url(../i/index_header_bg.jpg) top no-repeat;
+	min-height:285px;	
+}
+
+#strepsils-header-bg {
+	width:552px;	
+	padding:14px 270px 0 683px;
+	background:url(../i/strepsils_header_back.jpg) top no-repeat;
+	min-height:328px;
+}
+
+#nurofen-header-bg {
+	background:url(../i/nurofen_header_bg.jpg) top no-repeat;
+	min-height:342px;	
+}
+
+#dettol-header-bg {	
+	padding:14px 290px 0 683px;
+	background:url(../i/dettol_header_bg.jpg) top no-repeat;
+	min-height:530px;
+	position:relative;
+}
+
+#dettol-header-bg span.reg {
+	position:absolute;
+	left:442px;
+	top:515px;
+	color:#9e9e9e;
+	font:normal 12px/12px Arial, sans-serif;
+}
+
+#gaviscon-header-bg {
+	width:482px;	
+	padding:14px 290px 0 753px;
+	background:url(../i/gaviscon_header_bg.jpg) top no-repeat;
+	min-height:320px;
+}
+
+#lemsip-header-bg {
+	width:552px;	
+	padding:14px 310px 0 683px;
+	background:url(../i/lemsip_header_bg.jpg) top no-repeat;
+	min-height:328px;
+}
+
+.drug-header-part-1 {
+	width:542px;
+	height:183px;
+}
+
+.h-wrapper {
+	height:54px;
+	float:left;
+	margin:0 5px 12px 4px;
+}
+
+.h-wrapper sup{
+	font:normal 15px/15px Arial, sans-serif;
+}
+
+.h-wrapper.dettol {
+	height:88px;
+	width:167px;
+	background:url(../i/dettol_h1_bg.png) no-repeat;	
+}
+
+.h-wrapper.dettol .h-center{
+	height:77px;
+	background:none;	
+}
+
+.h-wrapper div {
+	float:left;
+}
+
+.h-left {
+	width:4px;
+	height:54px;
+	background:url(../i/h_border_left.png) no-repeat;
+}
+
+.h-center {
+	height:43px;
+	padding:11px 17px 0 17px;
+	background:url(../i/h_border_top_bottom.png) repeat-x;
+}
+
+.h-right {
+	width:4px;
+	height:54px;
+	background:url(../i/h_border_right.png) no-repeat;
+}
+
+.h-wrapper.sub-header .h-center {
+	height:46px;
+	padding:10px 15px 0 15px;	
+}
+
+.h-wrapper.sub-header .h-center a{
+	text-decoration:underline;
+	color:#fff;
+	font:normal 13px/16px Arial, sans-serif;
+}
+
+.h-wrapper.sub-header .h-center a:hover{
+	text-decoration:none;
+}
+
+.drug-header-content-1 {
+	margin:0 0 7px 4px;
+	color:#fff;
+	font:normal 16px/18px Arial, sans-serif;
+	clear:both;
+}
+
+.drug-header-content-1.index {	
+	font:normal 14px/16px Arial, sans-serif;
+}
+
+.drug-header-content-1.gaviscon {	
+	font:normal 24px/24px Arial, sans-serif;
+} 
+
+.drug-header-content-1.lemsip, .drug-header-content-1.strepsils {	
+	font:normal 14px/14px Arial, sans-serif;
+}
+
+.drug-header-content-1.lemsip  span.yellow{
+	display:block;
+	float:left;
+	color:#ffff2f;
+}	
+
+.no-left-margin {
+	margin-left:0px;
+}
+
+ul.grey-list {
+	list-style-type:none;
+	padding:0px;
+	margin:0px;
+}
+
+ul.grey-list.strepsils {
+	font:normal 13px/16px Arial, sans-serif;
+	margin-left:-10px;
+}
+
+ul.grey-list.dettol {
+	margin-left:-10px;
+}
+
+ul.grey-list.dettol li{
+	margin-bottom:12px;
+}
+
+ul.grey-list.dettol2 li{
+	margin-bottom:0;
+}
+
+ul.grey-list li {
+	background:url(../i/list_image_2.png) no-repeat;
+	background-position:0px 5px;
+	float:none;
+	padding-left:11px;
+	margin-right:11px;
+	margin-bottom:3px;
+}
+
+.drug-header-content-1 ul {
+	list-style-type:none;
+	padding:0px;
+	margin:0px;
+}
+
+.drug-header-content-1.strepsils ul {
+	margin-top:15px;
+}
+
+.drug-header-content-1 li {
+	background:url(../i/list_image_1.png) no-repeat;
+	background-position:0px 5px;
+	padding-left:11px;
+	margin-right:11px;
+	float:left;
+}
+
+.drug-header-content-1.strepsils li {
+	background:url(../i/list_image_3.png) no-repeat;
+	background-position:0px 4px;
+	color:#fad552;
+}
+
+.drug-header-part-2 {	
+	width:542px;
+	margin-top:35px;
+}
+
+.drug-header-content-2 {
+	color:#000;
+	font:normal 14px/18px Arial, sans-serif;
+	margin-bottom:10px;
+}
+
+.details-button {
+	display:block;
+	width:239px;
+	height:38px;
+	padding:11px 0 0 69px;
+	margin-top:20px;
+	color:#535353;
+	font:normal 14px/14px Arial, sans-serif;
+	text-decoration:none;
+}
+
+.details-button.strepsils {
+	background:url(../i/strepsils_details_button.png) no-repeat;	
+}
+
+.details-button.strepsils:hover {
+	color:#c44513;
+}
+
+.details-button.nurofen {
+	background:url(../i/nurofen_details_button.png) no-repeat;	
+}
+
+.details-button.nurofen:hover {
+	color:#9c3339;
+}
+
+.details-button.dettol {
+	height:31px;
+	padding-top:18px;
+	margin-top:0;
+	background:url(../i/dettol_details_button.png) no-repeat;	
+}
+
+.details-button.dettol:hover {
+	color:#343bbc;
+}
+
+.details-button.lemsip {
+	margin-top:50px;
+	background:url(../i/lemsip_details_button.png) no-repeat;	
+}
+
+.details-button.lemsip:hover {
+	color:#165911;
+}
+
+.dettol-images {
+	width:540px;
+	height:165px;
+	margin-top:40px;
+	background:url(../i/dettol_images.png) no-repeat;	
+}
+
+/*end of header section*/
+
+/* start of index section */
+
+.products-section {
+	width:1354px;
+	height:321px;
+	background:url(../i/index_products_shadow.jpg) center bottom no-repeat;
+	margin:-55px 0 0 -194px;
+}
+
+.products-section.last {
+	margin-top:30px;
+	height:426px;
+}
+
+.products-block {
+	width:1030px;
+	margin:0 0 0 164px;
+}
+
+.product {
+	display:block;
+	width:318px;
+	float:left;
+	margin-right:40px;
+	text-decoration:none;
+}
+
+.product:first-child {
+	margin-right:32px;
+}
+
+.product.last {
+	margin-right:0;
+}
+
+.product-image {
+	height:233px;	
+}
+
+.products-section.last .product-image {
+	height:329px;	
+}
+
+.product-image-caption {
+	color:#3a3939;
+	margin-top:5px;
+	text-align:center;
+	font:normal 14px/18px Arial, sans-serif;
+}
+
+.product .product-image-caption span {
+	font:normal 16px/28px Arial, sans-serif;
+	text-decoration:underline;
+}
+
+.product .product-image-caption span.reg {
+	color:#9e9e9e;
+	font:normal 12px/18px Arial, sans-serif;
+	text-decoration:none;
+}
+
+.product:hover .product-image-caption  span{	
+	text-decoration:none;
+}
+
+#dettol-product-image {
+	background:url(../i/index_dettol_image.png) no-repeat;
+}
+
+#lemsip-product-image {
+	background:url(../i/index_lemsip_image.png) center bottom no-repeat;
+}
+
+#adult-nurofen-product-image {
+	background:url(../i/index_adult_nurofen_image.png) center bottom no-repeat;
+}
+
+#strepsils-product-image {
+	background:url(../i/index_strepsils_image.png) center bottom no-repeat;
+}
+
+#children-nurofen-product-image {
+	background:url(../i/index_children_nurofen_image.png) center bottom no-repeat;
+}
+
+#gaviscon-product-image {
+	background:url(../i/index_gaviscon_image.png) center bottom no-repeat;
+}
+
+/* end of index section */
+
+/* start of shelves section */
+
+.shelf {
+	width:960px;
+	height:372px;
+	padding:63px 54px 0;
+	margin:0 0 0 -54px;
+}
+
+#strepsils_shelf1 {
+    position: relative;
+	width:960px;
+	height:213px;
+	padding:82px 54px 0;
+	background:url(../i/strepsils_shelf_one.jpg) no-repeat;
+}
+
+#strepsils_shelf2 {
+	width:960px;
+	height:330px;
+	padding:42px 54px 0;
+	background:url(../i/strepsils_shelf_two.jpg) no-repeat;
+}
+
+#shelf1 {
+	height:248px;
+	padding-top:51px;
+	background:url(../i/shelf_nurofen_1a.jpg) no-repeat;
+	position:relative;
+}
+
+#shelf1a {
+	height:230px;
+	padding-top:38px;
+	background:url(../i/shelf_nurofen_1b.jpg) no-repeat;
+	position:relative;
+}
+
+.nurofen-indications {
+	width:900px;
+	height:35px;
+	position:absolute;
+	left:86px;
+	top:91px;
+}
+
+.nurofen-indications div{
+	width:180px;
+	height:35px;
+	color:#df601c;
+	font:normal 13px/14px Arial, sans-serif;
+	text-align:center;
+	float:left;
+}
+
+#shelf2 {
+	height:370px;
+	padding-top:28px;
+	background:url(../i/shelf_nurofen_2.jpg) no-repeat;	
+}
+
+#gaviscon_shelf1 {
+	width:960px;
+	height:252px;
+	padding:17px 54px 0;
+	background:url(../i/gaviscon_shelf_1.jpg) no-repeat;
+}
+
+#gaviscon_shelf2 {
+	width:960px;
+	height:500px;
+	padding:12px 54px 0;
+	background:url(../i/gaviscon_shelf_2.jpg) no-repeat;
+}
+
+#lemsip_shelf {
+	width:960px;
+	height:330px;
+	padding:57px 54px 0;
+	background:url(../i/lemsip_shelf.jpg) no-repeat;
+}
+
+.shelf-header {
+	margin-left:52px;
+	color:#3b3b3b;
+	font:normal 18px/18px Arial, sans-serif;	
+}
+
+#gaviscon-shelf-header1 {
+	font:normal 16px/16px Arial, sans-serif;
+	margin-left:235px;
+	float:left;
+}
+
+#gaviscon-shelf-header2 {
+	font:normal 16px/16px Arial, sans-serif;
+	margin-left:298px;
+	float:left;
+}
+
+#gaviscon-shelf-header3 {
+	font:normal 16px/16px Arial, sans-serif;
+	margin-left:-3px;	
+	text-align:center;
+}
+
+.packages-block {
+	width:960px;
+	height:145px;
+	margin-top:10px;
+}
+
+#strepsils_shelf1 .packages-block {
+	margin-top:0;
+	height:116px;
+}
+
+#strepsils_shelf2 .packages-block {
+	margin-top:0;
+	height:136px;
+}
+
+#gaviscon_shelf1 .packages-block {
+	height:161px;	
+}
+
+#gaviscon_shelf2 .packages-block {
+	margin-top:0;
+}
+
+#lemsip_shelf .packages-block {
+	margin-top:0;
+	height:139px;	
+}
+
+.packages-block li {
+	float:left;
+}
+
+.packages-block li a {
+	display:block;
+}
+
+.captions-block {
+	width:960px;
+	height:35px;
+}
+
+.captions-block li {
+	float:left;
+	margin-right:100px;
+	text-align:center;
+	font:normal 12px/16px Arial, sans-serif;
+}
+
+.captions-block li.last, #shelf2 .captions-block li.last  {
+	margin:0px;
+}
+
+.captions-block a {
+	color:#585655;
+	text-decoration:none;
+}
+
+.captions-block a:hover span {
+	text-decoration:none;
+}
+
+.captions-block li span {
+	color:#9c3339;
+	border-bottom: 1px solid #007780;
+}
+
+.captions-block.strepsils li span {
+	color:#000;
+}
+
+.captions-block.strepsils li sup{
+	font:normal 9px/9px Arial, sans-serif;
+}
+
+.captions-block.gaviscon li span {
+	color:#007780;
+}
+
+.captions-block.lemsip li span {
+	color:#155a11;
+}
+
+#shelf2 .captions-block ul {
+	margin-left:70px;
+}
+
+#shelf2 .captions-block li {
+	margin-right:80px;	
+}
+
+.endnote-block {
+	width:960px;
+	margin-top:65px;
+	padding-left:77px;
+}
+
+.endnote-block p {
+	color:#858585;
+	font:normal 12px/16px Arial, sans-serif;	
+}
+
+#strepsils_shelf2 .endnote-block, #shelf2 .endnote-block {	
+	padding-left:55px;
+}
+
+#strepsils_shelf2 .endnote-block  p , #shelf2 .endnote-block  p{
+	width:325px;
+	display:inline-block;	
+    vertical-align:top;	
+	zoom: 1;
+	*display: inline;
+	margin-right:110px;
+}
+
+#shelf2 .endnote-block p.nurofen {
+	width:400px;
+	margin-right:0;
+}
+
+/* end of shelves section */
+
+/* start of bullets section */
+
+.expandable-info-block {
+	width:960px;
+}
+
+.expandable-info-block.first {
+	margin-top:-73px;
+}
+
+.expandable-info-block.strepsils {
+	margin-top:35px;
+}
+
+.expandable-info-block.gaviscon {
+	margin-top:-90px;
+}
+
+.expandable-info-block.first.dettol {
+	margin-top:23px;
+}
+
+.expandable-info-block.first.nurofen {
+	margin-top:40px;
+}
+
+.expandable-info-block.lemsip {
+	margin-top:-10px;
+}
+
+.expandable-info-block-spacer { /* ie8 workaround */
+	width:960px;
+	height:17px;
+}
+
+.bullet-block {
+	height:24px;
+	margin:0 0 9px 52px;
+}
+
+.bullet-section {
+	display:block;
+	width:47px;
+	height:24px;
+	margin-right:10px;
+	position:relative;
+	float:left;
+}
+
+.bullet-expanded {
+	width:47px;
+	height:24px;
+	position:absolute;
+	background:url(../i/bullet_expanded.png) no-repeat;
+}
+
+.bullet-collapsed {
+	width:47px;
+	height:24px;
+	position:absolute;
+	background:url(../i/bullet_collapsed.png) no-repeat;
+}
+
+.bullet-disk {
+	width:23px;
+	height:23px;
+	background:url(../i/bullet_disk.png) no-repeat;
+	position:absolute;
+	left:2px;
+	top:2px;
+}
+
+.bullet-caption {
+	height:18px;
+	padding:2px 0 0;
+	color:#585655;
+	font:normal 18px/18px Arial, sans-serif;
+	float:left;
+}
+
+.expandable-block {
+	display:none;
+	width:1140px;	
+	position:relative;
+	left:-93px;
+}
+
+.expandable-inner-block {
+	width:960px;
+	margin:0 87px 0 93px;
+	background:#e9e9e9;
+}
+
+.expandable-block-top-shade {
+	width:1140px;
+	height:25px;	
+	background:url(../i/expanded_block_top_shade.png) no-repeat;
+	position:absolute;
+	left:0;
+	top:0;
+}
+
+.expandable-block-bottom-shade {
+	width:1140px;
+	height:15px;	
+	background:url(../i/expanded_block_bottom_shade.png) no-repeat;
+	position:absolute;
+	left:0;
+	bottom:0;
+}
+
+.expandable-block-content {
+	width:895px;
+	padding:40px 0px 35px 55px;
+}
+
+.expandable-block-content.full div {
+	width:620px;
+	color:#2f2e2e;
+	font:normal 13px/16px Arial, sans-serif;
+}
+
+.expandable-block-content.half div {
+	width:445px;
+	display:inline-block;	
+    vertical-align:top;	
+	zoom: 1;
+	*display: inline;
+}
+
+.expandable-block-content.half div:first-child {
+	width:400px;
+	margin-right:35px;
+}
+
+.expandable-block-content.half div p, .expandable-block-content.one-third div p {
+	margin:16px 0;
+	color:#2f2e2e;
+	font:normal 13px/16px Arial, sans-serif;
+}
+
+.expandable-block-content.half div {
+	color:#2f2e2e;
+	font:normal 13px/16px Arial, sans-serif;	
+}
+
+.expandable-block-content div p.footnote{
+	margin-bottom:35px;
+	color:#797979;
+	font:normal 11px/14px Arial, sans-serif;
+}
+
+.expandable-block-content.half div p.recommend {
+	margin-top:10px;
+	text-transform:uppercase;
+	color:#014289;
+	font:normal 14px/16px Arial, sans-serif;
+}
+
+.expandable-block a {
+	font:normal 13px/16px Arial, sans-serif;
+	color:#e53b8b;	
+}
+
+.expandable-block a:hover {
+	text-decoration:none;
+}
+
+.expandable-block-content.one-third div {
+	width:285px;
+	display:inline-block;	
+    vertical-align:top;	
+	zoom: 1;
+	*display: inline;
+	margin-right:26px;
+}
+
+.expandable-block-content.one-third div:first-child {
+	width:265px;
+}
+
+.expandable-block-content.one-third div.last {
+	margin-right:0;
+	width:270px;
+}
+
+.expandable-block-content.one-third .new {
+	color:#cf1189;
+	font-weight:bold;
+}
+
+.expandable-block-content.one-third .action {
+	color:#cf1189;
+}
+
+a.drugstore {
+	display:inline-block;
+	width:140px;
+	margin-right:75px;
+	text-decoration:none;	
+}
+
+.drugstore.first {
+	margin-left:33px;
+}
+
+.drugstore.last {
+	margin-right:0;
+}
+
+.drugstore img {
+	margin-bottom:10px;
+}
+
+.expandable-block-content .drugstore p {
+	color:#155a11;
+	font:normal 14px/14px Arial, sans-serif;
+	text-align:center;
+	text-decoration:underline;
+}
+
+.expandable-block-content .drugstore:hover p{
+	text-decoration:none;
+}
+
+/* end of bullets section */
+
+.footer-spacer {
+	width:960px;
+	height:81px;
+}
+
+.footer {
+	height:2px;
+	width:100%;
+	background:url(../i/footer_line.jpg) repeat-x;
+}
+
+
+.footnote{
+    width: 875px;
+    margin: 30px 0;
+}
+
+.footnote p{
+    font: 14px/19px "Arial";
+    text-decoration: underline;
+    color: #5a5a5a;
+}
+
+#strepsils_shelf2 .endnote-block{
+    padding: 40px 0 0 0;
+    clear: both;
+}
+
+.captions-block.strepsils ul{
+    width: 940;
+    margin: 0 10px;
+}
+
+.captions-block.strepsils ul li{
+    width: 20%;
+    margin: 0;
+}
+
+.instruction{
+    display: block;
+    width: 76px;
+    height: 14px;
+    line-height: 14px;
+    border-radius: 2px;
+    border: 1px solid #c8c8c9;
+    background: #e7e8ea;
+    font: 12px "Arial";
+    color: #292e30;
+    margin: 0 auto;
+    box-shadow: 0 3px 6px #ffffff inset;
+}
+
+.instruction:hover{
+    box-shadow: 0 -3px 6px #ffffff inset;
+}
+
+.captions-block li span.strepsils_name{
+    display: block;
+    height: 28px;
+    border: none;
+    font: 11px/12px "Arial";
+    color: #585655;
+    margin-top: 2px;
+}
+
+.margin10{
+    margin-top: -12px !important;
+}
+
+#strepsils_shelf2.shelf{
+    position: relative;
+    /*overflow: hidden;*/
+}
+
+.captions-block li span.strepsils_name.lineheight100{
+    line-height: 28px;
+}
+
+#strepsils-header-bg {
+    width: 100%;
+    padding: 0 405px;
+    margin: 0 0 0 -405px;
+    background: url(../i/strepsils_header_back.jpg) top no-repeat;
+    min-height: 280px;
+}
+
+
+#strepsils-header-bg .drug-header-part-1{
+    width: auto;
+    height: 183px;
+    padding: 20px 0 0 310px;
+}
+
+#strepsils-header-bg .h-wrapper .h-center{
+    padding: 11px 2px 0;
+}
+
+#strepsils-header-bg .h-wrapper .h-center h1{
+    font-size: 27px;
+}
+
+#strepsils-header-bg .h-wrapper.sub-header .h-center{
+    padding: 11px 2px 0;
+}
+
+#strepsils-header-bg .h-wrapper.sub-header .h-center a{
+    font-size: 11px;
+}
+
+.intensepain_children{
+    position: absolute;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.intensepain_children p{
+    float: left;
+    width: 49.9%;
+    font: 20px "Arial";
+    color: #ffffff;
+}
+
+.intensepain_children p span{
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.intensepain span{
+    background: #ea342e;
+    width: 185px;
+}
+
+.children span{
+    background: #a6c63c;
+    width: 115px;
+}
+
+.adult{
+    position: absolute;
+    overflow: hidden;
+    top: -20px;
+    left: 0;
+    width: 100%;
+}
+
+.adult p{
+    float: left;
+    width: 100%;
+    font: 20px "Arial";
+    color: #ffffff;
+}
+
+.adult p span{
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    width: 235px;
+    background: #e19016;
+}
+
+.intensepain span{
+    background: #ea342e;
+    width: 185px;
+}
+
+.children span{
+    background: #a6c63c;
+    width: 115px;
+}
+
+.bullet-block {
+    margin: 40px 0 9px 52px;
+}
+
+.drug-header-content-1.strepsils {
+    font: normal 16px/20px Arial, sans-serif;
+    color: #ffffff;
+    margin-top: 10px;
+}

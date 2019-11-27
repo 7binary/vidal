@@ -1,0 +1,60 @@
+{% set Composition = product is defined ? product.Composition : document.CompiledComposition %}
+
+<div class="navigation relative">
+	<i></i>
+
+	<div class="navigation-items">
+		{% if products is defined and products|length %}
+			<div>
+				<a href="#products_table">{{ products|length == 1 ? 'Лекарственная форма' : 'Лекарственные формы' }}</a>
+			</div>
+		{% endif %}
+		{% if Composition is not empty and molecule is not defined %}
+			<div><a href="#composition">Форма выпуска, состав и упаковка</a></div>
+		{% endif %}
+		{% if document.PhInfluence is not empty %}
+			<div><a href="#influence">Фармакологические (биологические) свойства и эффекты</a></div>
+		{% endif %}
+		{% if document.Indication is not empty %}
+			<div><a href="#indication">Показания к применению препарата</a></div>
+		{% endif %}
+		{% if document.Dosage is not empty %}
+			<div><a href="#dosage">Порядок применения</a></div>
+		{% endif %}
+		{% if document.SideEffects is not empty %}
+			<div><a href="#side_effects">Побочные эффекты</a></div>
+		{% endif %}
+		{% if document.ContraIndication is not empty %}
+			<div><a href="#contra">Противопоказания к применению препарата</a></div>
+		{% endif %}
+		{% if document.SpecialInstruction is not empty %}
+			<div><a href="#special">Особые указания и меры личной профилактики</a></div>
+		{% endif %}
+        {# Условия хранения #}
+        {% if document.StorageConditionSource is not empty %}
+            <div><a href="#storage_conditions">Условия хранения</a></div>
+        {% endif %}
+        {# Cроки хранения #}
+        {% if document.StorageTime is not empty %}
+            <div><a href="#storage_time">Срок годности</a></div>
+        {% endif %}
+	</div>
+
+	{# ссылка админу на редактирование #}
+	{% if isAdmin %}
+		<a class="admin-edit fade" target="_blank"
+		   href="{{ path('admin_vidal_veterinar_document_edit', {'id':document.DocumentID}) }}">
+			<img src="{{ asset('bundles/vidalmain/images/edit.png') }}"/>
+		</a>
+	{% endif %}
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('.conditions a, .navigation a').click(function() {
+			var selector = $(this).attr('href');
+			$(selector).addClass('block-highlight');
+			setTimeout(function() { $(selector).removeClass('block-highlight'); }, 2000);
+		});
+	});
+</script>

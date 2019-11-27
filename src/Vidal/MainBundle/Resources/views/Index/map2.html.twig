@@ -1,0 +1,57 @@
+{% extends 'VidalMainBundle::layout.html.twig' %}
+
+
+{% block title %}
+	<h1>КАРТА АПТЕК</h1>
+{% endblock %}
+
+
+{% block content %}
+	<div class="anons">Выберите ближайшую к Вам аптеку</div>
+
+	<div class="map" id="map">
+		<img id="map_loader" src="{{ asset('bundles/vidalmain/images/loader.gif') }}"/>
+	</div>
+
+	<div class="iption">
+		<span class="choose">Выбрать область/край: </span>
+		<select class="select">
+			{% for r in regions %}
+				<option value="{{ r.id }}" {{ r.id == regionId ? 'selected="selected"' : '' }}>{{ r.title }}</option>
+			{% endfor %}
+		</select>
+	</div>
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<style type="text/css">
+		#map {
+			margin-top: 20px;
+			width:      520px;
+			height:     400px;
+			border:     1px solid #ccc;
+			text-align: center;
+		}
+		#map_loader {
+			width:      100px;
+			margin-top: 80px;
+		}
+		.iption {
+			margin-top: 8px;
+		}
+		.choose {
+			color:       #2e3f51;
+			font-weight: bold;
+			font-size:   15px;
+		}
+	</style>
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+	<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+	<script src="{{ asset('bundles/vidalmain/javascripts/maps.js') }}"></script>
+{% endblock %}

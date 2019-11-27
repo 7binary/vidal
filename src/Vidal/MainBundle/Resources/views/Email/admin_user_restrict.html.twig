@@ -1,0 +1,11 @@
+{% extends 'VidalMainBundle:Email:email.html.twig' %}
+
+{% block content %}
+	<p style="font-style:italic;">
+		Уважаемый {{ user.getPoliteReference() }},<br/>
+		Благодарим Вас за загруженный документ, однако необходим скан Вашего диплома или действующего сертификата,
+		подтверждающего квалификацию.
+
+	<p style="font-style:italic;">
+		Спасибо!</p>
+{% endblock %}

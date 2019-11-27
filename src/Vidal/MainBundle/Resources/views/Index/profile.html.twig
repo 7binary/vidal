@@ -1,0 +1,67 @@
+{% extends 'VidalMainBundle::layout.html.twig' %}
+
+
+{% block title %}
+    <h1>Профиль пользователя</h1>
+{% endblock %}
+
+
+{% block content %}
+    <table>
+        <tr>
+            <td style="vertical-align: top;">
+                {% if user.avatar is not empty %}
+                    <img src="{{ user.avatar.path }}" style="width: 100px">
+                {% else %}
+                    <img src="{{ asset('bundles/vidalmain/images/blank_avatar.png') }}">
+                {% endif %}
+            </td>
+            <td style="padding-left: 35px">
+                <b>Ф.И.О.:</b><br /> {{ user.lastName }} {{ user.firstName }} {{ user.surName }}
+                <br /><br />
+                {% if user.city != null %}<b>Город:</b><br /> {{ user.city.title }}{% endif %}
+                {% if user.primarySpecialty != null %}
+                    <br /><br />
+                    <b>Основная специальность:</b><br />
+                    {{ user.primarySpecialty.title }}
+                {% endif %}
+
+                {% if user.secondarySpecialty != null %}
+                    <br /><br />
+                    <b>Специализация:</b><br />{{ user.secondarySpecialty.title }}
+                {% endif %}
+                {% if user.academicDegree != '' %}
+                <br /><br />
+                <b>Ученая степень:</b><br /> {{ user.academicDegree }}
+                {% endif %}
+            </td>
+        </tr>
+    </table>
+{% endblock %}
+
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style type="text/css">
+
+    </style>
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+    $(document).ready(function(){
+        $('select').chosen({
+            disable_search: true,
+            no_results_text: "не найдено"
+        });
+
+        $('.select').change(function(){
+            url = '/pharmacies-map/' + $(this).val();
+            window.location.href = url;
+        });
+
+    });
+    </script>
+{% endblock %}

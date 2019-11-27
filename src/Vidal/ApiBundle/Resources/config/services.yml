@@ -1,0 +1,13 @@
+services:
+    Vidal\ApiBundle\Services\ApiVoter:
+        class: Vidal\ApiBundle\Services\ApiVoter
+        arguments:
+            - "@doctrine.orm.entity_manager"
+
+    Vidal\ApiBundle\EventListener\SecurityListener:
+        class: Vidal\ApiBundle\EventListener\SecurityListener
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@Vidal\ApiBundle\Services\ApiVoter"
+        tags:
+            - { name: kernel.event_subscriber }

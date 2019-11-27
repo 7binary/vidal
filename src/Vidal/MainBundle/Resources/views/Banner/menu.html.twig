@@ -1,0 +1,47 @@
+{% set route = app.request.get('_route') %}
+
+
+<div class="controls">
+	<a class="control {{ group == 'right'?'active':'' }}" href="{{ path('move_banners', {'group':'right'}) }}"
+	>Справа декстоп</a>
+	<a class="control {{ group == 'left'?'active':'' }}" href="{{ path('move_banners', {'group':'left'}) }}"
+	   >Слева декстоп</a>
+	<a class="control {{ group == 'mobile'?'active':'' }}" href="{{ path('move_banners', {'group':'mobile'}) }}"
+	>Мобильные</a>
+	<a class="control {{ group == 'mobile-product'?'active':'' }}" href="{{ path('move_banners', {'group':'mobile-product'}) }}"
+	>Мобильные в препаратах</a>
+</div>
+
+
+<style type="text/css">
+	.outer {
+		margin: 0 0 20px;
+	}
+	.msg {
+		background:    rgb(193, 232, 214);
+		padding:       6px 10px;
+		margin-bottom: 25px;
+	}
+	.controls {
+		text-align: center;
+		margin-bottom: 28px;
+	}
+	.control {
+		display:          inline-block;
+		text-decoration:  none;
+		font-weight:      bold;
+		color:            #2e3f51;
+		margin-right:     6px;
+		height:           24px;
+		line-height:      24px;
+		border:           1px solid #2e3f51;
+		padding:          0 7px;
+		border-radius:    4px;
+		background-color: white;
+		vertical-align:   top;
+	}
+	.control.active {
+		color: white;
+		background: #2e3f51;
+	}
+</style>

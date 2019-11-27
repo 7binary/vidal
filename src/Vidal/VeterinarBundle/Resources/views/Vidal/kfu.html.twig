@@ -1,0 +1,76 @@
+{% extends 'VidalVeterinarBundle::vidal_layout.html.twig' %}
+
+
+{% block title %}
+{% endblock %}
+
+
+{% block nav %}
+	<div class="breadcrumbs">
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('index') }}" itemprop="url">
+				<span itemprop="title">Видаль</span>
+			</a>
+		</div>
+		<i></i>
+
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('veterinar') }}" itemprop="url">
+				<span itemprop="title">Видаль-Ветеринар</span>
+			</a>
+		</div>
+		<i></i>
+		<span>Клинико-фармакологические указатели</span>
+	</div>
+{% endblock %}
+
+
+{% block vidal %}
+	{% if menu_veterinar is defined %}
+		{% include 'VidalVeterinarBundle:Vidal:veterinar_menu.html.twig' %}
+	{% endif %}
+
+	<div class="treeview-controls">
+		<a id="tree_collapse" href="#">свернуть</a>
+	</div>
+
+	{% include 'VidalVeterinarBundle:Vidal:kfu_generated.html.twig' %}
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/treeview/jquery.treeview.css') }}"/>
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+	<script src="{{ asset('bundles/vidalmain/treeview/jquery.treeview.js') }}" type="text/javascript"></script>
+	<script src="{{ asset('bundles/vidalmain/treeview/jquery.treeview.edit.js') }}" type="text/javascript"></script>
+	<script src="{{ asset('bundles/vidalmain/treeview/jquery.treeview.async.v_kfu.js') }}"
+			type="text/javascript"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			var $tree = $('.treeview');
+
+			$tree.treeview({
+				animated:  "fast",
+				collapsed: true,
+				url:       '/veterinar/kfu-ajax',
+				ajax:      {
+					type: "post"
+				}
+			});
+
+			$('#tree_collapse').on('click', function() {
+				$tree.find('ul').hide();
+				$tree.find('div.collapsable-hitarea').removeClass('collapsable-hitarea').addClass('expandable-hitarea');
+				$tree.find('div.lastCollapsable-hitarea').removeClass('lastCollapsable-hitarea').addClass('lastExpandable-hitarea');
+				$tree.find('li.collapsable').removeClass('collapsable').addClass('expandable');
+				$tree.find('li.lastCollapsable').removeClass('lastCollapsable').addClass('lastExpandable');
+				return false;
+			});
+		});
+	</script>
+{% endblock %}

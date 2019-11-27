@@ -1,0 +1,11 @@
+{# Быстрые ссылки #}
+{% if document is defined and document and not document.isActiveSubstance() %}
+    <div>&#128220; Инструкция по применению {{ product.RusName|ucwords|hyphenString|raw }}</div>
+{% endif %}
+<div>&#128138; Состав препарата {{ product.RusName|ucwords|hyphenString|raw }}</div>
+<div>&#9989; Применение препарата {{ product.RusName|ucwords|hyphenString|raw }}</div>
+{% if document is defined and document and not document.isActiveSubstance() %}
+    <div>&#128197; Условия хранения {{ product.RusName|ucwords|hyphenString|raw }}</div>
+    <div>&#9203; Срок годности {{ product.RusName|ucwords|hyphenString|raw }}</div>
+{% endif %}
+<br/>

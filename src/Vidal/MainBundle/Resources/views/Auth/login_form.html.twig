@@ -1,0 +1,35 @@
+<form id="auth_form" action="{{ path("login") }}" method="POST">
+	<div class="auth-info raspberry">Вход для специалистов</div>
+
+	<div class="auth-username">
+		<label for="username" class="form_label">Логин/e-mail:</label>
+		<input type="text" id="username" name="username"/>
+	</div>
+
+	<div class="auth-password">
+		<label for="password" class="form_label">Пароль:</label>
+		<input type="password" id="password" name="password"/>
+	</div>
+
+	<div class="auth-submit">
+		<input type="submit" class="btn-red" value="Войти"/>
+	</div>
+
+	<div class="auth-fail-message red">Неверный логин<br/> или пароль</div>
+</form>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#username').bind('keypress', function(e) {
+			if(e.keyCode==13){
+				$('#password').focus();
+			}
+		});
+
+		$('#password').bind('keypress', function(e) {
+			if(e.keyCode==13){
+				$('#auth_form').submit();
+			}
+		});
+	});
+</script>

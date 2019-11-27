@@ -1,0 +1,35 @@
+{% set isAdmin = app.user is not null and is_granted('ROLE_ADMIN') %}
+{% set basePath = category is defined
+? [rubrique.url, type.url, category.url]|join('/')
+: (type is defined ? [rubrique.url, type.url]|join('/') : rubrique.url ) %}
+
+{% if pagination is defined and pagination.totalItemCount %}
+	<div class="articles">
+		{% for art in pagination %}
+			<div class="article">
+				{# админам карандашик редактирования #}
+				{% if isAdmin %}
+					<a class="admin-edit fade" target="_blank"
+					   href="{{ path('admin_vidal_drug_art_edit', {'id':art.id}) }}">
+						<img src="{{ asset('bundles/vidalmain/images/edit.png') }}"/>
+					</a>
+				{% endif %}
+				<div class="article-title">
+					<a href="{{ path('art', {'url':basePath ~ '/' ~ art.link}) }}">{{ art.title|raw }}</a>
+				</div>
+				<div class="article-announse text">
+					{{ art.announce|raw }}
+				</div>
+				{#{% if not art.hideDate %}#}
+					{#<div class="article-footer">#}
+						{#<span class="article-date">{{ art.date|date('d.m.Y') }}</span>#}
+					{#</div>#}
+				{#{% endif %}#}
+			</div>
+		{% endfor %}
+	</div>
+
+	<div class="navigation">
+		{{ knp_pagination_render(pagination) }}
+	</div>
+{% endif %}

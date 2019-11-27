@@ -1,0 +1,114 @@
+{% extends 'VidalMainBundle::layout.html.twig' %}
+
+
+{% block title %}
+	<h1>{{ title }}</h1>
+{% endblock %}
+
+
+{% block meta %}
+    {% set hasOg = true %}
+	{{ parent() }}
+	<meta property="og:image" content="https://www.vidal.ru/bundles/vidalmain/images/share/vidal.jpg">
+	{% if ogTitle is defined %}
+		<meta property="og:title" content="{{ ogTitle }}">
+	{% elseif title is defined %}
+		<meta property="og:title" content="{{ title }}">
+	{% endif %}
+	{% if description is defined %}
+		<meta property="og:description" content="{{ description }}">
+	{% endif %}
+{% endblock %}
+
+
+{% block content %}
+	<div class="login-text">
+		Для доступа к полному тексту материала, пожалуйста, авторизуйтесь или
+		<a href="{{ path('registration') }}" target="_blank">зарегистрируйтесь</a>
+	</div>
+
+	<form id="login_form" action="{{ path("login") }}" method="POST">
+		<table>
+			<tr>
+				<td class="first">
+					<label for="login_username" class="form_label">Логин/e-mail:</label>
+					<input id="login_username" type="text" name="username"
+						   value="{{ username is defined ? username }}"/>
+				</td>
+				<td class="second">
+					<a href="{{ path('registration') }}" class="no-underline">Регистрация</a>
+				</td>
+			</tr>
+			<tr class="second">
+				<td class="first">
+					<label for="login_password" class="form_label">Пароль:</label>
+					<input id="login_password" type="password" name="password"
+						   value="{{ password is defined ? password }}"/>
+				</td>
+				<td class="second">
+					<a href="{{ path('password_reset') }}" class="no-underline">Забыли пароль?</a>
+				</td>
+			</tr>
+			<tr>
+				<td class="first">
+					<input type="submit" class="btn-red" value="Войти"/>
+				</td>
+				<td class="second"></td>
+			</tr>
+		</table>
+
+		{% if loginAuthError is defined and loginAuthError %}
+			<div class="login-fail">Неверный логин или пароль</div>
+		{% endif %}
+	</form>
+
+	{{ render(controller('VidalMainBundle:Index:Module', {'moduleId':moduleId})) }}
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<style type="text/css">
+		.login-text {
+			margin-bottom: 15px;
+			color:         rgb(47, 64, 83);
+			font-size:     15px;
+			font-weight:   bold;
+		}
+		#login_username, #login_password {
+			width: 140px;
+		}
+		.login-fail {
+			background:  beige;
+			border:      1px solid bisque;
+			padding:     10px 20px;
+			color:       maroon;
+			font-size:   15px;
+			font-weight: bold;
+		}
+		#login_form {
+			border:        2px solid #ccc;
+			border-radius: 4px;
+			padding:       12px 10px;
+			margin-bottom: 25px;
+		}
+		#login_form table {
+			width:           100%;
+			border-collapse: collapse;
+		}
+		#login_form td.first {
+			width:      300px;
+			text-align: right;
+		}
+		#login_form td.second {
+			padding-left: 20px;
+		}
+		#login_form tr.second td {
+			padding-bottom: 11px;
+			padding-top:    11px;
+		}
+		.login-fail {
+			margin-top: 12px;
+		}
+	</style>
+{% endblock %}

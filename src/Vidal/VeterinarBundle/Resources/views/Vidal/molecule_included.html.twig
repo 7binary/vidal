@@ -1,0 +1,73 @@
+{% extends 'VidalVeterinarBundle::vidal_layout.html.twig' %}
+
+
+{% block title %}
+	<h1>{{ molecule.RusName|upper|raw }}
+		{% if molecule.LatName is not empty %}
+			<span>({{ molecule.LatName|upper|raw }})</span>
+		{% endif %}
+	</h1>
+{% endblock %}
+
+
+{% block nav %}
+	<div class="breadcrumbs">
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('index') }}" itemprop="url">
+				<span itemprop="title">Видаль</span>
+			</a>
+		</div>
+		<i></i>
+
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('veterinar') }}" itemprop="url">
+				<span itemprop="title">Видаль-Ветеринар</span>
+			</a>
+		</div>
+		<i></i>
+
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('v_molecules') }}" itemprop="url">
+				<span itemprop="title">Активные вещества</span>
+			</a>
+		</div>
+		<i></i>
+		
+		<span>{{ molecule.LatName|upperFirst|raw }}</span>
+	</div>
+{% endblock %}
+
+
+{% set moleculeName = molecule.RusName is empty ? molecule.LatName|upper|raw : molecule.RusName|upper|raw %}
+
+
+{% block vidal %}
+	{% if molecule.GNParent is not empty %}
+		<div class="mnn anons">
+			Международное непатентованное наименование (МНН):
+			<a title="Международное непатентованное наименование (МНН)" href="{{ path('v_gnp') }}"
+			   class="no-underline mnn">{{ molecule.GNParent }}</a>
+			<span class="small italic">{{ molecule.GNParent.description }}</span>
+		</div>
+	{% endif %}
+
+	{% if products is defined and products is not empty %}
+		{% include 'VidalVeterinarBundle:Vidal:render_products.html.twig' %}
+	{% else %}
+		<div class="block">
+			<div class="no-results">
+				Не найдено препаратов, содержащих активное вещество <span>{{ moleculeName|raw }}</span>
+			</div>
+		</div>
+	{% endif %}
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<style type="text/css">
+		#vidal .mnn.anons a {
+			font-weight: bold;
+		}
+	</style>
+{% endblock %}

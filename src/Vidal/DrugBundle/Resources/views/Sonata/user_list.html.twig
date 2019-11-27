@@ -1,0 +1,20 @@
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('.btn-confirm').click(function(e) {
+			var $link = $(this);
+			e.preventDefault();
+			$.getJSON(this.href, function(data) {
+				$link.closest('td').find('.counter.confirm').text(data);
+				alert('Письмо с подтверждение отослано');
+			});
+		});
+		$('.btn-restrict').click(function(e) {
+			var $link = $(this);
+			e.preventDefault();
+			$.getJSON(this.href, function(data) {
+				$link.closest('td').find('.counter.restrict').text(data);
+				alert('Письмо с отказом отослано');
+			});
+		});
+	});
+</script>

@@ -1,0 +1,132 @@
+@charset "utf-8";
+/* CSS Reset */
+h3 {	
+	color:#444444;
+	font:normal 30px/30px Arial, sans-serif;
+}
+
+h3 sup{
+	font:normal 15px/15px Arial, sans-serif;
+}
+
+h4 {	
+	color:#444444;
+	font:normal 20px/20px Arial, sans-serif;
+	margin:10px 0;
+}
+
+.popup-shader ul {
+	font:normal 14px/16px Arial, sans-serif;
+}
+
+.popup-shader li {
+	margin:2px 0;
+}
+
+span.instr {
+	display:block;
+	color:#555555;
+	font:normal 20px/20px Arial, sans-serif;
+	margin:0 0 15px 0;
+}
+
+.popup-shader {
+	display:none;
+	width:100%;
+	height:100%;
+	background:url(../i/popup_shader_bg.png) repeat;
+	position:fixed;
+	left:0;
+	top:0;
+}
+
+.popup-wrapper {
+	position:absolute;
+	left:50%;
+	top:50%;
+}
+
+.popup-bg {
+	width:831px;
+	height:628px;
+	background:url(../i/popup_bg.png) no-repeat;
+	margin:-314px 0 0 -415px;
+	position:relative;
+}
+
+.scrollable-popup-content-container {
+	width:716px;
+	height:618px;
+	position:absolute;
+	left:35px;
+	top:5px;
+	overflow:hidden;
+}
+
+.scrollable-popup-content {
+	width:716px;
+	position:absolute;
+	left:0;
+	top:0;
+	padding:20px 0;
+}
+
+.scrollable-popup-content p {
+	margin:14px 0;
+	color:#3d3c3b;
+	font:normal 14px/16px Arial, sans-serif;
+}
+
+.scrollable-popup-content ul{
+	list-style: disc outside none;
+	padding: 0 0 0 30px;
+}
+
+.img-margin.right {
+	margin:23px 0 40px 40px;
+}
+
+.popup-close {
+	display:block;
+	width:46px;
+	height:46px;
+	background:url(../i/popup_close.jpg) no-repeat;
+	position:absolute;
+	right:11px;
+	top:11px;
+}
+
+.popup-scrollbar {
+	width:17px;
+	height:510px;
+	background:url(../i/popup_bg.jpg) repeat-y;
+	position:absolute;
+	right:25px;
+	top:87px;
+}
+
+.popup-slider {
+	width:17px;
+	height:92px;
+	background:url(../i/popup_slider.jpg) no-repeat;
+	position:absolute;
+	left:0;
+	top:0;
+	cursor:pointer;
+}
+
+.popup-shader ul.grey-list {
+	padding:0;
+	color:#3d3c3b;
+	font:normal 14px/16px Arial, sans-serif;
+}
+
+.popup-shader ul.grey-list li {
+	margin-bottom:0px;
+	float:left;
+}
+
+.margin-top {
+	margin-top:50px;
+}
+	

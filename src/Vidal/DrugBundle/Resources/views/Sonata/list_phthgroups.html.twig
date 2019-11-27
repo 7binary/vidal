@@ -1,0 +1,63 @@
+<script type="text/javascript">
+	$(document).ready(function() {
+		// список
+		{% if object.phthgroups is not empty %}
+		var ulist = $('<ul class="list phthgroups-list">{% for g in object.phthgroups %}<li data="{{ g.id }}"><b><a href="{{ path('phthgroups_remove', {'type':object|type, 'id':object.id, 'PhThGroupsID':g.id}) }}">X</a></b>' + '{{ g.id }} - {{ g.Name|raw }}' + '</li>{% endfor %}</ul>');
+		$('.phthgroups-text').parent().append(ulist);
+		{% endif %}
+
+		// автодополнение
+		$('.phthgroups-text')
+			.autocomplete({
+				minLength: 1,
+				source:    function(request, response) {
+					var url = '/autocomplete/phthgroups/' + request.term.trim();
+					$.getJSON(url, function(data) {
+						var ids = $('.molecules-list li').map(function(element) {
+							var id = $(this).attr("data");
+							return parseInt(id);
+						});
+						var values = [];
+
+						for (var i = 0; i < data.length; i++) {
+							if ($.inArray(parseInt(data[i].id), ids) == -1) {
+								values.push({
+									'id':   data[i].id,
+									'text': data[i].text
+								});
+							}
+						}
+
+						response(values);
+					});
+				},
+				select:    function(event, ui) {
+					if (ui.item) {
+						var urlAdd = '/admin/phthgroups-add/{{ object|type }}/{{ object.id }}/' + ui.item.id;
+						var urlRemove = '/admin/phthgroups-add/{{ object|type }}/{{ object.id }}/' + ui.item.id;
+
+						$.getJSON(urlAdd, function(data) {
+							if (data == 'OK') {
+								var li = '<li data="' + ui.item.id + '"><b><a href="' + urlRemove + '">X</a></b>' + ui.item.text + '</li>';
+								var $li = $(li);
+								var $list = $('.phthgroups-list');
+								if (!$list.length) {
+									$('.molecules-text').parent().append($('<ul class="list phthgroups-list"></ul>'));
+									$list = $('.phthgroups-list');
+								}
+								$list.append($li);
+							}
+						});
+					}
+
+					$(this).val('');
+
+					return false;
+				}
+			})
+			.data("ui-autocomplete")._renderItem =
+			function(ul, item) {
+				return $("<li></li>").data("item.autocomplete", item).append("<a>" + item.text + "</a>").appendTo(ul);
+			};
+	});
+</script>

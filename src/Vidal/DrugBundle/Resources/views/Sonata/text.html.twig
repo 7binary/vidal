@@ -1,0 +1,5 @@
+<td>
+	{% if object.text is defined and object.text is not empty %}
+		{{ object.text|raw }}
+	{% endif %}
+</td>

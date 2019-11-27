@@ -1,0 +1,23 @@
+{% set now = 'now'|date('d.m.Y') %}
+
+<div class="pubs">
+	<div class="pubs-title">
+		<a href="{{ path('news') }}">Последние новости</a>
+	</div>
+	{% for p in publications %}
+		<div class="p{{ loop.last ? ' last' }}{{ p.sticked ? ' sticked' }}">
+			<p class="p-title">
+				<a href="{{ path('publication', {'id': p.link ~ '-' ~  p.id}) }}">{{ p.title|raw }}</a>
+			</p>
+			{% if not p.sticked %}
+				{% if now == p.date|date('d.m.Y') and p.announce is not empty %}
+					<p class="p-announce">{{ p.announce|raw }}</p>
+				{% endif %}
+				<p class="p-date">{{ p.date|date('d.m.Y') }}</p>
+			{% endif %}
+		</div>
+	{% endfor %}
+	<div class="pubs-title">
+		<a href="{{ path('news') }}" class="pubs-all">Все новости</a>
+	</div>
+</div>

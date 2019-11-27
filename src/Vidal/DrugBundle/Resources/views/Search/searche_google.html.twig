@@ -1,0 +1,47 @@
+{% extends 'VidalDrugBundle::vidal_layout.html.twig' %}
+
+
+{% block vidal %}
+	{% include 'VidalDrugBundle:Drugs:menu_drugs.html.twig' %}
+
+	<div class="description">
+		<span>Поиск Google по открытым разделам сайта</span>
+	</div>
+
+	{# поиск Google custom search #}
+	<script>
+		(function() {
+			var cx = '016453352662799351419:cjex5h49aww';
+			var gcse = document.createElement('script');
+			gcse.type = 'text/javascript';
+			gcse.async = true;
+			gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+				'//www.google.com/cse/cse.js?cx=' + cx;
+			var s = document.getElementsByTagName('script')[0];
+			s.parentNode.insertBefore(gcse, s);
+		})();
+	</script>
+	<gcse:search></gcse:search>
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<style type="text/css">
+		.titleLink, .sl-table a, .sl-table-ol a, .sl-column a {
+			color: #d71344 !important;
+		}
+		.gsc-wrapper a, .gsc-wrapper a b, .gsc-wrapper span * {
+			color: #d71344 !important;
+		}
+		.gsc-control-cse {
+			padding: 0 !important;
+		}
+		.gsc-orderby-container * {
+			display: none !important;
+		}
+		.description span {
+			border-bottom: none !important;
+		}
+	</style>
+{% endblock %}

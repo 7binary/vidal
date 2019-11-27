@@ -1,0 +1,57 @@
+{% extends 'VidalMainBundle::layout.html.twig' %}
+
+
+{% block title %}
+	<h1>{{ title }}</h1>
+{% endblock %}
+
+
+{% block content %}
+	<div class="unsub">
+		<img src="{{ asset('bundles/vidalmain/images/unsubscribe.jpg') }}"/>
+
+		<div class="unsub-text">
+			<p><span class="unsub-name">{{ user.firstName }}{{ user.surName|length ? ' ' ~ user.surName }}</span>,
+				Вы отписались от рассылки новостей нашего портала.</p>
+
+			<p>Возобновить подписку всегда можно в <a href="{{ path('profile') }}">своем профиле</a>.</p>
+		</div>
+	</div>
+
+	{% if app.user and app.user.username != user.username %}
+		<div class="unsub-warning">
+			Обращаем Ваше внимание, что в данный момент Вы находитесь на сайте под другой учетной записью.
+			Вы отписались для этого аккаунта: <b>{{ user.username }}</b>, а на сайте находитесь под другим:
+			<b>{{ app.user.username }}</b>
+		</div>
+	{% endif %}
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<style type="text/css">
+		.unsub {
+			margin:       30px 0 15px;
+			padding-left: 8px;
+			font-size:    14px;
+			overflow:     hidden;
+		}
+		.unsub img {
+			width: 120px;
+		}
+		.unsub-text {
+			float:       left;
+			margin-left: 30px;
+		}
+		.unsub-name {
+			font-weight: bold;
+			color:       #476173;
+		}
+		.unsub-warning {
+			background: beige;
+			border:     1px solid rgb(203, 203, 145);
+			padding:    6px 10px;
+		}
+	</style>
+{% endblock %}

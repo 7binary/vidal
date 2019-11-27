@@ -1,0 +1,13 @@
+<ul class="ul-style">
+	{% for article in articles %}
+		<li>
+			<a class="no-underline"
+				href="{{ path('article', {'rubrique':article.rubrique, 'link':article.link}) }}">
+				{{ article.title|raw }}
+				{% if article.synonym is not empty %}
+					<span>({{ article.synonym|raw }})</span>
+				{% endif %}
+			</a>
+		</li>
+	{% endfor %}
+</ul>

@@ -1,0 +1,9 @@
+[27-Mar-2016 17:20:41 Europe/Moscow] PHP Warning:  fileowner(): stat failed for index.php in /home/twigavid/vidal/2016-03-25_12.03.46/web/revifix.php on line 1529
+[31-Mar-2016 16:45:06 Europe/Moscow] PHP Warning:  touch(): Unable to create file 84a99a65125b3dfe4481c85439b4c431.283 because Permission denied in /home/twigavid/vidal/2016-03-25_12.03.46/web/revifix.php on line 1526
+[31-Mar-2016 16:45:06 Europe/Moscow] PHP Warning:  fileowner(): stat failed for 84a99a65125b3dfe4481c85439b4c431.283 in /home/twigavid/vidal/2016-03-25_12.03.46/web/revifix.php on line 1527
+[31-Mar-2016 16:45:06 Europe/Moscow] PHP Warning:  unlink(84a99a65125b3dfe4481c85439b4c431.283): No such file or directory in /home/twigavid/vidal/2016-03-25_12.03.46/web/revifix.php on line 1528
+[31-Mar-2016 16:45:06 Europe/Moscow] PHP Warning:  fileowner(): stat failed for index.php in /home/twigavid/vidal/2016-03-25_12.03.46/web/revifix.php on line 1529
+[31-Mar-2016 16:45:06 Europe/Moscow] PHP Warning:  file_get_contents(): Filename cannot be empty in /home/twigavid/vidal/2016-03-25_12.03.46/web/revifix.php on line 1498
+[31-Mar-2016 16:45:06 Europe/Moscow] PHP Warning:  file(): Filename cannot be empty in /home/twigavid/vidal/2016-03-25_12.03.46/web/revifix.php on line 1499
+[31-Mar-2016 16:45:06 Europe/Moscow] PHP Warning:  join(): Invalid arguments passed in /home/twigavid/vidal/2016-03-25_12.03.46/web/revifix.php on line 1499
+[31-Mar-2016 21:28:40 Europe/Moscow] PHP Warning:  is_file(): open_basedir restriction in effect. File(/var/www/vidal/web/sert/testSSLClient.pem) is not within the allowed path(s): (/home/twigavid:/usr/lib/php:/usr/local/lib/php:/tmp) in /home/twigavid/vidal/2016-03-25_12.03.46/web/soap.php on line 7

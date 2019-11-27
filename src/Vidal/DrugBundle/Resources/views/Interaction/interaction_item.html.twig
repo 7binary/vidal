@@ -1,0 +1,88 @@
+{% extends 'VidalDrugBundle::vidal_layout.html.twig' %}
+
+
+{% block vidal %}
+	{% include 'VidalDrugBundle:Drugs:menu_drugs.html.twig' with {'menu_drugs':'interaction'} %}
+
+	<div class="interaction schema" itemscope itemtype="http://schema.org/Article">
+		<h1 itemprop="name">{{ interaction.RusName|raw }}</h1>
+
+		<div itemprop="articleBody">
+			{{ text|raw }}
+		</div>
+	</div>
+{% endblock %}
+
+
+{% block nav %}
+	<div class="breadcrumbs">
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('index') }}" itemprop="url">
+				<span itemprop="title">Видаль</span>
+			</a>
+		</div>
+		<i></i>
+
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('interaction') }}" itemprop="url">
+				<span itemprop="title">Проверка лекарственного взаимодействия</span>
+			</a>
+		</div>
+		<i></i>
+
+		<span>{{ rusName }}</span>
+	</div>
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<style type="text/css">
+		.sovm {
+			border-collapse: collapse;
+		}
+		.sovm td {
+			border:  1px solid #ccc;
+			padding: 5px 7px;
+		}
+		.sovm a {
+			text-decoration: none;
+		}
+		.sovm a:hover {
+			text-decoration: underline;
+		}
+		#vidal .sovm_head {
+			font-weight:  bold;
+			border-top:   none;
+			border-left:  none;
+			border-right: none;
+			padding:      0 0 10px;
+			font-size:    14px;
+		}
+	</style>
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('.schema img').each(function () {
+				var $this = $(this);
+				$this.attr('itemprop', 'image');
+			});
+
+			$('.schema a').each(function() {
+				var $a = $(this);
+				$a.attr('itemprop', 'url');
+				if (this.href.length
+					&& this.href.charAt(0) != '/'
+					&& this.href.indexOf('vidal.ru') === -1
+					&& this.href.indexOf('localhost:97') === -1
+				) {
+					$a.attr('rel', 'nofollow');
+				}
+			});
+		});
+	</script>
+{% endblock %}

@@ -1,0 +1,185 @@
+{% extends 'VidalMainBundle::layout.html.twig' %}
+
+
+{% block meta %}
+    {% set hasOg = true %}
+	{{ parent() }}
+	<meta property="og:image" content="https://www.vidal.ru/bundles/vidalmain/images/share/vidal.jpg">
+	<meta content="{{ ogTitle }}" property="og:title">
+	<meta content="{{ description }}" property="og:description">
+{% endblock %}
+
+
+{% block nav %}
+	<div class="breadcrumbs">
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('index') }}" itemprop="url">
+				<span itemprop="title">Видаль</span>
+			</a>
+		</div>
+
+		<i></i>
+
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('articles') }}" itemprop="url">
+				<span itemprop="title">Медицинская энциклопедия</span>
+			</a>
+		</div>
+
+		<i></i>
+
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('rubrique', {'rubrique':rubrique.rubrique}) }}" itemprop="url">
+				<span itemprop="title">{{ rubrique }}</span>
+			</a>
+		</div>
+
+		{% if category is defined and category %}
+			<i></i>
+
+			<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+				<a href="{{ path('article', {'rubrique':rubrique.rubrique, 'link':category.url}) }}" itemprop="url">
+					<span itemprop="title">{{ category.title }}</span>
+				</a>
+			</div>
+		{% endif %}
+		<i></i>
+		<span>{{ article.title|raw }}</span>
+	</div>
+{% endblock %}
+
+
+{% block content %}
+	{% include 'VidalMainBundle::share.html.twig' with {'subtitle':'Медицинская энциклопедия', 'forPatient':'1', 'class':'Article', 'id':article.id} %}
+	{% include 'VidalMainBundle:Article:render_article.html.twig' %}
+
+	{# купить в интернет-аптеке #}
+	{% if article.links.count %}
+		<div class="anons links-title">
+			Купить в интернет-аптеке
+		</div>
+		<ul class="ul-style links">
+			{% for link in article.links if link.title is not empty %}
+				<li>
+					<a href="{{ link.url|raw }}">{{ link.title }}</a>
+				</li>
+			{% endfor %}
+		</ul>
+	{% endif %}
+
+	{% if products is defined and products is not empty %}
+		<div class="announcement">
+			<div class="anons-footer">
+				<span>{{ article.title|raw }}</span>: применяемые препараты безрецептурного отпуска
+				<i>{{ products|length }}</i>
+			</div>
+			<div class="products">
+				{% include 'VidalDrugBundle:Vidal:render_products.html.twig' %}
+			</div>
+		</div>
+	{% endif %}
+
+	{% if pre_products is defined and pre_products is not empty %}
+		<div class="announcement">
+			<div class="anons-footer">
+				<span>{{ article.title|raw }}</span>: применяемые рецептурные препараты
+				<i>{{ pre_products|length }}</i>
+			</div>
+			<div class="products">
+				{% include 'VidalDrugBundle:Vidal:render_products.html.twig' with {'products':pre_products, 'companies':pre_companies, 'pictures':pre_pictures, 'infoPages':pre_infoPages} %}
+			</div>
+		</div>
+	{% endif %}
+
+	<div class="anons red-warning">
+		Перед началом применения любого препарата посоветуйтесь со специалистом
+		и ознакомьтесь с инструкцией по применению.
+	</div>
+
+	{% include 'VidalMainBundle:Article:prev_next.html.twig' %}
+	{% include 'VidalMainBundle::yad_horizontal.html.twig' %}
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/publication.css') }}"/>
+	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/fancybox/source/jquery.fancybox.css') }}"/>
+	<style type="text/css">
+		.documents-anons {
+			margin-top: 22px;
+		}
+		.red-warning {
+			color:      rgb(255, 49, 56);
+			font-size:  12px;
+			margin-top: 20px;
+		}
+		.ul-style + .documents {
+			font-size: 16px;
+		}
+		.links-title {
+			font-weight:   bold;
+			margin-bottom: 5px;
+		}
+		.products {
+			display: none;
+		}
+	</style>
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+	<script type="text/javascript" src="{{ asset('bundles/vidalmain/fancybox/source/jquery.fancybox.js') }}"></script>
+	<script type="text/javascript"
+			src="{{ asset('bundles/vidalmain/placeholder/jquery.placeholder.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/vidalmain/javascripts/jquery.form.min.js') }}"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('.products .btn-red').click(function(e) {
+				e.preventDefault();
+				var $btn = $(e.target);
+				$btn.hide();
+				$btn.closest('.products').find('tr').show();
+				return false;
+			});
+
+			$('.article-wrap a > img').each(function() {
+				$(this).closest('a').addClass('fancybox');
+			});
+
+			$('.fancybox').css('cursor', 'zoom-in').fancybox({
+				fitToView: false,
+				autoSize:  false,
+				closeClick: true,
+				helpers: {
+					overlay: {
+						locked: false
+					}
+				}
+			});
+
+			$('.article-wrap a').each(function() {
+				$(this).attr({
+					itemprop: "url"
+				});
+			});
+
+			$('.article-wrap img').each(function() {
+				$(this).attr({
+					itemprop: "image"
+				});
+			});
+
+			$('.article-body a').each(function() {
+				var $a = $(this);
+				if (this.href.charAt(0) != '/'
+					&& this.href.indexOf('vidal.ru') === -1
+					&& this.href.indexOf('localhost:97') === -1
+				) {
+					$a.attr('rel', 'nofollow');
+				}
+			});
+		});
+	</script>
+{% endblock %}

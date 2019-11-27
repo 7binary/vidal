@@ -1,0 +1,180 @@
+/* кнопка прокрутки наверх */
+#top-link {
+	display:     none;
+	z-index:     999;
+	opacity:     0.8;
+	position:    fixed;
+	top:         100%;
+	left:        100%;
+	margin-top:  -80px;
+	margin-left: -80px;
+}
+#top-link:hover {
+	opacity: 1;
+}
+/* перезапись некоторых стилей сонаты */
+.filter_container {
+	display: none;
+}
+.filter_container label {
+	font-weight: bold;
+	color:       #586E85;
+}
+a, .sonata-bc a:focus, .sonata-bc .btn:focus {
+	outline: none;
+}
+.sonata-ba-list-field-header-actions {
+	text-align: center !important;
+	width:      140px !important;
+}
+.sonata-ba-list-field-actions, .btn-swap {
+	text-align:     center !important;
+	vertical-align: middle !important;
+}
+div.sonata-ba-list tr:nth-child(even) {
+	background-color: #E8F2F4 !important;
+}
+.sonata-ba-list-field-header {
+	background: #f7fbfc; /* Old browsers */
+	background: -moz-linear-gradient(top, #f7fbfc 0%, #d9edf2 40%, #add9e4 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f7fbfc), color-stop(40%, #d9edf2), color-stop(100%, #add9e4)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #f7fbfc 0%, #d9edf2 40%, #add9e4 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #f7fbfc 0%, #d9edf2 40%, #add9e4 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #f7fbfc 0%, #d9edf2 40%, #add9e4 100%); /* IE10+ */
+	background: linear-gradient(to bottom, #f7fbfc 0%, #d9edf2 40%, #add9e4 100%); /* W3C */
+	filter:     progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7fbfc', endColorstr='#add9e4', GradientType=0); /* IE6-9 */
+}
+.roles {
+	min-width: 190px;
+}
+.confirm_editor {
+	float: right;
+}
+td.info b {
+	display: inline-block;
+	width:   160px;
+}
+td.info img {
+	max-width:     100px;
+	margin-bottom: 5px;
+}
+div[id^="cms-block-"] table tr td:nth-child(1) {
+	width: 185px !important;
+}
+div[id^="cms-block-"] table tr td:nth-child(2) {
+	width: auto !important;
+}
+.help-block {
+	color: #8C8C8C !important;
+}
+.sonata-ba-list-label {
+	font-weight:    bold !important;
+	text-align:     right !important;
+	color:          #476173 !important;
+	vertical-align: middle !important;
+}
+.chosen-single span {
+	vertical-align: top;
+	margin-top:     7px;
+}
+.chosen-container .chosen-results {
+	overflow-x: auto !important;
+}
+.chosen-container .chosen-results li em {
+	font-style:      normal;
+	font-weight:     bold;
+	text-decoration: none;
+	color:           #f00;
+}
+.cke_dialog_ui_input_select .chosen-container .chosen-drop {
+	top: auto;
+}
+ul.items {
+	text-align: left;
+	margin:     0 0 0 20px;
+}
+
+/* swap button */
+.swap {
+	text-align:     center !important;
+	vertical-align: middle !important;
+}
+.swap > a {
+	height: 20px;
+	width:  12px;
+}
+.swap .btn-positive {
+	background: url('../images/btn_positive.png') no-repeat 50% 50% !important;
+}
+.swap .btn-negative {
+	background: url('../images/btn_negative.png') no-repeat 50% 50% !important;
+}
+
+/* filter chosen */
+.sonata-ba-list-field-header-batch {
+	width: 30px !important;
+}
+#filter_searchTags_value_chosen {
+	margin-bottom: 15px;
+}
+#filter_searchTags_value_chosen .chosen-single {
+	width: 500px;
+}
+#filter_searchTags_value_chosen .chosen-drop {
+	width: 510px;
+}
+
+.doc {
+	width: 543px !important;
+}
+.ui-menu-item em {
+	font-style:  normal;
+	font-weight: bold;
+	color:       #444;
+}
+
+/* select2 width */
+.art-rubrique,
+.art-type,
+.art-category {
+	width: 556px !important;
+}
+
+/* tags list */
+ul.tags {
+	margin:     0;
+	list-style: none;
+}
+input[type="text"], textarea {
+	width: 80% !important;
+}
+
+/* list */
+.list {
+	list-style: none;
+	margin:     8px 0 !important;
+}
+.list li {
+	margin-top: 3px;
+}
+.list b a {
+	width:      26px;
+	display:    inline-block;
+	text-align: center;
+	color:      red;
+}
+
+/* tag */
+.tag img {
+	width: 14px;
+}
+.tag-text, .tag-search {
+	width: 35%;
+}
+
+/* dialog bg */
+.cke_dialog_background_cover {
+	z-index:    -1 !important;
+	display:    none !important;
+	visibility: hidden !important;
+}

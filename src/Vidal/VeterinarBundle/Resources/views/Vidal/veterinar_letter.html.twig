@@ -1,0 +1,157 @@
+{% extends 'VidalVeterinarBundle::vidal_layout.html.twig' %}
+
+
+{% block nav %}
+	<div class="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
+		<span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+			<a href="{{ path('index') }}" itemprop="item">
+				<span itemprop="name">Видаль</span>
+			</a>
+			<meta itemprop="item" content="{{ path('index') }}">
+			<meta itemprop="name" content="Видаль">
+			<meta itemprop="position" content="1"/>
+		</span>
+
+		<i></i>
+
+		<span>Видаль-Ветеринар</span>
+	</div>
+{% endblock %}
+
+
+{% block meta %}
+	{% set currentPage = app.request.get('p', 1) %}
+	{% set maxPages = products.pageCount %}
+
+	{% if currentPage > 1 %}
+		{% if currentPage == 2 %}
+			<link rel="prev" href="{{ path('veterinar_letter', {'letter':letter}) }}">
+		{% else %}
+			<link rel="prev" href="{{ path('veterinar_letter', {'letter':letter, 'p':(currentPage-1)}) }}">
+		{% endif %}
+	{% endif %}
+
+	{% if currentPage < maxPages %}
+		<link rel="next" href="{{ path('veterinar_letter', {'letter':letter, 'p':(currentPage+1)}) }}">
+	{% endif %}
+
+	{{ parent() }}
+{% endblock %}
+
+
+{% block vidal %}
+	<div id="scrolling">
+		{% if menu_veterinar is defined %}
+			{% include 'VidalVeterinarBundle:Vidal:veterinar_menu.html.twig'%}
+		{% endif %}
+
+		{% include 'VidalVeterinarBundle:Vidal:search_form.html.twig' %}
+
+		<div class="letters veterinar-letters">
+			{% include 'VidalVeterinarBundle:Vidal:search_letters.html.twig' %}
+		</div>
+	</div>
+
+	<h1>{{ seotitle }}</h1>
+
+	<div class="veterinar-results">
+		{% if products is not empty %}
+			<div class="info-line">
+				{% if l %}
+					Найдено препаратов {{ l == 8 ? 'c цифры' : 'на букву' }} <i>{{ l }}</i>:
+				{% else %}
+					Найдено препаратов по запросу <i>{{ q }}</i>:
+				{% endif %}
+				<span>{{ products.totalItemCount }}</span>
+			</div>
+			{% include 'VidalVeterinarBundle:Vidal:render_products.html.twig' %}
+			<div class="navigation">{{ knp_pagination_render(products) }}</div>
+		{% else %}
+			<div class="info-line">
+				{% if l %}
+					Не найдено препаратов {{ l == 8 ? 'c цифры' : 'на букву' }} <i>{{ l }}</i>
+				{% else %}
+					Не найдено препаратов по запросу <i>{{ q }}</i>
+				{% endif %}
+			</div>
+		{% endif %}
+	</div>
+
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+	<script type="text/javascript">
+		$(document).ready(function() {
+			{% if not is_mobile() %}
+			var top = $('#scrolling').offset().top;
+			$(window).scroll(function() {
+				var scrollTop = $(window).scrollTop();
+				if (scrollTop >= top) {
+					$('#scrolling').addClass('fixedtop');
+				}
+				else {
+					$('#scrolling').removeClass('fixedtop');
+				}
+			});
+			{% endif %}
+		});
+	</script>
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/letters.css') }}"/>
+	<style type="text/css">
+		#scrolling.fixedtop {
+			position: fixed;
+			top:      0;
+			width:    520px;
+			z-index:  1000;
+			background: beige;
+			border: 1px dashed #ccc;
+		}
+		{% if isMobile %}
+		#veterinar_form {
+			overflow: hidden;
+		}
+		.letters {
+			padding-bottom: 0 !important;
+			border-bottom:  none !important;
+		}
+		{% endif %}
+		.veterinar-letters {
+			margin-top: 10px;
+		}
+		.veterinar-letters > div {
+			overflow: hidden;
+		}
+		#veterinar_type {
+			width: 195px;
+		}
+		#veterinar_input {
+			width:       205px;
+			margin-left: 8px;
+		}
+		#veterinar_submit {
+			float: right;
+		}
+		.veterinar-about {
+			font-size:   15px;
+			margin-top:  22px;
+			padding-top: 4px;
+			border-top:  1px solid #e1e1e1;
+		}
+		.veterinar-about-2 {
+			margin-top: 35px;
+		}
+		.companies a {
+			text-decoration: none;
+		}
+		.companies a:hover {
+			text-decoration: underline;
+		}
+	</style>
+{% endblock %}

@@ -1,0 +1,105 @@
+{% extends 'VidalDrugBundle::vidal_layout.html.twig' %}
+
+
+{% block vidal %}
+	{% if menu_drugs is defined %}
+		{% include 'VidalDrugBundle:Drugs:menu_drugs.html.twig' %}
+	{% endif %}
+
+	<div class="description">
+		<span>Анатомо-Терапевтически-Химическая (АТХ) система классификации (ATC)</span>
+
+		<div>
+			Рекомендованная Всемирной Организацией Здравоохранения для международных исследований использования
+			лекарственных препаратов. Эта система классификации активно используется в фармакоэкономике для учета
+			лекарственных средств, а также применяется при проведении клинических исследований для оценки сопутствующей
+			терапии (<a target="_blank"
+						href="https://vidal.ru/vracham/provizoram-i-farmatsevtam/ATC-systema-klassifikatsii-lekarstv.html">подробнее</a>).
+			{% if not ATCCode %}
+				<br/><i>Например</i>:
+				<a href="#B" data="B">Антикоагулянты</a>.
+			{% endif %}
+		</div>
+	</div>
+
+	<form id="select_form" action="{{ path('atc') }}" method="GET">
+		<select name="c">
+			<option></option>
+			{% for code, text in choices %}
+				<option value="{{ code }}"{{ ATCCode == code ? ' selected' }}>
+					{{ text }}
+				</option>
+			{% endfor %}
+		</select>
+		<input type="submit" value="Найти" class="btn-red"/>
+	</form>
+
+	{% if ATCCode %}
+		{{ render(controller('VidalDrugBundle:Drugs:atcItem', {'ATCCode':ATCCode, 'search':1})) }}
+	{% else %}
+		{% include 'VidalDrugBundle:Drugs:atc_generated.html.twig' %}
+	{% endif %}
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/treeview/jquery.treeview.css') }}"/>
+	<style type="text/css">
+		#select_form {
+			margin: 20px 0 20px;
+		}
+		#select_form input[type="submit"] {
+			float: right;
+		}
+		#select_form select {
+			width: 420px;
+		}
+	</style>
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+	<script src="{{ asset('bundles/vidalmain/treeview/jquery.treeview.js') }}" type="text/javascript"></script>
+	<script src="{{ asset('bundles/vidalmain/treeview/jquery.treeview.edit.js') }}" type="text/javascript"></script>
+	<script src="{{ asset('bundles/vidalmain/treeview/jquery.treeview.async.atc.js') }}" type="text/javascript"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#select_form select').chosen({
+				placeholder_text_single: "Поиск по АТХ..."
+			});
+
+			var $tree = $('.treeview');
+
+			$tree.treeview({
+				animated:  "fast",
+				collapsed: true,
+				url:       '/drugs/atc-ajax',
+				ajax:      {
+					type: "post"
+				}
+			});
+
+			$('#tree_collapse').on('click', function() {
+				$tree.find('ul').hide();
+				$tree.find('div.collapsable-hitarea').removeClass('collapsable-hitarea').addClass('expandable-hitarea');
+				$tree.find('div.lastCollapsable-hitarea').removeClass('lastCollapsable-hitarea').addClass('lastExpandable-hitarea');
+				$tree.find('li.collapsable').removeClass('collapsable').addClass('expandable');
+				$tree.find('li.lastCollapsable').removeClass('lastCollapsable').addClass('lastExpandable');
+				return false;
+			});
+
+			$('a[data="B"]').click(function() {
+				$('#tree_collapse').click();
+				$tree.find('span').removeClass('highlight');
+				$('#B > div').click();
+				$('#B > span').addClass('highlight');
+				setTimeout(function() {
+					$('#B01 > div').click();
+					$('#B01 > span').addClass('highlight');
+				}, 1000);
+			});
+		});
+	</script>
+{% endblock %}

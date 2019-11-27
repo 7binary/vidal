@@ -1,0 +1,17 @@
+{% set cookieAcceptName = "ACCEPT_USE_COOKIE" %}
+{% if not app.request.cookies.get(cookieAcceptName) %}
+    <div role="banner" class="cookie-notice">
+        <span>На нашем сайте используются файлы cookies для большего удобства использования и улучшения работы сайта. Продолжая, вы соглашаетесь с использованием cookies.</span>
+        <a href="#" id="accept-use-cookie">Ok</a>
+    </div>
+    
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#accept-use-cookie").click(function() {
+                setCookie('{{cookieAcceptName}}', '1', {expires: 60*60*24*365});
+                $(".cookie-notice").hide();
+                return false;
+            });
+        });
+    </script>
+{% endif %}

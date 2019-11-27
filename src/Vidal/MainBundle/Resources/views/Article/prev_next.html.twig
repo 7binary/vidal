@@ -1,0 +1,19 @@
+<div class="prev_next">
+    <noindex>
+        {% if prevArticle is defined and prevArticle %}
+        <a href="{{ path('article', {'rubrique':prevArticle.rubrique.rubrique, 'link':prevArticle.link}) }}"
+           class="prev"
+           title="{{ prevArticle.title|html_entity_decode }}">
+            ← Предыдущая {{ is_mobile() ? '' : 'статья' }}
+        </a>
+        {% endif %}
+
+        {% if nextArticle is defined and nextArticle %}
+        <a href="{{ path('article', {'rubrique':nextArticle.rubrique.rubrique, 'link':nextArticle.link}) }}"
+           class="next"
+           title="{{ nextArticle.title|html_entity_decode }}">
+            Следующая {{ is_mobile() ? '' : 'статья' }} →
+        </a>
+        {% endif %}
+    </noindex>
+</div>

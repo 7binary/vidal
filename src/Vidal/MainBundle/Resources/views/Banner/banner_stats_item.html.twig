@@ -1,0 +1,180 @@
+{% extends 'VidalMainBundle::layout_blank.html.twig' %}
+
+{% set isAdmin = app.user is not null and is_granted('ROLE_ADMIN') %}
+
+{% block content %}
+	{% if isAdmin and 1!=1%}
+		{% if gaResult is defined and gaResult.rows is not empty %}
+			{% for row in gaResult.rows %}
+				<div class="stat">
+					<div class="stat-title"><b>Событие Google Analytics</b>: {{ row[0] }}</div>
+					<div class="stat-link"><b>Ссылка</b>:
+						<small>{{ row[2] }}</small>
+					</div>
+					<div class="stat-count"><b>Показов</b>: {{ row[3] }}</div>
+				</div>
+			{% endfor %}
+		{% endif %}
+
+		{% if gaResultMobile is defined and gaResultMobile.rows is not empty %}
+			{% for row in gaResultMobile.rows %}
+				<div class="stat">
+					<div class="stat-title"><b>Событие Google Analytics</b>: {{ row[0] }}</div>
+					<div class="stat-link"><b>Ссылка</b>:
+						<small>{{ row[2] }}</small>
+					</div>
+					<div class="stat-count"><b>Показов</b>: {{ row[3] }}</div>
+				</div>
+			{% endfor %}
+		{% endif %}
+    	<div class="stat">
+    		<div class="stat-count"><b>Всего показов баннера</b>: {{ totalShows }}</div>
+    	</div>
+    	<h2 class="chart-title">График переходов по баннеру по часам, всего: {{ clickTotal }}</h2>
+    	<div id="hours" class="chart"></div>
+	{% endif %}
+
+	<h2 class="chart-title">График переходов по баннеру по дням, всего: {{ clickTotal }}</h2>
+	<div id="days" class="chart"></div>
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/amcharts/plugins/export/export.css') }}"
+		  type="text/css" media="all"/>
+	<style>
+		.stat {
+			border-bottom:  1px solid #ccc;
+			margin-bottom:  15px;
+			padding-bottom: 15px;
+		}
+		.stat b {
+			color: gray;
+		}
+		.chart {
+			width:  100%;
+			height: 300px;
+		}
+		.chart-title {
+			margin:     30px 0 0;
+			text-align: center !important;
+		}
+	</style>
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+	<script type="text/javascript" src="{{ asset('bundles/vidalmain/amcharts/amcharts.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/vidalmain/amcharts/serial.js') }}"></script>
+	<script type="text/javascript"
+			src="{{ asset('bundles/vidalmain/amcharts/plugins/export/export.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/vidalmain/amcharts/themes/light.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/vidalmain/amcharts/lang/ru.js') }}"></script>
+
+	<script>
+	{% if isAdmin and 1!=1%}
+		var hours = AmCharts.makeChart("hours", {
+			"type":           "serial",
+			"theme":          "light",
+			"language":       "ru",
+			"marginRight":    18,
+			"marginLeft":     0,
+			"dataProvider": {{ clickHours|raw }},
+			"valueAxes":      [{
+				"position": "left",
+				"title":    null,
+			}],
+			"graphs":         [{
+				"id":          "g1",
+				"fillAlphas":  0.4,
+				"valueField":  "value",
+				"balloonText": "<div style='margin:5px; font-size:19px;'>Переходов: [[value]]</div>"
+			}],
+			"chartScrollbar": {
+				"graph":                   "g1",
+				"scrollbarHeight":         80,
+				"backgroundAlpha":         0,
+				"selectedBackgroundAlpha": 0.1,
+				"selectedBackgroundColor": "#888888",
+				"graphFillAlpha":          0,
+				"graphLineAlpha":          0.5,
+				"selectedGraphFillAlpha":  0,
+				"selectedGraphLineAlpha":  1,
+				"autoGridCount":           true,
+				"color":                   "#AAAAAA"
+			},
+			"chartCursor":    {
+				"categoryBalloonDateFormat": "JJ:NN, DD MMMM",
+				"cursorPosition":            "mouse"
+			},
+			"categoryField":  "date",
+			"categoryAxis":   {
+				"minPeriod":  "mm",
+				"parseDates": true
+			},
+			"export":         {
+				"enabled":    true,
+				"dateFormat": "YYYY-MM-DD HH:NN:SS"
+			}
+		});
+    {% endif %}
+
+		var days = AmCharts.makeChart("days", {
+			"type":           "serial",
+			"theme":          "light",
+			"language":       "ru",
+			"marginRight":    0,
+			"marginLeft":     50,
+			"dataDateFormat": "YYYY-MM-DD",
+			"valueAxes":      [{
+				"id":              "v1",
+				"axisAlpha":       0,
+				"position":        "left",
+				"ignoreAxisWidth": true
+			}],
+			"balloon":        {
+				"borderThickness": 1,
+				"shadowAlpha":     0
+			},
+			"graphs":         [{
+				"id":                          "g1",
+				"fillAlphas":                  0.2,
+				"bullet":                      "round",
+				"bulletBorderAlpha":           1,
+				"bulletColor":                 "#FFFFFF",
+				"bulletSize":                  5,
+				"hideBulletsCount":            50,
+				"lineThickness":               2,
+				"title":                       "red line",
+				"useLineColorForBulletBorder": true,
+				"valueField":                  "value",
+				"balloonText":                 "<span style='font-size:18px;'>Переходов: [[value]]</span>"
+			}],
+			"chartCursor":    {
+				"valueLineEnabled":        true,
+				"valueLineBalloonEnabled": true,
+				"cursorAlpha":             0,
+				"zoomable":                false,
+				"valueZoomable":           true,
+				"valueLineAlpha":          0.5
+			},
+			"valueScrollbar": {
+				"autoGridCount":   true,
+				"color":           "#000000",
+				"scrollbarHeight": 50
+			},
+			"categoryField":  "date",
+			"categoryAxis":   {
+				"parseDates":       true,
+				"dashLength":       1,
+				"minorGridEnabled": true
+			},
+			"export":         {
+				"enabled": true,
+			},
+			"dataProvider": {{ clickDays|raw }}
+		});
+	</script>
+{% endblock %}

@@ -1,0 +1,76 @@
+{% if t == 'all' and noResults is not defined and p == 1 %}
+	{% set items = 0 %}
+
+	<div class="navigation">
+		<i></i>
+
+		<div class="navigation-items">
+			{% if products is defined and products.totalItemCount %}
+				{% set items = items + 1 %}
+				<div>
+					<a href="#search_products">препарат{{ products.totalItemCount > 1 ? 'ов' }}:
+						<span>{{ products.totalItemCount }}</span></a>
+				</div>
+			{% endif %}
+
+			{% if infoPages is defined and infoPages|length %}
+				{% set items = items + 1 %}
+				<div>
+					<a href="#search_infoPages">информационных страниц{{ infoPages|length == 1 ? 'о' }}:
+						<span>{{ infoPages|length }}</span></a>
+				</div>
+			{% endif %}
+
+			{% if companies is defined and companies|length %}
+				{% set items = items + 1 %}
+				<div>
+					<a href="#search_companies">производител{{ companies|length == 1 ? 'ь' : 'ей' }}:
+						<span>{{ companies|length }}</span></a>
+				</div>
+			{% endif %}
+
+			{% if molecules is defined and molecules|length %}
+				{% set items = items + 1 %}
+				<div>
+					<a href="#search_molecules">{% if molecules|length == 1 %}активное вещество{% else %}активных веществ{% endif %}
+						:
+						<span>{{ molecules|length }}</span></a>
+				</div>
+			{% endif %}
+
+			{% if nozologies is defined and nozologies|length %}
+				{% set items = items + 1 %}
+				<div>
+					<a href="#search_nozologies">{% if nozologies|length == 1 %}нозологий указатель{% else %}нозологических указалетей{% endif %}: <span>{{ nozologies|length }}</span></a>
+				</div>
+			{% endif %}
+
+			{% if clphgroups is defined and clphgroups|length %}
+				{% set items = items + 1 %}
+				<div>
+					<a href="#search_clphgroups">
+						клинико-фармакологич. групп{{ clphgroups|length == 1 ? 'а' }}: <span>{{ clphgroups|length }}</span>
+					</a>
+				</div>
+			{% endif %}
+
+			{% if phthgroups is defined and phthgroups|length %}
+				{% set items = items + 1 %}
+				<div>
+					<a href="#search_phthgroups">
+						фармако-терапевтических групп{{ phthgroups|length == 1 ? 'а' }}: <span>{{ phthgroups|length }}</span>
+					</a>
+				</div>
+			{% endif %}
+		</div>
+	</div>
+
+	{% if items < 3 %}
+		<style type="text/css">
+			#vidal .navigation {
+				display: none;
+			}
+		</style>
+	{% endif %}
+
+{% endif %}

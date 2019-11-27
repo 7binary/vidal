@@ -1,0 +1,53 @@
+{% set route = app.request.get('_route') %}
+{% set digestId = app.request.attributes.get('_route_params')['id'] is defined
+	? app.request.attributes.get('_route_params')['id']
+	: null
+%}
+
+
+<div class="controls">
+	<div>
+		<a class="control {{ route == 'delivery' and (digestId is empty or digestId == 1)?'active':'' }}" href="{{ path('delivery') }}" title="Шаблон письма и настройка параметров">Шаблон основной</a>
+		<a class="control {{ route == 'delivery_control' and (digestId is empty or digestId == 1)?'active':'' }}" href="{{ path('delivery_control') }}" title="Управление рассылкой">Управление основной рассылкой</a>
+		<a class="control {{ route == 'delivery_stats'?'active':'' }}" href="{{ path('delivery_stats') }}"
+		   title="По всем рассылкам">Статистика рассылок</a>
+	</div>
+	<div style="margin-top:10px">
+		<a class="control {{ route == 'delivery' and digestId == 2?'active':'' }}" href="{{ path('delivery', {'id':2}) }}" title="Шаблон письма и настройка параметров">Шаблон дополнительный</a>
+		<a class="control {{ route == 'delivery_control' and digestId == 2?'active':'' }}" href="{{ path('delivery_control', {'id':2}) }}" title="Управление рассылкой">Управление дополнительной рассылкой</a>
+	</div>
+</div>
+
+
+<style type="text/css">
+	.outer {
+		margin: 0 0 20px;
+	}
+	.msg {
+		background:    rgb(193, 232, 214);
+		padding:       6px 10px;
+		margin-bottom: 25px;
+	}
+	.controls {
+		text-align: center;
+		margin-bottom: 28px;
+	}
+	.control {
+		display:          inline-block;
+		text-decoration:  none;
+		font-weight:      bold;
+		color:            #2e3f51;
+		margin-right:     6px;
+		height:           24px;
+		line-height:      24px;
+		border:           1px solid #2e3f51;
+		padding:          0 7px;
+		border-radius:    4px;
+		background-color: white;
+		vertical-align:   top;
+	}
+	.control.active {
+		color: white;
+		background: #2e3f51;
+	}
+</style>

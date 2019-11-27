@@ -1,0 +1,41 @@
+AuthName "Need authorization"
+AuthType Basic
+#AuthUserFile C:/wamp/www/Vidal/web/pw/.htpasswd
+AuthUserFile /home/twigavid/public_html/current/web/pw/.htpasswd
+require valid-user
+
+<Files *.css>
+Satisfy Any
+Order Deny,Allow
+Allow from All
+</Files>
+
+<Files *.js>
+Satisfy Any
+Order Deny,Allow
+Allow from All
+</Files>		
+
+<Files *.gif>
+Satisfy Any
+Order Deny,Allow
+Allow from All
+</Files>		
+
+<Files *.png>
+Satisfy Any
+Order Deny,Allow
+Allow from All
+</Files>		
+
+<Files *.jpg>
+Satisfy Any
+Order Deny,Allow
+Allow from All
+</Files>		
+
+<Files *.jpeg>
+Satisfy Any
+Order Deny,Allow
+Allow from All
+</Files>		

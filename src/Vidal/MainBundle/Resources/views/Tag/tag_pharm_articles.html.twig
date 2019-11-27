@@ -1,0 +1,21 @@
+{% extends 'VidalMainBundle::layout.html.twig' %}
+
+
+{% block content %}
+	<div class="title">
+		Новости фарм. компаний по теме <span>"{{ tag.text }}"</span>
+	</div>
+
+	{% if pagination.getTotalItemCount %}
+		{% include 'VidalMainBundle:Index:render_pharm_articles.html.twig' with {'articles':pagination} %}
+	{% else %}
+		<div class="anons">Извините, новостей фарм. компаний по этой теме не найдено</div>
+	{% endif %}
+
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/publication.css') }}"/>
+{% endblock %}

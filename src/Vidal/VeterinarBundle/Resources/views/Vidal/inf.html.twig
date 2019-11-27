@@ -1,0 +1,136 @@
+{% extends 'VidalVeterinarBundle::vidal_layout.html.twig' %}
+
+
+{% block title %}
+	<div class="relative">
+		<h1>{{ infoPage.RusName|upper|raw }}
+			{% if infoPage.Country is not empty and infoPage.Country != 'Unknown' %}
+				<span>({{ infoPage.Country }})</span>
+			{% endif %}
+		</h1>
+
+		{% if isAdmin %}
+			<a class="admin-edit fade" target="_blank"
+			   href="{{ path('admin_vidal_veterinar_infopage_edit', {'id':infoPage.InfoPageID}) }}">
+				<img src="{{ asset('bundles/vidalmain/images/edit.png') }}"/>
+			</a>
+		{% endif %}
+	</div>
+{% endblock %}
+
+
+{% block nav %}
+	<div class="breadcrumbs">
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('index') }}" itemprop="url">
+				<span itemprop="title">Видаль</span>
+			</a>
+		</div>
+		<i></i>
+
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('veterinar') }}" itemprop="url">
+				<span itemprop="title">Видаль-Ветеринар</span>
+			</a>
+		</div>
+		<i></i>
+
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('predstavitelstvo') }}" itemprop="url">
+				<span itemprop="title">Информационные страницы</span>
+			</a>
+		</div>
+		<i></i>
+
+		<span>{{ infoPage.RusName|upper|raw }}</span>
+	</div>
+{% endblock %}
+
+
+{% block vidal %}
+	{# логотип компании и инфо #}
+	<table class="infopage">
+		<tr>
+			{% if infoPage.photo %}
+				<td class="infopage-logo">
+					<img src="{{ infoPage.photo.path }}"/>
+				</td>
+			{% elseif picture %}
+				{% set path = '/upload/veterinar/infoPages/' ~ picture.path %}
+				{% if is_file(path) %}
+					<td class="infopage-logo">
+						<img src="{{ path }}"/>
+					</td>
+				{% endif %}
+			{% endif %}
+			<td class="infopage-about">
+				{{ infoPage.RusAddress|raw }}
+			</td>
+		</tr>
+	</table>
+
+	{# портфели препаратов #}
+	{% if portfolios is not empty %}
+		<div class="block">
+			<div class="block-head">Портфели препаратов</div>
+			<ul class="ul-style portfolios">
+				{% for portfolio in portfolios %}
+					<li>
+						<a href="{{ path('veterinar_portfolio', {'url':portfolio.url}) }}">
+							{{ portfolio.title|raw }}
+						</a>
+						{% if isAdmin %}
+							<a class="admin-edit fade" target="_blank"
+							   href="{{ path('admin_vidal_veterinar_pharmportfolio_edit', {'id':portfolio.id}) }}">
+								<img src="{{ asset('bundles/vidalmain/images/edit.png') }}"/>
+							</a>
+						{% endif %}
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
+	{% endif %}
+
+	{# препараты #}
+	{% if products is defined and products is not empty %}
+		<div class="block">
+			<div class="block-anons">
+				<div class="block-head">Ветеринарные продукты</div>
+			</div>
+			{% include 'VidalVeterinarBundle:Vidal:render_products.html.twig' %}
+		</div>
+	{% endif %}
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<style type="text/css">
+		.infopage td {
+			vertical-align: top;
+		}
+		.infopage-logo img {
+			display:      inline-block;
+			max-width:    200px;
+			max-height:   200px;
+			margin-right: 40px;
+		}
+		.infopage-about p {
+			margin:    7px 0;
+			font-size: 14px;
+		}
+		.relative {
+			position: relative;
+		}
+		.portfolios li {
+			position: relative;
+		}
+		.portfolios li a {
+			text-decoration: none;
+			font-weight:     bold;
+		}
+		.portfolios li a:hover {
+			text-decoration: underline;
+		}
+	</style>
+{% endblock %}

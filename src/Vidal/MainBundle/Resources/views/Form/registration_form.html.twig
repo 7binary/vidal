@@ -1,0 +1,34 @@
+{% use 'VidalMainBundle:Form:form_table_layout.html.twig' %}
+
+
+{% block form_row %}
+	{% spaceless %}
+		{% if name == 'eula' %}
+			<tr class="row row_eula">
+				<td colspan="2">
+					<div class="eula">
+						<span class="form_label">Я согласен(на) c
+							<a target="_blank" href="{{ path("eula") }}">пользовательским соглашением</a>
+							<span class="asterisk raspberry">*</span>
+						</span>
+						<span class="eula-checkbox">{{ form_widget(form) }}</span>
+					</div>
+					<div class="form_error">{{ form_errors(form) }}</div>
+				</td>
+			</tr>
+		{% else %}
+			<tr class="row row_{{ name }}">
+				<td class="label">
+					<div class="form_label">{{ form_label(form) }}</div>
+					{% if attr['data-help'] is defined %}
+						<div class="data-help">{{ attr['data-help'] }}</div>
+					{% endif %}
+				</td>
+				<td class="widget">
+					<div class="form_widget">{{ form_widget(form) }}</div>
+					<div class="form_error">{{ form_errors(form) }}</div>
+				</td>
+			</tr>
+		{% endif %}
+	{% endspaceless %}
+{% endblock form_row %}

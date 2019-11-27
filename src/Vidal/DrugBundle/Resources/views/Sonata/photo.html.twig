@@ -1,0 +1,5 @@
+<td>
+	{% if object.photo is defined and object.photo.path is defined and is_file(object.photo.path) %}
+		<img src="{{ object.photo.path }}" style="width:100px"/>
+	{% endif %}
+</td>

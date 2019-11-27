@@ -1,0 +1,9 @@
+<div class="tabs veterinar-menu" style="margin-top:12px; text-align: center;">
+    <a style="width:20%" href="{{ path('veterinar') }}" {{ menu_veterinar == 'veterinar' ? 'class="active"' }}>Поиск</a>
+    <a href="{{ path('proizvoditeli') }}" style="width:20%" {{ menu_veterinar == 'company' ? 'class="active"' }}>
+        Производители</a>
+    <a href="{{ path('v_kfu') }}" style="width:20%" {{ menu_veterinar == 'kfu' ? 'class="active"' }}
+        title="Клинико-фармакологические указатели">КФУ</a>
+    <a href="{{ path('predstavitelstvo') }}" {{ menu_veterinar == 'infoPage' ? 'class="active"' }}>
+        Информационные <br/>страницы</a>
+</div>

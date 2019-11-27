@@ -1,0 +1,113 @@
+{% extends 'VidalMainBundle::layout.html.twig' %}
+
+{% set currentPage = app.request.get('p', 1) %}
+{% set maxPages = publicationsPagination.pageCount %}
+
+{% block meta %}
+	{% if currentPage > 1 %}
+		{% if currentPage == 2 %}
+			<link rel="prev" href="{{ path('news') }}">
+		{% else %}
+			<link rel="prev" href="{{ path('news', {'p':(currentPage-1)}) }}">
+		{% endif %}
+	{% endif %}
+
+	{% if currentPage < maxPages %}
+		<link rel="next" href="{{ path('news', {'p':(currentPage+1)}) }}">
+	{% endif %}
+
+	{{ parent() }}
+{% endblock %}
+
+
+{% block nav %}
+	<div class="breadcrumbs">
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('index') }}" itemprop="url">
+				<span itemprop="title">Видаль</span>
+			</a>
+		</div>
+		<i></i>
+		<span>Новости</span>
+	</div>
+{% endblock %}
+
+
+{% block content %}
+	{% if publicationsPriority is defined and publicationsPriority is not empty %}
+		<div class="title">Актуальные новости</div>
+		<div class="sticky">
+			{% include 'VidalMainBundle:Index:render_news.html.twig' with {'news':publicationsPriority, 'without_date':1} %}
+		</div>
+	{% endif %}
+
+	<div class="title">
+		<h1>Новости медицины и фармации{{ page > 1 ? ' - страница ' ~ page : '' }}</h1>
+	</div>
+	{% include 'VidalMainBundle:Index:render_news.html.twig' with {'news':publicationsPagination, 'showTags':1} %}
+
+	<noindex>
+		<div class="navigation">
+			<span class="btn btn-red" id="show-more">Показать еще</span>
+		</div>
+		<div class="navigation">
+			{{ knp_pagination_render(publicationsPagination) }}
+		</div>
+	</noindex>
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#show-more').click(function(e) {
+				e.preventDefault();
+				var $current = $('.pagination .current');
+				var currPage = parseInt($current.text());
+				var $next = $('.pagination .next a');
+				var $prev = $('.pagination .previous a');
+				if ($prev.length == 0) {
+					$('<span class="previous">').prependTo('.pagination');
+					var prevUrl = '/novosti?p=' + (currPage - 1);
+					$('<a>').attr('href', prevUrl).text('назад').appendTo('.pagination .previous');
+				}
+				var url = '/more-news/' + currPage;
+				$.getJSON(url, function(data) {
+					$('.news').append(data);
+					$current.text(currPage + 1);
+					var nextUrl = '/novosti?p=' + (currPage + 2);
+					var prevUrl = '/novosti?p=' + currPage;
+					$next.attr('href', nextUrl);
+					$('.pagination .previous a').attr('href', prevUrl);
+				});
+				return false;
+			});
+		});
+	</script>
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/publication.css') }}"/>
+	<style type="text/css">
+		.sticky {
+			margin-bottom: 20px;
+		}
+		#wrapper .title h1 {
+			background-color: #F5F5F5;
+			font-weight:      700;
+			font-size:        14px;
+			padding:          4px 8px;
+			color:            #2f4053;
+			margin:           0;
+		}
+		.navigation {
+			text-align: center;
+		}
+		.pagination {
+			display: inline-block;
+		}
+	</style>
+{% endblock %}

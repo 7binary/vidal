@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+{% set isAdmin = app.user is not null and is_granted('ROLE_ADMIN') %}
+{% set isLogged = app.user is not null %}
+{% set route = app.request.get('_route') %}
+{% set indexPage = indexPage is defined and indexPage %}
+{% set isMobile = is_mobile() %}
+{% set envLocal = env_local == 'true' %}
+{% set indexPage = indexPage is defined and indexPage %}
+{% set productPage = productPage is defined and productPage %}
+{% set isDev = app.environment == 'dev' %}
+{% set ProductID = ProductID is defined ? ProductID : 0 %}
+<html lang="ru">
+<head>
+    {% block metaTitle %}
+        <title>{% spaceless %}
+            {% if seotitle is defined and seotitle is not null %}
+                {{ seotitle|striptags|raw }}{{ extra_title is defined ? extra_title|striptags|raw }}
+            {% else %}
+                {% if title is defined and title is not null %}{{ title|striptags|raw }} | {% endif %}Vidal.ru - cправочник лекарственных препаратов {{ extra_title is defined ? extra_title }}
+        {% endif %}
+        {% endspaceless %}</title>
+    {% endblock %}
+
+	<meta charset="UTF-8"/>
+	<meta name="robots" content="index, follow"/>
+	<link rel="canonical" href="{{ urlCanonical is defined ? urlCanonical|canonical : app.request.uri|canonical }}"/>
+	<link rel="shortcut icon" href="{{ asset('favicon.ico') }}?v=2"/>
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400i" rel="stylesheet">
+
+	{% block meta %}
+		<meta name="description" content="{% spaceless %}
+				{% if description is defined and description is not null %}
+					{{ description }}{{ extra_description is defined ? extra_description }}
+				{% else %}
+					{{ title is defined ? title ~ '. ' }}Справочник лекарственных средств, содержащий подробные описания и инструкции по применению препаратов. Также на сайте: материалы для специалистов, включая данные клинических исследований и алгоритмы ведения пациентов, медицинская энциклопедия с описанием болезней, новости медицины и фармации, взаимодействие лекарств и исследования их эффективности.{{ extra_description is defined ? extra_description }}
+				{% endif %}
+			{% endspaceless %}"/>
+		<meta name="keywords" content="{% spaceless %}
+				{% if keywords is defined %}
+					{{ keywords }}
+				{% else %}
+					{{ title is defined ? title ~ ' ' }}Справочник лекарственных препаратов, средств, лекарства, описания, инструкции, применение, медицина, болезни, энциклопедия, врачи, новости, лечение, Видаль
+				{% endif %}
+			{% endspaceless %}"/>
+
+        <meta property="og:type" content="website"/>
+        <meta property="og:site_name" content="Видаль Россия"/>
+
+		{% if route not in ['product','article', 'art','publication'] %}
+            {% if hasOg is not defined or not hasOg %}
+    			<meta property="og:image" content="https://www.vidal.ru/bundles/vidalmain/images/share/vidal.jpg"/>
+    			{% if seotitle is defined and seotitle is not null %}
+    				<meta property="og:title" content="{{ seotitle }}"/>
+    			{% elseif title is defined and title is not null %}
+    				<meta property="og:title" content="{{ title }}"/>
+    			{% endif %}
+    
+    			{% if route == 'index' %}
+    				<meta property="og:description"
+    					  content="Справочник лекарственных средств, содержащий подробные описания и инструкции по применению препаратов. Также на сайте: материалы для специалистов, включая данные клинических исследований и алгоритмы ведения пациентов, медицинская энциклопедия с описанием болезней, новости медицины и фармации, взаимодействие лекарств и исследования их эффективности."/>
+    			{% elseif description is defined and description is not null %}
+    				<meta property="og:description" content="{{ description }}"/>
+    			{% endif %}
+			{% endif %}
+
+		{% endif %}
+	{% endblock %}
+
+	{% block stylesheets %}
+		<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/common.min.css') }}"/>
+		<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/jquery-chosen/chosen.min.css') }}"/>
+		<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/checkbox/checkbox.css') }}"/>
+		<link rel="stylesheet" type="text/css"
+			  href="{{ asset('bundles/vidalmain/jquery-ui/jquery-ui-1.10.4.custom.min.css') }}"/>
+		<!--[if lt IE 9]>
+		<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/old_ie.css') }}"/>
+		<![endif]-->
+		{% if isMobile %}
+			<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/base500.css') }}"/>
+			<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/base750.css') }}"/>
+			<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/base1000.css') }}"/>
+		{% endif %}
+        <link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/share/share.css') }}"/>
+		<style>
+			.open-sans {
+				font-family: 'Open Sans', sans-serif;
+			}
+			.menu-pharmacy .open-sans {
+				color:         #f3f3f3;
+				line-height:   23px;
+				margin-bottom: -3px;
+				font-size:     17px;
+			}
+			#wrapper #yad_right * {
+				font-size: 12px !important;
+			}
+			.analogs-full {
+				text-align: center;
+			}
+			.analogs-full a {
+				display:        inline-block;
+				vertical-align: top;
+				margin-right:   8px;
+				font-weight:    bold;
+				padding:        6px 10px;
+			}
+			.menu-pharmacy {
+				display: block;
+			}
+			.menu-pharmacy div {
+				display:     inline-block;
+				position:    absolute;
+				left:        0;
+				bottom:      14px;
+				font-style:  italic;
+				color:       #eee;
+				width:       100%;
+				font-size:   18px;
+				line-height: 18px;
+				text-align:  center;
+			}
+			/* доп кнопки справа */
+			#fixed-right {
+				display:     block;
+				z-index:     999;
+				opacity:     0.8;
+				position:    fixed;
+				top:         100%;
+				left:        100%;
+				margin-top:  -160px;
+				margin-left: -130px;
+                -webkit-transform: translateZ(0);
+                -webkit-overflow-scrolling: touch;
+			}
+			#fixed-right > div, #fixed-right > a {
+				margin-top: 20px;
+			}
+			#fixed-right > a {
+				border-radius: 50px;
+				-moz-border-radius: 50px;
+				-webkit-border-radius: 50px;
+				background: #a40e38;
+			}
+			{% if isMobile %}
+			#wrapper .btn-buy {
+				top:   0 !important;
+				width: 100% !important;
+			}
+			#wrapper .analogs-full {
+				margin-top: 0 !important;
+				height:     auto !important;
+				text-align: center !important;
+			}
+			#wrapper .analogs-full a {
+				margin-top: 0 !important;
+				display:    block !important;
+			}
+			#wrapper .analogs-full a {
+				width:         94% !important;
+				margin-bottom: 8px;
+			}
+			#wrapper .right-sidebar {
+				display:    block;
+				width:      100%;
+				margin:     0;
+				text-align: center;
+				max-width:  100%;
+			}
+			{% endif %}
+		</style>
+	{% endblock %}
+
+	<script type="text/javascript" src="{{ asset('bundles/vidalmain/javascripts/jquery-1.11.0.min.js') }}"></script>
+
+	{% if env_local != 'true' %}
+		{% include 'VidalMainBundle:Metrika:yandex_metrika.html.twig' %}
+	{% endif %}
+
+    {% include 'VidalMainBundle::_ldJson.html.twig' %}
+</head>
+
+<body>
+{% if env_local != 'true' %}
+	{% include 'VidalMainBundle:Metrika:google_analytics.html.twig' %}
+	{% include 'VidalMainBundle:Metrika:mail_metrika.html.twig' %}
+	{% include 'VidalMainBundle:Metrika:1dmp.io.html.twig' %}
+{% endif %}
+
+{% block beforeWrapper %} {% endblock %}
+
+<div id="wrapper" class="wrapper {% if customWrapper is defined and customWrapper %} {{customWrapper}} {% endif %}" style="position: relative;">
+	{% block top_banner %}
+	{% if not isMobile and env_local != true and noYad is not defined %}
+		{{ render(controller('VidalMainBundle:Banner:render', {'request':app.request, 'groupId':2, 'indexPage':indexPage, 'isLogged':isLogged, 'ProductID':ProductID})) }}
+	{% elseif isMobile %}
+		{{ render(controller('VidalMainBundle:Banner:renderMobileGroupTop', {'request':app.request, 'groupId':2, 'indexPage':indexPage, 'isLogged':isLogged, 'ProductID':ProductID})) }}
+	{% endif %}
+    {% endblock %}
+
+	{% if isMobile %}
+		{% include 'VidalMainBundle::mobile_menu.html.twig' %}
+	{% endif %}
+
+	{% block header %}
+    	<div class="header">
+    		{% include 'VidalMainBundle::header.html.twig' %}
+    	</div>
+    {% endblock %}
+
+	{% block middle %}
+		<table class="middle">
+			<tr>
+				<td class="left-sidebar">
+					{% include 'VidalMainBundle::left_sidebar.html.twig' %}
+				</td>
+				<td class="main" style="max-width:590px">
+					{% block main %}
+						{% block menu %}
+							{% include 'VidalMainBundle::menu_small.html.twig' %}
+						{% endblock %}
+						{% block nav %}{% endblock %}
+						{% block title %}{% endblock %}
+						<div class="content">
+							{% block content %}{% endblock %}
+						</div>
+					{% endblock %}
+				</td>
+				<td class="right-sidebar" style="position:relative">
+					{% block right %}
+						{% include 'VidalMainBundle::right_sidebar.html.twig' %}
+					{% endblock %}
+				</td>
+			</tr>
+		</table>
+	{% endblock %}
+
+	{% block footer %}
+		{% if not isMobile and env_local != true and noYad is not defined %}
+			{{ render(controller('VidalMainBundle:Banner:render', {'request':app.request, 'groupId':1, 'indexPage':indexPage, 'isLogged':isLogged})) }}
+		{% elseif isMobile %}
+			{{ render(controller('VidalMainBundle:Banner:renderMobileGroup', {'request':app.request, 'groupId':1, 'indexPage':indexPage, 'isLogged':isLogged})) }}
+		{% endif %}
+
+		<div class="footer">
+			{% include 'VidalMainBundle::footer.html.twig' %}
+		</div>
+	{% endblock %}
+</div>
+
+{% block afterWrapper %} {% endblock %}
+{% include 'VidalMainBundle:Cookie:notice.html.twig' %}
+
+<div id="overlay"></div>
+
+<a id="top-link" href="#">
+	<img src="{{ asset('bundles/vidalmain/images/icon_top.png') }}" alt="прокрутить вверх"/>
+</a>
+
+<div id="fixed-right"></div>
+
+{% if env_local != 'true' %}
+	{% include 'VidalMainBundle:Metrika:mail_metrika_image.html.twig' %}
+{% endif %}
+
+{% block javascripts %}
+	<script type="text/javascript" src="{{ asset('bundles/vidalmain/javascripts/detectmob.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/vidalmain/javascripts/coockie.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/vidalmain/checkbox/jquery.checkbox.js') }}"></script>
+	<script type="text/javascript"
+			src="{{ asset('bundles/vidalmain/jquery-chosen/chosen.jquery.min.js') }}"></script>
+	<script type="text/javascript"
+			src="{{ asset('bundles/vidalmain/jquery-ui/jquery-ui-1.10.4.custom.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/vidalmain/javascripts/swfobject2.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/vidalmain/javascripts/ready3.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/vidalmain/javascripts/ready_last.js') }}"></script>
+	<script>
+		{% if not isLogged %}
+		$(document).on('click', '.menu-pharmacy', function() {
+			ga('send', 'event', 'Переход на страницу поиска аналогов', 'Переход на страницу поиска аналогов по меню');
+		});
+		{% endif %}
+		{% if isDev %}
+		$('a').each(function() {
+			if (this.href.length && this.href.slice(-1) === '/') {
+				this.href = this.href.slice(0, -1);
+			}
+		});
+		{% endif %}
+	</script>
+{% endblock %}
+
+{{ render(controller('VidalMainBundle:Index:links')) }}
+
+</body>
+</html>

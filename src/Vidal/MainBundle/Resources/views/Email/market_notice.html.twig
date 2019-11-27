@@ -1,0 +1,89 @@
+{% extends 'VidalMainBundle::minimal_layout.html.twig' %}
+
+{% block body %}
+    <h2 style="width: 600px;">
+        <div style="background: #D71344 !important; color: #FFF !important; padding: 5px 10px; font-size: 16px;">
+            <b>Через сайт Vidal.ru был произведен заказ в ваш магазин {{ group }}:</b>
+        </div>
+    </h2>
+    <table>
+        <tr>
+            <td>Код заказа:</td>
+            <td>{{ order.id }}</td>
+        </tr>
+        <tr>
+            <td>Фамилия:</td>
+            <td>{{ order.getLastName }}</td>
+        </tr>
+        <tr>
+            <td>Имя:</td>
+            <td>{{ order.getFirstName }}</td>
+        </tr>
+        <tr>
+            <td>Отчество:</td>
+            <td>{{ order.getSurName }}</td>
+        </tr>
+        <tr>
+            <td>E-mail:</td>
+            <td>{{ order.getEmail }}</td>
+        </tr>
+        <tr>
+            <td>Телефон:</td>
+            <td>{{ order.getPhone }}</td>
+        </tr>
+        <tr>
+            <td>Адрес:</td>
+            <td>{{ order.getAdress }}</td>
+        </tr>
+        <tr>
+            <td>Способ доставки:</td>
+            <td>
+                {{ ship }}
+            </td>
+        </tr>
+        <tr>
+            <td>Комментарий к доставке:</td>
+            <td>
+                {{ order.comment }}
+            </td>
+        </tr>
+    </table>
+
+    <h2 style="width: 600px;">
+        <div style="background: #D71344 !important; color: #FFF !important; padding: 5px 10px; font-size: 16px;">
+            <b>Заказанные товары:</b>
+        </div>
+    </h2>
+
+    <table style="width: 600px; border: 1px solid #EEE;" cellspacing="0">
+        <tr>
+            <td style="border: 1px solid #EEE; text-align: center;"><b>Код</b></td>
+            <td style="border: 1px solid #EEE; text-align: center;"><b>Название</b></td>
+            <td style="border: 1px solid #EEE; text-align: center;"><b>Цена</b></td>
+            <td style="border: 1px solid #EEE; text-align: center;"><b>Количество</b></td>
+        </tr>
+
+        {% for product in basket %}
+            <tr>
+                <td>{{ product.code }}</td>
+                <td>{{ product.title }}</td>
+                <td>{{ product.price }}&nbsp;р.</td>
+                <td align="center">{{ product.count }} шт.</td>
+            </tr>
+        {% endfor %}
+
+        <tr>
+            <td></td>
+            <td></td>
+            <td colspan="2" align="right">
+                <br/>
+                <b>ИТОГО: {{ summa }}&nbsp;р.</b>
+            </td>
+        </tr>
+    </table>
+
+
+
+
+    {%  include 'VidalMainBundle:Email:signature.html.twig' %}
+{% endblock %}

@@ -1,0 +1,69 @@
+{% extends 'VidalMainBundle::layout.html.twig' %}
+
+
+{% block title %}
+	<h1>{{ category.title }}</h1>
+{% endblock %}
+
+
+{% block nav %}
+	<div class="breadcrumbs">
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('index') }}" itemprop="url">
+				<span itemprop="title">Видаль</span>
+			</a>
+		</div>
+
+		<i></i>
+
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('articles') }}" itemprop="url">
+				<span itemprop="title">Медицинская энциклопедия</span>
+			</a>
+		</div>
+
+		<i></i>
+
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('rubrique', {'rubrique':rubrique.rubrique}) }}" itemprop="url">
+				<span itemprop="title">{{ rubrique }}</span>
+			</a>
+		</div>
+
+		<i></i>
+
+		<span>{{ category.title }}</span>
+	</div>
+{% endblock %}
+
+
+{% block content %}
+	{% if articles is not empty %}
+		<div class="articles">
+			{% for article in articles %}
+				<div class="article">
+					{# админам карандашик редактирования #}
+					{% if isAdmin %}
+						<a class="admin-edit fade" target="_blank"
+						   href="{{ path('admin_vidal_drug_article_edit', {'id':article.id}) }}">
+							<img src="{{ asset('bundles/vidalmain/images/edit.png') }}"/>
+						</a>
+					{% endif %}
+
+					<a class="article-title"
+					   href="{{ path('article_with_category', {'rubrique':rubrique.rubrique, 'category':category.url, 'link':article.link}) }}">
+						{{ article.title|raw }}
+					</a>
+
+					<div class="article-announce text">{{ article.announce|raw }}</div>
+				</div>
+			{% endfor %}
+		</div>
+	{% endif %}
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/publication.css') }}"/>
+{% endblock %}

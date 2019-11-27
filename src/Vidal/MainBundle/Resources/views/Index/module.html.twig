@@ -1,0 +1,57 @@
+{% if module %}
+	{% set isAdmin = app.user is not null and is_granted('ROLE_ADMIN') %}
+	{% set show = module.enabled and module.body is not empty %}
+
+	{% if viaAjax is defined and viaAjax %}
+		<div id="module_{{ module.id }}" style="min-height:351px"></div>
+		<script>
+			$(document).ready(function() {
+				var url = '/module-ajax/{{ module.id }}';
+				$.getJSON(url, function(html) {
+					$('#module_{{ module.id }}').html(html);
+				});
+			});
+		</script>
+	{% else %}
+		<div class="module module-{{ module.id }}{{ not show ? ' hidden' }}" itemscope
+			 itemtype="http://schema.org/Article">
+			{% if isAdmin %}
+				<a class="admin-edit fade" target="_blank"
+				   href="{{ path('admin_vidal_main_module_edit', {'id':module.id}) }}">
+					<img src="{{ asset('bundles/vidalmain/images/edit.png') }}"/>
+				</a>
+			{% endif %}
+
+			{% if show %}
+				<div class="module-body {{ textMode ? 'text' : '' }}" itemprop="articleBody">
+					{{ module.body|raw }}
+				</div>
+			{% endif %}
+		</div>
+
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$('.module-{{ module.id }} img').each(function() {
+					var $this = $(this);
+					$this.attr('itemprop', 'image');
+				});
+
+				$('.module-{{ module.id }} a').each(function() {
+					$(this).attr({
+						itemprop: "url"
+					});
+				});
+
+				$('.module-{{ module.id }} a').each(function() {
+					var $a = $(this);
+					if (this.href.charAt(0) != '/'
+						&& this.href.indexOf('vidal.ru') === -1
+						&& this.href.indexOf('localhost:97') === -1
+					) {
+						$a.attr('rel', 'nofollow');
+					}
+				});
+			});
+		</script>
+	{% endif %}
+{% endif %}

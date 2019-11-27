@@ -1,0 +1,17 @@
+<div class="banner-vidalbox" style="text-align:center">
+	<a href="{{ path('vidalbox') }}" class="vidalbox-banner">
+		<img style="" src="{{ asset('bundles/vidalmain/images/banners/vidalbox2.png') }}">
+	</a>
+</div>
+
+<script>
+	$(document).ready(function () {
+		$('.vidalbox-banner').click(function() {
+			ga('send', 'event', 'vidalbox', 'click', 'Баннер справа');
+		});
+
+		$('.vidalbox-menu').click(function() {
+			ga('send', 'event', 'vidalbox', 'click', 'Меню слева');
+		});
+	});
+</script>

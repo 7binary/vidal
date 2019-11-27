@@ -1,0 +1,63 @@
+<script type="text/javascript">
+	$(document).ready(function() {
+		// ATC: список
+		{% if object.molecules is not empty %}
+		var ulMolecules = $('<ul class="list molecules-list">{% for m in object.molecules %}<li data="{{ m.MoleculeID }}"><b><a href="{{ path('molecule_remove', {'type':object|type, 'id':object.id, 'MoleculeID':m.MoleculeID}) }}">X</a></b>' + '{{ m.MoleculeID }} - {{ m.RusName is empty ? m.LatName|raw : m.RusName|raw }}' + '</li>{% endfor %}</ul>');
+		$('.molecules-text').parent().append(ulMolecules);
+		{% endif %}
+
+		// ATC: автодополнение
+		$('.molecules-text')
+			.autocomplete({
+				minLength: 1,
+				source:    function(request, response) {
+					var url = '/autocomplete/molecule/' + request.term.trim();
+					$.getJSON(url, function(data) {
+						var ids = $('.molecules-list li').map(function(element) {
+							var id = $(this).attr("data");
+							return parseInt(id);
+						});
+						var values = [];
+
+						for (var i = 0; i < data.length; i++) {
+							if ($.inArray(parseInt(data[i].id), ids) == -1) {
+								values.push({
+									'id':   data[i].id,
+									'text': data[i].text
+								});
+							}
+						}
+
+						response(values);
+					});
+				},
+				select:    function(event, ui) {
+					if (ui.item) {
+						var urlAdd = '/admin/molecule-add/{{ object|type }}/{{ object.id }}/' + ui.item.id;
+						var urlRemove = '/admin/molecule-remove/{{ object|type }}/{{ object.id }}/' + ui.item.id;
+
+						$.getJSON(urlAdd, function(data) {
+							if (data == 'OK') {
+								var li = '<li data="' + ui.item.id + '"><b><a href="' + urlRemove + '">X</a></b>' + ui.item.text + '</li>';
+								var $li = $(li);
+								var $list = $('.molecules-list');
+								if (!$list.length) {
+									$('.molecules-text').parent().append($('<ul class="list molecules-list"></ul>'));
+									$list = $('.molecules-list');
+								}
+								$list.append($li);
+							}
+						});
+					}
+
+					$(this).val('');
+
+					return false;
+				}
+			})
+			.data("ui-autocomplete")._renderItem =
+			function(ul, item) {
+				return $("<li></li>").data("item.autocomplete", item).append("<a>" + item.text + "</a>").appendTo(ul);
+			};
+	});
+</script>

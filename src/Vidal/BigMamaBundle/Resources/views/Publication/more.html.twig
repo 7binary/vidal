@@ -1,0 +1,27 @@
+{% set isAdmin = app.user is not null and is_granted('ROLE_ADMIN') %}
+
+{% if publications is not empty %}
+    {% for publication in publications %}
+            {% set withPhoto = publication.photo and is_file(publication.photo.path) %}
+            {% set href = path(publication_item_route, {'link':publication.link}) %}
+
+            <li>
+                {% if isAdmin %}
+                    <a class="admin-edit fade" target="_blank"
+                       href="{{ path(publication_edit_route, {'id':publication.id}) }}{% if isTestMode() %}?test=1{%endif %}">
+                        <img src="{{ asset('bundles/vidalmain/images/edit.png') }}"/>
+                    </a>
+                {% endif %}
+
+                <a class="news-cell" href="{{ href }}{% if isTestMode() %}?test=1{%endif %}">
+                    {% if publication.photo %}
+                        <img src="{{ asset(publication.photo.path) }}" class="news-img"/>
+                    {% endif %}
+                    <div class="news-text">
+                        <b>{{ publication.title|raw }}</b>
+                    </div>
+                    {{ publication.date|date('d.m.Y') }}
+                </a>
+            </li>
+    {% endfor %}
+{% endif %}

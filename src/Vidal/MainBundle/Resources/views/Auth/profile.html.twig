@@ -1,0 +1,154 @@
+{% extends 'VidalMainBundle::layout.html.twig' %}
+
+
+{% block title %}
+	<h1>ПРОФИЛЬ</h1>
+{% endblock %}
+
+
+{% block content %}
+	{% if not user.emailConfirmed %}
+		<div class="thanks">
+			Для того чтобы получить доступ к функциям сайта, осталось лишь подтвердить электронный адрес
+		</div>
+	{% endif %}
+
+	<div class="links right">
+		<a href="{{ path('password_change') }}">Сменить пароль</a>
+	</div>
+
+	{# извещения #}
+	{% if app.session.flashBag.get('confirmed')|length %}
+		{% include 'VidalMainBundle::popup.html.twig' with {'text': 'Почтовый адрес подтвержден.<br/>Благодарим за регистрацию на нашем портале!'} %}
+	{% elseif app.session.flashBag.get('saved')|length %}
+		<div class="thanks">Сохранено!</div>
+	{% endif %}
+
+	{# форма #}
+	<form id="profile_form" action="{{ path('profile') }}" method="post" {{ form_enctype(form) }}
+		  novalidate autocomplete="off">
+		{% form_theme form 'VidalMainBundle:Form:profile_form.html.twig' %}
+		{{ form_widget(form) }}
+	</form>
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<style type="text/css">
+		.row_birthdate .chosen-container {
+			width:        68px !important;
+			margin-right: 15px;
+		}
+		#profile_birthdate_month_chosen {
+			width: 100px !important;
+		}
+		.row_student .form_widget {
+			user-select:         none;
+			-moz-user-select:    none;
+			-webkit-user-select: none;
+			-ms-user-select:     none;
+		}
+		.form_table .form_label {
+			overflow: hidden;
+		}
+		.form_table .no-selection {
+			float:        right;
+			font-size:    15px;
+			color:        #999;
+			font-style:   italic;
+			margin-right: 10px;
+		}
+		.form_table .no-selection label {
+			margin-right: 5px;
+		}
+		.form_table .form_button {
+			padding-top:    10px !important;
+			padding-bottom: 30px !important;
+		}
+		.form_table .row_avatar label {
+			color: #666d75;
+		}
+		.form_table .input-upload {
+			width: 200px !important;
+		}
+		.reset-avatar {
+			margin-top:   15px;
+			padding-left: 2px;
+			font-weight:  bold;
+			font-size:    15px;
+		}
+		#profile_birthdate select {
+			width:        92px;
+			margin-right: 6px;
+		}
+		.links {
+			padding-right: 12px;
+			font-weight:   bold;
+		}
+		.ui-autocomplete-loading { background:url('{{ asset('bundles/vidalmain/images/ajax-loader.gif') }}') no-repeat right center }
+	</style>
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+	<script type="text/javascript"
+			src="{{ asset('bundles/vidalmain/javascripts/jquery.customfile.js') }}"></script>
+	<script>
+		$(document).ready(function() {
+			$("#profile_city").autocomplete({
+				source:    function(request, response) {
+					var url = '/ajax/city?term=' + request.term.trim();
+					$.getJSON(url, function(data) {
+						if (!data.length) {
+							var result = [{
+								label: '* Населенный пункт не найден',
+								value: response.term
+							}];
+							response(result);
+						}
+						else {
+							response($.map(data, function(item) {
+								return {
+									label: item,
+									value: item
+								}
+							}));
+						}
+					});
+				},
+				select:    function(event, ui) {
+					if (ui.item) {
+						$(this).val(ui.item.value);
+					}
+				},
+				minLength: 2,
+				autoFocus: true,
+				limit:     15
+			}).data("ui-autocomplete")._renderItem = function(ul, item) {
+				return $('<li class="aut"></li>')
+					.data("item.autocomplete", item)
+					.append("<a>" + item.label + "</a>")
+					.appendTo(ul);
+			};
+
+			$("#profile_avatar_file").customFile();
+			$("#profile_ConfirmationScan_file").customFile();
+
+			var $miniChoices = $('#profile_jobAlignment, #profile_jobType, #profile_academicDegree');
+			$('#profile_form select').not($miniChoices).chosen({
+				search_contains: true,
+				no_results_text: "не найдено"
+			});
+			$($miniChoices).chosen({
+				disable_search:  true,
+				no_results_text: "не найдено"
+			});
+
+			$('#profile_form input[type="checkbox"]').checkbox();
+
+            $('.row_ConfirmationScan td').eq(1).append('<span style="font-size: 10px">После отправки файла будет прозведена его модерация</span>')
+		});
+	</script>
+{% endblock %}

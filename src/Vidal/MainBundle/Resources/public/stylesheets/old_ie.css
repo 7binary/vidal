@@ -1,0 +1,22 @@
+input[type=text],
+input[type=number],
+input[type=password],
+input[type=email],
+input[type=url] {
+	line-height:    26px;
+	vertical-align: middle;
+}
+.header * {
+	zoom: 1;
+}
+.header, .header-content {
+	height:       100%;
+}
+.search .search-query {
+	line-height:    50px;
+	vertical-align: middle;
+}
+.tabs a {
+	font-size: 12px;
+	padding: 6px 6px 7px;
+}

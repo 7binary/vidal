@@ -1,0 +1,25 @@
+{% if app.user %}
+	<div class="cardio-user-product" style="display: none; margin: 25px 0; text-align: center;">
+		<a href="https://www.vidal.ru/novosti/6273" target="_blank" class="cardio"
+		   style="">
+			<img src="{{ asset('bundles/vidalmain/images/banners/cardio.gif') }}"/>
+		</a>
+	</div>
+
+	<script>
+		$(document).ready(function() {
+			if ((navigator.userAgent.match(/Android/i)
+				|| navigator.userAgent.match(/webOS/i)
+				|| navigator.userAgent.match(/iPhone/i)
+				|| navigator.userAgent.match(/iPad/i)
+				|| navigator.userAgent.match(/iPod/i)
+				|| navigator.userAgent.match(/BlackBerry/i)
+				|| navigator.userAgent.match(/Windows Phone/i))
+				&& window.screen.width < 768
+			) {
+				$('.cardio-right').hide();
+				$('.cardio-user-product').show();
+			}
+		});
+	</script>
+{% endif %}

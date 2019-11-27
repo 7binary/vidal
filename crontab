@@ -1,0 +1,36 @@
+SHELL="/usr/local/cpanel/bin/jailshell"
+
+00 02 * * * php /home/twigavid/public_html/current/app/console vidal:registration_resend --all > /dev/null 2>&1
+10 02 * * * php /home/twigavid/public_html/current/app/console vidal:product_pictures
+50 02 * * * php /home/twigavid/public_html/current/app/console vidal:check_mailbox
+
+30 03 * * * php /home/twigavid/public_html/current/app/console vidal:excel_users
+32 03 * * * php /home/twigavid/public_html/current/app/console vidal:excel_users 2014
+33 03 * * * php /home/twigavid/public_html/current/app/console vidal:excel_users 2015
+34 03 * * * php /home/twigavid/public_html/current/app/console vidal:excel_users 2016
+28 03 * * * php /home/twigavid/public_html/current/app/console vidal:excel_users 2017
+26 03 * * * php /home/twigavid/public_html/current/app/console vidal:excel_users 2018
+34 03 * * * php /home/twigavid/public_html/current/app/console vidal:excel_users 1
+35 03 * * * php /home/twigavid/public_html/current/app/console vidal:excel_users 2
+36 03 * * * php /home/twigavid/public_html/current/app/console vidal:excel_users 3
+37 03 * * * php /home/twigavid/public_html/current/app/console vidal:excel_users 4
+38 03 * * * php /home/twigavid/public_html/current/app/console vidal:excel_users 5
+39 03 * * * php /home/twigavid/public_html/current/app/console vidal:excel_users 6
+40 03 * * * php /home/twigavid/public_html/current/app/console vidal:excel_users 7
+41 03 * * * php /home/twigavid/public_html/current/app/console vidal:excel_users 8
+42 03 * * * php /home/twigavid/public_html/current/app/console vidal:excel_users 9
+43 03 * * * php /home/twigavid/public_html/current/app/console vidal:excel_users 10
+44 03 * * * php /home/twigavid/public_html/current/app/console vidal:excel_users 11
+45 03 * * * php /home/twigavid/public_html/current/app/console vidal:excel_users 12
+
+#46 03 * * * php /home/twigavid/public_html/current/app/console vidal:validate_email
+48 03 * * * php /home/twigavid/public_html/current/app/console vidal:autocomplete_article
+49 03 * * * php /home/twigavid/public_html/current/app/console vidal:sitemap:generate_https
+50 03 1 * * php /home/twigavid/public_html/current/app/console vidal:excel_email
+51 03 * * * php /home/twigavid/public_html/current/app/console vidal:wer:update
+#53 03 * * * php /home/twigavid/public_html/current/app/console vidal:excel_search
+30 07 * * * php /home/twigavid/public_html/current/app/console vidal:report
+
+* * * * * php /home/twigavid/public_html/current/app/console vidal:delivery --all > /dev/null 2>&1
+*/20 * * * * php /home/twigavid/public_html/current/current/app/console veterinar:info_count
+*/20 * * * * php /home/twigavid/public_html/current/current/app/console veterinar:company_count

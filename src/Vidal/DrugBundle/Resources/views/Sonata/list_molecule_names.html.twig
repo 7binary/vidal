@@ -1,0 +1,62 @@
+<script type="text/javascript">
+	$(document).ready(function() {
+		// MoleculeName: список
+		{% if object.moleculeNames is not empty %}
+		var ulMolecules = $('<ul class="list molecule-names-list">{% for m in object.moleculeNames %}<li data="{{ m.MoleculeNameID }}"><b><a href="{{ path('molecule_name_remove', {'type':object|type, 'id':object.id, 'MoleculeNameID':m.MoleculeNameID}) }}">X</a></b>' + '{{ m.MoleculeNameID }} - {{ m.RusName is empty ? m.EngName|raw : m.RusName|raw }}' + '</li>{% endfor %}</ul>');
+		$('.molecule-names-text').parent().append(ulMolecules);
+		{% endif %}
+
+		// MoleculeName: автодополнение
+		$('.molecule-names-text')
+			.autocomplete({
+				minLength: 1,
+				source:    function(request, response) {
+					var url = '/autocomplete/molecule_name/' + request.term.trim();
+					$.getJSON(url, function(data) {
+						var ids = $('.molecules-list li').map(function(element) {
+							var id = $(this).attr("data");
+							return parseInt(id);
+						});
+						var values = [];
+
+						for (var i = 0; i < data.length; i++) {
+							if ($.inArray(parseInt(data[i].id), ids) == -1) {
+								values.push({
+									'id':   data[i].id,
+									'text': data[i].text
+								});
+							}
+						}
+
+						response(values);
+					});
+				},
+				select:    function(event, ui) {
+					if (ui.item) {
+						var urlAdd = '/admin/molecule-name-add/{{ object|type }}/{{ object.id }}/' + ui.item.id;
+						var urlRemove = '/admin/molecule-name-remove/{{ object|type }}/{{ object.id }}/' + ui.item.id;
+						$.getJSON(urlAdd, function(data) {
+							if (data == 'OK') {
+								var li = '<li data="' + ui.item.id + '"><b><a href="' + urlRemove + '">X</a></b>' + ui.item.text + '</li>';
+								var $li = $(li);
+								var $list = $('.molecule-names-list');
+								if (!$list.length) {
+									$('.molecules-text').parent().append($('<ul class="list molecule-names-list"></ul>'));
+									$list = $('.molecule-names-list');
+								}
+								$list.append($li);
+							}
+						});
+					}
+
+					$(this).val('');
+
+					return false;
+				}
+			})
+			.data("ui-autocomplete")._renderItem =
+			function(ul, item) {
+				return $("<li></li>").data("item.autocomplete", item).append("<a>" + item.text + "</a>").appendTo(ul);
+			};
+	});
+</script>

@@ -1,0 +1,141 @@
+{% extends 'VidalMainBundle::layout.html.twig' %}
+
+
+{% block title %}
+	<h1>ИНФОРМАЦИЯ ДЛЯ СПЕЦИАЛИСТОВ</h1>
+{% endblock %}
+
+
+{% block nav %}
+	<div class="breadcrumbs">
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('index') }}" itemprop="url">
+				<span itemprop="title">Видаль</span>
+			</a>
+		</div>
+
+		<i></i>
+
+		<span>Информация для специалистов</span>
+	</div>
+{% endblock %}
+
+
+{% block content %}
+	<table class="links">
+		<tr>
+			<td class="with-img">
+				<a href="{{ path('vracham_e_vidal') }}">
+					<img src="{{ asset('bundles/vidalmain/images/icons/cd.png') }}"/>
+				</a>
+			</td>
+			<td>
+				<a href="{{ path('vracham_e_vidal') }}">Электронные справочники Видаль</a>
+			</td>
+		</tr>
+	</table>
+
+	{% if arts is not empty %}
+		<div class="arts-title anons">
+			<span>Рекомендуем к прочтению:</span>
+		</div>
+		<ul class="arts-items ul-style">
+			{% for art in arts %}
+				<li>
+					{# админам карандашик редактирования #}
+					{% if isAdmin %}
+						<a class="admin-edit fade" target="_blank"
+						   href="{{ path('admin_vidal_drug_art_edit', {'id':art.id}) }}">
+							<img src="{{ asset('bundles/vidalmain/images/edit.png') }}"/>
+						</a>
+					{% endif %}
+					<a class="no-underline"
+					   href="{{ path('art', {'url':art.rubrique.url ~ '/' ~ (art.type ? art.type.url ~ '/') ~ (art.category ? art.category.url ~ '/') ~ art.link ~ '~' ~ art.id }) }}">{{ art.title|raw }}</a>
+				</li>
+			{% endfor %}
+		</ul>
+	{% endif %}
+
+	<div class="rubriques">
+		{% set perColumn = rubriques|length // 2 %}
+
+		{% for rubrique in rubriques %}
+			{% if loop.index % perColumn == 1 %}
+				<div>
+				<ul class="ul">
+			{% endif %}
+
+			<li>
+				<a href="
+				{% if rubrique.redirect is not empty %}
+					{{ app.environment == 'dev' ? '/app_dev.php' }}{{ rubrique.redirect }}
+				{% else %}
+					{{ path('art', {'url':rubrique.url}) }}
+				{% endif %}
+				">
+					{{ rubrique.title }}
+					{# админам карандашик редактирования #}
+					{% if isAdmin %}
+						<a class="admin-edit fade" target="_blank"
+						   href="{{ path('admin_vidal_drug_artrubrique_edit', {'id':rubrique.id}) }}">
+							<img src="{{ asset('bundles/vidalmain/images/edit.png') }}"/>
+						</a>
+					{% endif %}
+				</a>
+			</li>
+
+			{% if loop.index % perColumn == 0 %}
+				</ul>
+				</div>
+			{% endif %}
+		{% endfor %}
+	</div>
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/article.css') }}"/>
+	<style type="text/css">
+		.with-img {
+			width: 100px;
+		}
+		.with-img img {
+			width: 84px;
+		}
+		.with-link a {
+			font-size:   15px;
+			font-weight: bold;
+		}
+		.arts-title {
+			margin-bottom: 5px;
+			font-weight:   bold;
+		}
+		.arts-items {
+			margin-bottom: 26px;
+		}
+		.arts-items li {
+			position: relative;
+		}
+		.arts-items a {
+			color: #333;
+		}
+		h1 {
+			margin-bottom: 10px;
+		}
+		/* links */
+		.links {
+			border-collapse: collapse;
+			width:           100%;
+		}
+		.links a {
+			text-decoration: none;
+			color:           #2f4053;
+			font-weight:     bold;
+			font-size:       16px;
+		}
+		.links a:hover {
+			color: #d71344;
+		}
+	</style>
+{% endblock %}

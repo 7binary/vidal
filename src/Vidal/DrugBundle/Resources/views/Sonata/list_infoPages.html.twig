@@ -1,0 +1,63 @@
+<script type="text/javascript">
+	$(document).ready(function() {
+		// ATC: список
+		{% if object.infoPages is not empty %}
+		var ulInfopages = $('<ul class="list infoPages-list">{% for i in object.infoPages %}<li data="{{ i.InfoPageID }}"><b><a href="{{ path('infopage_remove', {'type':object|type, 'id':object.id, 'InfoPageID':i.InfoPageID}) }}">X</a></b>' + '{{ i.InfoPageID }} - {{ i.RusName|raw }}' + '</li>{% endfor %}</ul>');
+		$('.infoPages-text').parent().append(ulInfopages);
+		{% endif %}
+
+		// ATC: автодополнение
+		$('.infoPages-text')
+			.autocomplete({
+				minLength: 1,
+				source:    function(request, response) {
+					var url = '/autocomplete/infopage/' + request.term.trim();
+					$.getJSON(url, function(data) {
+						var ids = $('.infoPages-list li').map(function(element) {
+							var id = $(this).attr("data");
+							return parseInt(id);
+						});
+						var values = [];
+
+						for (var i = 0; i < data.length; i++) {
+							if ($.inArray(parseInt(data[i].id), ids) == -1) {
+								values.push({
+									'id':   data[i].id,
+									'text': data[i].text
+								});
+							}
+						}
+
+						response(values);
+					});
+				},
+				select:    function(event, ui) {
+					if (ui.item) {
+						var urlAdd = '/admin/infopage-add/{{ object|type }}/{{ object.id }}/' + ui.item.id;
+						var urlRemove = '/admin/infopage-remove/{{ object|type }}/{{ object.id }}/' + ui.item.id;
+
+						$.getJSON(urlAdd, function(data) {
+							if (data == 'OK') {
+								var li = '<li data="' + ui.item.id + '"><b><a href="' + urlRemove + '">X</a></b>' + ui.item.text + '</li>';
+								var $li = $(li);
+								var $list = $('.infoPages-list');
+								if (!$list.length) {
+									$('.infoPages-text').parent().append($('<ul class="list infoPages-list"></ul>'));
+									$list = $('.infoPages-list');
+								}
+								$list.append($li);
+							}
+						});
+					}
+
+					$(this).val('');
+
+					return false;
+				}
+			})
+			.data("ui-autocomplete")._renderItem =
+			function(ul, item) {
+				return $("<li></li>").data("item.autocomplete", item).append("<a>" + item.text + "</a>").appendTo(ul);
+			};
+	});
+</script>

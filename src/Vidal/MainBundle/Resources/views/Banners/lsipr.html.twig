@@ -1,0 +1,12 @@
+<a href="http://www.lsipr.ru" target="_blank" class="lsipr lsipr-desktop"
+   style="cursor:pointer; text-align:center; display:block; border:1px solid gray; width: 160px; margin-bottom:25px;">
+	<img src="{{ asset('bundles/vidalmain/images/banners/lsipr.jpg') }}" style="max-width:160px;"/>
+</a>
+
+<script>
+	$(document).ready(function() {
+		$('.lsipr').click(function() {
+			ga('send', 'event', 'Banner Lsipr.ru', 'click', $(this).attr('href'));
+		});
+	});
+</script>

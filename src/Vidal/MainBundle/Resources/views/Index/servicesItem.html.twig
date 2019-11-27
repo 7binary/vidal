@@ -1,0 +1,73 @@
+{% extends 'VidalMainBundle::layout.html.twig' %}
+
+
+{% block nav %}
+	<div class="breadcrumbs">
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('index') }}" itemprop="url">
+				<span itemprop="title">Видаль</span>
+			</a>
+		</div>
+		<i></i>
+
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('services') }}" itemprop="url">
+				<span itemprop="title">Наши услуги</span>
+			</a>
+		</div>
+		<i></i>
+		<span>{{ about.title }}</span>
+	</div>
+{% endblock %}
+
+
+{% block content %}
+	<div class="schema" itemscope itemtype="http://schema.org/Article">
+		<h1 itemprop="name">{{ about.title|upper }}</h1>
+		<div class="about publication text" itemprop="articleBody">
+			{% if isAdmin %}
+				<a class="admin-edit fade" target="_blank"
+				   href="{{ path('admin_vidal_main_aboutservice_edit', {'id':about.id}) }}">
+					<img src="{{ asset('bundles/vidalmain/images/edit.png') }}"/>
+				</a>
+			{% endif %}
+			{{ about.body|relative|raw }}
+		</div>
+	</div>
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<style type="text/css">
+		.about {
+			position: relative;
+		}
+	</style>
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('.schema img').each(function() {
+				$(this).attr({
+					itemprop: "image"
+				});
+			});
+
+			$('.schema a').each(function() {
+				var $a = $(this);
+				$a.attr('itemprop', 'url');
+				if (this.href.length
+					&& this.href.charAt(0) != '/'
+					&& this.href.indexOf('vidal.ru') === -1
+					&& this.href.indexOf('localhost:97') === -1
+				) {
+					$a.attr('rel', 'nofollow');
+				}
+			});
+		});
+	</script>
+{% endblock %}

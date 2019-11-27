@@ -1,0 +1,128 @@
+{% extends 'VidalDrugBundle::vidal_layout.html.twig' %}
+
+
+{# если общий поиск не дал результатов #}
+{% if t == 'all'
+and (productsPagination is not defined or productsPagination.totalItemCount == 0)
+and (molecules is not defined or molecules is empty)
+and (search_infoPages is empty and search_companies is empty)
+and (bads is not defined or bads is empty)
+and (atcCodes is not defined or atcCodes is empty)
+and (articles is not defined or articles is empty)
+and (bads is not defined or bads is empty)
+and (mis is not defined or mis is empty)	%}
+	{% set noResults = true %}
+{% endif %}
+
+
+{% block vidal %}
+	{% include 'VidalDrugBundle:Search:search_info.html.twig' %}
+
+	{% include 'VidalDrugBundle:Search:navigation.html.twig' %}
+
+	{% include 'VidalDrugBundle:Search:search_products.html.twig' %}
+
+	{# Найдено активных веществ #}
+	{% if molecules is defined %}
+		{% if molecules is not empty %}
+			<div class="block" id="search_molecules">
+				<div class="block-anons">
+					<div class="block-head">
+						Найдено {% if molecules|length == 1 %}активное вещество{% else %}активных веществ{% endif %}:
+						<span>{{ molecules|length }}</span>
+					</div>
+				</div>
+			</div>
+			{% include 'VidalDrugBundle:Vidal:render_molecules.html.twig' %}
+		{% elseif t == 'molecule' %}
+			<div class="no-results">
+				Не найдено результатов по активному веществу <span>{{ q }}</span>
+			</div>
+		{% endif %}
+	{% endif %}
+
+	{# Найдено АТХ #}
+	{% if atcCodes is defined and atcCodes is not empty %}
+		<div class="block" id="search_atc">
+			<div class="block-head anons"
+				 title="Анатомо-Терапевтически-Химическая (АТХ) система классификации (ATC)">
+				{% if atcCodes|length == 1 %}
+					Найден код АТХ: <span>{{ atcCodes|length }}</span>
+				{% else %}
+					Найдено кодов АТХ: <span>{{ atcCodes|length }}</span>
+				{% endif %}
+			</div>
+
+			<table class="products-table">
+				<tr class="products-table-header">
+					<td style="width:50%">АТХ код</td>
+					<td style="width:50%">Входит в&nbsp;группу</td>
+				</tr>
+				{% for code, atc in atcCodes %}
+					<tr>
+						<td>
+							{% if atc.countProducts > 0 %}
+								<a href="{{ path('atc_item', {'ATCCode':atc.ATCCode|lower}) }}"
+								   class="no-underline">{{ atc.ATCCode }}</a>
+							{% else %}
+								{{ atc.ATCCode }}
+							{% endif %}
+							- <span>{{ atc.RusName|raw }}</span>
+						</td>
+						<td>
+							{% if atc.parentATCCode is not empty %}
+								{% if atc.parentCountProducts > 0 %}
+									<a href="{{ path('atc', {'ATCCode':atc.parentATCCode|lower}) }}#{{ atc.parentATCCode }}"
+									   class="no-underline">{{ atc.parentATCCode }}</a>
+								{% else %}
+									{{ atc.parentATCCode }}
+								{% endif %}
+								- <span>{{ atc.parentRusName|raw }}</span>
+							{% endif %}
+						</td>
+					</tr>
+				{% endfor %}
+			</table>
+		</div>
+	{% elseif t == 'atc' %}
+		<div class="no-results">
+			Не найдено результатов по AТХ коду <span>{{ q }}</span>
+		</div>
+	{% endif %}
+
+	{# поиск по компании #}
+	{% include 'VidalDrugBundle:Search:search_company.html.twig' %}
+
+	{# Найдено заболеваний #}
+	{% if articles is defined %}
+		{% if articles is not empty %}
+			<div class="block" id="search_articles">
+				<div class="block-anons">
+					<div class="block-head">
+						{% if articles|length == 1 %}Найден результат{% else %}Найдено результатов{% endif %} в медицинской энциклопедии:
+						<span>{{ articles|length }}</span>
+					</div>
+				</div>
+			</div>
+			{% include 'VidalDrugBundle:Vidal:render_articles.html.twig' %}
+		{% elseif t == 'disease' %}
+			<div class="no-results">
+				Не найдено результатов в медицинской энциклопедии по запросу <span>{{ q }}</span>
+			</div>
+		{% endif %}
+	{% endif %}
+
+	{# если общий поиск не дал результатов #}
+	{% if noResults is defined %}
+		<div class="no-results">
+			Не найдено результатов
+		</div>
+	{% endif %}
+
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link type="text/css" rel="stylesheet" href="{{ asset('bundles/vidalmain/stylesheets/search.css') }}"/>
+{% endblock %}

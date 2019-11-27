@@ -1,0 +1,11 @@
+{% extends 'VidalMainBundle:Email:email.html.twig' %}
+
+{% block content %}
+	<p style="font-style:italic;">
+		Пользователем <a href="https://www.vidal.ru/admin/vidal/main/user/list?filter%5Bid%5D%5Btype%5D=&filter%5Bid%5D%5Bvalue%5D=&filter%5Busername%5D%5Btype%5D=&filter%5Busername%5D%5Bvalue%5D={{ user.username|url_encode }}&filter%5BlastName%5D%5Btype%5D=&filter%5BlastName%5D%5Bvalue%5D=&filter%5BprimarySpecialty%5D%5Btype%5D=&filter%5BprimarySpecialty%5D%5Bvalue%5D=&filter%5Bcity%5D%5Btype%5D=&filter%5Bcity%5D%5Bvalue%5D=&filter%5Bregion%5D%5Btype%5D=&filter%5Bregion%5D%5Bvalue%5D=&filter%5Bcountry%5D%5Btype%5D=&filter%5Bcountry%5D%5Bvalue%5D=&filter%5BemailConfirmed%5D%5Btype%5D=&filter%5BemailConfirmed%5D%5Bvalue%5D=&filter%5BoldUser%5D%5Btype%5D=&filter%5BoldUser%5D%5Bvalue%5D=&filter%5BconfirmationHas%5D%5Btype%5D=&filter%5BconfirmationHas%5D%5Bvalue%5D=&filter%5B_page%5D=1&filter%5B_sort_by%5D=created&filter%5B_sort_order%5D=DESC&filter%5B_per_page%5D=25"><b>{{ user.getPoliteReference() }}</b></a>
+		был загружен сертификат</p>
+
+	<a href="https://www.vidal.ru/{{ user.confirmationScan.path }}">
+		<img src="https://www.vidal.ru/{{ user.confirmationScan.path }}" style="max-width: 500px; max-height: 300px"/>
+	</a>
+{% endblock %}

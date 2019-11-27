@@ -1,0 +1,14 @@
+{% extends layout | default('VidalMainBundle::minimal_layout.html.twig') %}
+
+{% block body %}
+
+    <p>
+        Задали новый вопрос: <br />
+        <b>Имя:</b> {{ faq.authorFirstName }}<br />
+        <b>Email:</b> {{ faq.authorEmail }}
+    <p>
+    <p>Новый вопрос на сайте Vidal.ru:<br/>
+        <b>Вопрос:</b><i>{{ faq.question|raw }}</i>
+    </p>
+    {% include 'VidalMainBundle:Email:signature.html.twig' %}
+{% endblock %}

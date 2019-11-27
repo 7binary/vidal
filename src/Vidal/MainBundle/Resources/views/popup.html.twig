@@ -1,0 +1,52 @@
+<style type="text/css">
+	#wrapper .popup-msg {
+		width:       400px;
+		height:      auto;
+		padding:     55px 25px 25px;
+		border:      1px solid rgb(193, 193, 160);
+		font-weight: bold;
+		font-size:   16px;
+		color:       rgb(47, 64, 83);
+		box-shadow:  0 0 20px rgba(0, 0, 0, 0.3);
+		background:  rgb(245, 245, 220);
+		margin-left: -226px;
+	}
+	@media only screen and (max-device-width: 600px) {
+		#wrapper .popup-msg {
+			width:       100%;
+			height:      auto;
+			padding:     55px 25px 25px;
+			border:      1px solid rgb(193, 193, 160);
+			font-weight: bold;
+			font-size:   16px;
+			color:       rgb(47, 64, 83);
+			box-shadow:  0 0 20px rgba(0, 0, 0, 0.3);
+			background:  rgb(245, 245, 220);
+			top: 10px;
+			left: 10px;
+			right: 10px;
+			margin-left: 0;
+			max-width: 80%;
+		}
+	}
+</style>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#closepopupvidal').click(function() {
+			$('.popup-msg, .gray').fadeOut();
+		});
+
+		$('body').click(function() {
+			$('.popup-msg, .gray').fadeOut();
+		});
+	});
+</script>
+
+<noindex>
+	<div id="popupvidal" class="popup popup-msg" style="display:block;">
+		<img id="closepopupvidal" src="{{ asset('bundles/vidalmain/images/cross_red_big.png') }}"/>
+
+		<div>{{ text|raw }}</div>
+	</div>
+</noindex>

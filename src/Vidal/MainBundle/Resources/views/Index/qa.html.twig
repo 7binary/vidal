@@ -1,0 +1,192 @@
+{% extends 'VidalMainBundle::layout.html.twig' %}
+
+
+{% block title %}
+	<h1>ОТВЕТЫ ФАРМАКОЛОГОВ</h1>
+{% endblock %}
+
+
+{% block content %}
+    <div class="qa-ask">
+        <!-- <b><a href="#" id="ask">Задать вопрос фармакологу</a></b> -->
+        <br/>
+        <br/>
+        <form method="POST" novalidate id="form_ask" style="display:{{ not form.vars.valid ? 'block' : 'none' }}">
+            {{ form_widget(form) }}
+        </form>
+    </div>
+	{% if questionAnswers|length %}
+		<div class="qa-wrap">
+			{% if isAdmin %}
+				{% for qa in qaPagination.items %}
+					<div class="qa" id="qa{{ qa.id }}">
+
+						{# админам карандашик редактирования #}
+						<a class="admin-edit fade" target="_blank"
+						   href="{{ path('admin_vidal_main_questionanswer_edit', {'id':qa.id}) }}">
+							<img src="{{ asset('bundles/vidalmain/images/edit.png') }}"/>
+						</a>
+
+						<div class="qa-question">{{ qa.question|raw }}</div>
+						<div class="qa-expand">ответ</div>
+						<div class="qa-answer">
+                            {% if qa.answerUser != null %}
+                                <b>Ответил:</b> <a href="{{ path('profile_user',{'userId': qa.answerUser.id }) }}">{{ qa.answerUser }}</a><br />
+                            {% else %}
+                                <b>Ответ:</b>
+                            {% endif %}
+                            {{ qa.answer|raw }}
+                            <div class="link"><b>Поделиться</b> <i>vidal.ru{{ path('qa') }}?p={{ app.request.get('p') }}#qa{{ qa.id }}</i></div>
+                        </div>
+					</div>
+				{% endfor %}
+			{% else %}
+				{% for qa in qaPagination.items %}
+					<div class="qa" id="qa{{ qa.id }}">
+						<div class="qa-question">{{ qa.question|raw }}</div>
+						<div class="qa-expand">ответ</div>
+						<div class="qa-answer">
+                            {% if qa.answerUser != null %}
+                            <b>Ответил:</b> <a href="{{ path('profile_user',{'userId': qa.answerUser.id }) }}">{{ qa.answerUser }}</a><br />
+                            {% else %}
+                            <b>Ответ:</b>
+                            {% endif %}
+                            {{ qa.answer|raw }}
+                            <div class="link"><b>Поделиться</b> <i>vidal.ru{{ path('qa') }}?p={{ app.request.get('p') }}#qa{{ qa.id }}</i></div>
+                        </div>
+					</div>
+				{% endfor %}
+			{% endif %}
+		</div>
+	{% endif %}
+    <div class="navigation">
+        {{ knp_pagination_render(qaPagination,'VidalMainBundle:Index:sliding2.html.twig') }}
+    </div>
+
+	{% include 'VidalMainBundle::yad_horizontal.html.twig' %}
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<style type="text/css">
+        .link i{
+            color: #555555;
+            font-size: 10px;
+            display: none;
+        }
+        .link b{
+            cursor: pointer;
+            font-size: 13px;
+        }
+        .qa {
+            position:      relative;
+            border:        3px solid #eee;
+            margin-bottom: 10px;
+            padding:       11px 12px 10px;
+        }
+        .qa-expand {
+            display:       inline-block;
+            border-bottom: 2px dotted #aaa;
+            color:         #d71344;
+            cursor:        pointer;
+        }
+        .qa-question p, .qa-answer p {
+            margin: 8px 0;
+            font-size: 13px;
+            text-align: justify;
+        }
+        .qa-question p:first-child, .qa-answer p:first-child {
+            margin-top: 0;
+        }
+        .qa-question {
+            font-family: 'PT Sans Caption', sans-serif;
+            font-size:   15px;
+            color:       #2f4053;
+        }
+        .expanded .qa-question {
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 8px;
+        }
+        .qa-answer {
+            font-size: 15px;
+            display:   none;
+        }
+        .qa-ask{
+            margin-bottom: 15px;
+        }
+        .tabs a{
+            width: 100%;
+            display: block;
+            text-align: center;
+            padding: 7px 0;
+        }
+        .green{
+            padding: 5px;
+            text-align: center;
+            border: 1px solid #62AC75;
+            background: #a4ffbc;
+            color: #263e2e;
+            margin-bottom: 14px;
+        }
+        .sekectqa{
+            border-color: #d71344;
+        }
+	</style>
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('.qa-expand').click(function() {
+				var $this = $(this);
+				$this.hide();
+				$this.closest('.qa').addClass('expanded').find('.qa-answer').slideDown('fast');
+			});
+
+            var anc = window.location.hash.replace("#","");
+            if (anc != ""){
+                var $this = $('#'+anc);
+                $this.addClass('sekectqa');
+                $this.children('.qa-expand').hide();
+                $this.addClass('expanded').find('.qa-answer').slideDown('fast');
+            }
+
+            $("#form_city").autocomplete({
+                source:    '/ajax/city',
+                minLength: 2,
+                delay:     100,
+                autoFocus: true,
+                limit:     15
+            });
+
+            $('.qa-expand').click(function() {
+                var $this = $(this);
+                $this.hide();
+                $this.closest('.qa').addClass('expanded').find('.qa-answer').slideDown('fast');
+            });
+
+            $('#ask').click(function(){
+                if ( $('#form_ask').css('display') == 'none' ){
+                    $('#form_ask').fadeIn();
+                }else{
+                    $('#form_ask').fadeOut();
+                }
+                return false;
+            });
+
+            $('#form_place').chosen({
+                search_contains: true,
+                no_results_text: "не найдено",
+                width: '326px'
+            });
+
+            $('.link').click(function(){
+                $(this).children('i').css('display','inline');
+                $(this).children('b').css('display','none');
+            });
+		});
+	</script>
+{% endblock %}

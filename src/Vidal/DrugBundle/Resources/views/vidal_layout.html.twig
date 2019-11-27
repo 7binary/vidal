@@ -1,0 +1,11 @@
+{% extends 'VidalMainBundle::layout.html.twig' %}
+
+
+{% set menu = 'drugs' %}
+
+
+{% block content %}
+	<div id="vidal" class="vidal">
+		{% block vidal %}{% endblock %}
+	</div>
+{% endblock %}

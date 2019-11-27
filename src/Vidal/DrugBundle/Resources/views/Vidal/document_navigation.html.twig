@@ -1,0 +1,101 @@
+<div class="navigation">
+	<i></i>
+	<div class="navigation-items">
+		{% if Composition is defined and Composition is not empty %}
+			<div><a href="#composition">Форма выпуска, упаковка и состав</a></div>
+		{% endif %}
+
+		{#{% if document.clphPointers.count %}#}
+			{#<div>#}
+			{#{% if document.clphPointers|length == 1 %}#}
+				{#<a href="#clphpointer">Клинико-фармакологич. указатель</a>#}
+			{#{% else %}#}
+				{#<a href="#clphpointer">Клинико-фармакологич. указатели</a>#}
+			{#{% endif %}#}
+			{#</div>#}
+		{#{% endif %}#}
+
+		{% if product is defined and product.clphGroups.count %}
+			<div>
+				{% if product.clphGroups|length == 1 %}
+					<a href="#clphgroup">Клинико-фармакологич. группа</a>
+				{% else %}
+					<a href="#clphgroup">Клинико-фармакологич. группы</a>
+				{% endif %}
+			</div>
+		{% endif %}
+
+		{% if product is defined and product.phthgroups.count %}
+			<div>
+				{% if product.clphGroups|length == 1 %}
+					<a href="#phthgroup">Фармако-терапевтическая группа</a>
+				{% else %}
+					<a href="#phthgroup">Фармако-терапевтические группы</a>
+				{% endif %}
+			</div>
+		{% endif %}
+
+		{% if document.PhInfluence is not empty and not document.IsShortened %}
+			<div><a href="#influence">Фармакологическое действие</a></div>
+		{% endif %}
+		{% if document.PhKinetics is not empty and not document.IsShortened  %}
+			<div><a href="#kinetics">Фармакокинетика</a></div>
+		{% endif %}
+		{% if document.Indication is not empty %}
+			<div><a href="#indication">Показания препарата</a></div>
+		{% endif %}
+		{% if document.Dosage is not empty %}
+			<div><a href="#dosage">Режим дозирования</a></div>
+		{% endif %}
+		{% if document.SideEffects is not empty %}
+			<div><a href="#side_effects">Побочное действие</a></div>
+		{% endif %}
+		{% if document.ContraIndication is not empty %}
+			<div><a href="#contra">Противопоказания к применению</a></div>
+		{% endif %}
+		{% if document.SpecialInstruction is not empty and not document.IsShortened %}
+			<div><a href="#special">Особые указания</a></div>
+		{% endif %}
+		{% if document.OverDosage is not empty and not document.IsShortened  %}
+			<div><a href="#over_dosage">Передозировка</a></div>
+		{% endif %}
+		{% if document.Interaction is not empty and not document.IsShortened  %}
+			<div><a href="#interaction">Лекарственное взаимодействие</a></div>
+		{% endif %}
+		{% if document.PharmDelivery is not empty %}
+			<div><a href="#pharm">Условия отпуска из аптек</a></div>
+		{% endif %}
+		{% if document.StorageCondition is not empty and not document.IsShortened %}
+            {# Условия хранения #}
+            {% if document.StorageConditionSource is not empty %}
+                <div><a href="#storage_conditions">Условия хранения</a></div>
+            {% endif %}
+    
+            {# Cроки хранения #}
+            {% if document.StorageTime is not empty %}
+                <div><a href="#storage_time">Срок годности</a></div>
+            {% endif %}
+		{% endif %}
+		{% if infoPages is defined and infoPages is not empty %}
+			<div><a href="#info-pages">Контакты для обращений</a></div>
+		{% endif %}
+	</div>
+
+	{# ссылка админу на редактирование #}
+	{% if isAdmin and document is defined and document is not null %}
+		<a class="admin-edit fade" target="_blank"
+		   href="{{ path('admin_vidal_drug_document_edit', {'id':document.DocumentID}) }}">
+			<img src="{{ asset('bundles/vidalmain/images/edit.png') }}"/>
+		</a>
+	{% endif %}
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('.conditions a, .navigation a').click(function() {
+			var selector = $(this).attr('href');
+			$(selector).addClass('block-highlight');
+			setTimeout(function() { $(selector).removeClass('block-highlight'); }, 2000);
+		});
+	});
+</script>

@@ -1,0 +1,137 @@
+{% extends 'VidalMainBundle::layout.html.twig' %}
+
+{% block menu %}
+    {% include 'VidalMainBundle::menu_big.html.twig' %}
+{% endblock %}
+
+{% block content %}
+    {{ render(controller('VidalMainBundle:Index:Module', {'moduleId':1})) }}
+
+    <h1>Лекарственные препараты в справочнике Видаль</h1>
+
+    <div class="letters syllables">
+        <div class="letters-russian">
+            {% for letterFirst, letter in letters %}
+                {% set parameters = withoutRecipe ? {'l':letter.trans, 't':type, 'n':'1'} : { 'l':letter.trans, 't':type } %}
+                <a href="{{ path('products', parameters) }}"
+                   class="letter {{ letter.active is defined and letter.active ? ' active' }}"
+                   style="{{ letter.eng ? 'font-weight:bold' : '' }}"
+                   data="{{ letterFirst }}">{{ letterFirst }}</a>
+            {% endfor %}
+        </div>
+        <div class="letters-sub">
+            {% for letterFirst, letter in letters %}
+                <div data="{{ letterFirst }}">
+                    {% for letterSecond, transSecond in letter.subs %}
+                        {% set parameters = withoutRecipe ? {'l':transSecond, 't':type, 'n':'1'} : { 'l':transSecond, 't':type } %}
+                        <a href="{{ path('products', parameters) }}" data="{{ letterSecond }}">{{ letterSecond }}</a>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+        <div class="clear"></div>
+    </div>
+
+    <h1>АНОНСЫ</h1>
+
+    {# Актуальные новости #}
+    {% if publicationsPriority is not empty %}
+        <div class="title title-priority">
+            <a href="{{ path('news') }}">Актуальные новости</a>
+        </div>
+        {% include 'VidalMainBundle:Index:render_news.html.twig' with {'news':publicationsPriority, 'without_date':1} %}
+    {% endif %}
+
+    {# Последние новости #}
+    <div class="title title-news">
+        <a href="{{ path('news') }}">Новости медицины и фармации</a>
+    </div>
+    {% include 'VidalMainBundle:Index:render_news.html.twig' with {'news':publications} %}
+    <a href="{{ path('news') }}" id="more_news">все</a>
+
+    {# Статьи энциклопедии #}
+    {% if articles is not empty %}
+        <div class="title title-articles">
+            <a href="{{ path('articles') }}">Новые материалы на сайте</a>
+        </div>
+        {% include 'VidalMainBundle:Index:render_articles.html.twig' %}
+        <a href="{{ path('articles') }}" id="more_articles">все</a>
+    {% endif %}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/publication.css') }}"/>
+	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/letters.css') }}"/>
+    <style type="text/css">
+        h1 {
+            margin-bottom: 12px;
+        }
+        .title-articles, .title-news {
+            margin-top: 20px;
+        }
+        #more_news, #more_articles {
+            padding-left: 8px;
+        }
+        .priority-news .publications:last-child {
+            border-bottom: none;
+        }
+
+        /* letters-controls */
+        .letters-controls {
+            margin-bottom: 8px;
+        }
+        .letters-controls-check {
+            display:     inline-block;
+            margin: 15px 0;
+        }
+        .letters-controls-check input, .letters-controls-check span {
+            vertical-align: top;
+        }
+        .letters-russian {
+            height: 24px;
+        }
+        .letters-sub > div {
+            height:  24px;
+            clear:   both;
+            display: none;
+        }
+        .letters-sub a {
+            width: 22px;
+        }
+        .letters-sub a, .letters .beige {
+            background-color: #ddd;
+        }
+        #letters_type, a.chosen-single {
+            width: 150px !important;
+        }
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            {% if is_mobile() %}
+                $('.syllables').on('click', '.letters-russian a', function() {
+                    if(!$(this).hasClass('beige')) {
+                        $('.letters-russian a').removeClass('beige');
+                        $(this).addClass('beige');
+                        $('.letters-sub > div').hide();
+                        var data = $(this).attr('data');
+                        $('.letters-sub > div[data="' + data + '"]').show();
+                        return false;
+                    }
+                });
+            {% else %}
+                $('.syllables').on('mouseenter touchend', '.letters-russian a', function() {
+                    $('.letters-russian a').removeClass('beige');
+                    $(this).addClass('beige');
+                    $('.letters-sub > div').hide();
+                    var data = $(this).attr('data');
+                    $('.letters-sub > div[data="' + data + '"]').show();
+                });
+            {% endif %}
+        });
+    </script>
+{% endblock %}

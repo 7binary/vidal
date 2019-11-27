@@ -1,0 +1,19 @@
+{% if module %}
+	{% set isAdmin = app.user is not null and is_granted('ROLE_ADMIN') %}
+	{% set show = module.enabled and module.body is not empty %}
+
+	<div class="module module-{{ module.id }}{{ not show ? ' hidden' }}" itemscope itemtype="http://schema.org/Article">
+		{% if isAdmin %}
+			<a class="admin-edit fade" target="_blank"
+			   href="{{ path('admin_vidal_main_module_edit', {'id':module.id}) }}">
+				<img src="{{ asset('bundles/vidalmain/images/edit.png') }}"/>
+			</a>
+		{% endif %}
+
+		{% if show %}
+			<div class="module-body text" itemprop="articleBody">
+				{{ module.body|raw }}
+			</div>
+		{% endif %}
+	</div>
+{% endif %}

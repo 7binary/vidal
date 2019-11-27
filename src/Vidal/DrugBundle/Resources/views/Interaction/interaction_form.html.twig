@@ -1,0 +1,70 @@
+<noindex>
+<form id="form" method="GET" action="{{ path('interaction') }}">
+	<div id="form_controls">
+		<input id="form_submit" type="submit" value="Найти" class="btn-red">
+		<input id="form_input" type="text" name="q" placeholder="Введите слово для поиска..."
+			   value="{{ q is defined and q is not empty and not l ? q }}"/>
+	</div>
+
+	<div class="letters">
+		<div>
+			<input type="submit" value="А" name="l" {{ l == 'А' ? ' class="active"' }}/>
+			<input type="submit" value="Б" name="l" {{ l == 'Б' ? ' class="active"' }}/>
+			<input type="submit" value="В" name="l" {{ l == 'В' ? ' class="active"' }}/>
+			<input type="submit" value="Г" name="l" {{ l == 'Г' ? ' class="active"' }}/>
+			<input type="submit" value="Д" name="l" {{ l == 'Д' ? ' class="active"' }}/>
+			<input type="submit" value="Ж" name="l" {{ l == 'Ж' ? ' class="active"' }}/>
+			<input type="submit" value="З" name="l" {{ l == 'З' ? ' class="active"' }}/>
+			<input type="submit" value="И" name="l" {{ l == 'И' ? ' class="active"' }}/>
+			<input type="submit" value="К" name="l" {{ l == 'К' ? ' class="active"' }}/>
+			<input type="submit" value="Л" name="l" {{ l == 'Л' ? ' class="active"' }}/>
+			<input type="submit" value="М" name="l" {{ l == 'М' ? ' class="active"' }}/>
+			<input type="submit" value="Н" name="l" {{ l == 'Н' ? ' class="active"' }}/>
+			<input type="submit" value="О" name="l" {{ l == 'О' ? ' class="active"' }}/>
+			<input type="submit" value="П" name="l" {{ l == 'П' ? ' class="active"' }}/>
+			<input type="submit" value="Р" name="l" {{ l == 'Р' ? ' class="active"' }}/>
+			<input type="submit" value="С" name="l" {{ l == 'С' ? ' class="active"' }}/>
+			<input type="submit" value="Т" name="l" {{ l == 'Т' ? ' class="active"' }}/>
+			<input type="submit" value="Ф" name="l" {{ l == 'Ф' ? ' class="active"' }}/>
+			<input type="submit" value="Х" name="l" {{ l == 'Х' ? ' class="active"' }}/>
+			<input type="submit" value="Ц" name="l" {{ l == 'Ц' ? ' class="active"' }}/>
+			<input type="submit" value="Э" name="l" {{ l == 'Э' ? ' class="active"' }}/>
+		</div>
+	</div>
+</form>
+</noindex>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#form_input')
+			.autocomplete({
+				minLength: 2,
+				source:    function(request, response) {
+					var url ='/elastic/autocomplete_interaction/' + request.term.trim();
+					$.getJSON(url, function(data) {
+						response($.map(data.hits.hits, function(item) {
+							return {
+								label: item.highlight.name,
+								value: item._source.name
+							}
+						}));
+					});
+				},
+				select:    function(event, ui) {
+					if (ui.item) {
+						$(this).val(ui.item.value);
+					}
+				}
+			})
+			.data("ui-autocomplete")._renderItem = function(ul, item) {
+			return $('<li class="aut"></li>')
+				.data("item.autocomplete", item)
+				.append("<a>" + item.label + "</a>")
+				.appendTo(ul);
+		};
+
+		$('.letters input').click(function() {
+			$('#form_input').attr('disabled', 'disabled');
+		});
+	});
+</script>

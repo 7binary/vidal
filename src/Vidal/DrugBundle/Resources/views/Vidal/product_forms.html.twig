@@ -1,0 +1,94 @@
+<table class="products-table" id="products">
+	{% if product.formsGrouped is not empty %}
+		{% set forms = product.formsGrouped|jsonDecode %}
+		{% for form in forms %}
+			<tr>
+				<td class="products-table-loz" style="padding:6px 2px; border-bottom:0">
+					{% if product.multiForm or loop.index < 2 %}
+						{% if form.ProductTypeCode == 'BAD' %}
+							<span class="bads" title="Биологически активная добавка">БАД</span>
+						{% elseif form.ProductTypeCode == 'MI' %}
+							<span class="bads" title="Медицинское изделие">МИ</span>
+						{% elseif form.ProductTypeCode == 'NUTR' %}
+							<span class="bads" title="Лечебное питание">ПИТ</span>
+						{% elseif form.ProductTypeCode == 'COSM' %}
+							<span class="bads" title="Лечебная косметика">ЛК</span>
+						{% else %}
+							{% if form.NonPrescriptionDrug %}
+								<img style="width:16px" src="{{ asset('bundles/vidalmain/images/g2.gif') }}"
+									 title="Препарат разрешен к применению в качестве средств безрецептурного отпуска"/>
+							{% else %}
+								<img style="width:16px" src="{{ asset('bundles/vidalmain/images/g3.gif') }}"
+									 title="Препарат отпускается по рецепту"/>
+							{% endif %}
+						{% endif %}
+					{% endif %}
+				</td>
+				<td class="products-table-name" style="padding:6px 2px; border-bottom:0">
+					{% if product.multiForm %}
+						{{ form.RusName|raw }}
+					{% elseif loop.first %}
+						{% if product.hasChildrenMainID and documentMerge is defined and documentMerge is not empty %}
+							{{ product.RusName|raw }}
+						{% else %}
+							{{ form.RusName|raw }}
+						{% endif %}
+					{% endif %}
+				</td>
+				<td class="products-table-zip"
+					style="max-width:inherit; padding:6px 2px; border-bottom:0">
+					<div>{{ form.ZipInfo|raw }}</div>
+					<span>рег. №: {{ form.RegistrationNumber|raw }}
+						{% if form.RegistrationDate is not empty %}
+							от {{ form.RegistrationDate }}
+						{% endif %}
+						{% if form.MarketStatusID %}
+							<i>- {{ form.MarketStatusID|raw }}</i>
+						{% endif %}</span>
+					{% if form.DateOfReRegistration is not empty %}
+						<span>Дата перерегистрации: {{ form.DateOfReRegistration }}</span>
+					{% endif %}
+				</td>
+			</tr>
+		{% endfor %}
+	{% else %}
+		<tr>
+			<td class="products-table-loz">
+				{% if product.ProductTypeCode is defined and product.ProductTypeCode == 'BAD' %}
+					<span class="bads" title="Биологически активная добавка">БАД</span>
+				{% elseif product.ProductTypeCode is defined and product.ProductTypeCode == 'COSM' %}
+					<span class="bads" title="Лечебная косметика">ЛК</span>
+				{% elseif product.ProductTypeCode is defined and product.ProductTypeCode == 'MI' %}
+					<span class="bads" title="Медицинское изделие">МИ</span>
+				{% elseif product.ProductTypeCode is defined and product.ProductTypeCode == 'NUTR' %}
+					<span class="bads" title="Лечебное питание">ПИТ</span>
+				{% else %}
+					{% if product.NonPrescriptionDrug %}
+						<img style="width:16px" src="{{ asset('bundles/vidalmain/images/g2.gif') }}"
+							 title="Препарат разрешен к применению в качестве средств безрецептурного отпуска"/>
+					{% else %}
+						<img style="width:16px" src="{{ asset('bundles/vidalmain/images/g3.gif') }}"
+							 title="Препарат отпускается по рецепту"/>
+					{% endif %}
+				{% endif %}
+			</td>
+			<td class="products-table-name">
+				{{ product.RusName|raw }}
+			</td>
+			<td class="products-table-zip" style="max-width:inherit">
+				<div>{{ product.ZipInfo|raw }}</div>
+				<span>рег. №: {{ product.RegistrationNumber }}
+					{% if product.RegistrationDate is not empty %}
+						от {{ product.RegistrationDate|raw }}
+					{% endif %}
+					{% if product.MarketStatusID %}
+						<i>- {{ product.MarketStatusID|raw }}</i>
+					{% endif %}
+                </span>
+				{% if product.DateOfReRegistration is not empty %}
+					<span>Дата перерегистрации: {{ product.DateOfReRegistration }}</span>
+				{% endif %}
+			</td>
+		</tr>
+	{% endif %}
+</table>

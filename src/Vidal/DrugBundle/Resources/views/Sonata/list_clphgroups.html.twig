@@ -1,0 +1,62 @@
+<script type="text/javascript">
+	$(document).ready(function() {
+		// список
+		{% if object.clphGroups is not empty %}
+		var ulist = $('<ul class="list clphgroups-list">{% for g in object.clphGroups %}<li data="{{ g.ClPhGroupsID }}"><b><a href="{{ path('clphgroups_remove', {'type':object|type, 'id':object.id, 'ClPhGroupsID':g.ClPhGroupsID}) }}">X</a></b>' + '{{ g.ClPhGroupsID }} - {{ g.Name|raw }}' + '</li>{% endfor %}</ul>');
+		$('.clphgroups-text').parent().append(ulist);
+		{% endif %}
+
+		// автодополнение
+		$('.clphgroups-text')
+			.autocomplete({
+				minLength: 1,
+				source:    function(request, response) {
+					var url = '/autocomplete/clphgroups/' + request.term.trim();
+					$.getJSON(url, function(data) {
+						var ids = $('.molecules-list li').map(function(element) {
+							var id = $(this).attr("data");
+							return parseInt(id);
+						});
+						var values = [];
+
+						for (var i = 0; i < data.length; i++) {
+							if ($.inArray(parseInt(data[i].id), ids) == -1) {
+								values.push({
+									'id':   data[i].id,
+									'text': data[i].text
+								});
+							}
+						}
+
+						response(values);
+					});
+				},
+				select:    function(event, ui) {
+					if (ui.item) {
+						var urlAdd = '/admin/clphgroups-add/{{ object|type }}/{{ object.id }}/' + ui.item.id;
+						var urlRemove = '/admin/clphgroups-remove/{{ object|type }}/{{ object.id }}/' + ui.item.id;
+						$.getJSON(urlAdd, function(data) {
+							if (data == 'OK') {
+								var li = '<li data="' + ui.item.id + '"><b><a href="' + urlRemove + '">X</a></b>' + ui.item.text + '</li>';
+								var $li = $(li);
+								var $list = $('.clphgroups-list');
+								if (!$list.length) {
+									$('.molecules-text').parent().append($('<ul class="list clphgroups-list"></ul>'));
+									$list = $('.clphgroups-list');
+								}
+								$list.append($li);
+							}
+						});
+					}
+
+					$(this).val('');
+
+					return false;
+				}
+			})
+			.data("ui-autocomplete")._renderItem =
+			function(ul, item) {
+				return $("<li></li>").data("item.autocomplete", item).append("<a>" + item.text + "</a>").appendTo(ul);
+			};
+	});
+</script>

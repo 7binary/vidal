@@ -1,0 +1,31 @@
+.market-table {
+	margin-top:      22px;
+	border-bottom:   1px dashed #ccc;
+	border-collapse: collapse;
+	width:           100%;
+}
+.market-table td {
+	padding-bottom: 6px;
+}
+.market-title {
+	color:   #D71344;
+	padding: 5px 0;
+}
+.market-logo {
+	text-align: right;
+}
+.market-logo img {
+	max-height: 34px;
+}
+.market-info {
+	width: 280px;
+}
+.market-info a {
+	font-size: 16px;
+}
+.market-info > div {
+	margin-top: 3px;
+}
+.market-phone {
+	color: gray;
+}

@@ -1,0 +1,35 @@
+{% extends 'VidalMainBundle::layout.html.twig' %}
+
+{% block content %}
+	<div>
+		<p>Внимание!<p>
+		<p>Этот раздел сайта содержит профессиональную специализированную информацию.
+			Согласно действующему законодательству, материалы этого раздела могут
+			быть доступны только для медицинских специалистов.</p>
+
+		<h3 class="qw">Вы являетесь дипломированным медицинским специалистом?</h3>
+
+		<div class="buttons">
+			<a class="btn btn-red" href="{{ url }}">Да</a>
+			<a class="btn btn-red" href="/">Нет</a>
+		</div>
+	</div>
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<style>
+		.qw {
+			margin: 50px 0 0;
+			text-align: center;
+		}
+		.buttons {
+			text-align: center;
+			margin:     30px 0;
+		}
+		.buttons a {
+			margin-right: 15px;
+		}
+	</style>
+{% endblock %}

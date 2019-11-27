@@ -1,0 +1,10 @@
+{% if o is defined and o is not empty %}
+	<div class="search-info">
+		<span>Результатов поиска по запросу «<b>{{ o }}</b>» не найдено.<br/>
+		Исправлена раскладка клавиатуры в «<b>{{ q }}</b>»</span>
+	</div>
+{% elseif q is defined and q is not empty %}
+	<div class="search-info">
+		<span>Поиск по запросу «<b>{{ q }}</b>»</span>
+	</div>
+{% endif %}

@@ -1,0 +1,115 @@
+{% extends 'VidalDrugBundle::vidal_layout.html.twig' %}
+
+
+{% block nav %}
+	<div class="breadcrumbs">
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('index') }}" itemprop="url">
+				<span itemprop="title">Видаль</span>
+			</a>
+		</div>
+		<i></i>
+
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('atc') }}" itemprop="url"
+			   title="Анатомо-Терапевтически-Химическая (АТХ) система классификации (ATC)">
+				<span itemprop="title">АТX</span>
+			</a>
+		</div>
+		<i></i>
+
+		<span>{{ atc.RusName }}</span>
+	</div>
+{% endblock %}
+
+
+{% block vidal %}
+	<div class="publication" itemscope itemtype="http://schema.org/Article">
+		<h1 itemprop="name" style="margin-bottom: 0">{{ atc.RusName }}</h1>
+
+		<div class="publication-body text" itemprop="articleBody">
+			<div class="anons">Анатомо-Терапевтически-Химическая (АТХ) система классификации (ATC)</div>
+
+			<div class="block">
+				<span class="block-head">АТХ код:</span>
+				<span><b>{{ atc.ATCCode }}</b></span>
+			</div>
+
+			{% if atc.parent %}
+				<div class="block">
+					<span class="block-head">Входит в группу:</span>
+					<a href="{{ path('atcl', {'l':atc.parent.ATCCode|first_lower}) }}#{{ atc.parent.ATCCode }}"
+					   class="no-underline">{{ atc.parent.ATCCode }}</a> -
+					<span>{{ atc.parent.RusName|raw }}</span>
+				</div>
+			{% endif %}
+
+			<div class="block">
+				<span class="block-head">Название:</span>
+				<span>{{ atc.RusName }}</span>
+			</div>
+
+			{% if atc.EngName is not empty and atc.EngName != atc.RusName %}
+				<div class="block">
+					<span class="block-head">Латинское название:</span>
+					<span>{{ atc.EngName }}</span>
+				</div>
+			{% endif %}
+
+			{#{% include 'VidalMainBundle:Article:documents.html.twig' with {'object':atc, 'label':'коду АТХ', 'item':atc.ATCCode} %}#}
+
+			{% if products is not empty %}
+				<div class="block">
+					<div class="block-head">Препараты группы</div>
+				</div>
+				{% include 'VidalDrugBundle:Vidal:render_products.html.twig' %}
+			{% else %}
+				<div class="block">
+					<div class="no-results">
+						Не найдено препаратов по AТX коду <span>{{ atc.ATCCode }}</span>
+					</div>
+				</div>
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<style type="text/css">
+		.show-tree {
+			margin-left: 20px;
+		}
+	</style>
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+	<script>
+		$(document).ready(function() {
+			{# MICRODATA #}
+			$('.publication img').each(function() {
+				var $this = $(this);
+				$this.attr('itemprop', 'image');
+			});
+
+			$('.publication a').each(function() {
+				$(this).attr({
+					itemprop: "url"
+				});
+			});
+
+			$('.publication-body a').each(function() {
+				var $a = $(this);
+				if (this.href.charAt(0) != '/'
+					&& this.href.indexOf('vidal.ru') === -1
+					&& this.href.indexOf('localhost:97') === -1
+				) {
+					$a.attr('rel', 'nofollow');
+				}
+			});
+		});
+	</script>
+{% endblock %}

@@ -1,0 +1,163 @@
+{% set t = ogTitle|url_encode(true) %}
+{% set d = description|last == '.' ? description|url_encode(true) : (description ~ '.')|url_encode(true) %}
+{% set u = app.request.uri %}
+{% set hiddenTitle = (ogTitle ~ ' – ' ~ subtitle ~ ' – Vidal.ru')|url_encode(true) %}
+
+{% if shareTitle is not defined %}
+    {% set shareTitle = "Поделиться" %}
+{% endif %}
+
+<div id="share-buttons">
+    <div class="bold">{{shareTitle}}</div>
+
+    <div class="shares">
+        <a href="https://vk.com/share.php?url={{ u }}&title={{ t }}&description={{ d }}" target="_blank"
+           title="Поделиться в ВКонтакте" class="social first" rel="nofollow">
+            <i class="social-sprite social-vk-m"></i>
+        </a>
+
+        <!-- Facebook -->
+        <a href="https://www.facebook.com/sharer/sharer.php?u={{ u }}&t={{ t }}"
+           onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"
+           target="_blank" title="Поделиться в Facebook" rel="nofollow">
+            <i class="social-sprite social-facebook-m"></i>
+        </a>
+
+        <!-- Twitter -->
+        <a href="https://twitter.com/share?url={{ u }}&text={{ forPatient is defined ? 'Статья из медицинской энциклопедии сайта vidal.ru – «' ~ t ~ '»: ' : ((zip is defined ? ogTitle ~ ', ' ~ zip : ogTitle) ~ ': ')|url_encode(true) }}"
+           target="_blank" title="Опубликовать в Twitter" class="social" rel="nofollow">
+            <i class="social-sprite social-twitter-m"></i>
+        </a>
+
+        <!-- LiveJournal -->
+        <a href="https://www.livejournal.com/update.bml?subject={{ (zip is defined ? ogTitle ~ ', ' ~ zip : ogTitle)|url_encode(true) }}&event={{ product is defined ? 'Текст описания на сайте vidal.ru: ' ~ u : d ~ ' Текст материала на сайте vidal.ru: ' ~ u }}&url={{ u }}"
+           target="_blank" title="Опубликовать в LiveJournal" class="social" rel="nofollow">
+            <i class="social-sprite social-livejournal-m"></i>
+        </a>
+
+        <!-- Google+ -->
+        <a href="https://plus.google.com/share?url={{ u }}&title={{ (zip is defined ? ogTitle ~ ', ' ~ zip : ogTitle)|url_encode(true) }}&description={{ d }}"
+           target="_blank" class="social"
+           title="Поделиться в Google+" rel="nofollow">
+            <i class="social-sprite social-gplus-m"></i>
+        </a>
+
+        <!-- LinkedIn -->
+        {#<a href="https://www.linkedin.com/shareArticle?mini=true&url={{ u }}&title={{ t }}&description={{ d }}"#}
+           {#target="_blank" title="Добавить в LinkedIn" class="social" rel="nofollow">#}
+           {#<i class="social-sprite social-linkedin-m"></i> #}
+        {#</a>#}
+
+        <!-- Odnoklassniki -->
+        <a href="https://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st._surl={{ u }}&st.comments"
+           target="_blank" title="Поделиться в Однокласники" class="social" rel="nofollow">
+            <i class="social-sprite social-ok-m"></i>
+        </a>
+
+        <!-- MoiMir -->
+        <a href="https://connect.mail.ru/share?url={{ u }}&title={{ t }}&description={{ d }}"
+           target="_blank" title="Добавить в Мой мир" class="social" rel="nofollow">
+            <i class="social-sprite social-mail-m"></i>
+        </a>
+
+        <!-- Email -->
+        <a href="#share-email" class="share-btn" title="Поделиться через E-mail" class="social" rel="nofollow">
+            <i class="social-sprite social-email-m"></i>
+        </a>
+    </div>
+
+    <!-- Counter -->
+    {#<span class="counter">#}
+        {#<b></b>#}
+        {#<i></i>#}
+        {#<span> </span>#}
+    {#</span>#}
+</div>
+
+<div id="share-email">
+    <div class="share-title">
+        Поделиться с друзьями
+    </div>
+    <div class="share-error">
+        Пожалуйста, заполните поля e-mail адресов и убедитесь в их правильности
+    </div>
+    <div class="share-message">
+
+    </div>
+    <form action="{{ path('share', {'class':class, 'target':id}) }}" method="POST">
+        <div>
+            <input type="text" name="my" required="required" placeholder="Мой E-mail"/>
+        </div>
+        <div>
+            <input type="text" name="friends" required="required" placeholder="E-mail друзей через ;"/>
+        </div>
+        <div>
+            <textarea name="text" placeholder="Комментарий (максимум 200 символов)"></textarea>
+        </div>
+        <input type="hidden" name="title" value="{{ hiddenTitle }}"/>
+        <input type="hidden" name="url" value="{{ u }}"/>
+
+        <div class="submit">
+            <input type="submit" class="btn-red" value="Отправить"/>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.share-btn').fancybox({
+            helpers: {
+                title: null,
+                overlay: {
+                    locked: false
+                }
+            },
+            beforeShow: function() {
+                $('#share-email input[type="text"], #share-email textarea').val('');
+                $('.share-message, .share-error').hide();
+                $('#share-email form').show();
+            }
+        });
+
+        $('#share-email input[type="text"], #share-email textarea').placeholder();
+
+        $('#share-email form').ajaxForm(function(data) {
+            if (data == 'DoubleClick') {
+
+            }
+            else if (data == 'FAIL') {
+                $('.share-error').show();
+            }
+            else {
+                $('#share-email form, .share-error').hide();
+                $('.share-message').text('Ваше приглашение было успешно отправлено на e-mail: ' + data).show();
+                $.getJSON('/share-counter/{{class}}/{{id}}', function(data) {
+                    $('.counter span').text(data);
+                    if (parseInt(data) > 0) {
+                        $('.counter').css('display', 'inline-block');
+                    }
+                });
+            }
+        });
+
+        {#
+        $.getJSON('/share-counter/{{class}}/{{id}}', function(data) {
+            $('.counter span').text(data);
+            if (parseInt(data) > 0) {
+                $('.counter').css('display', 'inline-block');
+            }
+        });
+        #}
+
+        $('.social').click(function() {
+            $.getJSON('/share-click/{{ class }}/{{ id }}', function(data) {
+                if (data != 'DoubleClick') {
+                    $('.counter span').text(data);
+                    if (parseInt(data) > 0) {
+                        $('.counter').css('display', 'inline-block');
+                    }
+                }
+            });
+        });
+    });
+</script>

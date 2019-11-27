@@ -1,0 +1,98 @@
+{% extends 'VidalVeterinarBundle::vidal_layout.html.twig' %}
+
+
+{% block title %}
+	<h1>Портфели препаратов
+		{% if app.user is not null and is_granted('ROLE_ADMIN') %}
+			<a class="admin-edit fade" target="_blank"
+			   href="{{ path('admin_vidal_veterinar_pharmportfolio_list') }}">
+				<img src="{{ asset('bundles/vidalmain/images/edit.png') }}"/>
+			</a>
+		{% endif %}
+	</h1>
+{% endblock %}
+
+
+{% block nav %}
+	<div class="breadcrumbs">
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('index') }}" itemprop="url">
+				<span itemprop="title">Видаль</span>
+			</a>
+		</div>
+		<i></i>
+
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('veterinar') }}" itemprop="url">
+				<span itemprop="title">Видаль-Ветеринар</span>
+			</a>
+		</div>
+		<i></i>
+		<span>Портфели препаратов</span>
+	</div>
+{% endblock %}
+
+
+{% block vidal %}
+	{% if portfolios is empty %}
+		Раздел находится в наполнении
+	{% else %}
+		<ul class="portfolios ul-style">
+			{% for portfolio in portfolios %}
+				<li>
+				<span class="portfolio">
+					<a href="{{ path('veterinar_portfolio', {'url':portfolio.url}) }}">
+						{{ portfolio.title|raw }}
+					</a>
+				</span>
+					{% if portfolio.DocumentID.infoPages[0] is defined %}
+						{% set infoPage = portfolio.DocumentID.infoPages[0] %}
+						<br/>
+						<a href="{{ path('v_inf', {'Name':infoPage.Name}) }}" class="no-underline infoPage">
+							{{ infoPage.RusName|raw }}
+						</a>
+					{% endif %}
+					{% if isAdmin %}
+						<a class="admin-edit fade" target="_blank"
+						   href="{{ path('admin_vidal_veterinar_pharmportfolio_edit', {'id':portfolio.id}) }}">
+							<img src="{{ asset('bundles/vidalmain/images/edit.png') }}"/>
+						</a>
+					{% endif %}
+				</li>
+			{% endfor %}
+		</ul>
+	{% endif %}
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<style type="text/css">
+		.portfolios {
+			font-size: 14px;
+		}
+		.portfolios li {
+			margin-bottom: 8px;
+			position:      relative;
+		}
+		.portfolios .portfolio {
+			display: inline-block;
+			width:   160px;
+		}
+		.portfolios .portfolio a {
+			display:     inline-block;
+			font-weight: bold;
+		}
+		.portfolios a.company {
+			font-size:       14px;
+			color:           #898989;
+			text-decoration: none;
+		}
+		.portfolios a.company:hover {
+			text-decoration: underline;
+		}
+		.portfolios .infoPage {
+			color: #2f4053;
+		}
+	</style>
+{% endblock %}

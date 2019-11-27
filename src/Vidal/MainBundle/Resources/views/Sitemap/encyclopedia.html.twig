@@ -1,0 +1,18 @@
+<ul>
+	{% for title, rubrique in articleRubriques %}
+		<li class="hasChildren expandable">
+			<div class="hitarea hasChildren-hitarea expandable-hitarea"></div>
+			<a href="{{ path('rubrique', {'rubrique':rubrique.rubriqueLink}) }}" target="_blank">
+				{{ rubrique.rubriqueTitle }}
+			</a>
+			<ul style="display:none">
+				{% for article in rubrique.articles %}
+					<li>
+						<a href="{{ path('article', {'rubrique':rubrique.rubriqueLink, 'link':article.link}) }}"
+						   target="_blank" class="article">{{ article.title|raw }}</a>
+					</li>
+				{% endfor %}
+			</ul>
+		</li>
+	{% endfor %}
+</ul>

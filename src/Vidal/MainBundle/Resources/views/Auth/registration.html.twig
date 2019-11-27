@@ -1,0 +1,190 @@
+{% extends 'VidalMainBundle::layout.html.twig' %}
+
+
+{% block title %}
+	<h1>РЕГИСТРАЦИЯ</h1>
+{% endblock %}
+
+
+{% block content %}
+	<p class="reg-info">Для регистрации заполните форму.
+		<span class="raspberry asterisk">*</span> - поля обязательные для заполнения</p>
+
+	{% if error is defined %}
+		<div class="error anons">
+			Извините, такой e-mail адрес уже занят. Если он принадлежит Вам, то вы можете воспользоваться функцией
+			<a href="{{ path('password_reset') }}">восстановления пароля</a>
+		</div>
+	{% endif %}
+
+	<form id="register_form" action="{{ path('registration') }}" method="post" {{ form_enctype(form) }}
+		  novalidate autocomplete="off">
+		{% form_theme form 'VidalMainBundle:Form:registration_form.html.twig' %}
+		{{ form_widget(form) }}
+		<p class="addition-info">Специализацию Вы можете указать в профиле после регистрации</p>
+	</form>
+
+	<img id="help" src="{{ asset('bundles/vidalmain/images/help.png') }}" title="Образец заполнения"/>
+	<div id="helper">
+		<div class="helper-header">Образец заполнения</div>
+		<img src="{{ asset('bundles/vidalmain/images/register.png') }}"/>
+	</div>
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<style type="text/css">
+		#help {
+			position: absolute;
+			display:  inline-block;
+			top:      -14px;
+			right:    0;
+			width:    35px;
+			cursor:   pointer;
+		}
+		#helper {
+			display:          none;
+			position:         absolute;
+			top:              -8px;
+			right:            -348px;
+			width:            340px;
+			background-color: #eee;
+			text-align:       center;
+			box-shadow:       0 0 10px rgba(0, 0, 0, 0.5);
+			z-index:          1000;
+		}
+		.helper-header {
+			padding:     8px 0 10px;
+			color:       #476173;
+			font-weight: bold;
+			font-size:   18px;
+		}
+		.reg-info {
+			color:     #777777;
+			margin:    10px 0 20px;
+			font-size: 90%;
+		}
+		.addition-info {
+			color:      #777777;
+			margin:     10px 0 0;
+			text-align: center;
+			font-size:  90%;
+		}
+		.form_table .eula-checkbox {
+			margin-left: 10px;
+		}
+		.row_birthdate .chosen-container {
+			width:        68px !important;
+			margin-right: 15px;
+		}
+		#register_birthdate_month_chosen {
+			width: 100px !important;
+		}
+		.row_student .form_widget, .row_eula .form_widget, .eula {
+			user-select:         none;
+			-moz-user-select:    none;
+			-webkit-user-select: none;
+			-ms-user-select:     none;
+		}
+		.eula {
+			margin: 0 0 6px;
+			color:  #666d75;
+		}
+		.eula a {
+			font-weight: bold;
+		}
+		#register_birthdate select {
+			width:        92px;
+			margin-right: 6px;
+		}
+		.oldreg {
+			border:  1px solid #9DABB4;
+			padding: 5px 10px;
+		}
+		.error {
+			margin-bottom: 15px;
+			font-size:     13px;
+			color:         #d00;
+		}
+		.error a {
+			color:       #d00;
+			font-weight: bold;
+		}
+		#register_captcha {
+			display:        inline-block;
+			float:          left;
+			width:          62px;
+			vertical-align: top;
+			margin-top:     11px;
+		}
+		#register_eula {
+			width:          22px;
+			height:         22px;
+			margin:         0;
+			display:        inline-block;
+			vertical-align: top;
+		}
+		.ui-autocomplete-loading {
+			background: url('{{ asset('bundles/vidalmain/images/ajax-loader.gif') }}') no-repeat right center
+		}
+	</style>
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+	<script>
+		$(document).ready(function() {
+			$("#register_city").autocomplete({
+				source:    function(request, response) {
+					var url = '/ajax/city?term=' + request.term.trim();
+					$.getJSON(url, function(data) {
+						if (!data.length) {
+							var result = [{
+								label: '* Населенный пункт не найден',
+								value: response.term
+							}];
+							response(result);
+						}
+						else {
+							response($.map(data, function(item) {
+								return {
+									label: item,
+									value: item
+								}
+							}));
+						}
+					});
+				},
+				select:    function(event, ui) {
+					if (ui.item) {
+						$(this).val(ui.item.value);
+					}
+				},
+				minLength: 2,
+				autoFocus: true,
+				limit:     15
+			}).data("ui-autocomplete")._renderItem = function(ul, item) {
+				return $('<li class="aut"></li>')
+					.data("item.autocomplete", item)
+					.append("<a>" + item.label + "</a>")
+					.appendTo(ul);
+			};
+
+			var $miniChoices = $('#register_jobAlignment, #register_jobType, #register_academicDegree');
+			$('#register_form select').not($miniChoices).chosen({
+				search_contains: true,
+				no_results_text: "не найдено"
+			});
+			$($miniChoices).chosen({
+				disable_search:  true,
+				no_results_text: "не найдено"
+			});
+
+			$('#help').click(function() {
+				$('#helper').toggle();
+			});
+		});
+	</script>
+{% endblock %}

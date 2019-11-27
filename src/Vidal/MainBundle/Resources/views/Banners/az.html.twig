@@ -1,0 +1,12 @@
+<a href="https://goo.gl/Qjzebr" target="_blank" class="az az-desktop"
+   style="cursor:pointer; text-align:center; display:block; border:1px solid gray; width: 200px; margin-bottom:25px; margin-left:21px;">
+	<img src="{{ asset('bundles/vidalmain/images/banners/az_400.jpg') }}" style="max-width:200px;"/>
+</a>
+
+<script>
+	$(document).ready(function() {
+		$('.az').click(function() {
+			ga('send', 'event', 'Banner AZ', 'click', $(this).attr('href'));
+		});
+	});
+</script>

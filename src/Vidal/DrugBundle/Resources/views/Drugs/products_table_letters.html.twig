@@ -1,0 +1,21 @@
+<table class="letters-table letters-table-small">
+	<tr class="head">
+		<td></td>
+		{% for ruLetter, info in letters %}
+			<td>{{ ruLetter }}</td>
+		{% endfor %}
+	</tr>
+
+	{% for l2, data in allSubLetters %}
+		<tr>
+			<td class="l2">{{ l2 }}</td>
+			{% for info in data %}
+				<td>
+					{% if info is not empty %}
+						<a href="{{ path('products', {'t':t, 'l':info.subTrans}) }}">{{ info.subLetter }}</a>
+					{% endif %}
+				</td>
+			{% endfor %}
+		</tr>
+	{% endfor %}
+</table>

@@ -1,0 +1,164 @@
+{% extends 'VidalDrugBundle::vidal_layout.html.twig' %}
+
+
+{% block nav %}
+	<div class="breadcrumbs">
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('index') }}" itemprop="url">
+				<span itemprop="title">Видаль</span>
+			</a>
+		</div>
+		<i></i>
+
+		{% if l %}
+			<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+				<a href="{{ path('pharm') }}" itemprop="url"
+				   title="Фармако-терапевтические группы ГосРеестра МинЗдрава РФ">
+					<span itemprop="title">ФТГ</span>
+				</a>
+			</div>
+			<i></i>
+			<span>Фармако-терапевтические группы на букву {{ rusLetter }}</span>
+		{% else %}
+			<span>ФТГ</span>
+		{% endif %}
+	</div>
+{% endblock %}
+
+
+{% block vidal %}
+
+	<div class="publication" itemscope itemtype="http://schema.org/Article">
+
+		{% include 'VidalDrugBundle::scrolling.html.twig' %}
+		<div id="scrolling">
+			{% include 'VidalDrugBundle:Drugs:menu_drugs.html.twig' %}
+
+			<div class="anons anons-drugs">
+				{% if l %}
+					<h1 class="h1" itemprop="name">Фармако-терапевтические группы на букву {{ rusLetter }}</h1>
+				{% else %}
+					<h1 class="h1" itemprop="name">Фармако-терапевтические группы ГосРеестра МинЗдрава РФ</h1>
+				{% endif %}
+			</div>
+
+			{% include 'VidalDrugBundle:Drugs:pharm_form.html.twig' %}
+		</div>
+
+		<div class="publication-body text" itemprop="articleBody">
+			<div class="info-line">
+				{% if l %}
+					Найдено групп на букву <i>{{ rusLetter }}</i>:
+					<span>{{ pagination.totalItemCount }}</span>
+				{% elseif q %}
+					{% if pagination.totalItemCount %}
+						Найдено групп по запросу <i>{{ q }}</i>:
+						<span>{{ pagination.totalItemCount }}</span>
+					{% else %}
+						Не найдено групп по запросу <i>{{ q }}</i>
+					{% endif %}
+				{% else %}
+					Найдено групп:
+					<span>{{ pagination.totalItemCount }}</span>
+				{% endif %}
+			</div>
+
+			{% if pagination is defined and pagination.totalItemCount %}
+				<ul class="pharm ul-style">
+					{% for pharm in pagination %}
+						<li>
+							<a href="{{ path('pharm_item', {'id': pharm.id}) }}">{{ pharm.Name|raw }}</a>
+						</li>
+					{% endfor %}
+				</ul>
+
+				<div class="navigation">
+					{{ knp_pagination_render(pagination) }}
+				</div>
+			{% endif %}
+
+			{% if l %}
+				<div class="backto">
+					Назад к <a href="{{ path('pharm') }}"> Фармако-терапевтическим группам</a>
+				</div>
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/letters.css') }}"/>
+	<style type="text/css">
+		.backto {
+			margin:      18px 0 0;
+			padding-top: 12px;
+			border-top:  1px dashed #ccc;
+			font-size:   15px;
+			font-weight: bold;
+		}
+		#form > * {
+			vertical-align: top;
+		}
+		#form_controls {
+			clear: both;
+		}
+		#form_submit {
+			float: right;
+		}
+		#form_input {
+			width: 408px;
+		}
+		.pharm li {
+			margin-bottom: 5px;
+			line-height:   13px;
+		}
+		.pharm a {
+			text-decoration: none;
+		}
+		.pharm a:hover {
+			text-decoration: underline;
+		}
+		.h1 {
+			display:       block;
+			background:    #f5f5f5;
+			color:         #476173;
+			border-bottom: 1px solid #eee;
+			font-size:     inherit;
+			font-weight:   inherit;
+			margin:        0;
+			padding:       0;
+		}
+	</style>
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+	<script type="text/javascript">
+		$(document).ready(function() {
+			{# MICRODATA #}
+			$('.publication img').each(function() {
+				var $this = $(this);
+				$this.attr('itemprop', 'image');
+			});
+
+			$('.publication a').each(function() {
+				$(this).attr({
+					itemprop: "url"
+				});
+			});
+
+			$('.publication-body a').each(function() {
+				var $a = $(this);
+				if (this.href.charAt(0) != '/'
+					&& this.href.indexOf('vidal.ru') === -1
+					&& this.href.indexOf('localhost:97') === -1
+				) {
+					$a.attr('rel', 'nofollow');
+				}
+			});
+		});
+	</script>
+{% endblock %}

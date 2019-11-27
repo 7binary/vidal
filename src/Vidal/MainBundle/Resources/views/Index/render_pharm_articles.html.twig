@@ -1,0 +1,49 @@
+{% if pagination is not empty %}
+	<div class="pharm-articles">
+		{% for article in pagination %}
+			<div class="pharm-article" data="{{ article.id }}">
+				{% if company is not defined and article.companies is not empty %}
+					<ul class="article-company">
+					{% for c in article.companies %}
+						<li>
+							<a href="{{ path('pharma_company', {'id':c.id}) }}">
+								{{ c.title|raw }}
+							</a>
+						</li>
+					{% endfor %}
+					</ul>
+				{% endif %}
+
+				{% if isAdmin %}
+					<a class="admin-edit fade" target="_blank"
+					   href="{{ path('admin_vidal_drug_pharmarticle_edit', {'id':article.id}) }}">
+						<img src="{{ asset('bundles/vidalmain/images/edit.png') }}"/>
+					</a>
+				{% endif %}
+
+				<div class="article-text text">
+					{{ article.text|raw }}
+				</div>
+
+				<div class="article-footer">
+					{% if company is not defined and article.companies is not empty %}
+						<ul class="pharm-company-more">
+							{% for c in article.companies %}
+								<li>
+									<a href="{{ path('pharma_company', {'id':c.id}) }}">
+										Другие новости «{{ c.title|raw }}»
+									</a>
+								</li>
+							{% endfor %}
+						</ul>
+					{% endif %}
+					<span>{{ article.created|date('d.m.Y') }}</span>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+
+	<div class="navigation">
+		{{ knp_pagination_render(pagination) }}
+	</div>
+{% endif %}

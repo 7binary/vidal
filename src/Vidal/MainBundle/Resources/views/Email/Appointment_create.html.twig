@@ -1,0 +1,35 @@
+{% extends layout | default('VidalMainBundle::minimal_layout.html.twig') %}
+
+{% block body %}
+    <p>Здравствуйте,<p>
+    <p>Вы записались на прием к врачу<br/></p>
+    <p><b>Информация о записи</b></p>
+    <table>
+        <tr>
+            <td><b>Номер записи</b></td>
+            <td>{{ data.id }}</td>
+        </tr>
+        <tr>
+            <td><b>Дата:</b></td>
+            <td>{{ data.dateBegin | date('d.m.Y') }}</td>
+        </tr>
+        <tr>
+            <td><b>Время:</b></td>
+            <td>{{ data.dateBegin | date('H:i') }}</td>
+        </tr>
+        <tr>
+            <td><b>Специальность:</b></td>
+            <td>{{ data.appointmentReceptionToDoctor.doctorSpeciality }}</td>
+        </tr>
+        <tr>
+            <td><b>Врач:</b></td>
+            <td>{{ data.appointmentReceptionToDoctor.doctorFio  }}</td>
+        </tr>
+        <tr>
+            <td><b>Место:</b></td>
+            <td>{{ data.nameLpu }} ( {{ data.lpuAddress  }} )</td>
+        </tr>
+    </table>
+
+    {% include 'VidalMainBundle:Email:signature.html.twig' %}
+{% endblock %}

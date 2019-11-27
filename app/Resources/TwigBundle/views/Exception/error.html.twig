@@ -1,0 +1,56 @@
+{% extends ('VidalMainBundle::layout.html.twig') %}
+
+
+{% block content %}
+	{% if status_code == 404 %}
+		<div class="not-found">
+			<img src="{{ asset('bundles/vidalmain/images/not_found.jpeg') }}"/>
+
+			<ul class="ul-style">
+				<li>Возможно, неправильно набран адрес страницы</li>
+				<li>Или старая ссылка более не существует<br>
+					(страница была удалена или поменяла адрес)
+				</li>
+			</ul>
+		</div>
+	{% elseif status_code == 403 %}
+
+	{% else %}
+		<h1>К сожалению, возникли трудности:</h1>
+		<h3>Ваш запрос сейчас не может быть обработан. Мы в курсе этой ошибки и работаем над её устранением.
+			Попробуйте заглянуть чуть позже</h3>
+	{% endif %}
+
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<style type="text/css">
+		.not-found {
+			position: relative;
+		}
+		.not-found img {
+			display:  block;
+			/*position: absolute;*/
+			top:      10px;
+			left:     15px;
+			width:    200px;
+		}
+		.not-found ul {
+			display:     block;
+			position:    absolute;
+			left:        234px;
+			top:         12px;
+			font-size:   13px;
+			font-weight: bold;
+		}
+		.not-found li {
+			margin-bottom: 13px;
+		}
+		h3 {
+			font-size: 15px;
+			padding:   0 60px;
+		}
+	</style>
+{% endblock %}

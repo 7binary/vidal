@@ -1,0 +1,23 @@
+<div class="peri-mobile" style="text-align: center; display: none; margin-bottom: 25px;">
+	<a href="http://praesens.ru/o-meropriyatii-perinatalnaya-meditsina/" target="_blank" class="peri peri-mobile"
+	   style="cursor:pointer; text-align:center; display:block; border:1px solid #ccc; width: 160px; margin-bottom:25px; margin: 0 auto;">
+		<img src="{{ asset('bundles/vidalmain/images/banners/peri.png') }}" style="max-width:160px;"/>
+	</a>
+</div>
+
+<script>
+	$(document).ready(function() {
+		if ((navigator.userAgent.match(/Android/i)
+			|| navigator.userAgent.match(/webOS/i)
+			|| navigator.userAgent.match(/iPhone/i)
+			|| navigator.userAgent.match(/iPad/i)
+			|| navigator.userAgent.match(/iPod/i)
+			|| navigator.userAgent.match(/BlackBerry/i)
+			|| navigator.userAgent.match(/Windows Phone/i))
+			&& window.screen.width < 768
+		) {
+			$('.peri-desktop').hide();
+			$('.peri-mobile').show();
+		}
+	});
+</script>

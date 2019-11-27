@@ -1,0 +1,79 @@
+{% extends 'VidalDrugBundle::vidal_layout.html.twig' %}
+
+
+{% set moleculeName = molecule.RusName is empty ? molecule.LatName|upper|raw : molecule.RusName|upper|raw %}
+
+
+{% block title %}
+	<h1>
+		<a href="{{ path('molecule', {'MoleculeID':molecule.MoleculeID}) }}">{{ molecule.LatName|upper|raw }}</a>
+		{% if molecule.RusName is not empty %}
+			<span>({{ molecule.RusName|upper|raw }})</span>
+		{% endif %}
+	</h1>
+{% endblock %}
+
+
+{% block nav %}
+	<div class="breadcrumbs">
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('index') }}" itemprop="url">
+				<span itemprop="title">Видаль</span>
+			</a>
+		</div>
+		<i></i>
+
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('molecules') }}" itemprop="url">
+				<span itemprop="title">Активные вещества</span>
+			</a>
+		</div>
+		<i></i>
+		<span>{{ molecule.LatName|upper|raw }}</span>
+	</div>
+{% endblock %}
+
+
+{% block vidal %}
+	<div class="block">
+		<span class="block-head">Международное наименование INN: </span>
+		<a href="{{ path('gnp') }}">{{ molecule.GNParent }}</a>
+	</div>
+
+	{% include 'VidalMainBundle:Article:documents.html.twig' with {'object':molecule, 'label':'автивному веществу', 'item':molecule.RusName is empty ? molecule.LatName : molecule.RusName} %}
+
+	{% if products1 is defined and products2 is defined %}
+		{# одномкопонентные #}
+		{% if products1 is not empty %}
+			<div class="block">
+				<div class="block-anons">
+					<div class="block-head">Однокомпонентные препараты</div>
+					<div class="block-tip">торговые наименования препаратов, содержащих только активное вещество
+						<span>{{ moleculeName }}</span>
+					</div>
+				</div>
+				{% include 'VidalDrugBundle:Vidal:render_products.html.twig' with {'products':products1} %}
+			</div>
+		{% endif %}
+
+		{# многомкопонентные #}
+		{% if products2 is not empty %}
+			<div class="block">
+				<div class="block-anons">
+					<div class="block-head">Многокомпонентые препараты</div>
+					<div class="block-tip">торговые наименования многокомпонентых препаратов, в состав которых входит
+						активное вещество <span>{{ moleculeName }}</span>
+					</div>
+				</div>
+				{% include 'VidalDrugBundle:Vidal:render_products.html.twig' with {'products':products2} %}
+			</div>
+		{% endif %}
+	{% else %}
+		<div class="block">
+			<div class="no-results">
+				Не найдено препаратов, содержащих активное вещество <span>{{ moleculeName }}</span>
+			</div>
+		</div>
+	{% endif %}
+
+{% endblock %}

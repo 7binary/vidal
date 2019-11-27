@@ -1,0 +1,62 @@
+<div class="navigation">
+	<i></i>
+
+	<div class="navigation-items">
+		{% if document.PhInfluence is not empty %}
+			<div><a href="#influence">Описание</a></div>
+		{% endif %}
+
+		{% if document.Indication is not empty %}
+			<div><a href="#indication">Область применения</a></div>
+		{% endif %}
+
+		{# Рекомендации по применению #}
+		{% if document.Dosage is not empty %}
+			<div><a href="#dosage">Рекомендации по применению</a></div>
+		{% endif %}
+
+		{# Побочное действие #}
+		{% if document.SideEffects is not empty %}
+			<div><a href="#side_effects">Побочные эффекты</a></div>
+		{% endif %}
+
+		{# Противопоказания #}
+		{% if document.ContraIndication is not empty %}
+			<div><a href="#contra">Противопоказания</a></div>
+		{% endif %}
+
+		{# Применение препарата при беременности и кормлении грудью #}
+		{% if document.Lactation is not empty %}
+			<div><a href="#preg_lact">Применение при беременности и в период лактации</a></div>
+		{% endif %}
+
+		{# Особые указания #}
+		{% if document.SpecialInstruction is not empty %}
+			<div><a href="#special">Особые указания</a></div>
+		{% endif %}
+
+        {# Условия хранения #}
+        {% if document.StorageConditionSource is not empty %}
+            <div><a href="#storage_conditions">Условия хранения</a></div>
+        {% endif %}
+        {# Cроки хранения #}
+        {% if document.StorageTime is not empty %}
+            <div><a href="#storage_time">Срок годности</a></div>
+        {% endif %}
+
+		{# Условия отпуска #}
+		{% if document.PharmDelivery is not empty %}
+			<div><a href="#pharm">Условия реализации</a></div>
+		{% endif %}
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('.conditions a, .navigation a').click(function() {
+			var selector = $(this).attr('href');
+			$(selector).addClass('block-highlight');
+			setTimeout(function() { $(selector).removeClass('block-highlight'); }, 2000);
+		});
+	});
+</script>

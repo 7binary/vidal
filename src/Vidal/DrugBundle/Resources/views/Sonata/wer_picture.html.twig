@@ -1,0 +1,7 @@
+<td>
+	{% if object.picture is not empty %}
+		<a href="{{ object.picture }}" target="_blank">
+			<img src="{{ object.picture }}" style="max-height:60px; max-width: 150px;"/>
+		</a>
+	{% endif %}
+</td>

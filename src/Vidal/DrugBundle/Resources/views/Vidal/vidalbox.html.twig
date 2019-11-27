@@ -1,0 +1,369 @@
+{% if ads_vidalbox is defined and ads_vidalbox is not empty %}
+
+	{% set is_mobile = is_mobile() %}
+	{% set adsname = product.RusName2 ~ '_' ~ product.ProductID %}
+	{% set is_user = app.user ? true : false %}
+
+	{% for ads in ads_vidalbox if ads.enabled %}
+		{% set hasArticleSlider = false %}
+		{% set hasVideoSlider = false %}
+
+		{% for slider in ads.sliders %}
+			{% if (slider.video and slider.video.path is defined) or (slider.raw is not empty) %}
+				{% if not slider.videoForUsersOnly or is_user %}
+					{% set hasVideoSlider = true %}
+				{% endif %}
+			{% elseif (slider.art or slider.article) %}
+				{% set hasArticleSlider = true %}
+			{% endif %}
+		{% endfor %}
+
+		<div class="avs-box" vb-product="{{ product.RusName2 }}" vb-product-id="{{ product.ProductID }}"
+			 vb-ads-id="{{ ads.id }}">
+			{# админам карандашик редактирования #}
+			{% if isAdmin %}
+				<a class="admin-edit fade" target="_blank"
+				   href="{{ path('admin_vidal_drug_ads_edit', {'id':ads.id}) }}">
+					<img src="{{ asset('bundles/vidalmain/images/edit.png') }}"/>
+				</a>
+			{% endif %}
+
+			{# баннер #}
+			{% if ads.href is not empty and (ads.photo is not empty or ads.mobileBanner is not empty) %}
+				{% if not ads.photoForUsersOnly or app.user %}
+					<div class="avs">
+						<a href="{{ ads.href }}" target="_blank" rel="nofollow" class="vb-banner">
+							{% if not is_mobile or ads.mobileBanner is empty %}
+								<img src="{{ ads.photo.path }}" style="{{ ads.photoStyles }}"/>
+							{% else %}
+								<img src="{{ ads.mobileBanner.path }}"
+									 style="width:{{ ads.mobileWidth }}px; height:{{ ads.mobileHeight }}px; {{ ads.photoStyles }}"/>
+							{% endif %}
+						</a>
+					</div>
+				{% endif %}
+			{% endif %}
+
+            {# html5 баннер #}
+            {% if (ads.htmlBanner is not empty or ads.mobileHtmlBanner is not empty) %}
+                {% if not ads.photoForUsersOnly or app.user %}
+                    {% set htmlBannerStyle = "" %}
+                    {% if not is_mobile or ads.mobileHtmlBanner is empty %}
+                        {% if ads.htmlBannerWidth %}
+                            {% set htmlBannerStyle = "width:" ~ ads.htmlBannerWidth ~ 'px;' %}
+                        {% endif %}
+                        {% if ads.htmlBannerHeight %}
+                            {% set htmlBannerStyle = htmlBannerStyle ~ "height:" ~ ads.htmlBannerHeight ~ "px;" %}
+                        {% endif %}
+                    {% else %}
+                        {% if ads.htmlBannerMobileWidth %}
+                            {% set htmlBannerStyle = "width:" ~ ads.htmlBannerMobileWidth ~ "px;" %}
+                        {% endif %}
+                        {% if ads.htmlBannerMobileHeight %}
+                            {% set htmlBannerStyle = htmlBannerStyle ~ "height:" ~ ads.htmlBannerMobileHeight ~ "px;" %}
+                        {% endif %}
+                    {% endif %}
+                    <div class="avs" style="{{htmlBannerStyle}}">
+                        <a href="{{ ads.href }}" target="_blank" rel="nofollow" class="vb-banner">
+                            {% if not is_mobile or ads.mobileHtmlBanner is empty %}
+                                {{ ads.htmlBanner|raw }}
+                            {% else %}
+                                {{ ads.mobileHtmlBanner|raw }}
+                            {% endif %}
+                        </a>
+                    </div>
+                {% endif %}
+            {% endif %}
+
+			{# слайдеры #}
+			{% if hasArticleSlider %}
+				{% set slideNumbers = [] %}
+				{% for slider in ads.sliders if slider.enabled and (slider.art is not empty or slider.article is not empty) %}
+					{% if slider.video and slider.video.path is defined and slider.videoForUsersOnly and not app.user %}
+					{% else %}
+						{% set slideNumbers = slideNumbers|merge([slider.slideNumber]) %}
+					{% endif %}
+				{% endfor %}
+				{% set slideNumbers = slideNumbers|unique %}
+
+				<ul class="bxslider">
+					{% for slideNumber in slideNumbers %}
+						<li>
+							<div>
+								<table>
+									<tr>
+										<td>
+											{# слайдеры #}
+											{% for slider in ads.sliders if slider.slideNumber == slideNumber and slider.enabled %}
+												{% if slider.article is not empty %}
+													<p>
+														<a target="_blank" rel="nofollow" class="vb-article"
+														   href="{{ path('article', {'rubrique':slider.article.rubrique.rubrique, 'link':slider.article.link}) }}">
+															{{ slider.article.title|raw }}</a> – <i>Медицинская
+															энциклопедия</i>
+													</p>
+												{% elseif slider.art is not empty %}
+													<p>
+														<a target="_blank" rel="nofollow" class="vb-art"
+														   href="{{ path('art', {'url':slider.art.rubrique.url ~ '/' ~ (slider.art.type ? slider.art.type.url ~ '/') ~ (slider.art.category ? slider.art.category.url ~ '/') ~ slider.art.link }) }}">
+															{{ slider.art.title|raw }}</a> – <i>Статья для
+															специалистов</i>
+													</p>
+												{% endif %}
+											{% endfor %}
+										</td>
+									</tr>
+								</table>
+							</div>
+						</li>
+					{% endfor %}
+				</ul>
+			{% endif %}
+
+			{% if hasVideoSlider %}
+				{% set slideNumbers = [] %}
+				{% for slider in ads.sliders if slider.enabled and (slider.video is not empty or slider.raw is not empty) %}
+					{% if slider.video and slider.video.path is defined and slider.videoForUsersOnly and not app.user %}
+					{% else %}
+						{% set slideNumbers = slideNumbers|merge([slider.slideNumber]) %}
+					{% endif %}
+				{% endfor %}
+				{% set slideNumbers = slideNumbers|unique %}
+
+				<ul class="bxslider">
+					{% for slideNumber in slideNumbers %}
+						<li>
+							<div>
+								<table>
+									<tr>
+										<td>
+											{# слайдеры #}
+											{% for slider in ads.sliders if slider.slideNumber == slideNumber and slider.enabled %}
+												{% if slider.video and slider.video.path is defined %}
+													<div class="avs">
+														{% if is_mobile %}
+															{% set maxWidth = 200 %}
+														{% else %}
+															{% set maxWidth = 400 %}
+														{% endif %}
+														{% set width = slider.videoWidth > maxWidth ? maxWidth : slider.videoWidth %}
+														{% set height = slider.videoWidth > maxWidth
+														? (slider.videoHeight * maxWidth / slider.videoWidth) | number_format(0)
+														: slider.videoHeight %}
+
+														<video width="{{ width }}" height="{{ height }}" controls
+															   class="vb-mp4">
+															<source src="{{ slider.video.path }}" type="video/mp4">
+														</video>
+													</div>
+												{% elseif slider.raw is not empty %}
+													<nofollow>
+														<div class="avs youtube-mini">
+															{{ slider.raw|raw }}
+														</div>
+													</nofollow>
+												{% endif %}
+											{% endfor %}
+										</td>
+									</tr>
+								</table>
+							</div>
+						</li>
+					{% endfor %}
+				</ul>
+			{% endif %}
+
+			{# видео #}
+			{% if ads.video and ads.video.path is defined %}
+				{% if ads.videoForUsersOnly and not app.user %}
+				{% else %}
+					<div class="avs">
+						{% if is_mobile %}
+							{% set maxWidth = 300 %}
+						{% else %}
+							{% set maxWidth = 520 %}
+						{% endif %}
+						{% set width = ads.videoWidth > maxWidth ? maxWidth : ads.videoWidth %}
+						{% set height = ads.videoWidth > maxWidth
+						? (ads.videoHeight * maxWidth / ads.videoWidth) | number_format(0)
+						: ads.videoHeight %}
+
+						<video width="{{ width }}" height="{{ height }}" controls class="vb-mp4">
+							<source src="{{ ads.video.path }}" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</div>
+				{% endif %}
+			{% endif %}
+
+			{# ю-туб #}
+			{% if ads.raw is not empty %}
+				<nofollow>
+					<div class="avs youtube-max">
+						{{ ads.raw|raw }}
+					</div>
+				</nofollow>
+
+				<script>
+					$(document).ready(function() {
+						$('.youtube-max iframe').each(function() {
+							var $this = $(this);
+							var widthParam = parseInt($this.attr('width'));
+							var heightParam = parseInt($this.attr('height'));
+							{% if is_mobile %}
+							var maxWidth = 300;
+							{% else %}
+							var maxWidth = 520;
+							{% endif %}
+							var width = widthParam > maxWidth ? maxWidth : widthParam;
+							var height = widthParam > maxWidth
+								? parseInt(heightParam * maxWidth / widthParam)
+								: heightParam;
+
+							$this.attr('width', width);
+							$this.attr('height', height);
+						});
+					});
+				</script>
+			{% endif %}
+
+			{# swiffy #}
+			{% if ads.swiffy is not empty %}
+				<script type="text/javascript" src="https://www.gstatic.com/swiffy/v8.0/runtime.js"></script>
+				<div class="avs">
+					<script type="text/javascript">
+						try {
+							{{ ads.swiffy|raw }}
+						} catch (err) {
+						}
+					</script>
+				</div>
+			{% endif %}
+
+		</div>
+	{% endfor %}
+
+	<script type="text/javascript" src="{{ asset('bundles/vidalmain/javascripts/jquery.iframetracker.js') }}"></script>
+	<script>
+		$(document).ready(function() {
+			$('.bxslider').bxSlider({
+				adaptiveHeight: true
+			});
+			$('.bxslider').css('visibility', 'visible');
+
+			$('.youtube-mini iframe').each(function() {
+				var $this = $(this);
+				var widthParam = parseInt($this.attr('width'));
+				var heightParam = parseInt($this.attr('height'));
+
+				{% if is_mobile %}
+				var maxWidth = 200;
+				{% else %}
+				var maxWidth = 400;
+				{% endif %}
+
+				var width = widthParam > maxWidth ? maxWidth : widthParam;
+				var height = widthParam > maxWidth
+					? parseInt(heightParam * maxWidth / widthParam)
+					: heightParam;
+
+				$this.attr('width', width);
+				$this.attr('height', height);
+			});
+
+			$('.vb-banner').click(function() {
+				var name = 'ВБ. Баннер для {{ adsname }}';
+				ga('send', 'event', name, 'click', $(this).attr('href'));
+			});
+
+			$('.vb-article').click(function() {
+				var name = 'ВБ. Cтатья энциклопедии для {{ adsname }}';
+				ga('send', 'event', name, 'click', $(this).attr('href'));
+			});
+
+			$('.vb-art').click(function() {
+				var name = 'ВБ. Статья специалистам для {{ adsname }}';
+				ga('send', 'event', name, 'click', $(this).attr('href'));
+			});
+
+			$(".vb-mp4").on("play", function(e) {
+				var name = 'ВБ. Видео mp4 для {{ adsname }}';
+				ga('send', 'event', name, 'click', null);
+			});
+
+			$('iframe').iframeTracker({
+				blurCallback: function() {
+					var name = 'ВБ. YouTube для {{ adsname }}';
+					ga('send', 'event', name, 'click', null);
+				}
+			});
+		});
+	</script>
+
+	<link rel="stylesheet" type="text/css"
+		  href="{{ asset('bundles/vidalmain/bxslider/jquery.bxslider.min.css') }}"/>
+	<script type="text/javascript"
+			src="{{ asset('bundles/vidalmain/bxslider/jquery.bxslider.min.js') }}"></script>
+
+	<style>
+		{% if is_mobile %}
+		.avs img {
+			border:    1px solid #ccc;
+			max-width: 300px;
+		}
+		.avs {
+			margin: 15px 0 15px;
+		}
+		.bxslider li > div {
+			padding: 0 30px;
+		}
+		.bx-wrapper {
+			background: #f9f9f0;
+			max-width:  290px !important;
+			margin:     0 0 40px !important;
+		}
+		.bx-wrapper .bx-prev {
+			left: 0 !important;
+		}
+		.bx-wrapper .bx-next {
+			right: 0 !important;
+		}
+		{% else %}
+		.avs img {
+			border:    1px solid #ccc;
+			max-width: 520px;
+		}
+		.avs {
+			margin: 35px 0 35px;
+		}
+		.bxslider li > div {
+			padding: 0 56px;
+		}
+		.bx-wrapper {
+			background: #f9f9f0;
+			max-width:  510px !important;
+			margin:     0 0 50px !important;
+		}
+		{% endif %}
+
+		.avs-box {
+			position: relative;
+		}
+		.bxslider {
+			visibility: hidden;
+			font-size:  12px;
+		}
+		.bxslider li > div table {
+			width: 100%;
+		}
+		.bxslider li > div table td {
+			vertical-align: middle;
+			text-align:     center;
+			padding:        12px 0;
+		}
+		.bxslider .avs {
+			margin: 0;
+		}
+	</style>
+
+{% endif %}

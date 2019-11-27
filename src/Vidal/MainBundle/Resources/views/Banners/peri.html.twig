@@ -1,0 +1,12 @@
+<a href="http://praesens.ru/o-meropriyatii-perinatalnaya-meditsina/" target="_blank" class="peri peri-desktop"
+   style="cursor:pointer; text-align:center; display:block; border:1px solid gray; width: 160px; margin-bottom:25px;">
+	<img src="{{ asset('bundles/vidalmain/images/banners/peri.png') }}" style="max-width:160px;"/>
+</a>
+
+<script>
+	$(document).ready(function() {
+		$('.peri').click(function() {
+			ga('send', 'event', 'Banner Perinatalnaya-meditsina', 'click', $(this).attr('href'));
+		});
+	});
+</script>

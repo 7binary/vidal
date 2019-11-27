@@ -1,0 +1,9 @@
+<ul>
+	{% for service in services %}
+		<li>
+			<a href="{{ path('services_item', {'url':service.url}) }}" target="_blank">
+				{{ service.title }}
+			</a>
+		</li>
+	{% endfor %}
+</ul>

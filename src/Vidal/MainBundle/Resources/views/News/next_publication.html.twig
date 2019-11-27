@@ -1,0 +1,63 @@
+{% set isAdmin = app.user is not null and is_granted('ROLE_ADMIN') %}
+{% set withPhoto = publication.photo and is_file(publication.photo.path) %}
+
+<div class="publication" itemscope itemtype="http://schema.org/Article">
+	<h1 itemprop="name">{{ publication|raw }}</h1>
+	{# админу карандашик на правку #}
+	{% if isAdmin %}
+		<a class="admin-edit fade" target="_blank"
+		   href="{{ path('admin_vidal_drug_publication_edit', {'id':publication.id}) }}">
+			<img src="{{ asset('bundles/vidalmain/images/edit.png') }}"/>
+		</a>
+	{% endif %}
+
+	{% if withPhoto %}
+		<div class="publication-header with-photo">
+			<div class="photo">
+				<img src="{{ publication.photo.path }}" alt="{{ publication.title }}"/>
+			</div>
+		</div>
+	{% endif %}
+
+	{% if publication.video and publication.video.path is defined %}
+		{% set width = publication.videoWidth > 480 ? 480 : publication.videoWidth %}
+		{% set height = publication.videoWidth > 480
+		? (publication.videoHeight * 480 / publication.videoWidth) | number_format(0)
+		: publication.videoHeight %}
+
+		<p id="player1"></p>
+
+		<script src="{{ asset('bundles/vidalmain/javascripts/swfobject.js') }}" type="text/javascript"></script>
+		<script type="text/javascript">
+			var so = new SWFObject('/players/uppod.swf', 'mpl', {{ width }}, {{ height }}, '8');
+			so.addParam('allowscriptaccess', 'always');
+			so.addParam('allowfullscreen', 'true');
+			so.addVariable('height', '{{ height }}');
+			so.addVariable('width', '{{ width }}');
+			so.addVariable('file', '{{ publication.video.path }}');
+			so.addVariable('bufferlength', '10');
+			so.addVariable('autostart', 'false');
+			so.addVariable('enablejs', 'true');
+			so.write('player1');
+		</script>
+	{% endif %}
+
+	{# видео вручную #}
+	{% for video in publication.videos if video.enabled %}
+		{% include 'VidalMainBundle:Article:render_video.html.twig' with {'path':video.path, 'width':video.width, 'height':video.height, 'id':'video' ~ video.id} %}
+	{% endfor %}
+
+	<div class="publication-body text" itemprop="articleBody">
+		{{ text|relative|raw }}
+
+		{% if publication.code is not empty %}
+			{{ publication.code|raw }}
+		{% endif %}
+	</div>
+
+	<div class="publication-footer">
+		<span class="publication-date" itemprop="datePublished">{{ publication.date|date('d.m.Y') }}</span>
+	</div>
+
+	{{ render(controller('VidalMainBundle:Tag:tags', {'object':publication})) }}
+</div>

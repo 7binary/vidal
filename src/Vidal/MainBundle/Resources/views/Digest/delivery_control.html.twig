@@ -1,0 +1,117 @@
+{% extends 'VidalMainBundle::layout_blank.html.twig' %}
+
+
+{% block content %}
+	{% include 'VidalMainBundle:Digest:menu.html.twig' %}
+
+	{% if digest.id == 1 %}
+		<div class="controls">
+			{% if digest.progress %}
+				<a class="control" href="{{ path('delivery_stop') }}" title="Остановить рассылку">Остановить</a>
+			{% else %}
+				<a class="control" href="{{ path('delivery_start') }}" title="Запустить рассылку">Запустить</a>
+			{% endif %}
+		</div>
+	{% endif %}
+
+	<div class="outer">
+		{% for msg in app.session.flashbag.get('msg') %}
+			<div class="msg">{{ msg }}</div>
+		{% endfor %}
+	</div>
+
+	{% if digest.id == 1 %}
+		<div class="status">
+			Статус рассылки:
+			{% if digest.progress %}
+				<span class="yes">ЗАПУЩЕНА</span>
+			{% else %}
+				<span class="no">НЕ ИДЕТ</span>
+			{% endif %}
+		</div>
+	{% endif %}
+
+	{# форма #}
+	<form id="delivery_form" method="POST" action="{{ path('delivery_control', {'id':digest.id}) }}">
+		{{ form_widget(form) }}
+	</form>
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<style type="text/css">
+		.status {
+			color:         #666d75;
+			margin-bottom: 10px;
+		}
+		.yes, .no {
+			padding:     2px 10px;
+			margin-left: 85px;
+		}
+		.yes {
+			background: lightgreen;
+		}
+		.no {
+			background: beige;
+		}
+		.msg {
+			background:    rgb(193, 232, 214);
+			padding:       6px 10px;
+			margin-bottom: 25px;
+		}
+		#delivery_form select, #delivery_form input[type="text"], #delivery_form input[type="number"] {
+			width: 700px;
+		}
+		#delivery_form td.label {
+			width: 200px;
+		}
+		#delivery_form td.widget {
+			width: auto;
+		}
+		.outer a {
+			color: #00F;
+		}
+		.form_table input[type=checkbox] {
+			margin-left: 0;
+			width:       18px;
+			height:      18px;
+		}
+		.controls {
+			text-align:    center;
+			margin-bottom: 28px;
+		}
+		.control {
+			display:          inline-block;
+			text-decoration:  none;
+			font-weight:      bold;
+			color:            #2e3f51;
+			margin-right:     6px;
+			height:           24px;
+			line-height:      24px;
+			border:           1px solid #2e3f51;
+			padding:          0 7px;
+			border-radius:    4px;
+			background-color: white;
+			vertical-align:   top;
+		}
+		#wrapper .chosen-container, #wrapper .chosen-choices {
+			height: 80px !important;
+		}
+	</style>
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#delivery_form select').chosen({
+				search_contains:           true,
+				no_results_text:           "не найдено",
+				placeholder_text_single:   "Выберите",
+				placeholder_text_multiple: "Выберите"
+			});
+		});
+	</script>
+{% endblock %}

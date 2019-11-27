@@ -1,0 +1,16 @@
+.products-table {
+	font-size: 13px;
+}
+.no-results {
+	margin: 30px 0 24px;
+}
+.any {
+	display: none;
+}
+.any-btn.btn-red {
+	margin-top: 5px;
+	padding:    4px 7px;
+}
+.any-title.no-results {
+	margin-bottom: 12px;
+}

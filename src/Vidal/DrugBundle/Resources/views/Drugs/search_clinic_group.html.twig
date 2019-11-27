@@ -1,0 +1,19 @@
+<div class="anons anons-head">
+	<span>Клинико-фармакологическая группа</span>
+</div>
+
+<div class="block">
+	<span class="block-head">Название:</span>
+	<span>{{ clphGroup.Name|raw }}</span>
+</div>
+
+{% if products is defined and products is not empty %}
+	<div class="block">
+		<div class="block-head">Препараты группы</div>
+		{% include 'VidalDrugBundle:Vidal:render_products.html.twig' %}
+	</div>
+{% else %}
+	<div class="no-results">
+		Не найдено препаратов
+	</div>
+{% endif %}

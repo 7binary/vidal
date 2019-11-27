@@ -1,0 +1,17 @@
+<td class="swap" style="width:140px;">
+	<a class="btn btn-swap {{ object.confirmation ? 'btn-positive' : 'btn-negative' }}"
+	   href="{{ path('swap_main', {'field':'confirmation', 'entity':getClass(object), 'id':object.id}) }}">
+	</a>
+
+	<div>
+		<a class="btn btn-confirm" href="{{ path('admin_user_confirm', {'userId':object.id}) }}"
+		   title="Отправить письмо подтверждающее">Подтвердить</a>
+		<span class="counter confirm">{{ object.countConfirmationSent }}</span>
+	</div>
+
+	<div>
+		<a class="btn btn-restrict" href="{{ path('admin_user_restrict', {'userId':object.id}) }}"
+		   title="Отправить письмо отклоняющее">Отклонить</a>
+		<span class="counter restrict">{{ object.countRestrictedSent }}</span>
+	</div>
+</td>

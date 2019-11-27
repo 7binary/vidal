@@ -1,0 +1,45 @@
+{% extends 'VidalDrugBundle::vidal_layout.html.twig' %}
+
+
+{% block title %}
+	<h1>{{ clphGroup.Name|raw }}</h1>
+{% endblock %}
+
+
+{% block nav %}
+	<div class="breadcrumbs">
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('index') }}" itemprop="url">
+				<span itemprop="title">Видаль</span>
+			</a>
+		</div>
+		<i></i>
+
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('clinic_groups') }}" itemprop="url">
+				<span itemprop="title">Клинико-фармакологические группы</span>
+			</a>
+		</div>
+		<i></i>
+
+		<span>{{ clphGroup.Name|raw }}</span>
+	</div>
+{% endblock %}
+
+
+{% block vidal %}
+	<div class="anons anons-head">
+		<span>Клинико-фармакологическая группа</span>
+	</div>
+
+	{% if products is defined and products is not empty %}
+		<div class="block">
+			<div class="block-head">Препараты группы</div>
+			{% include 'VidalDrugBundle:Vidal:render_products.html.twig' %}
+		</div>
+	{% else %}
+		<div class="no-results">
+			Не найдено препаратов
+		</div>
+	{% endif %}
+{% endblock %}

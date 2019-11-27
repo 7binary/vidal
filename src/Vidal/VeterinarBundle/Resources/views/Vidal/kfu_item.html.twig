@@ -1,0 +1,43 @@
+{% extends 'VidalVeterinarBundle::vidal_layout.html.twig' %}
+
+
+{% set isDev = app.environment == 'dev' %}
+
+
+{% block title %}
+	<h1>{{ kfu.Name }}</h1>
+	{% if isDev %}{{ kfu.ClPhPointerID }}{% endif %}
+{% endblock %}
+
+
+{% block nav %}
+	<div class="breadcrumbs">
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('index') }}" itemprop="url">
+				<span itemprop="title">Видаль</span>
+			</a>
+		</div>
+		<i></i>
+
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('veterinar') }}" itemprop="url">
+				<span itemprop="title">Видаль-Ветеринар</span>
+			</a>
+		</div>
+		<i></i>
+
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('v_kfu') }}" itemprop="url">
+				<span itemprop="title">КФУ</span>
+			</a>
+		</div>
+		<i></i>
+
+		<span>{{ kfu.Name }}</span>
+	</div>
+{% endblock %}
+
+
+{% block vidal %}
+	{% include 'VidalVeterinarBundle:Vidal:render_products.html.twig' %}
+{% endblock %}

@@ -1,0 +1,271 @@
+{% extends 'VidalDrugBundle::vidal_layout.html.twig' %}
+
+
+{% block nav %}
+	<div class="breadcrumbs">
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('index') }}" itemprop="url">
+				<span itemprop="title">Видаль</span>
+			</a>
+		</div>
+		<i></i>
+
+		{% if codesByLetter is defined and codesByLetter is not empty %}
+			<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+				<a href="{{ path('nosology') }}" itemprop="url">
+					<span itemprop="title">Нозология</span>
+				</a>
+			</div>
+			<i></i>
+
+			<span>{{ codeByLetter.text|raw|nosology }}</span>
+		{% else %}
+			<span>Нозология</span>
+		{% endif %}
+	</div>
+{% endblock %}
+
+
+{% block vidal %}
+	<div class="publication" itemscope itemtype="http://schema.org/Article">
+
+		{% include 'VidalDrugBundle::scrolling.html.twig' %}
+		<div id="scrolling">
+			{% if menu_drugs is defined %}
+				{% include 'VidalDrugBundle:Drugs:menu_drugs.html.twig' %}
+			{% endif %}
+
+			{% if showTree is defined %}
+				<div class="description">
+					<h1 class="h1" itemprop="name">Нозологический указатель</h1>
+
+					<div>
+						Позволяет искать препараты по их показаниям.
+						Cоставлен на основе Международной классификации болезней и проблем, связанных со здоровьем -
+						10 пересмотр (МКБ-10), ВОЗ 1995.
+						<br/><i>Например</i>:
+						<a href="#I00-I99" data="I20-I25">Ишемическая болезнь сердца</a>,
+						<a href="#G00-G99" data="G00-G99">БОЛЕЗНИ НЕРВНОЙ СИСТЕМЫ</a>
+					</div>
+				</div>
+			{% endif %}
+
+			{% include 'VidalDrugBundle:Drugs:nosology_form.html.twig' %}
+		</div>
+
+		<div class="publication-body text" itemprop="articleBody">
+			{# коды по букве #}
+			{% if codesByLetter is defined and codesByLetter is not empty %}
+				<div class="anons">
+					<h1 itemprop="name" style="color:#476173; margin:0; font-size:inherit;">
+						{{ codeByLetter.text|raw|nosology }}
+					</h1>
+				</div>
+
+				<table class="products-table nozologies">
+					<tr class="products-table-header">
+						<td style="width:124px">Код МКБ-10</td>
+						<td>Показание</td>
+					</tr>
+					{% for nozology in codesByLetter %}
+						<tr{{ nozology.Level == 1 ? ' class="bold"' }}>
+							<td style="padding-left:{{ (nozology.Level-1) * 13 }}px">
+								{{ nozology.code|raw }}
+							</td>
+							<td>
+								{% if nozology.countProducts > 0 %}
+									<a href="{{ path('nosology_item', {'Code':nozology.code|lower}) }}" target="_blank">
+										{{ nozology.text|raw }}
+									</a>
+								{% else %}
+									{{ nozology.text|raw }}
+								{% endif %}
+							</td>
+						</tr>
+					{% endfor %}
+				</table>
+			{% endif %}
+
+			{# коды по поисковому запросу #}
+			{% if codes is defined %}
+				{% if codes is null %}
+					<div class="no-results">
+						Запрос должен содержать хотя бы 2 символа
+					</div>
+				{% elseif codes is not empty %}
+					<div class="block">
+						<div class="block-anons">
+							<div class="block-head">
+								Найдено нозологических указателей: <span>{{ codes|length }}</span>
+							</div>
+						</div>
+					</div>
+					<table class="products-table nozologies">
+						<tr class="products-table-header">
+							<td style="width:124px">Код МКБ-10</td>
+							<td>Показание</td>
+						</tr>
+						{% for nozology in codes %}
+							<tr>
+								<td>{{ nozology.Code }}</td>
+								<td><a href="{{ path('nosology_item', {'Code':nozology.Code|lower}) }}"
+									   class="no-underline">{{ nozology.Name|raw }}</a></td>
+							</tr>
+						{% endfor %}
+					</table>
+				{% else %}
+					<div class="no-results">
+						Не найдено результатов по нозологическому указателю <span>{{ q }}</span>
+					</div>
+				{% endif %}
+			{% endif %}
+
+			{% if showTree is defined %}
+				{% include 'VidalDrugBundle:Drugs:nosology_generated.html.twig' %}
+			{% endif %}
+
+			{% if codesByLetter is defined and codesByLetter is not empty %}
+				<div class="backto">
+					Назад к <a href="{{ path('nosology') }}">Нозологическому указателю</a>
+				</div>
+			{% endif %}
+		</div>
+	</div>
+
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	{% if showTree is defined %}
+		<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/treeview/jquery.treeview.css') }}"/>
+	{% endif %}
+	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/letters.css') }}"/>
+	<style type="text/css">
+		.backto {
+			margin:      18px 0 0;
+			padding-top: 12px;
+			border-top:  1px dashed #ccc;
+			font-size:   15px;
+			font-weight: bold;
+		}
+		#form > * {
+			vertical-align: top;
+		}
+		#form_controls {
+			clear: both;
+		}
+		#form_submit {
+			float: right;
+		}
+		#form_input {
+			width: 404px;
+		}
+		.codes td {
+			padding: 2px 10px 2px 0;
+		}
+		.codes a {
+			display:     inline-block;
+			margin-left: 10px;
+		}
+		.codes .bold td {
+			padding-top:    5px;
+			padding-bottom: 5px;
+		}
+		.letters input, .letters a {
+			width: 63px;
+		}
+		.nozologies a {
+			text-decoration: none;
+		}
+		.nozologies a:hover {
+			text-decoration: underline;
+		}
+		.nozologies * {
+			font-size: 13px !important;
+		}
+		.h1 {
+			display:       block;
+			background:    #f5f5f5;
+			padding:       4px 7px 7px;
+			color:         #476173;
+			border-bottom: 1px solid #eee;
+			font-size:     inherit;
+			font-weight:   inherit;
+		}
+	</style>
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+	{% if showTree is defined %}
+		<script src="{{ asset('bundles/vidalmain/treeview/jquery.treeview.js') }}" type="text/javascript"></script>
+		<script src="{{ asset('bundles/vidalmain/treeview/jquery.treeview.edit.js') }}" type="text/javascript"></script>
+		<script src="{{ asset('bundles/vidalmain/treeview/jquery.treeview.async.nosology.js') }}"
+				type="text/javascript"></script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				var $tree = $('.treeview');
+
+				$tree.treeview({
+					animated:  "fast",
+					collapsed: true,
+					url:       '/drugs/nosology-ajax',
+					ajax:      {
+						type: "post"
+					}
+				});
+
+				$('#tree_collapse').on('click', function() {
+					$tree.find('ul').hide();
+					$tree.find('div.collapsable-hitarea').removeClass('collapsable-hitarea').addClass('expandable-hitarea');
+					$tree.find('div.lastCollapsable-hitarea').removeClass('lastCollapsable-hitarea').addClass('lastExpandable-hitarea');
+					$tree.find('li.collapsable').removeClass('collapsable').addClass('expandable');
+					$tree.find('li.lastCollapsable').removeClass('lastCollapsable').addClass('lastExpandable');
+					return false;
+				});
+
+				$('a[data="G00-G99"]').click(function() {
+					$('#tree_collapse').click();
+					$tree.find('span').removeClass('highlight');
+					$('#G00-G99 > div').click();
+					$('#G00-G99 > span').addClass('highlight');
+				});
+
+				$('a[data="I20-I25"]').click(function() {
+					$('#tree_collapse').click();
+					$tree.find('span').removeClass('highlight');
+					$('#I00-I99 > div').click();
+					$('#I00-I99 > span').addClass('highlight');
+					setTimeout(function() {
+						$('#I20-I25 > div').click();
+						$('#I20-I25 > span').addClass('highlight');
+					}, 2000);
+				});
+
+				{# MICRODATA #}
+				$('.publication img').each(function() {
+					var $this = $(this);
+					$this.attr('itemprop', 'image');
+				});
+
+				$('.publication a').each(function() {
+					$(this).attr({
+						itemprop: "url"
+					});
+				});
+
+				$('.publication-body a').each(function() {
+					var $a = $(this);
+					if (this.href.charAt(0) != '/'
+						&& this.href.indexOf('vidal.ru') === -1
+						&& this.href.indexOf('localhost:97') === -1
+					) {
+						$a.attr('rel', 'nofollow');
+					}
+				});
+			});
+		</script>
+	{% endif %}
+{% endblock %}

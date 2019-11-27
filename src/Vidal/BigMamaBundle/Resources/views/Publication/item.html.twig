@@ -1,0 +1,141 @@
+{% extends 'VidalBigMamaBundle::big_mama_layout.html.twig' %}
+
+{% block meta %}
+    {% set hasOg = true %}
+    {{ parent() }}
+    <meta property="og:image" content="https://www.vidal.ru/bundles/vidalmain/images/share/vidal.jpg">
+    <meta content="{{ ogTitle }}" property="og:title">
+    <meta content="{{ description }}" property="og:description">
+{% endblock %}
+
+{% block content %}
+    {% set is_mobile = is_mobile() %}
+    <div class="article-content">
+        <div style="display:none" id="curr_id">{{ publication.id }}</div>
+    
+        <div class="publication" itemscope itemtype="http://schema.org/Article" style="border-bottom: none;">
+            {% if not publication.photo or not publication.photo.path %}
+                <h1 itemprop="name" class="item-title">{{ publication|raw }}</h1>
+            {% endif %}
+            <div class="publication-body text" itemprop="articleBody">
+                {# админу карандашик на правку #}
+                {% if isAdmin %}
+                    <a class="admin-edit fade"  style="position:relative;" target="_blank"
+                       href="{{ path(publication_edit_route, {'id':publication.id}) }}">
+                        <img src="{{ asset('bundles/vidalmain/images/edit.png') }}"/>
+                    </a>
+                {% endif %}
+                {% if publication.photo and publication.photo.path %}
+                    <img src="{{ publication.photo.path }}" style="width:250px !important;margin-right:15px;"  align="left"/>
+                    <h1 itemprop="name" class="item-title">{{ publication|raw }}</h1>
+                {% endif %}
+
+                    {% if publication.audio is defined and publication.audio%}
+                        <audio controls>
+                            <source src="{{publication.audio.path}}" type="audio/mpeg">
+                            Ваш браузер не поддерживает воспроизведение mp3 файлов.
+                        </audio>
+                    {% endif %}
+
+                    {{ text|relative|raw }}
+
+                    {% if publication.video is defined and publication.video%}
+                        <div class="media">
+                            {% if is_mobile %}
+                                {% set width = 300 %}
+                                {% set height = 200 %}
+                            {% else %}
+                                {% set width = 800 %}
+                                {% set height = 500 %}
+                            {% endif %}
+
+                            <div class="center">
+                                <video width="{{ width }}" height="{{ height }}" controls class="vb-mp4">
+                                    {% if publication.video %}
+                                        <source src="{{publication.video.path}}" type="video/mp4">
+                                    {% endif %}
+                                </video>
+                            </div>
+                        </div>
+                    {% endif %}
+            </div>
+
+            <div class="publication-footer" style="margin-top:20px;">
+                <span class="publication-date" itemprop="datePublished">
+                    {{ publication.date|date('d.m.Y') }}
+                 </span>
+                 <span style="float:right">
+                {% include 'VidalMainBundle::share.html.twig' with {
+                    'subtitle':'Новости', 'class':'Publication', 'id':publication.id} %}
+                 </span>
+            </div>
+
+            <div class="other-link">
+                <a href="{{path(all_items_route)}}{% if isTestMode() %}?test=1{%endif %}">{{all_items_title}}</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/fancybox/source/jquery.fancybox.css') }}"/>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/vidalmain/fancybox/source/jquery.fancybox.js') }}"></script>
+    <script type="text/javascript"
+            src="{{ asset('bundles/vidalmain/placeholder/jquery.placeholder.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/vidalmain/javascripts/jquery.form.min.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.publication img').each(function () {
+                var $this = $(this);
+                $this.attr('itemprop', 'image');
+            });
+
+            $('.publication a').each(function() {
+                $(this).attr({
+                    itemprop: "url"
+                });
+            });
+
+            $('.publication-body a').each(function() {
+                var $a = $(this);
+                if (this.href.charAt(0) != '/'
+                    && this.href.indexOf('vidal.ru') === -1
+                    && this.href.indexOf('localhost:97') === -1
+                ) {
+                    $a.attr('rel', 'nofollow');
+                }
+            });
+
+            $('.publication-body a > img').each(function() {
+                var $a = $(this).closest('a');
+                var href = $a.attr('href');
+
+                if (href.charAt(0) != '/'
+                    && href.indexOf('vidal.ru') === -1
+                    && href.indexOf('localhost:97') === -1
+                ) {
+                    // внешняя ссылка
+                }
+                else {
+                    $a.addClass('fancybox');
+                }
+            });
+
+            $('.fancybox').css('cursor', 'zoom-in').fancybox({
+                fitToView:  false,
+                autoSize:   false,
+                closeClick: true,
+                helpers: {
+                    overlay: {
+                        locked: false
+                    }
+                }
+            });
+        });
+    </script>
+{% endblock %}

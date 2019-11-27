@@ -1,0 +1,55 @@
+{% extends base_template %}
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .span8{
+            float:      none !important;
+            margin:     0 auto !important;
+
+        }
+        .row-fluid .span8:nth-child(odd){
+            border: 1px solid #CCC;
+            border-radius: 4px;
+        }
+    </style>
+{% endblock %}
+{% block title %}{{ 'title_dashboard'|trans({}, 'SonataAdminBundle') }}
+    VIDAL.ru
+{% endblock %}
+{% block breadcrumb %}{% endblock %}
+{% block content %}
+    <div class="row-fluid">
+        {% set has_center = false %}
+        {% for block in blocks %}
+            {% if block.position == 'center' %}
+                {% set has_center = true %}
+            {% endif %}
+        {% endfor %}
+
+        <div class="{% if has_center %}span3{% else %}span6 span8{% endif %}">
+            {% for block in blocks %}
+                {% if block.position == 'left' %}
+                    {{ sonata_block_render({ 'type': block.type, 'settings': block.settings}) }}
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        {#{% if has_center %}#}
+            {#<div class="span4">#}
+                {#{% for block in blocks %}#}
+                    {#{% if block.position == 'center' %}#}
+                        {#{{ sonata_block_render({ 'type': block.type, 'settings': block.settings}) }}#}
+                    {#{% endif %}#}
+                {#{% endfor %}#}
+            {#</div>#}
+        {#{% endif %}#}
+
+        {#<div class="{% if has_center %}span4{% else %}span6{% endif %}">#}
+            {#{% for block in blocks %}#}
+                {#{% if block.position == 'right' %}#}
+                    {#{{ sonata_block_render({ 'type': block.type, 'settings': block.settings}) }}#}
+                {#{% endif %}#}
+            {#{% endfor %}#}
+        {#</div>#}
+    </div>
+{% endblock %}

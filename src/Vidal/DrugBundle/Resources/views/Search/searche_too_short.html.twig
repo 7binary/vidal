@@ -1,0 +1,24 @@
+{% extends 'VidalMainBundle::layout.html.twig' %}
+
+
+{% block main %}
+	{% include 'VidalDrugBundle:Search:searche_form.html.twig' %}
+	{% include 'VidalDrugBundle:Search:search_info.html.twig' %}
+
+	<div class="block">
+		<div class="no-results">
+			Для поиска надо ввести хотя бы 2 символа
+		</div>
+	</div>
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/searche.css') }}"/>
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+{% endblock %}

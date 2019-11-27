@@ -1,0 +1,340 @@
+{% extends 'VidalDrugBundle::vidal_layout.html.twig' %}
+
+
+{% block vidal %}
+	{% include 'VidalDrugBundle:Drugs:menu_drugs.html.twig' %}
+	{% include 'VidalDrugBundle:Search:searche_form.html.twig' %}
+	{#{% include 'VidalDrugBundle:Search:search_info.html.twig' %}#}
+	{% include 'VidalDrugBundle:Search:navigation.html.twig' %}
+
+	<div class="search-results">
+
+	{% if o and q is empty %}
+		{% if t == 'atc' %}
+			{{ render(controller('VidalDrugBundle:Drugs:atcItem', {'ATCCode':o, 'search':1})) }}
+		{% elseif t == 'nosology' %}
+			{{ render(controller('VidalDrugBundle:Drugs:nosologyItem', {'Code':o, 'search':1})) }}
+		{% elseif t == 'molecule' %}
+			{{ render(controller('VidalDrugBundle:Vidal:molecule', {'MoleculeID':o, 'search':1})) }}
+		{% elseif t == 'clphgroup' %}
+			{{ render(controller('VidalDrugBundle:Drugs:clinicGroup', {'id':o, 'search':1})) }}
+		{% elseif t == 'phthgroup' %}
+			{{ render(controller('VidalDrugBundle:Drugs:pharmItem', {'id':o, 'search':1})) }}
+		{% endif %}
+	{% else %}
+		{# Найдено препаратов #}
+		{% include 'VidalDrugBundle:Search:search_products.html.twig' %}
+
+		{# Найдено показаний МКБ-10 #}
+		{% if nozologies is defined %}
+			{% if nozologies is not empty %}
+				<div class="block" id="search_nozologies">
+					<div class="block-anons">
+						<div class="block-head">
+							Найден{{ nozologies|length > 1 ? 'о' }} {% if nozologies|length == 1 %}нозологий указатель{% else %}нозологических указалетей{% endif %}
+							: <span>{{ nozologies|length }}</span>
+						</div>
+					</div>
+				</div>
+				<table class="products-table">
+					<tr class="products-table-header">
+						<td style="width:78px">Код МКБ-10</td>
+						<td>Показание</td>
+					</tr>
+					{% for nozology in nozologies %}
+						<tr>
+							<td>{{ nozology.Code }}</td>
+							<td><a href="{{ path('nosology_item', {'Code':nozology.Code|lower}) }}"
+								   class="no-underline">{{ nozology.Name|raw }}</a></td>
+						</tr>
+					{% endfor %}
+				</table>
+			{% elseif t == 'nosology' %}
+				<div class="no-results">
+					Не найдено результатов по нозологическому указателю<span>{{ q }}</span>
+				</div>
+			{% endif %}
+		{% endif %}
+
+		{# Найдено АТХ #}
+		{% if atcCodes is defined and atcCodes is not empty %}
+			<div class="block" id="search_atc">
+				<div class="block-head anons"
+					 title="Анатомо-Терапевтически-Химическая (АТХ) система классификации (ATC)">
+					{% if atcCodes|length == 1 %}
+						Найден код АТХ: <span>{{ atcCodes|length }}</span>
+					{% else %}
+						Найдено кодов АТХ: <span>{{ atcCodes|length }}</span>
+					{% endif %}
+				</div>
+				<table class="products-table">
+					<tr class="products-table-header">
+						<td style="width:50%">АТХ код</td>
+						<td style="width:50%">Входит в&nbsp;группу</td>
+					</tr>
+					{% for code, atc in atcCodes %}
+						<tr>
+							<td>
+								{% if atc.countProducts > 0 %}
+								<a href="{{ path('atc_item', {'ATCCode':atc.ATCCode|lower}) }}"
+								   class="no-underline">{{ atc.ATCCode }}</a>
+								{% else %}
+									{{ atc.ATCCode }}
+								{% endif %}
+								- <span>{{ atc.RusName|raw }}</span>
+							</td>
+							<td>
+								{% if atc.parentATCCode is not empty %}
+									{% if atc.parentCountProducts > 0 %}
+									<a href="{{ path('atc', {'ATCCode':atc.parentATCCode|lower}) }}#{{ atc.parentATCCode }}"
+									   class="no-underline">{{ atc.parentATCCode }}</a>
+									{% else %}
+										{{ atc.parentATCCode }}
+									{% endif %}
+									- <span>{{ atc.parentRusName|raw }}</span>
+								{% endif %}
+							</td>
+						</tr>
+					{% endfor %}
+				</table>
+			</div>
+		{% elseif t == 'atc' %}
+			<div class="no-results">
+				Не найдено результатов по AТХ коду <span>{{ q }}</span>
+			</div>
+		{% endif %}
+
+		{# Найдено активных веществ #}
+		{% if molecules is defined %}
+			{% if molecules is not empty %}
+				<div class="block" id="search_molecules">
+					<div class="block-anons">
+						<div class="block-head">
+							Найдено {% if molecules|length == 1 %}активное вещество{% else %}активных веществ{% endif %}
+							:
+							<span>{{ molecules|length }}</span>
+						</div>
+					</div>
+				</div>
+				{% include 'VidalDrugBundle:Vidal:render_molecules.html.twig' %}
+			{% elseif t == 'molecule' %}
+				<div class="no-results">
+					Не найдено результатов по активному веществу <span>{{ q }}</span>
+				</div>
+			{% endif %}
+		{% endif %}
+
+		{# Найдено клинико-фармакологических групп #}
+		{% if clphgroups is defined %}
+			{% if clphgroups is not empty %}
+				<div class="block" id="search_clphgroups">
+					<div class="block-anons">
+						<div class="block-head">
+							{% if clphgroups|length == 1 %}
+								Найдена клинико-фармакологическая группа: <span>{{ clphgroups|length }}</span>
+							{% else %}
+								Найдено клинико-фармакологических групп: <span>{{ clphgroups|length }}</span>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+				<ul class="ul-style">
+					{% for group in clphgroups %}
+						<li><a href="{{ path('clphgroup', {'description':group.name}) }}"
+							   class="no-underline">{{ group.description|raw }}</a></li>
+					{% endfor %}
+				</ul>
+			{% elseif t == 'clphgroups' %}
+				<div class="no-results">
+					Не найдено клинико-фармакологических групп
+				</div>
+			{% endif %}
+		{% endif %}
+
+		{# Найдено фармако-терапевтических групп #}
+		{% if phthgroups is defined %}
+			{% if phthgroups is not empty %}
+				<div class="block" id="search_phthgroups">
+					<div class="block-anons">
+						<div class="block-head">
+							{% if phthgroups|length == 1 %}
+								Найдена фармако-терапевтическая группа: <span>{{ phthgroups|length }}</span>
+							{% else %}
+								Найдено фармако-терапевтических групп: <span>{{ phthgroups|length }}</span>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+				<ul class="ul-style">
+					{% for group in phthgroups %}
+						<li><a href="{{ path('pharm_item', {'id':group.id}) }}"
+							   class="no-underline">{{ group.Name|raw }}</a></li>
+					{% endfor %}
+				</ul>
+			{% elseif t == 'phthgroup' %}
+				<div class="no-results">
+					Не найдено фармако-терапевтических групп
+				</div>
+			{% endif %}
+		{% endif %}
+
+		{# поиск по компании #}
+		{% include 'VidalDrugBundle:Search:search_company.html.twig' %}
+
+		{# Найдено заболеваний #}
+		{% if articles is defined %}
+			{% if articles is not empty %}
+				<div class="block" id="search_articles">
+					<div class="block-anons">
+						<div class="block-head">
+							{% if articles|length == 1 %}Найден результат{% else %}Найдено результатов{% endif %} в медицинской энциклопедии:
+							<span>{{ articles|length }}</span>
+						</div>
+					</div>
+				</div>
+				{% include 'VidalDrugBundle:Vidal:render_articles.html.twig' %}
+			{% elseif t == 'disease' %}
+				<div class="no-results">
+					Не найдено результатов в медицинской энциклопеди по запросу <span>{{ q }}</span>
+				</div>
+			{% endif %}
+		{% endif %}
+
+		{# если общий поиск не дал результатов #}
+		{% if q is not empty
+		and t == 'all'
+		and (productsPagination is not defined or productsPagination is empty)
+		and (molecules is not defined or molecules is empty)
+		and (nozologies is not defined or nozologies is empty)
+		and (search_infoPages is empty and search_companies is empty)
+		and (bads is not defined or bads is empty)
+		and (atcCodes is not defined or atcCodes is empty)
+		and (articles is not defined or articles is empty)
+		and (bads is not defined or bads is empty)
+		and (mis is not defined or mis is empty)	%}
+			<div class="no-results">
+				Не найдено результатов
+			</div>
+		{% endif %}
+	{% endif %}
+	</div>
+
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/search.css') }}"/>
+	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/searche.css') }}"/>
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+	<script type="text/javascript">
+		$(document).ready(function() {
+			var $searcheForm = $('#searche_form');
+			var $searcheSelect = $('#searche_form .search-type');
+			var $searcheQuery = $('#searche_form .search-query');
+			var $searcheOption = $('#searche_form .search-option');
+			var $optionWrap = $('.option-wrap');
+			var $searcheLoader = $('.searche-loader');
+
+			var types = {'product': 'препарат', 'molecule': 'вещество', 'atc': 'АТХ код', 'company': 'компания'};
+			var type = 'all';
+
+			$searcheQuery.autocomplete({
+				minLength: 2,
+				source:    function(request, response) {
+					var url ='/elastic/autocomplete_ext/' + $searcheSelect.val() + '/' + request.term.trim();
+					$.getJSON(url, function(data) {
+						response($.map(data.hits.hits, function(item) {
+							return {
+								label: item.highlight.name,
+								value: item._source.name,
+								type:  item._source.type
+							}
+						}));
+					});
+				},
+				select:    function(event, ui) {
+					if (ui.item) {
+						$(this).val(ui.item.value);
+					}
+				}
+			}).data("ui-autocomplete")._renderItem = function(ul, item) {
+				return $('<li class="aut"></li>')
+					.data("item.autocomplete", item)
+					.append("<a>" + "<i>" + types[item.type] + "</i>" + item.label + "</a>")
+					.appendTo(ul);
+			};
+
+			/////////////////////////////////////////////////////////////////
+
+			$searcheForm.submit(function(e) {
+				var value = $searcheSelect.val();
+				if (value == 'molecule' || value == 'nosology' || value == 'atc' || value == 'clphgroup' || value == 'phthgroup') {
+					$searcheQuery.attr('disabled', 'disabled');
+				}
+				else {
+					$searcheOption.attr('disabled', 'disabled');
+				}
+			});
+
+			/////////////////////////////////////////////////////////////////
+
+			$searcheSelect.chosen({disable_search: true});
+			$searcheOption.chosen();
+
+			$searcheSelect.change(function() {
+				var value = $searcheSelect.val();
+				if (value == 'molecule' || value == 'nosology' || value == 'atc' || value == 'clphgroup' || value == 'phthgroup') {
+					$searcheLoader.show();
+					$searcheOption.attr('disabled', true).trigger("chosen:updated");
+					$.getJSON('/search-options/' + value, function(data) {
+						if (data.length > 0) {
+							$searcheOption.find('option').remove();
+							$.each(data, function(index, option) {
+								$searcheOption.append($('<option></option>').val(option.id).text(option.title));
+							});
+							$searcheOption.attr('disabled', false).trigger("chosen:updated");
+							$searcheLoader.hide();
+						}
+					});
+					$searcheQuery.hide();
+					$optionWrap.show();
+				}
+				else {
+					$optionWrap.hide();
+					$searcheQuery.show();
+				}
+			});
+
+			var value = $searcheSelect.val();
+
+			// при загрузке подгрузить список и выбрать опцию
+			if (value == 'molecule' || value == 'nosology' || value == 'atc' || value == 'clphgroup' || value == 'phthgroup') {
+				$searcheQuery.hide();
+				$optionWrap.show();
+
+				$.getJSON('/search-options/' + value, function(data) {
+					if (data.length > 0) {
+						$searcheOption.find('option').remove();
+						$.each(data, function(index, option) {
+							var $option = $('<option></option>');
+							$option.val(option.id).text(option.title);
+							if (option.id == '{{ o }}') {
+								$option.attr("selected", true);
+							}
+							$searcheOption.append($option);
+						});
+						$searcheOption.trigger("chosen:updated");
+					}
+				});
+			}
+			else {
+				$optionWrap.hide();
+			}
+		});
+	</script>
+{% endblock %}

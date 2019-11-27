@@ -1,0 +1,23 @@
+<div class="lsipr-mobile" style="text-align: center; display: none; margin-bottom: 25px;">
+	<a href="http://www.lsipr.ru" target="_blank" class="lsipr lsipr-mobile"
+	   style="cursor:pointer; text-align:center; display:block; border:1px solid #ccc; width: 160px; margin-bottom:25px; margin: 0 auto;">
+		<img src="{{ asset('bundles/vidalmain/images/banners/lsipr.jpg') }}" style="max-width:160px;"/>
+	</a>
+</div>
+
+<script>
+	$(document).ready(function() {
+		if ((navigator.userAgent.match(/Android/i)
+			|| navigator.userAgent.match(/webOS/i)
+			|| navigator.userAgent.match(/iPhone/i)
+			|| navigator.userAgent.match(/iPad/i)
+			|| navigator.userAgent.match(/iPod/i)
+			|| navigator.userAgent.match(/BlackBerry/i)
+			|| navigator.userAgent.match(/Windows Phone/i))
+			&& window.screen.width < 768
+		) {
+			$('.lsipr-desktop').hide();
+			$('.lsipr-mobile').show();
+		}
+	});
+</script>

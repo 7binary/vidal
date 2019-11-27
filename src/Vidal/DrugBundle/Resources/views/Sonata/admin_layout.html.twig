@@ -1,0 +1,415 @@
+{#
+
+This file is part of the Sonata package.
+
+(c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+
+#}
+{% set _preview      = block('preview') %}
+{% set _form         = block('form') %}
+{% set _show         = block('show') %}
+{% set _list_table   = block('list_table') %}
+{% set _list_filters = block('list_filters') %}
+{% set _side_menu    = block('side_menu') %}
+{% set _content      = block('content') %}
+{% set _title        = block('title') %}
+{% set _breadcrumb   = block('breadcrumb') %}
+{% set _actions      = block('actions') %}
+{% set route         = app.request.attributes.get('_route') %}
+{% set envLocal = env_local == 'true' %}
+{% set is_super = is_granted('ROLE_SUPERADMIN') %}
+
+<!DOCTYPE html>
+<html {% block html_attributes %}class="no-js"{% endblock %}>
+<head>
+	<title>{% spaceless %}
+		{{ 'Admin'|trans({}, 'SonataAdminBundle') }}
+
+		{% if _title is not empty %}
+			{{ _title|raw }}
+		{% else %}
+			{% if action is defined %}
+				-
+				{% for menu in admin.breadcrumbs(action) %}
+					{% if not loop.first %}
+						&gt;
+					{% endif %}
+					{{ menu.label }}
+				{% endfor %}
+			{% endif %}
+		{% endif %}
+		{% endspaceless %}</title>
+	<meta charset="UTF-8">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	{% block stylesheets %}
+		<style>
+			div[id$='sliders'] > .sonata-ba-field-inline-table {
+				margin-left: 0 !important;
+			}
+			div[id$='sliders'] > label {
+				display: none;
+			}
+			div[id$='sliders'] .select2-choice, div[id$='sliders'] .select2-chosen {
+				max-width: 400px !important;
+			}
+		</style>
+		<link rel="stylesheet" href="{{ asset('bundles/sonataadmin/bootstrap/css/bootstrap.min.css') }}" media="all">
+		<link rel="stylesheet" href="{{ asset('bundles/sonataadmin/bootstrap/css/bootstrap-responsive.min.css') }}"
+			  media="all">
+
+		<link rel="stylesheet" href="{{ asset('bundles/sonataadmin/x-editable/css/bootstrap-editable.css') }}"
+			  media="all">
+
+		{% if admin_pool is defined and admin_pool.getOption('use_select2') %}
+			<link rel="stylesheet" href="{{ asset('bundles/sonataadmin/select2/select2.css') }}" media="all">
+			<style>
+				div.select2-container {
+					margin-left: 0 !important;
+				}
+				div.select2-drop ul {
+					margin: 0 !important;
+				}
+			</style>
+		{% endif %}
+
+		<!-- base application asset -->
+		<link rel="stylesheet" href="{{ asset('bundles/sonataadmin/css/layout.css') }}" media="all">
+		<link rel="stylesheet" href="{{ asset('bundles/sonataadmin/css/colors.css') }}" media="all">
+
+		{# дополнительно #}
+		<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/jquery-chosen/chosen.css') }}"/>
+		<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/sonataadmin/sonataadmin.css') }}"/>
+		<link rel="stylesheet" type="text/css"
+			  href="{{ asset('bundles/vidalmain/jquery-ui/jquery-ui-1.10.4.custom.min.css') }}"/>
+	{% endblock %}
+
+	{% block javascripts %}
+		<script>
+			window.SONATA_CONFIG = {
+				CONFIRM_EXIT: {% if admin_pool is defined and admin_pool.getOption('confirm_exit') %}true{% else %}false{% endif %},
+				USE_SELECT2:  {% if admin_pool is defined and admin_pool.getOption('use_select2') %}true{% else %}false{% endif %}
+			};
+			window.SONATA_TRANSLATIONS = {
+				CONFIRM_EXIT: '{{ 'confirm_exit'|trans({}, 'SonataAdminBundle')|escape('js') }}'
+			};
+		</script>
+		<script type="text/javascript" src="{{ asset('bundles/vidalmain/javascripts/jquery-1.11.0.min.js') }}"></script>
+		<script src="{{ asset('bundles/sonataadmin/bootstrap/js/bootstrap.min.js') }}"></script>
+
+		<script src="{{ asset('bundles/sonataadmin/x-editable/js/bootstrap-editable.min.js') }}"></script>
+
+		{% if admin_pool is defined and admin_pool.getOption('use_select2') %}
+		<script src="{{ asset('bundles/sonataadmin/select2/select2.min.js') }}"></script>
+		{% endif %}
+
+		<script src="{{ asset('bundles/sonataadmin/jquery/jquery.form.js') }}"></script>
+		{% if admin_pool is defined and admin_pool.getOption('confirm_exit') %}
+		<script src="{{ asset('bundles/sonataadmin/jquery/jquery.confirmExit.js') }}"></script>{% endif %}
+		<script src="{{ asset('bundles/sonataadmin/base.js') }}"></script>
+
+		{# дополнительно #}
+		<script type="text/javascript"
+				src="{{ asset('bundles/vidalmain/jquery-chosen/chosen.jquery.min.js') }}"></script>
+		<script src="{{ asset('bundles/vidalmain/ckeditor/ckeditor.js') }}" type="text/javascript"></script>
+		<script src="{{ asset('bundles/vidalmain/ckeditor/adapters/jquery.js') }}" type="text/javascript"></script>
+		<script src="{{ asset('bundles/vidalmain/javascripts/ckeditor-config.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('bundles/vidalmain/sonataadmin/sonataadmin.js') }}"></script>
+		<script type="text/javascript"
+				src="{{ asset('bundles/vidalmain/jquery-ui/jquery-ui-1.10.4.custom.min.js') }}"></script>
+
+		{# если редактируем админку с привязанными продуктами - подключаем к ним автодополнение #}
+		{% if route in ['admin_vidal_drug_art_edit','admin_vidal_drug_art_create','admin_vidal_drug_article_edit','admin_vidal_drug_article_create','admin_vidal_drug_publication_edit','admin_vidal_drug_publication_create','admin_vidal_drug_pharmarticle_edit','admin_vidal_drug_pharmarticle_create'] %}
+			{% include 'VidalDrugBundle:Sonata:list_products.html.twig' %}
+			{% include 'VidalDrugBundle:Sonata:list_atc.html.twig' %}
+			{% include 'VidalDrugBundle:Sonata:list_nozologies.html.twig' %}
+			{% include 'VidalDrugBundle:Sonata:list_molecules.html.twig' %}
+			{% include 'VidalDrugBundle:Sonata:list_infoPages.html.twig' %}
+		{% endif %}
+
+		{% if route in ['admin_vidal_drug_product_create', 'admin_vidal_drug_product_edit'] %}
+			{% include 'VidalDrugBundle:Sonata:list_product_pictures.html.twig' %}
+			{% include 'VidalDrugBundle:Sonata:autoremove_list.html.twig' %}
+			{% include 'VidalDrugBundle:Sonata:list_atc.html.twig' %}
+			{% include 'VidalDrugBundle:Sonata:list_molecule_names.html.twig' %}
+			{% include 'VidalDrugBundle:Sonata:list_clphgroups.html.twig' %}
+			{% include 'VidalDrugBundle:Sonata:list_phthgroups.html.twig' %}
+		{% endif %}
+
+		{% if route in ['admin_vidal_drug_document_create', 'admin_vidal_drug_document_edit'] %}
+			{% include 'VidalDrugBundle:Sonata:autoremove_list.html.twig' %}
+			{% include 'VidalDrugBundle:Sonata:list_atc.html.twig' %}
+			{% include 'VidalDrugBundle:Sonata:list_nozologies.html.twig' %}
+			{% include 'VidalDrugBundle:Sonata:list_clphpointers.html.twig' %}
+			{% include 'VidalDrugBundle:Sonata:list_infoPages.html.twig' %}
+			{% include 'VidalDrugBundle:Sonata:list_molecules.html.twig' %}
+		{% endif %}
+
+		{% if route in ['admin_vidal_drug_product_edit', 'admin_vidal_product_ads_create'] %}
+			{% include 'VidalDrugBundle:Sonata:list_infoPages.html.twig' %}
+		{% endif %}
+
+		{% if route in ['admin_vidal_drug_ads_edit', 'admin_vidal_drug_ads_create'] %}
+			{% include 'VidalDrugBundle:Sonata:list_products.html.twig' %}
+		{% endif %}
+
+		{# список тегов - изменяем инлайн #}
+		{% if route == 'admin_vidal_drug_tag_list' %}
+		<script type="text/javascript"
+				src="{{ asset('bundles/vidalmain/javascripts/jquery.jeditable.mini.js') }}"></script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$('.tag-text').editable('/admin-tag-editable', {submit: 'OK', width: '300px'});
+				$('.tag-search').editable('/admin-tag-search', {
+					submit:        'OK',
+					width:         '300px',
+					'placeholder': ''
+				});
+			});
+		</script>
+		{% endif %}
+
+		{% if route == 'admin_vidal_main_user_list' %}
+			{% include 'VidalDrugBundle:Sonata:user_list.html.twig' %}
+		{% endif %}
+
+		{# если редактируем админку со стотьями специалистам - подключаем обработчик смены списка категорий/подкатегорий #}
+		{% if route in ['admin_vidal_drug_art_edit', 'admin_vidal_drug_art_create', 'admin_vidal_drug_art_list', 'admin_vidal_drug_artcategory_create'] %}
+			{% include 'VidalDrugBundle:Sonata:art_category.html.twig' %}
+		{% endif %}
+
+	{% endblock %}
+
+</head>
+<body
+	{% block body_attributes %}class="sonata-bc {% if _side_menu is empty %}sonata-ba-no-side-menu{% endif %}"{% endblock %}>
+{# initialize block value #}
+
+<div class="navbar navbar-fixed-top">
+	<div class="navbar-inner">
+		<div class="container-fluid">
+			<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</a>
+
+			{% if admin_pool is defined %}
+				<div class="navbar-text pull-right">{% include admin_pool.getTemplate('user_block') %}</div>
+
+				{% block logo %}
+					<a href="{{ envLocal ? '/app_dev.php' : path('index') }}" class="brand">
+						<img src="{{ asset(admin_pool.titlelogo) }}" alt="{{ admin_pool.title }}">
+						{{ admin_pool.title }}
+					</a>
+				{% endblock %}
+
+				{% block sonata_nav_menu_before %}{% endblock %}
+
+				{% block sonata_nav_menu %}
+					<div class="nav-collapse">
+						<ul class="nav">
+							{% block top_bar_before_nav %} {% endblock %}
+							{% block sonata_top_bar_nav %}
+								{% if app.security.token and is_granted('ROLE_SONATA_ADMIN') %}
+									{% for group in admin_pool.dashboardgroups %}
+										{% set display = (group.roles is empty or is_granted('ROLE_SUPER_ADMIN') ) %}
+										{% for role in group.roles if not display %}
+											{% set display = is_granted(role) %}
+										{% endfor %}
+
+										{# Do not display the group label if no item in group is available #}
+										{% set item_count = 0 %}
+										{% if display %}
+											{% for admin in group.items if item_count == 0 %}
+												{% if admin.hasroute('list') and admin.isGranted('LIST') %}
+													{% set item_count = item_count+1 %}
+												{% endif %}
+											{% endfor %}
+										{% endif %}
+
+										{% if display and (item_count > 0) %}
+											<li class="dropdown">
+												<a href="#" class="dropdown-toggle"
+												   data-toggle="dropdown">{{ group.label|trans({}, group.label_catalogue) }}
+													<span class="caret"></span></a>
+												<ul class="dropdown-menu">
+													{% for admin in group.items %}
+														{% if admin.hasroute('list') and admin.isGranted('LIST') %}
+															<li>
+																<a href="{{ admin.generateUrl('list') }}">{{ admin.label|trans({}, admin.translationdomain) }}</a>
+															</li>
+														{% endif %}
+													{% endfor %}
+												</ul>
+											</li>
+										{% endif %}
+									{% endfor %}
+								{% endif %}
+							{% endblock %}
+							{% block top_bar_after_nav %} {% endblock %}
+						</ul>
+
+						{% block sonata_top_bar_search %}
+							{% if app.security.token and is_granted('ROLE_SONATA_ADMIN') %}
+								<form action="{{ url('sonata_admin_search') }}" method="GET" class="navbar-search">
+									<div class="input-append">
+										<input type="text" name="q" value="{{ app.request.get('q') }}"
+											   class="input-large search-query"
+											   placeholder="{{ 'search_placeholder'|trans({}, 'SonataAdminBundle') }}">
+									</div>
+								</form>
+							{% endif %}
+						{% endblock %}
+
+					</div>
+				{% endblock %}
+
+				{% block sonata_nav_menu_after %}{% endblock %}
+
+			{% endif %}
+		</div>
+	</div>
+</div>
+
+{% for flashMessage in app.session.flashbag.get('msg') %}
+	<h2 style="margin: 0 10px 15px; text-align: right;">{{ flashMessage }}</h2>
+{% endfor %}
+
+<div class="container-fluid">
+	{% block sonata_page_content %}
+		{% block notice %}
+			{% include 'SonataCoreBundle:FlashMessage:render.html.twig' %}
+		{% endblock %}
+
+		<div class="row-fluid">
+			{% if _breadcrumb is not empty or action is defined %}
+				<div class="span6">
+					<ul class="breadcrumb">
+						{% if _breadcrumb is empty %}
+							{% if action is defined %}
+								{% for menu in admin.breadcrumbs(action) %}
+									{% if not loop.last %}
+										<li>
+											{% if menu.uri is not empty %}
+												<a href="{{ menu.uri }}">{{ menu.label == 'Dashboard' ? 'Панель' : menu.label|raw }}</a>
+											{% else %}
+												{{ menu.label|raw }}
+											{% endif %}
+											<span class="divider">/</span>
+										</li>
+									{% else %}
+										<li class="active">{{ menu.label|raw }}</li>
+									{% endif %}
+								{% endfor %}
+							{% endif %}
+						{% else %}
+							{{ _breadcrumb|raw }}
+						{% endif %}
+					</ul>
+				</div>
+			{% endif %}
+
+			{% if _actions is not empty %}
+				<div class="span4 offset2">
+					{{ _actions|raw }}
+				</div>
+			{% endif %}
+		</div>
+
+		<div class="row-fluid">
+			{% if _side_menu is not empty %}
+				<div class="sidebar span2">
+					<div class="well sonata-ba-side-menu" style="padding: 8px 0;">{{ _side_menu|raw }}</div>
+				</div>
+			{% endif %}
+
+			<div class="content {{ _side_menu is not empty ? ' span10' : 'span12' }}">
+				{% block sonata_admin_content %}
+
+					{% if _preview is not empty %}
+						<div class="sonata-ba-preview">{{ _preview|raw }}</div>
+					{% endif %}
+
+					{% if _content is not empty %}
+						<div class="sonata-ba-content">{{ _content|raw }}</div>
+					{% endif %}
+
+					{% if _show is not empty %}
+						<div class="sonata-ba-show">{{ _show|raw }}</div>
+					{% endif %}
+
+					{% if _form is not empty %}
+						<div class="sonata-ba-form">{{ _form|raw }}</div>
+					{% endif %}
+
+					{% if _list_table is not empty or _list_filters is not empty %}
+						{% if _list_filters|trim %}
+							<div class="sonata-ba-filter">
+								{{ _list_filters|raw }}
+							</div>
+						{% endif %}
+						<div class="sonata-ba-list">
+							{{ _list_table|raw }}
+						</div>
+					{% endif %}
+
+					{# тут кнопки под панелью управления (для администраторов) #}
+					{% if route in ['sonata_admin_dashboard', 'admin_vidal_drug_art_list'] and is_super %}
+						<a class="btn" href="{{ path('move_art') }}">Перемещение статей</a>
+					{% endif %}
+
+					{% if route == 'sonata_admin_dashboard' %}
+						<div class="extra-buttons">
+							{% if is_super or app.user.username == 'admin@vidal.ru' %}
+								<a class="btn" href="{{ path('excel_product') }}">Выгрузка препаратов</a>
+								<a class="btn" href="{{ path('veterinar_excel_product') }}">Выгрузка препаратов Ветеринарии</a>
+								<a class="btn" href="{{ path('move_banners', {'group':'right'}) }}">Перемещение баннеров</a>
+							{% endif %}
+
+							{% if is_super %}
+								<a class="btn" href="{{ path('excel_search') }}">Выгрузка поисковых запросов</a>
+								<a class="btn" href="{{ path('excel_articles') }}">Выгрузка энциклопедии</a>
+								<a class="btn" href="{{ path('excel_products_submain') }}">Выгрузка склеенных
+									препаратов</a>
+								<a class="btn" href="{{ path('excel_product_document') }}">Выгрузка
+									ProductID-DocumentID</a>
+								<a class="btn" href="{{ path('excluded_products') }}">Исключение перелинковки
+									препаратов</a>
+								<a class="btn" href="{{ path('admin_interaction_export') }}">Выгрузка лекарственного
+									взаимодействия</a>
+								<a class="btn" href="{{ path('admin_vidal_main_log_list') }}">Логи действий админа</a>
+								<a class="btn" href="{{ path('export_atc_mkb') }}">Экспорт материалов АТХ/МКБ-10</a>
+							{% endif %}
+						</div>
+						<style>
+							.extra-buttons {
+								margin: 10px 0;
+							}
+							.extra-buttons a {
+								display: inline-block;
+							}
+						</style>
+					{% endif %}
+
+				{% endblock %}
+			</div>
+		</div>
+
+		{% block footer %}
+			<div class="row-fluid">
+				<div class="span2 offset10 pull-right">
+					<span class="label"><a href="http://sonata-project.org" rel="noreferrer"
+										   style="text-decoration: none; color: black">Sonata Project</a></span>
+				</div>
+			</div>
+		{% endblock %}
+	{% endblock %}
+
+</div>
+</body>
+</html>

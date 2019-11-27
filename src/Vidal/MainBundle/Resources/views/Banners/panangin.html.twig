@@ -1,0 +1,30 @@
+{#<div style="text-align:center">#}
+	{#<a class="panangin" href="http://www.g-richter.ru/" target="_blank">#}
+		{#<img style="border:1px solid #ddd; max-width:200px;" src="{{ asset('bundles/vidalmain/images/banners/panangin.png') }}">#}
+	{#</a>#}
+
+	{#<a class="panangin-m" href="http://www.g-richter.ru/" target="_blank" style="display:none">#}
+		{#<img style="border:1px solid #ddd; max-width:200px;" src="{{ asset('bundles/vidalmain/images/banners/panangin-m.png') }}">#}
+	{#</a>#}
+{#</div>#}
+
+{#<script>#}
+	{#$(document).ready(function () {#}
+		{#if ((navigator.userAgent.match(/Android/i)#}
+			{#|| navigator.userAgent.match(/webOS/i)#}
+			{#|| navigator.userAgent.match(/iPhone/i)#}
+			{#|| navigator.userAgent.match(/iPad/i)#}
+			{#|| navigator.userAgent.match(/iPod/i)#}
+			{#|| navigator.userAgent.match(/BlackBerry/i)#}
+			{#|| navigator.userAgent.match(/Windows Phone/i))#}
+			{#&& window.screen.width < 768#}
+		{#) {#}
+			{#$('.panangin').hide();#}
+			{#$('.panangin-m').css('display', 'block').show();#}
+		{#}#}
+
+		{#$('.panangin, .panangin-m').click(function() {#}
+			{#ga('send', 'event', 'Баннер Панангин', 'click', 'http://www.g-richter.ru/');#}
+		{#});#}
+	{#});#}
+{#</script>#}

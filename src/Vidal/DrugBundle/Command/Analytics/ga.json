@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "vidal-ru",
+  "private_key_id": "4420cddd8aa61313f9e2cf4ae16c321c4d45e90e",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCxzYRhgNCc2mOJ\nPn0eD5ofibfTqheNgP4QBqMIfL7xPVKgZLuOqHZO62NrptX06ZjzZn00zCcSm0pg\nAvPkcd5dZe9BEVR922Ve6BHwLOUI7aMqS3EqGtyany/fb+hwhF7gk03cLB06UJmN\nM+74Hcc8IhFPksjPtSc0Eic8ecGSBqVapRtqUjKZnVyuGSlF6JeJlqDI4QMjb8zQ\nc8nzEudhVt62dZSFJs/1gCpePYjoh4jRSxf13ILObN3eAOVLQpOmqApAX2qArglj\nHYfDJhR10Gyv8KXOLoDYqFhsSPUOryTilM/d/A5WNacHynLyIcfZSEI7zibo+DT8\nTmyg26sBAgMBAAECggEAKcDXW4ZCdvMZ+LrB6vNDADD5CC2jRkmKX/0PAAk7Va9O\n3feJy+Bnl/TS7g7Jo6/PiSkCMgnXCxmIh69p0rWiwFAVtTP6oWuKDJV20O3aAxS7\nAk2hD4ArWewT8+Z1sSaEmTw+RnvdiTowNOaDMaTcipR9eDBCE/S4dhPlPuBgwoeE\nt+XxtDDR3h3zMIuK/j27RshZSVhX217VXrgfAhGs1XFVvMr9Boh7gcoIraERJANo\nvyWKge1fFit6AVB5xko+8MIgkET8GLagb3Zup7MwvLRMSYcB1Ce8WsLT5d9BBYcl\nGraZtBUgOzMzmv/T+19kuelyBKvdCtmEYab8gihL+QKBgQDePjK1jcg6E6Xd2s4j\noJ+ac8olXm5GRKqNYAkdQ2oAsu9EfZrAI0nzOB8r54hFnRbCr70k4E316aQ4SmHu\nwYmFjuounbnHQ/WgwBm7bAZhvQRCrq9amPg4wLJFbccC3l8bxowMKb3XHrPWSreT\n0fgjGNJoNRqCfr800y/g+97TFwKBgQDMz0lZ8vyDRSE5uAA1jkBYzCYbG+hjUQkr\nYsB6ah4XKv3sKPDBqP+pCUWKMkd/bQhMdZ5sUqw9/SB46tezY8NqECOBCfxtvydO\na3m7iaC0nrKp/b2HTfALK8T+DoYW+HPJ3mSUBOet8jfyPIjCIQE4ipiVwfAg/jlp\nope0x0YhpwKBgQDXTEgRy/26DYi1CSCEMToNBblCRF3uIt1awjtyJvnNHYtfvZKq\nKkWcorTH8q/4SHthNaC11bqQzbwycBS5mLJiOZYyfMgZ+4M8LH2BLOBt1RAIjXQA\n/4oQaNULH5MY+1YF8W2A5vsrKGot4go/4LxTO9ux6if5XVJcmW6btUUjFwKBgGNt\nnmaUmBICVYb31OIrFQIG2dj/S2orxQ/S+S50pfcJYAxuM7NQoA0n+yKEFkG+ZPD5\niNd9qzDM2h7Zo63rGMs82n+ioXGGA0cG1io9Pk9xW7s6++/b3lUOAqxz0JUGOPAf\njyRs3SyNEqv+x0W3UChq4HiTlkfuI2EtFgklVN6xAoGAQ8Au916t5YgFfO7t/iIe\nV9IwM2D11pnAer2Ii20C/W8L+yy+JHa+tLzDVP5NMkovRbhaKAjosIwkvb/OOu9I\nz3APMUmqctMchLrFyhrcOHxb5v/i6Q+Fj4cfzNO2cNano2wG7WbrObunwNH+XaDI\n05otSkltVcSUH4Ip1bJ33/I=\n-----END PRIVATE KEY-----\n",
+  "client_email": "vidala@vidal-ru.iam.gserviceaccount.com",
+  "client_id": "104237353287600739191",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/vidala%40vidal-ru.iam.gserviceaccount.com"
+}

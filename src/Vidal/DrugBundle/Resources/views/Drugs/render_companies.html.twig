@@ -1,0 +1,19 @@
+{% if companies is not empty %}
+	<table class="products-table">
+		<tr class="products-table-header">
+			<td>Название</td>
+			<td>Страна</td>
+		</tr>
+		{% for company in companies %}
+			<tr>
+				<td>
+					<a class="no-underline" href="{{ path('firm_item', {'CompanyID':company.CompanyID}) }}"
+						>{{ company.LocalName|raw }}{{ company.Property is not empty ? ', ' ~ company.Property|raw|replace({'&amp;':'&'}) }}</a>
+				</td>
+				<td>
+					{{ company.CountryCode is defined ? company.CountryCode : company.Country }}
+				</td>
+			</tr>
+		{% endfor %}
+	</table>
+{% endif %}

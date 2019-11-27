@@ -1,0 +1,12 @@
+<div class="menu menu-small">
+	<a href="{{ path('drugs') }}" class="menu-drugs{{ menu is defined and (menu == 'drugs' or menu == 'drugs_main' ? ' active') }}"></a>
+	<a href="{{ path('articles') }}"
+	   class="menu-symptoms{{ menu is defined and menu == 'articles' ? ' active' }}">
+		<img src="{{ asset('bundles/vidalmain/images/bg/enc.png') }}" alt="enc background" />
+	   </a>
+	<a href="{{ path('vracham') }}" class="menu-doctors{{ menu is defined and menu == 'vracham' ? ' active' }}"></a>
+	<a href="{{ path('analog') }}"
+	   class="menu-pharmacy {{ menu is defined and menu == 'analog' ? ' active' }}">
+		<div class="open-sans">поиск<br/>аналогов</div>
+	</a>
+</div>

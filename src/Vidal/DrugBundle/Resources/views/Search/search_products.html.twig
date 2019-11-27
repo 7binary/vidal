@@ -1,0 +1,154 @@
+{% if anyOfWord is defined %}
+
+	{% if t == 'product'
+	and (productsPagination is not defined or productsPagination.totalItemCount == 0)
+	and bads is not defined
+	and mis is not defined
+	and pits is not defined
+	and paras is not defined
+	and cosms is not defined
+	%}
+		{% set noProducts = true %}
+	{% endif %}
+
+
+	{% if anyOfWord is not empty
+	and p == 1
+	and noResults is not defined
+	and noProducts is not defined
+	and ((productsPagination is defined and productsPagination.totalItemCount) or mis is defined or bads is defined) %}
+		<div class="any-title no-results">
+			<div>
+				Препаратов по запросу <span>{{ q }}</span> не найдено.
+			</div>
+			<div>
+				<a href="#" class="any-btn btn-red">Отобразить</a>
+				результаты по {{ anyOfWord|length == 1 ? 'слову' : 'любому из слов' }}
+				<span>{{ anyOfWord|join(' | ') }}</span> ?
+			</div>
+		</div>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$('.any-btn, a[href="#search_products"], a[href="#search_bads"], a[href="#search_mis"]').click(function(e) {
+					e.preventDefault();
+					$('.any-btn').remove();
+					$('.any-title').remove();
+					$('.any').show();
+				});
+			});
+		</script>
+	{% endif %}
+
+
+	{% if noProducts is defined %}
+		<div class="no-results">
+			Не найдено результатов по препарату <span>{{ q }}</span>
+		</div>
+		<style>
+			.navigation {
+				display: none;
+			}
+		</style>
+	{% endif %}
+
+
+	<div class="products{{ anyOfWord and p == 1 ? ' any' }}">
+		{# Найдено препаратов #}
+		{% if productsPagination is defined and productsPagination.totalItemCount %}
+			<div class="block" id="search_products">
+				<div class="block-anons">
+					<div class="block-head">
+						{% if productsPagination.totalItemCount == 1 %}
+							Найден препарат{{ anyOfWord ? ' по любому из слов' }}:
+						{% else %}
+							Найдено препаратов{{ anyOfWord ? ' по любому из слов' }}:
+						{% endif %}
+						<span>{{ productsPagination.totalItemCount }}</span>
+					</div>
+				</div>
+			</div>
+			<div class="navigation">
+				{{ knp_pagination_render(productsPagination) }}
+			</div>
+			{% include 'VidalDrugBundle:Vidal:render_products.html.twig' with {'products':productsPagination.items} %}
+			{% if productsPagination.totalItemCount > 15 %}
+				<div class="navigation">
+					{{ knp_pagination_render(productsPagination) }}
+				</div>
+			{% endif %}
+		{% endif %}
+
+        {# Найдено Парафармация #}
+        {% if paras is defined %}
+            <div class="block" id="search_paras">
+                <div class="block-anons">
+                    <div class="block-head">
+                        Найдена Парафармация (ПР){{ anyOfWord ? ' по любому из слов' }}:
+                        <span>{{ paras|length }}</span>
+                    </div>
+                </div>
+            </div>
+            {% include 'VidalDrugBundle:Vidal:render_products.html.twig' with {
+                'products':paras, 'companies':paraCompanies, 'infoPages':paraInfoPages} %}
+        {% endif %}
+
+        {# Найдено Лечебная косметика #}
+        {% if cosms is defined %}
+            <div class="block" id="search_cosms">
+                <div class="block-anons">
+                    <div class="block-head">
+                        Найдена Лечебная косметика
+                        <span>{{ cosms|length }}</span>
+                    </div>
+                </div>
+            </div>
+            {% include 'VidalDrugBundle:Vidal:render_products.html.twig' with {
+                'products':cosms, 'companies':cosmCompanies, 'infoPages':cosmInfoPages} %}
+        {% endif %}
+
+        {# Найдено Медицинских изделий #}
+        {% if mis is defined %}
+            <div class="block" id="search_mis">
+                <div class="block-anons">
+                    <div class="block-head">
+                        Найдено
+                        {% if mis|length == 1 %}медицинское изделие{% else %}медицинских изделий{% endif %}
+                        (МИ){{ anyOfWord ? ' по любому из слов' }}:
+                        <span>{{ mis|length }}</span>
+                    </div>
+                </div>
+            </div>
+            {% include 'VidalDrugBundle:Vidal:render_products.html.twig' with {
+                'products':mis, 'companies':mi_companies, 'infoPages':mi_infoPages} %}
+        {% endif %}
+
+        {# Найдено лечебное питание #}
+        {% if pits is defined %}
+            <div class="block">
+                <div class="block-anons" id="search_pits">
+                    <div class="block-head">
+                        Найдено
+                        {% if pits|length == 1 %}лечебное питание{% else %}лечебных питаний{% endif %}
+                        (ПИТ){{ anyOfWord ? ' по любому из слов' }}:
+                        <span>{{ pits|length }}</span>
+                    </div>
+                </div>
+            </div>
+            {% include 'VidalDrugBundle:Vidal:render_products.html.twig' with {
+                'products':pits, 'companies':pitCompanies, 'infoPages':pitInfoPages} %}
+        {% endif %}
+
+		{# Найдено БАД #}
+		{% if bads is defined %}
+			<div class="block">
+				<div class="block-anons" id="search_bads">
+					<div class="block-head">
+						Найдено БАД{{ anyOfWord ? ' по любому из слов' }}:
+						<span>{{ bads|length }}</span>
+					</div>
+				</div>
+			</div>
+			{% include 'VidalDrugBundle:Vidal:render_products.html.twig' with {'products':bads, 'companies':bad_companies, 'infoPages':bad_infoPages} %}
+		{% endif %}
+	</div>
+{% endif %}

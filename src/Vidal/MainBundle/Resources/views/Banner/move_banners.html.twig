@@ -1,0 +1,108 @@
+{% extends 'VidalMainBundle::layout_blank.html.twig' %}
+
+{% set isAdmin = app.user is not null and is_granted('ROLE_ADMIN') %}
+
+{% block content %}
+	{% include 'VidalMainBundle:Banner:menu.html.twig' %}
+
+	{% for msg in app.session.flashbag.get('msg') %}
+		<div class="msg">{{ msg }}</div>
+	{% endfor %}
+
+	<table class="banners-table">
+		<thead>
+		<tr>
+			<th>Идентификатор и ссылка</th>
+			<th>Баннер</th>
+			<th>Действие</th>
+			<th>ID</th>
+			<th>Ротация с ID</th>
+		</tr>
+		</thead>
+		<tbody>
+		{% for key, banners in bannersGrouped %}
+			<tr>
+				<td>
+					{% for banner in banners %}
+						<div>{{ banner.title }}</div>
+						<div style="word-break: break-all;">{{ banner.link }}</div>
+						<hr/>
+					{% endfor %}
+				</td>
+				<td>
+					{% for banner in banners %}
+						<a class="btn-img" href="{{ banner.banner.path }}">
+							<img src="{{ banner.banner.path }}" style="max-width: 300px;"/>
+						</a>
+						<hr/>
+					{% endfor %}
+				</td>
+				<td>
+					<a href="{{ path('move_banners_up', {'group':group, 'bannerId':key}) }}" class="btn-move">
+						<img src="{{ asset('bundles/vidalmain/images/btn_up.png') }}"/>
+					</a>
+					<a href="{{ path('move_banners_down', {'group':group, 'bannerId':key}) }}"
+					   class="btn-move">
+						<img src="{{ asset('bundles/vidalmain/images/btn_down.png') }}"/>
+					</a>
+				</td>
+				<td>
+					{% for banner in banners %}
+						<a target="_blank"
+						   href="{{ path('admin_vidal_main_banner_edit', {'id':banner.id}) }}">{{ banner.id }}</a>
+						<hr/>
+					{% endfor %}
+				</td>
+				<td>
+					{% for banner in banners %}
+						{{ banner.rotateWithId }}
+						<hr/>
+					{% endfor %}
+				</td>
+			</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<style>
+		.banners-table {
+			width:           100%;
+			border-collapse: collapse;
+		}
+		.banners-table td {
+			padding: 3px 5px;
+			border:  1px solid #ccc;
+		}
+		.banners-table th {
+			font-size:  15px;
+			text-align: center;
+			padding:    5px;
+		}
+		.btn-move img {
+			max-width:  40px;
+			max-height: 40px;
+		}
+		.btn-move {
+			display:         inline-block;
+			text-decoration: none;
+		}
+		.msg {
+			background:    rgb(193, 232, 214);
+			padding:       6px 10px;
+			margin-bottom: 25px;
+		}
+		.banners-table hr {
+			visibility: hidden;
+		}
+		.banners-table tr:nth-child(odd) td {
+			background: beige;
+		}
+		.banners-table tr:nth-child(odd) td {
+			background: #eee;
+		}
+	</style>
+{% endblock %}

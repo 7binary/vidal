@@ -1,0 +1,253 @@
+{% extends 'VidalMainBundle::layout.html.twig' %}
+
+
+{% block meta %}
+    {% set hasOg = true %}
+	{{ parent() }}
+	<meta property="og:image" content="https://www.vidal.ru/bundles/vidalmain/images/share/vidal.jpg">
+	<meta content="{{ ogTitle }}" property="og:title">
+	<meta content="{{ description }}" property="og:description">
+{% endblock %}
+
+
+{% block nav %}
+	<div class="breadcrumbs">
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('index') }}" itemprop="url">
+				<span itemprop="title">Видаль</span>
+			</a>
+		</div>
+		<i></i>
+
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('vracham') }}" itemprop="url">
+				<span itemprop="title">Информация для специалистов</span>
+			</a>
+		</div>
+		<i></i>
+
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('art', {'url':rubrique.url}) }}" itemprop="url">
+				<span itemprop="title">{{ rubrique.title }}</span>
+			</a>
+		</div>
+
+		{% if type is defined and type %}
+			<i></i>
+
+			<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+				<a href="{{ path('art', {'url':[rubrique.url, type.url]|join('/') }) }}" itemprop="url">
+					<span itemprop="title">{{ type.title }}</span>
+				</a>
+			</div>
+		{% endif %}
+
+		{% if category is defined and category %}
+			<i></i>
+
+			<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+				<a href="{{ path('art', {'url':[rubrique.url, type.url, category.url]|join('/') }) }}" itemprop="url">
+					<span itemprop="title">{{ category.title }}</span>
+				</a>
+			</div>
+		{% endif %}
+
+		<i></i>
+		<span>{{ article|raw }}</span>
+	</div>
+{% endblock %}
+
+
+{% block content %}
+	{% include 'VidalMainBundle::share.html.twig' with {'subtitle':'Статьи для специалистов', 'class':'Art', 'id':article.id} %}
+
+	<div class="article-wrap" itemscope itemtype="http://schema.org/Article">
+		<h1 itemprop="name">{{ article|raw }}</h1>
+
+		{#скрытый description#}
+		<div itemprop="description" style="display:none">
+			{{ article.announce|raw }}
+		</div>
+
+		{# админам карандашик редактирования #}
+		{% if isAdmin %}
+			<a class="admin-edit fade" target="_blank"
+			   href="{{ path('admin_vidal_drug_art_edit', {'id':article.id}) }}">
+				<img src="{{ asset('bundles/vidalmain/images/edit.png') }}"/>
+			</a>
+		{% endif %}
+
+		{# видео вручную #}
+		{% for video in article.videos if video.enabled %}
+			{% include 'VidalMainBundle:Article:render_video.html.twig' with {'path':video.path, 'width':video.width, 'height':video.height, 'id':'video' ~ video.id} %}
+		{% endfor %}
+
+		<div class="article-body text art" itemprop="articleBody">
+			{% if app.user %}
+				{{ text is defined ? text|relative|raw : article.body|relative|raw }}
+				{% include 'VidalMainBundle::share.html.twig' with {'subtitle':'Статьи для специалистов', 'class':'Art', 'id':article.id} %}
+			{% else %}
+				{{ text is defined ? text|relative|truncateHtml(1000)|raw : article.body|relative|truncateHtml(1000)|raw }}
+			{% endif %}
+		</div>
+
+		{% if not app.user %}
+			<div class="login-text">
+				Для доступа к полному тексту материала, пожалуйста, авторизуйтесь или
+				<a href="{{ path('registration') }}" target="_blank">зарегистрируйтесь</a>
+			</div>
+
+			<form id="login_form" action="{{ path("login") }}" method="POST">
+				<table>
+					<tr>
+						<td class="first">
+							<label for="login_username" class="form_label">Логин/e-mail:</label>
+							<input id="login_username" type="text" name="username"
+								   value="{{ username is defined ? username }}"/>
+						</td>
+						<td class="second">
+							<a href="{{ path('registration') }}" class="no-underline">Регистрация</a>
+						</td>
+					</tr>
+					<tr class="second">
+						<td class="first">
+							<label for="login_password" class="form_label">Пароль:</label>
+							<input id="login_password" type="password" name="password"
+								   value="{{ password is defined ? password }}"/>
+						</td>
+						<td class="second">
+							<a href="{{ path('password_reset') }}" class="no-underline">Забыли пароль?</a>
+						</td>
+					</tr>
+					<tr>
+						<td class="first">
+							<input type="submit" class="btn-red" value="Войти"/>
+						</td>
+						<td class="second"></td>
+					</tr>
+				</table>
+
+				{% if loginAuthError is defined and loginAuthError %}
+					<div class="login-fail">Неверный логин или пароль</div>
+				{% endif %}
+			</form>
+		{% endif %}
+
+		{% if not app.user %}
+			{{ render(controller('VidalMainBundle:Index:Module', {'moduleId':7})) }}
+		{% endif %}
+	</div>
+
+	{{ render(controller('VidalMainBundle:Tag:tags', {'object':article})) }}
+
+	{% include 'VidalMainBundle::yad_horizontal.html.twig' %}
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/publication.css') }}"/>
+	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/fancybox/source/jquery.fancybox.css') }}"/>
+	<style type="text/css">
+		.login-text {
+			color:       rgb(47, 64, 83);
+			font-size:   15px;
+			font-weight: bold;
+			background:  beige;
+			padding:     10px 15px;
+			margin:      30px 0 30px;
+		}
+		#login_username, #login_password {
+			width: 140px;
+		}
+		.login-fail {
+			background:  beige;
+			border:      1px solid bisque;
+			padding:     10px 20px;
+			color:       maroon;
+			font-size:   15px;
+			font-weight: bold;
+		}
+		#login_form {
+			border:        2px solid #ccc;
+			border-radius: 4px;
+			padding:       12px 10px;
+			margin-bottom: 25px;
+		}
+		#login_form table {
+			width:           100%;
+			border-collapse: collapse;
+		}
+		#login_form td.first {
+			width:      300px;
+			text-align: right;
+		}
+		#login_form td.second {
+			padding-left: 20px;
+		}
+		#login_form tr.second td {
+			padding-bottom: 11px;
+			padding-top:    11px;
+		}
+		.login-fail {
+			margin-top: 12px;
+		}
+		.art img {
+			max-width: 520px !important;
+		}
+	</style>
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+	<script type="text/javascript" src="{{ asset('bundles/vidalmain/fancybox/source/jquery.fancybox.js') }}"></script>
+	<script type="text/javascript"
+			src="{{ asset('bundles/vidalmain/placeholder/jquery.placeholder.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/vidalmain/javascripts/jquery.form.min.js') }}"></script>
+	<script>
+		$(document).ready(function() {
+            $('.spoiler-title').click();
+			$('.article-wrap a').each(function() {
+				$(this).attr({
+					itemprop: "url"
+				});
+			});
+
+			$('.article-wrap img').each(function() {
+				$(this).attr({
+					itemprop: "image"
+				});
+			});
+
+			$('.article-wrap a > img').each(function() {
+				$(this).closest('a').addClass('fancybox');
+			});
+
+			$('.fancybox').css('cursor', 'zoom-in').fancybox({
+				fitToView:  false,
+				autoSize:   false,
+				closeClick: true,
+				helpers: {
+					overlay: {
+						locked: false
+					}
+				}
+			});
+
+			$('.article-body a').each(function() {
+				var $a = $(this);
+				if (this.href.charAt(0) != '/'
+					&& this.href.indexOf('vidal.ru') === -1
+					&& this.href.indexOf('localhost:97') === -1
+				) {
+					$a.attr('rel', 'nofollow');
+				}
+			});
+
+			{% if not app.user %}
+			$('.article-wrap img').remove();
+			{% endif %}
+		});
+	</script>
+{% endblock %}

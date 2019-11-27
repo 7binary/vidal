@@ -1,0 +1,5 @@
+<td class="swap">
+	<a class="btn btn-swap {{ object.IsApproved ? 'btn-positive' : 'btn-negative' }}"
+	   href="{{ path('swap_field', {'field':'IsApproved', 'entity':getClass(object), 'id':object.id}) }}">
+	</a>
+</td>

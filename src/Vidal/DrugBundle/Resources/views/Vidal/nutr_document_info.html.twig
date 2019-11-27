@@ -1,0 +1,72 @@
+{# Клинико-фармакологическая группа #}
+{% include 'VidalDrugBundle:Vidal:product_clphGroups.htm.twig' %}
+
+{# Свойства #}
+{% if document.PhInfluence is not empty %}
+	<div class="block" id="influence">
+		<div class="block-head">Описание</div>
+		<div class="block-content">{{ document.PhInfluence|composition|relative|raw }}</div>
+	</div>
+{% endif %}
+
+{# Показания к применению препарата #}
+{% if document.Indication is not empty %}
+	<div class="block" id="indication">
+		<div class="block-head">Область применения</div>
+		<div class="block-content">
+			{{ document.Indication|composition|relative|raw }}
+		</div>
+	</div>
+{% endif %}
+
+{# Рекомендации по применению #}
+{% if document.Dosage is not empty %}
+	<div class="block" id="dosage">
+		<div class="block-head">Рекомендации по применению</div>
+		<div class="block-content">
+			{{ document.Dosage|composition|relative|raw }}
+		</div>
+	</div>
+{% endif %}
+
+{# Побочное действие #}
+{% if document.SideEffects is not empty %}
+	<div class="block" id="side_effects">
+		<div class="block-head">Побочные эффекты</div>
+		<div class="block-content">
+			{{ document.SideEffects|composition|relative|raw }}
+		</div>
+	</div>
+{% endif %}
+
+{# Противопоказания #}
+{% if document.ContraIndication is not empty %}
+	<div class="block" id="contra">
+		<div class="block-head">Противопоказания</div>
+		<div class="block-content">
+			{{ document.ContraIndication|composition|relative|raw }}
+		</div>
+	</div>
+{% endif %}
+
+{# Применение препарата при беременности и кормлении грудью #}
+{% if document.Lactation is not empty %}
+	<div class="block" id="preg_lact">
+		<div class="block-head">Применение при беременности и в период лактации</div>
+		<div class="block-content">
+			{{ document.Lactation|composition|relative|raw }}
+		</div>
+	</div>
+{% endif %}
+
+{# Особые указания #}
+{% if document.SpecialInstruction is not empty %}
+	<div class="block" id="special">
+		<div class="block-head">Особые указания</div>
+		<div class="block-content">
+			{{ document.SpecialInstruction|composition|relative|raw }}
+		</div>
+	</div>
+{% endif %}
+
+{% include 'VidalDrugBundle:Vidal:document_condition_info.html.twig' %}

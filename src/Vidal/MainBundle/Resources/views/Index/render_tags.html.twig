@@ -1,0 +1,62 @@
+{% if object.tags is not empty %}
+	<div class="tags no-selection">
+		{% for tag in object.tags %}
+			{% set show_publication = 0 %}
+			{% set show_article = 0 %}
+			{% set show_art = 0 %}
+
+			{% if object.t == 'Publication' %}
+				{% if tag.publications.count > 1 %}
+					{% set show_publication = 1 %}
+				{% endif %}
+			{% elseif tag.publications.count > 0 %}
+				{% set show_publication = 1 %}
+			{% endif %}
+
+			{% if object.t == 'Article' %}
+				{% if tag.articles.count > 1 %}
+					{% set show_article = 1 %}
+				{% endif %}
+			{% elseif tag.articles.count > 0 %}
+				{% set show_article = 1 %}
+			{% endif %}
+
+			{% if object.t == 'Art' %}
+				{% if tag.arts.count > 1 %}
+					{% set show_art = 1 %}
+				{% endif %}
+			{% elseif tag.arts.count > 0 %}
+				{% set show_art = 1 %}
+			{% endif %}
+
+			{% if show_publication or show_article or show_art %}
+				<span>
+				<span>{{ tag.text }}</span>
+				<ul>
+					{% if show_publication %}
+						<li>
+							<a href="{{ path('tag_news', {'id':tag.id}) }}" target="_blank">
+								Новости по теме <i>{{ tag.text }}</i>
+							</a><b>{{ tag.publications.count }}</b>
+						</li>
+					{% endif %}
+					{% if show_article %}
+						<li>
+							<a href="{{ path('tag_articles', {'id':tag.id}) }}" target="_blank">
+								Статьи медицинской энциклопедии по теме <i>{{ tag.text }}</i>
+							</a><b>{{ tag.articles.count }}</b>
+						</li>
+					{% endif %}
+					{% if show_art %}
+						<li>
+							<a href="{{ path('tag_arts', {'id':tag.id}) }}" target="_blank">
+								Статьи для специалистов по теме <i>{{ tag.text }}</i>
+							</a><b>{{ tag.arts.count }}</b>
+						</li>
+					{% endif %}
+				</ul>
+			</span>
+			{% endif %}
+		{% endfor %}
+	</div>
+{% endif %}

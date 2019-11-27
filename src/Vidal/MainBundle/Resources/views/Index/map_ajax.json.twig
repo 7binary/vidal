@@ -1,0 +1,7 @@
+[{% for coord in coords %}
+    {% if not loop.last %}
+        {"id":"{{ coord.offerId }}","name":"null","Latitude":"{{ coord.latitude }}","Longitude":"{{ coord.longitude }}"},
+    {% else %}
+        {"id":"{{ coord.offerId }}","name":"null","Latitude":"{{ coord.latitude }}","Longitude":"{{ coord.longitude }}"}
+    {% endif %}
+{% endfor %}]

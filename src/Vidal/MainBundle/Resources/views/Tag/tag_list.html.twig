@@ -1,0 +1,68 @@
+{% extends 'VidalMainBundle::layout.html.twig' %}
+
+
+{% block content %}
+	{% if publications is not empty %}
+		<div class="title">Новости по
+			{% if word %}
+				теме <span>"{{ word }}"</span>: {{ publications|length }}
+			{% else %}
+				всему тегу <span>"{{ tag }}"</span>: {{ publications|length }}
+			{% endif %}
+		</div>
+		{% include 'VidalMainBundle:Index:render_news.html.twig' with {'news':publications} %}
+	{% else %}
+		<div class="title">Не найдено новостей по
+			{% if word %}
+				теме <span>"{{ word }}"</span>
+			{% else %}
+				всему тегу <span>"{{ tag }}"</span>
+			{% endif %}
+		</div>
+	{% endif %}
+
+	{% if articles is not empty %}
+		<div class="title">Статьи медицинской энциклопедии по
+			{% if word %}
+				теме <span>"{{ word }}"</span>: {{ articles|length }}
+			{% else %}
+				всему тегу <span>"{{ tag }}"</span>: {{ articles|length }}
+			{% endif %}
+		</div>
+		{% include 'VidalMainBundle:Index:render_articles.html.twig' with {'articles':articles} %}
+	{% else %}
+		<div class="title">Не найдено статей медицинской энциклопедии по
+			{% if word %}
+				теме <span>"{{ word }}"</span>
+			{% else %}
+				всему тегу <span>"{{ tag }}"</span>
+			{% endif %}
+		</div>
+	{% endif %}
+
+	{% if arts is not empty %}
+		<div class="title">Статьи для специалистов по
+			{% if word %}
+				теме <span>"{{ word }}"</span>: {{ arts|length }}
+			{% else %}
+				всему тегу <span>"{{ tag }}"</span>: {{ arts|length }}
+			{% endif %}
+		</div>
+		{% include 'VidalMainBundle:Index:render_articles.html.twig' with {'articles':arts} %}
+	{% else %}
+		<div class="title">Не найдено статей для специалистов по
+			{% if word %}
+				теме <span>"{{ word }}"</span>
+			{% else %}
+				всему тегу <span>"{{ tag }}"</span>
+			{% endif %}
+		</div>
+	{% endif %}
+
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/publication.css') }}"/>
+{% endblock %}

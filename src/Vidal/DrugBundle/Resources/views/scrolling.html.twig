@@ -1,0 +1,36 @@
+{% if not is_mobile() %}
+	<style>
+		#scrolling.fixedtop {
+			position:   fixed;
+			top:        0;
+			width:      520px;
+			z-index:    1000;
+			background: beige;
+			border:     1px dashed #ccc;
+		}
+		#scrolling.fixedtop .tabs {
+			margin-bottom: 10px;
+		}
+		#scrolling.fixedtop .letters {
+			margin-bottom: 0;
+		}
+		#scrolling.fixedtop .description {
+			display: none;
+		}
+	</style>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			var top = $('#scrolling').offset().top;
+			$(window).scroll(function() {
+				var scrollTop = $(window).scrollTop();
+				if (scrollTop >= top) {
+					$('#scrolling').addClass('fixedtop');
+				}
+				else {
+					$('#scrolling').removeClass('fixedtop');
+				}
+			});
+		});
+	</script>
+{% endif %}

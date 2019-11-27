@@ -1,0 +1,21 @@
+<table class="letters-table">
+	<tr class="head">
+		{% for l in letters %}
+			<td>
+				<a href="{{ path('products', {'t':t, 'l':l}) }}">{{ l }}</a>
+			</td>
+		{% endfor %}
+	</tr>
+
+	{% for secondLetter, seconds in table %}
+		<tr>
+			{% for l in seconds %}
+				<td>
+					{% if l %}
+						<a href="{{ path('products', {'t':t, 'l':l}) }}">{{ l|capitalize }}</a>
+					{% endif %}
+				</td>
+			{% endfor %}
+		</tr>
+	{% endfor %}
+</table>

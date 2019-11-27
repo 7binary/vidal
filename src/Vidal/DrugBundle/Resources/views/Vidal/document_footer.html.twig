@@ -1,0 +1,7 @@
+{% if document is defined and document is not empty and document.ApproveCode is not empty %}
+<div class="block">
+	<div class="block-content">
+		{{ document.ApproveCode|raw }}
+	</div>
+</div>
+{% endif %}

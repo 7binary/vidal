@@ -1,0 +1,15 @@
+<div class="prev_next">
+	<noindex>
+		<a href="{{ path('publication', {'id':nextPublication.link ~ '-' ~  nextPublication.id}) }}"
+		   class="prev"
+		   title="{{ prevPublication.title|html_entity_decode }}">
+			← Предыдущая {{ is_mobile() ? '' : 'новость' }}
+		</a>
+
+		<a href="{{ path('publication', {'id':prevPublication.link ~ '-' ~ prevPublication.id}) }}"
+		   class="next"
+		   title="{{ nextPublication.title|html_entity_decode }}">
+			Следующая {{ is_mobile() ? '' : 'новость' }} →
+		</a>
+	</noindex>
+</div>

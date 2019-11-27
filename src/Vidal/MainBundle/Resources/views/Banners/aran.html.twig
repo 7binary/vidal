@@ -1,0 +1,12 @@
+<a href="http://www.mediexpo.ru/calendar/forums/aran-2016/" target="_blank" class="aran aran-desktop"
+   style="cursor:pointer; text-align:center; display:block; border:1px solid gray; width: 160px; margin-bottom:25px;">
+	<img src="{{ asset('bundles/vidalmain/images/banners/aran.jpg') }}" style="max-width:160px;"/>
+</a>
+
+<script>
+	$(document).ready(function() {
+		$('.aran').click(function() {
+			ga('send', 'event', 'Баннер: АНЕСТЕЗИЯ И РЕАНИМАЦИЯ В АКУШЕРСТВЕ И НЕОНАТОЛОГИИ', 'click', $(this).attr('href'));
+		});
+	});
+</script>

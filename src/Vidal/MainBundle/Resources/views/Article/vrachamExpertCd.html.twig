@@ -1,0 +1,38 @@
+{% extends 'VidalMainBundle::layout.html.twig' %}
+
+
+{% set moduleId = 6 %}
+
+
+{% block nav %}
+    <div class="breadcrumbs">
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{  path('index') }}" itemprop="url">
+				<span itemprop="title">Видаль</span>
+			</a>
+		</div>
+		<i></i>
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('vracham') }}" itemprop="url">
+				<span itemprop="title">Информация для специалистов</span>
+			</a>
+		</div>
+        <i></i>
+		<span>{{ title }}</span>
+    </div>
+{% endblock %}
+
+{% block content %}
+	{{ render(controller('VidalMainBundle:Index:Module', {'moduleId':moduleId})) }}
+{% endblock %}
+
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/article.css') }}"/>
+	<style>
+		#wrapper .main .text img, #wrapper .main .text table {
+			max-width: inherit !important;
+		}
+	</style>
+{% endblock %}

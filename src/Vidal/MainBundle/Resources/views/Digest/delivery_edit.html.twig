@@ -1,0 +1,95 @@
+{% extends 'VidalMainBundle::layout_blank.html.twig' %}
+
+
+{% block content %}
+	{% include 'VidalMainBundle:Digest:menu.html.twig' %}
+
+	{% for msg in app.session.flashbag.get('msg') %}
+		<div class="msg">{{ msg }}</div>
+	{% endfor %}
+
+
+	{# форма #}
+	<form id="delivery_form" method="POST" action="{{ path('delivery_edit', {'uniqueid':uniqueid}) }}">
+		{{ form_widget(form) }}
+	</form>
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<style type="text/css">
+		.outer {
+			margin: 0 0 20px;
+		}
+		.msg {
+			background:    rgb(193, 232, 214);
+			padding:       6px 10px;
+			margin-bottom: 25px;
+		}
+		#delivery_form select, #delivery_form input[type="text"], #delivery_form input[type="number"] {
+			width: 600px;
+		}
+		#delivery_form td.label {
+			width: 200px;
+		}
+		#delivery_form td.widget {
+			width: auto;
+		}
+		#form_subject {
+			margin-top: 10px;
+		}
+		.outer a {
+			color: #00F;
+		}
+		.subs {
+			border-top:  1px solid #ddd;
+			margin-top:  25px;
+			padding-top: 15px;
+		}
+		.subs > table {
+			width:           100%;
+			border-collapse: collapse;
+		}
+		.subs .first {
+			color:       slategrey;
+			font-weight: bold;
+			width:       185px;
+		}
+		.subs span {
+			color:     gray;
+			font-size: 12px;
+		}
+		.form_table input[type=checkbox] {
+			margin-left: 0;
+			width:       18px;
+			height:      18px;
+		}
+		.controls {
+			text-align: center;
+			margin-bottom: 28px;
+		}
+		.control {
+			display:          inline-block;
+			text-decoration:  none;
+			font-weight:      bold;
+			color:            #2e3f51;
+			margin-right:     6px;
+			height:           24px;
+			line-height:      24px;
+			border:           1px solid #2e3f51;
+			padding:          0 7px;
+			border-radius:    4px;
+			background-color: white;
+			vertical-align:   top;
+		}
+	</style>
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+	<script src="{{ asset('bundles/vidalmain/ckeditor/ckeditor.js') }}" type="text/javascript"></script>
+	<script src="{{ asset('bundles/vidalmain/ckeditor/adapters/jquery.js') }}" type="text/javascript"></script>
+	<script src="{{ asset('bundles/vidalmain/javascripts/ckeditor-config.js') }}"></script>
+{% endblock %}

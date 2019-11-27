@@ -1,0 +1,22 @@
+{% extends 'VidalMainBundle::layout.html.twig' %}
+
+
+{% block content %}
+	<iframe src="http://calculatewater.ru" width="555" height="1670" frameborder="0"
+			style="overflow-x:hidden;overflow-y:auto;"></iframe>
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<style type="text/css">
+		#wrapper .right-sidebar {
+			width: 200px;
+		}
+		#wrapper .right-sidebar * {
+			visibility: hidden;
+			max-width:  200px !important;
+			overflow:   hidden;
+		}
+	</style>
+{% endblock %}

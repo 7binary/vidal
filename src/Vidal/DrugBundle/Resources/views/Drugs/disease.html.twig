@@ -1,0 +1,196 @@
+{% extends 'VidalDrugBundle::vidal_layout.html.twig' %}
+
+
+{% block nav %}
+	<div class="breadcrumbs">
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('index') }}" itemprop="url">
+				<span itemprop="title">Видаль</span>
+			</a>
+		</div>
+		<i></i>
+
+		{% if l %}
+			<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+				<a href="{{ path('disease') }}" itemprop="url">
+					<span itemprop="title">Заболевания</span>
+				</a>
+			</div>
+			<i></i>
+
+			<span>Описание болезней и заболеваний на букву {{ rusLetter|upper }}</span>
+		{% else %}
+			<span>Заболевания</span>
+		{% endif %}
+	</div>
+{% endblock %}
+
+
+{% block vidal %}
+	<div class="publication" itemscope itemtype="http://schema.org/Article">
+
+		{% include 'VidalDrugBundle::scrolling.html.twig' %}
+		<div id="scrolling">
+			{% include 'VidalDrugBundle:Drugs:menu_drugs.html.twig' %}
+
+			<div class="anons anons-drugs">
+				{% if l %}
+					<h1 class="h1" itemprop="name">Описание болезней и заболеваний на букву {{ rusLetter|upper }}</h1>
+				{% else %}
+					<h1 class="h1" itemprop="name">Описание болезней и заболеваний</h1>
+				{% endif %}
+			</div>
+
+			<form id="form" method="GET" action="{{ path('disease') }}">
+				<div id="form_controls">
+					<input id="form_submit" type="submit" value="Найти" class="btn-red">
+					<input id="form_input" type="text" name="q" placeholder="Введите слово для поиска..."
+						   autocomplete="off"
+						   value="{{ q is defined and q is not empty and not l ? q }}"/>
+				</div>
+
+				<div class="letters">
+					<div>
+						{% for codeRu, codeEn in codesMenu %}
+							<a href="{{ path('disease', {'l':codeEn|lower}) }}"
+								{{ l == codeEn|lower ? ' class="active"' }}>{{ codeRu|upper }}</a>
+						{% endfor %}
+					</div>
+				</div>
+			</form>
+		</div>
+
+		<div class="publication-body text" itemprop="articleBody">
+			{% if articles is defined %}
+				{% if articles is not empty %}
+					<div class="block">
+						<div class="block-anons">
+							<div class="block-head">
+								Найдено результатов в медицинской энциклопедии: <span>{{ articles|length }}</span>
+							</div>
+						</div>
+					</div>
+					{% include 'VidalDrugBundle:Vidal:render_articles.html.twig' %}
+				{% else %}
+					<div class="no-results">
+						{% if l %}
+							Не найдено заболеваний на букву <span>{{ l }}</span>
+						{% else %}
+							Не найдено результатов по заболеванию <span>{{ q }}</span>
+						{% endif %}
+					</div>
+				{% endif %}
+			{% endif %}
+
+			{% if l %}
+				<div class="backto">
+					Назад ко всем <a href="{{ path('companies') }}">Заболеваниям</a>
+				</div>
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/letters.css') }}"/>
+	<style type="text/css">
+		.backto {
+			margin:      18px 0 0;
+			padding-top: 12px;
+			border-top:  1px dashed #ccc;
+			font-size:   15px;
+			font-weight: bold;
+		}
+		#form > * {
+			vertical-align: top;
+		}
+		#form_controls {
+			clear: both;
+		}
+		#form_submit {
+			float: right;
+		}
+		#form_input {
+			width: 408px;
+		}
+		.block {
+			margin-bottom: 8px;
+		}
+		.h1 {
+			display:       block;
+			background:    #f5f5f5;
+			color:         #476173;
+			border-bottom: 1px solid #eee;
+			font-size:     inherit;
+			font-weight:   inherit;
+			margin:        0;
+			padding:       0;
+		}
+	</style>
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('.letters input').click(function() {
+				$('#form_input').attr('disabled', 'disabled');
+			});
+
+			$('#form_input')
+				.autocomplete({
+					minLength: 2,
+					source:    function(request, response) {
+						var url ='/elastic/autocomplete_article/' + request.term.trim();
+						$.getJSON(url, function(data) {
+							response($.map(data.hits.hits, function(item) {
+								return {
+									label: item.highlight.title,
+									value: item._source.title
+								}
+							}));
+						});
+					},
+					select:    function(event, ui) {
+						if (ui.item) {
+							$(this).val(ui.item.value);
+						}
+					}
+				}).data("ui-autocomplete")._renderItem = function(ul, item) {
+				return $("<li></li>")
+					.data("item.autocomplete", item)
+					.append("<a>" + item.label + "</a>")
+					.appendTo(ul);
+			};
+
+			$('.letters input').click(function() {
+				$('#form_input').attr('disabled', 'disabled');
+			});
+
+			{# MICRODATA #}
+			$('.publication img').each(function() {
+				var $this = $(this);
+				$this.attr('itemprop', 'image');
+			});
+
+			$('.publication a').each(function() {
+				$(this).attr({
+					itemprop: "url"
+				});
+			});
+
+			$('.publication-body a').each(function() {
+				var $a = $(this);
+				if (this.href.charAt(0) != '/'
+					&& this.href.indexOf('vidal.ru') === -1
+					&& this.href.indexOf('localhost:97') === -1
+				) {
+					$a.attr('rel', 'nofollow');
+				}
+			});
+		});
+	</script>
+{% endblock %}

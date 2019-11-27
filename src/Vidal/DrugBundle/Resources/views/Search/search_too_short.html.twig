@@ -1,0 +1,12 @@
+{% extends 'VidalDrugBundle::vidal_layout.html.twig' %}
+
+
+{% block vidal %}
+	{% include 'VidalDrugBundle:Search:search_info.html.twig' %}
+
+	<div class="block">
+		<div class="no-results">
+			Для поиска надо ввести хотя бы 2 символа
+		</div>
+	</div>
+{% endblock %}

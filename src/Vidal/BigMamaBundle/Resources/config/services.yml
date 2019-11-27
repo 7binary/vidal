@@ -1,0 +1,6 @@
+services:
+    vidal.big_mama.twig_extension:
+        class: Vidal\BigMamaBundle\Service\TwigExtension
+        arguments: [ '%big_mama.testMode%' ]
+        tags:
+            - { name: twig.extension }

@@ -1,0 +1,234 @@
+{% set isLogged = app.user is not null and is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+
+{# Клинико-фармакологическая группа #}
+{% include 'VidalDrugBundle:Vidal:product_clphGroups.htm.twig' %}
+
+{# Фармако-терапевтическая группа ГосРеестра МинЗдрава РФ #}
+{% if product is defined and product.phthgroups.count %}
+	<div class="block" id="phthgroup">
+		{% if product.phthgroups|length == 1 %}
+			<span class="block-head">Фармако-терапевтическая группа:</span>
+			<span class="block-content">
+				<a href="{{ path('pharm_item', {'id':product.phthgroups[0].id}) }}"
+				   class="no-underline">{{ product.phthgroups[0].Name|raw }}</a>
+			</span>
+		{% else %}
+			<h2 class="block-head">Фармако-терапевтические группы</h2>
+			<div class="block-content">
+				<ul class="ul-style">
+					{% for phthgroup in product.phthgroups %}
+						<li>
+							<a href="{{ path('pharm_item', {'id':phthgroup.id}) }}" class="no-underline">
+								{{ phthgroup.Name|raw }}
+							</a>
+						</li>
+					{% endfor %}
+				</ul>
+			</div>
+		{% endif %}
+	</div>
+{% endif %}
+
+{# Открыть описание действующего вещества #}
+{% if short is defined and short %}
+	<div class="more-link no-selection down-red">
+		Открыть описание активных компонентов препарата
+		<div>{{ product.RusName|raw }} ({{ product.EngName|raw }})</div>
+	</div>
+
+	<div class="more-about small"
+		 style="color: #333 !important; background: beige; font-size: 13px;padding: 5px 8px; margin-top: 18px;">
+		Приведенная научная информация является обобщающей и не может быть использована для принятия решения
+		о возможности применения конкретного лекарственного препарата.
+	</div>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('.more-link').click(function() {
+				if ($(this).hasClass('down-red')) {
+					$(this).removeClass('down-red');
+					$('.more-info').slideUp('fast');
+				}
+				else {
+					$(this).addClass('down-red');
+					$('.more-info').slideDown('fast');
+				}
+			});
+		});
+	</script>
+{% endif %}
+
+<div class="more-info">
+	{# Фармакологическое действие #}
+	{% if document.PhInfluence is not empty and not document.IsShortened %}
+		<div class="block" id="influence">
+			<h2 class="block-head">Фармакологическое действие</h2>
+			<div class="block-content">{{ document.PhInfluence|composition|relative|raw }}</div>
+		</div>
+	{% endif %}
+
+	{# Фармакокинетика #}
+	{% if document.PhKinetics is not empty and not document.IsShortened %}
+		<div class="block" id="kinetics">
+			<h2 class="block-head">Фармакокинетика</h2>
+			<div class="block-content">{{ document.PhKinetics|composition|relative|raw }}</div>
+		</div>
+	{% endif %}
+
+	{# Показания к применению препарата #}
+	{% if document.Indication is not empty %}
+		<div class="block" id="indication">
+			<h2 class="block-head">Показания препарата{% if document.RusName %} {{ document.RusName|ucwords|raw }} {% endif %}</h2>
+
+			<div class="block-content">
+				{{ document.Indication|composition|relative|raw }}
+			</div>
+		</div>
+	{% endif %}
+
+	{# Коды МКБ-10 #}
+	{% if document.nozologies is not empty %}
+		<div class="mkb">
+			<a href="#" class="mkb-show">Коды МКБ-10</a>
+			<table class="products-table">
+				<tr class="products-table-header">
+					<td style="width:78px">Код МКБ-10</td>
+					<td>Показание</td>
+				</tr>
+				{% for nozology in document.nozologies %}
+					<tr>
+						<td>{{ nozology.Code }}</td>
+						<td><a href="{{ path('nosology_item', {'Code':nozology.Code|lower}) }}"
+							   class="no-underline">{{ nozology.Name|raw }}</a></td>
+					</tr>
+				{% endfor %}
+			</table>
+		</div>
+	{% endif %}
+
+	{% if is_mobile() %}
+		{{ render(controller('VidalMainBundle:Banner:renderMobileProduct', {'request':app.request, 'isLogged':isLogged, 'banner_mkb':banner_mkb, 'banners_atc':banners_atc})) }}
+	{% endif %}
+
+	{# блок горизонтального яндекс-директа #}
+	{% if short is defined and not short and not is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+		{% if hideYandexDirect is not defined or not hideYandexDirect %}
+			{% include 'VidalMainBundle::yad_horizontal.html.twig' %}
+		{% endif %}
+	{% endif %}
+
+	{# Режим дозирования #}
+	{% if document.Dosage is not empty %}
+		<div class="block" id="dosage">
+			<h2 class="block-head">Режим дозирования</h2>
+            {% if short is defined and short %}
+            <div class="block-content" style="border: 1px solid gray;padding:10px">
+            <i>Способ применения и режим дозирования конкретного препарата зависят от его формы выпуска и других факторов. Оптимальный режим дозирования определяет врач. Следует строго соблюдать соответствие используемой лекарственной формы конкретного препарата показаниям к применению и режиму дозирования.</i>
+			</div>
+			{% endif %}
+			<div class="block-content">
+				{{ document.Dosage|composition|relative|raw }}
+			</div>
+		</div>
+	{% endif %}
+
+	{# Побочное действие #}
+	{% if document.SideEffects is not empty %}
+		<div class="block" id="side_effects">
+			<h2 class="block-head">Побочное действие</h2>
+			<div class="block-content">
+				{{ document.SideEffects|composition|relative|raw }}
+			</div>
+		</div>
+	{% endif %}
+
+	{# Противопоказания к применению препарата #}
+	{% if document.ContraIndication is not empty %}
+		<div class="block" id="contra">
+			<h2 class="block-head">Противопоказания к применению</h2>
+			<div class="block-content">
+				{{ document.ContraIndication|composition|relative|raw }}
+			</div>
+		</div>
+	{% endif %}
+
+	{# Применение препарата при беременности и кормлении грудью #}
+	{% if document.Lactation is not empty and not document.IsShortened %}
+		<div class="block" id="preg_lact">
+			<h2 class="block-head">Применение при беременности и кормлении грудью</h2>
+			<div class="block-content">
+				{{ document.Lactation|composition|relative|raw }}
+			</div>
+		</div>
+	{% endif %}
+
+	{# Применение при нарушениях функции печени #}
+	{% if document.HepatoInsuf is not empty and not document.IsShortened %}
+		<div class="block" id="hepato">
+			<h2 class="block-head">Применение при нарушениях функции печени</h2>
+			<div class="block-content">
+				{{ document.HepatoInsuf|composition|relative|raw }}
+			</div>
+		</div>
+	{% endif %}
+
+	{# Применение при нарушениях функции почек #}
+	{% if document.RenalInsuf is not empty and not document.IsShortened %}
+		<div class="block" id="renal">
+			<h2 class="block-head">Применение при нарушениях функции почек</h2>
+			<div class="block-content">
+				{{ document.RenalInsuf|composition|relative|raw }}
+			</div>
+		</div>
+	{% endif %}
+
+	{# Применение у детей #}
+	{% if document.ChildInsuf is not empty and not document.IsShortened %}
+		<div class="block" id="child">
+			<h2 class="block-head">Применение у детей</h2>
+			<div class="block-content">
+				{{ document.ChildInsuf|composition|relative|raw }}
+			</div>
+		</div>
+	{% endif %}
+
+	{# Применение у пожилых пациентов #}
+	{% if document.ElderlyInsuf is not empty and not document.IsShortened %}
+		<div class="block" id="old">
+			<h2 class="block-head">Применение у пожилых пациентов</h2>
+			<div class="block-content">
+				{{ document.ElderlyInsuf|composition|relative|raw }}
+			</div>
+		</div>
+	{% endif %}
+
+	{# Особые указания #}
+	{% if document.SpecialInstruction is not empty and not document.IsShortened %}
+		<div class="block" id="special">
+			<h2 class="block-head">Особые указания</h2>
+			<div class="block-content">
+				{{ document.SpecialInstruction|composition|relative|raw }}
+			</div>
+		</div>
+	{% endif %}
+
+	{# Передозировка #}
+	{% if document.OverDosage is not empty and not document.IsShortened %}
+		<div class="block" id="over_dosage">
+			<h2 class="block-head">Передозировка</h2>
+			<div class="block-content">
+				{{ document.OverDosage|composition|relative|raw }}
+			</div>
+		</div>
+	{% endif %}
+
+	{# Лекарственное взаимодействие #}
+	{% if document.Interaction is not empty and not document.IsShortened %}
+		<div class="block" id="interaction">
+			<h2 class="block-head">Лекарственное взаимодействие</h2>
+			<div class="block-content">{{ document.Interaction|composition|relative|raw }}</div>
+		</div>
+	{% endif %}
+
+    {% include 'VidalDrugBundle:Vidal:document_condition_info.html.twig' %}
+</div>

@@ -1,0 +1,21 @@
+{% extends 'VidalMainBundle::minimal_layout.html.twig' %}
+
+{% block body %}
+	<p>Письмо отправлено из формы обратной связи сайта
+		<a href="{{ url('contacts') }}"><b>{{ portal }}</b></a>
+	</p>
+
+	<p>
+		{% if app.user %}
+			<a href="{{ url('show_profile', {'userId':app.user.id}) }}"><b>{{ app.user }}</b></a>
+			с почтовым адресом <i>{{ app.user.username }}</i>
+		{% else %}
+			Пользователь, представившийся как <b>{{ data.name|striptags }}</b>
+			из города <i>{{ data.city|striptags }}</i>
+			с почтовым адресом <i>{{ data.email|striptags }}</i>,
+		{% endif %}
+		<br/>оставил сообщение в форме обратной связи:
+	</p>
+
+	<p>{{ data.message|striptags }}</p>
+{% endblock %}

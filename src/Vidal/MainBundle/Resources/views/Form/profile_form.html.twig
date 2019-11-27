@@ -1,0 +1,152 @@
+{% use 'VidalMainBundle:Form:form_table_layout.html.twig' %}
+
+{% block iphp_file_widget %}{{ form_widget(form.file) }}{% endblock %}
+
+{% block form_row %}
+	{% spaceless %}
+
+		{% if name == 'avatar' %}
+			{% set avatar = app.user.avatar %}
+			<tr class="row row_avatar">
+				<td class="label" style="padding-bottom:15px;">
+					{% if avatar and is_file(avatar.path) %}
+						<a href="{{ avatar.path }}">
+							<img src="{{ avatar.path }}" style="max-width:160px;"/>
+						</a>
+					{% else %}
+						<a href="#">
+							<img src="{{ asset('bundles/vidalmain/images/blank_avatar.png') }}"/>
+						</a>
+					{% endif %}
+				</td>
+				<td class="widget" style="vertical-align:top; padding-bottom:15px;">
+					<div class="form_label" style="margin-bottom:7px;">{{ form_label(form) }}</div>
+					<div class="form_widget">{{ form_widget(form) }}</div>
+
+					{% if avatar %}
+						<div class="reset-avatar">
+							<a href="{{ path('reset_avatar') }}">Удалить фото</a>
+						</div>
+					{% endif %}
+
+					<div class="form_error">{{ form_errors(form) }}</div>
+				</td>
+			</tr>
+
+		{% elseif name in ['hideBirthdate', 'hidePhone', 'hideIcq'] %}
+
+		{% elseif name == 'birthdate' %}
+			<tr class="row row_{{ name }}">
+				<td class="label">
+					<div class="form_label">{{ form_label(form) }}
+						<div class="no-selection">
+							<label for="profile_hideBirthdate">скрыть</label>
+							<input type="checkbox" id="profile_hideBirthdate" name="profile[hideBirthdate]"
+								{{ app.user.hideBirthdate ? 'checked="checked"' }}>
+						</div>
+					</div>
+					{% if attr['data-help'] is defined %}
+						<div class="data-help">{{ attr['data-help'] }}</div>
+					{% endif %}
+				</td>
+				<td class="widget">
+					<div class="form_widget">{{ form_widget(form) }}</div>
+					<div class="form_error">{{ form_errors(form) }}</div>
+				</td>
+			</tr>
+
+		{% elseif name == 'phone' %}
+			<tr class="row row_{{ name }}">
+				<td class="label">
+					<div class="form_label">{{ form_label(form) }}
+						<div class="no-selection">
+							<label for="profile_hidePhone">скрыть</label>
+							<input type="checkbox" id="profile_hidePhone" name="profile[hidePhone]"
+								{{ app.user.hidePhone ? 'checked="checked"' }}>
+						</div>
+					</div>
+					{% if attr['data-help'] is defined %}
+						<div class="data-help">{{ attr['data-help'] }}</div>
+					{% endif %}
+				</td>
+				<td class="widget">
+					<div class="form_widget">{{ form_widget(form) }}</div>
+					<div class="form_error">{{ form_errors(form) }}</div>
+				</td>
+			</tr>
+
+		{% elseif name == 'icq' %}
+			<tr class="row row_{{ name }}">
+				<td class="label">
+					<div class="form_label">{{ form_label(form) }}
+						<div class="no-selection">
+							<label for="profile_hideIcq">скрыть</label>
+							<input type="checkbox" id="profile_hideIcq" name="profile[hideIcq]"
+								{{ app.user.hideIcq ? 'checked="checked"' }}>
+						</div>
+					</div>
+					{% if attr['data-help'] is defined %}
+						<div class="data-help">{{ attr['data-help'] }}</div>
+					{% endif %}
+				</td>
+				<td class="widget">
+					<div class="form_widget">{{ form_widget(form) }}</div>
+					<div class="form_error">{{ form_errors(form) }}</div>
+				</td>
+			</tr>
+
+		{% else %}
+			<tr class="row row_{{ name }}">
+				<td class="label">
+					<div class="form_label">{{ form_label(form) }}</div>
+					{% if attr['data-help'] is defined %}
+						<div class="data-help">{{ attr['data-help'] }}</div>
+					{% endif %}
+				</td>
+				<td class="widget">
+					<div class="form_widget">{{ form_widget(form) }}</div>
+					<div class="form_error">{{ form_errors(form) }}</div>
+				</td>
+			</tr>
+		{% endif %}
+
+	{% endspaceless %}
+{% endblock form_row %}
+
+
+{% block button_row %}
+	{% spaceless %}
+		<tr class="row">
+			<td class="label"></td>
+			<td class="widget form_button">
+				{{ form_widget(form) }}
+			</td>
+		</tr>
+
+		{% if name == 'submit1' %}
+			<tr class="row-title">
+				<td colspan="2">
+					<h1 id="edu">ОБРАЗОВАНИЕ</h1>
+				</td>
+			</tr>
+		{% elseif name == 'submit2' %}
+			<tr class="row-title">
+				<td colspan="2">
+					<h1 id="work">РАБОТА</h1></div>
+				</td>
+			</tr>
+		{% elseif name == 'submit3' %}
+			{% set img = app.user.confirmationScan %}
+			{% if img and is_file(img.path) and app.user.countConfirmationSent %}
+				<tr>
+					<td>
+						<a href="{{ img.path }}" style="display: inline-block; position: relative; margin-top:-86px; border:1px solid #ccc;">
+							<img src="{{ img.path }}" style="max-width:160px; max-height:200px;"/>
+						</a>
+					</td>
+				</tr>
+			{% endif %}
+		{% endif %}
+
+	{% endspaceless %}
+{% endblock button_row %}

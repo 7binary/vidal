@@ -1,0 +1,40 @@
+{% if infoPages is defined and infoPages is not empty %}
+    <div class="block" id="storage_conditions">
+        <h2 class="block-head">Контакты для обращений</h2>
+    </div>
+
+	<div class="infoPages" id="info-pages">
+		{% for infoPage in infoPages %}
+			<h2 class="block-head">
+				<a href="{{ path('inf_item', {'InfoPageID':infoPage.InfoPageID}) }}">{{ infoPage.RusName|upper|raw }}</a>
+				<span>{% if infoPage.Country is not empty and infoPage.Country != 'Unknown' %}
+					({{ infoPage.Country }}){% endif %}</span>
+			</h2><br/>
+			<table class="infopage">
+				<tr>
+					{% if infoPage.logo is not empty and is_file(infoPage.logo) %}
+						<td class="infopage-logo" style="padding-right:35px">
+							<img src="{{ infoPage.logo }}"/>
+						</td>
+					{% elseif infoPage.photo %}
+						<td class="infopage-logo" style="padding-right:35px">
+							<img src="{{ infoPage.photo.path }}"/>
+						</td>
+					{% elseif infoPage.picture_path %}
+						{% set path = '/upload/companies/' ~ infoPage.picture_path %}
+						{% if is_file(path) %}
+							<td class="infopage-logo" style="padding-right:35px">
+								<img src="{{ path }}"/>
+							</td>
+						{% endif %}
+					{% endif %}
+					<td class="infopage-about">
+						{{ infoPage.RusAddress|raw }}
+					</td>
+				</tr>
+			</table>
+		{% endfor %}
+	</div>
+{% endif %}
+
+{% include 'VidalDrugBundle:Vidal:_documentAnalogMobile.html.twig' %}

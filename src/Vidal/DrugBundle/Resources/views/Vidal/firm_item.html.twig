@@ -1,0 +1,60 @@
+{% extends 'VidalDrugBundle::vidal_layout.html.twig' %}
+
+
+{% block title %}
+	<div style="position:relative">
+		<h1>{{ company.CompanyName|raw }}{{ company.Property is not empty ? ', ' ~ company.Property|raw|replace({'&amp;':'&'}) }}</h1>
+
+		{# ссылка админу на редактирование #}
+		{% if isAdmin is defined and isAdmin %}
+			<a class="admin-edit fade" target="_blank" href="{{ path('admin_vidal_drug_company_edit', {'id':company.CompanyID}) }}">
+				<img src="{{ asset('bundles/vidalmain/images/edit.png') }}"/>
+			</a>
+		{% endif %}
+	</div>
+{% endblock %}
+
+
+{% block nav %}
+	<div class="breadcrumbs">
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('index') }}" itemprop="url">
+				<span itemprop="title">Видаль</span>
+			</a>
+		</div>
+		<i></i>
+
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('companies') }}" itemprop="url">
+				<span itemprop="title">Фирмы-производители</span>
+			</a>
+		</div>
+		<i></i>
+
+		<span>{{ company.CompanyName|raw }}</span>
+	</div>
+{% endblock %}
+
+
+{% block vidal %}
+	{% include 'VidalDrugBundle:Vidal:render_products.html.twig' %}
+
+	{# представительства #}
+	{% if productsRepresented is not empty %}
+		<div class="block">
+			<div class="block-head">Информация о препаратах предоставлена представительствами</div>
+			<ul class="ul-style">
+				{% for product in productsRepresented %}
+					<li>
+						<a href="{{ path('inf_item', {'InfoPageID':product.InfoPageID}) }}" class="no-underline">
+							{{ product.InfoPageName }}</a>
+						{% if product.InfoPageCountry is not empty and product.InfoPageCountry != 'Unknown' %}
+							<span class="small">({{ product.InfoPageCountry }})</span>
+						{% endif %}
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
+	{% endif %}
+
+{% endblock %}

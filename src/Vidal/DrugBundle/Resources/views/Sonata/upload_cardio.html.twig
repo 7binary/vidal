@@ -1,0 +1,47 @@
+{% extends 'VidalMainBundle::layout_blank.html.twig' %}
+
+
+{% block content %}
+	{% if app.session.flashBag.get('notice')|length %}
+		<div class="saved">Файл загружен</div>
+	{% endif %}
+
+	<h2>Файл</h2>
+	<p>Дата модификации файла (его версия): {{ modified }}</p>
+	<p>Размер файла: {{ filesize }}</p>
+	<p><a href="https://www.vidal.ru/archive/encrypt.vidal.cardio.zip" target="_blank">скачать</a></p>
+
+	<hr/>
+	<h2>Загрузить</h2>
+
+	<form enctype="multipart/form-data" method="post">
+		<p><input type="file" name="file"></p>
+
+		<p><input type="submit" value="Загрузить" class="btn btn-red"></p>
+
+		<hr/>
+		<h2>Ключ API</h2>
+
+		<p><input type="text" name="{{ keyValue.key }}" value="{{ keyValue.value }}"></p>
+
+		<p><input type="submit" value="Сохранить" class="btn btn-red"></p>
+	</form>
+
+	<hr/>
+	<h2>Настройки сервера</h2>
+	<p>post_max_size: {{ post_max_size }}</p>
+	<p>upload_max_filesize: {{ upload_max_filesize }}</p>
+
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<style type="text/css">
+		.saved {
+			background:    beige;
+			padding:       20px;
+			margin-bottom: 20px;
+		}
+	</style>
+{% endblock %}

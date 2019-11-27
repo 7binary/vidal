@@ -1,0 +1,31 @@
+<script type="application/ld+json"> {
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "url": "{{ app.request.uri }}",
+    "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://www.vidal.ru/search?t=all&bad=on&q={search_term_string}",
+        "query-input": "required name=search_term_string"
+    }
+} </script> <script type="application/ld+json"> {
+    "@context": "http://schema.org",
+    "@type": "Organization",
+    "name": "Видаль",
+    "alternateName": "Справочник лекарственных препаратов Видаль",
+    "url": "{{ app.request.uri }}",
+    "sameAs": [
+        "https://www.facebook.com/vidalru",
+        "https://vk.com/vidalru",
+        "https://ok.ru/group/57622762815528",
+        "https://vidalru.livejournal.com/",
+        "https://plus.google.com/+VidalRu",
+        "https://vidalru.blogspot.com/",
+        "https://twitter.com/Vidalru"
+    ],
+    "contactPoint": [{
+        "@type": "ContactPoint",
+        "telephone": "+7-499-975-12-53",
+        "contactType": "customer support"
+    }],
+    "logo": "https://www.vidal.ru/bundles/vidalmain/images/vidal.png"
+} </script>

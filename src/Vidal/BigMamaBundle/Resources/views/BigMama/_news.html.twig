@@ -1,0 +1,38 @@
+{% if publications is defined and publications|length > 0 %}
+    <div class="pages" id="page-news">
+        <div class="main-block">
+            <ul class="news base">
+                {% set publication = publications|first %}
+                <li class="main-item">
+                    <a class="news-cell" href="{{ path('big_mama_publication_item', {'link':publication.link}) }}{% if isTestMode() %}?test=1{%endif %}">
+                        {% if publication.photo %}
+                            <img src="{{ asset(publication.photo.path) }}" class="news-img main-item scale"/>
+                        {% endif %}
+                        <span class="news-overlay"></span>
+                        <span class="news-text main-title"><b>{{ publication.title|raw }}</b></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div>
+        <ul class="news base not-main-item">
+            {% for publication in publications %}
+                {% if loop.index >1 %}
+                <li class="news_item_{{loop.index}}">
+                    <a class="news-cell" href="{{ path('big_mama_publication_item', {'link':publication.link}) }}{% if isTestMode() %}?test=1{%endif %}">
+                        {% if publication.photo %}
+                            <img align="left" src="{{ asset(publication.photo.path) }}" class="news-img scale"/>
+                        {% endif %}
+                        <div class="news-text"><b>{{ publication.title|raw }}</b></div>
+                    </a>
+                </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        </div>
+    </div>
+
+    <div class="main-news-link">
+        <a href="{{path('big_mama_publication')}}{% if isTestMode() %}?test=1{%endif %}">Все материалы</a>
+    </div>
+{% endif %}

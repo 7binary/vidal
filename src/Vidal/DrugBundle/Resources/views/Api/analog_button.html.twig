@@ -1,0 +1,15 @@
+{% if product.analogsFull or product.analogsGroup or product.analogsNosology %}
+	<script>
+		$(document).ready(function() {
+			setTimeout(function() {
+				$('<a class="btn btn-red btn-to-analog" rel="nofollow" href="{{ path('analog_link_uri', {'uri':product.uri}) }}">Поиск аналогов</a>').appendTo('#analog-place');
+			}, 200);
+		});
+
+		$(document).on('click', '.btn-to-analog', function() {
+			ga('send', 'event', 'Переход на страницу поиска аналогов', 'Переход на страницу поиска аналогов со страницы препарата');
+		});
+	</script>
+
+	<span id="analog-place"></span>
+{% endif %}

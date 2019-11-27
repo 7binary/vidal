@@ -1,0 +1,35 @@
+{% extends 'VidalDrugBundle::vidal_layout.html.twig' %}
+
+
+{% block vidal %}
+	<ul id="tree" class="treeview">
+		{% include 'VidalDrugBundle:Drugs:atc_generator_render.html.twig' %}
+	</ul>
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/treeview/jquery.treeview.css') }}"/>
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+	<script src="{{ asset('bundles/vidalmain/treeview/jquery.treeview.js') }}" type="text/javascript"></script>
+	<script src="{{ asset('bundles/vidalmain/treeview/jquery.treeview.edit.js') }}" type="text/javascript"></script>
+	<script src="{{ asset('bundles/vidalmain/treeview/jquery.treeview.async.js') }}" type="text/javascript"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			var $tree = $('.treeview');
+			$tree.treeview({
+				animated:  "fast",
+				collapsed: true,
+				url:       '/drugs/atc-ajax',
+				ajax: {
+					type: "post"
+				}
+			});
+		});
+	</script>
+{% endblock %}

@@ -1,0 +1,50 @@
+{% if document is defined and document.ArticleID in [2,5] %}
+	{% set full = asset('bundles/vidalmain/images/bg/star-full.png') %}
+	{% set empty = asset('bundles/vidalmain/images/bg/star-empty.png') %}
+
+	<div class="stars">
+		<div class="images">
+			{% if document.yearEdition in [2015,2016] %}
+				<img src="{{ full }}"/>
+				<img src="{{ full }}"/>
+				<img src="{{ full }}"/>
+				<img src="{{ full }}"/>
+				<img src="{{ full }}"/>
+			{% elseif document.yearEdition == 2014 %}
+				<img src="{{ full }}"/>
+				<img src="{{ full }}"/>
+				<img src="{{ full }}"/>
+				<img src="{{ full }}"/>
+				<img src="{{ empty }}"/>
+			{% elseif document.yearEdition == 2013 %}
+				<img src="{{ full }}"/>
+				<img src="{{ full }}"/>
+				<img src="{{ full }}"/>
+				<img src="{{ empty }}"/>
+				<img src="{{ empty }}"/>
+			{% elseif document.yearEdition == 2012 %}
+				<img src="{{ full }}"/>
+				<img src="{{ full }}"/>
+				<img src="{{ empty }}"/>
+				<img src="{{ empty }}"/>
+				<img src="{{ empty }}"/>
+			{% else %}
+				<img src="{{ full }}"/>
+				<img src="{{ empty }}"/>
+				<img src="{{ empty }}"/>
+				<img src="{{ empty }}"/>
+				<img src="{{ empty }}"/>
+			{% endif %}
+		</div>
+
+		<div class="group">
+			{% if parentATCCode is defined and parentATCCode %}
+				<span>
+				Рейтинг популярности <b>{{ product.RusName|raw }}</b> в группе
+				<a href="{{ path('atc', {'ATCCode':parentATCCode.ATCCode}) }}" class="no-underline"
+				   title="{{ parentATCCode.ATCCode }}">{{ parentATCCode.RusName|raw }}</a>
+				</span>
+			{% endif %}
+		</div>
+	</div>
+{% endif %}

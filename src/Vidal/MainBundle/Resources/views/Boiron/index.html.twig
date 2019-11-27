@@ -1,0 +1,167 @@
+{% extends 'VidalMainBundle::layout_promo.html.twig' %}
+
+{% block middle %}
+	<div class="boiron-bg">
+		<div class="boiron-top">
+			<img src="{{ asset('bundles/vidalmain/boiron/top.png') }}" style="width: 800px; margin-left: 50px;">
+			<a class="logo-a" href="{{ path('boiron_main') }}"></a>
+		</div>
+		<div class="boiron-content">
+			<div class="line">
+				<div>
+					<img src="{{ asset('bundles/vidalmain/boiron/line1.png') }}">
+					<div class="line-title" style="top: 60px;left: 55px;"><a href="{{ path('boiron_page',{'pageNum' : 1}) }}">ХОЛОДНО? ЖАРКО?</a></div>
+				</div>
+			</div>
+			<div class="content">
+				<br />
+                Мамы всегда волнуются за своих детей – а вдруг замерзнет? Но ведь перегрев еще тоже никому не шел на пользу. Так как же найти золотую середину?
+				<br />
+                <br />
+                Все мы видели забавные фотографии, на которых изображены дети, укутанные с ног до головы. Ходить в такой экипировке крайне проблематично, а уж играть тем более. Однако смех-смехом, но когда встает вопрос о том, в чем вывести гулять ребенка в феврале, тут уж не до смеха.
+                <br />
+				<br />
+				<br />
+				<br />
+				<div class="comment-box">
+					<a href="{{ path('boiron_page',{'pageNum' : 1}) }}">
+						<img src="{{ asset('bundles/vidalmain/boiron/line4.png') }}" class="comment">
+						<div class="comment-title">Читать далее..</div>
+					</a>
+				</div>
+			</div>
+			<div class="line" style="margin-top: -30px">
+				<div>
+					<img src="{{ asset('bundles/vidalmain/boiron/line2.png') }}">
+					<div class="line-title" style="top: 65px;left: 55px;"><a href="{{ path('boiron_page',{'pageNum' : 2}) }}">ЗАНИМАТЕЛЬНОЕ СТРАНОВЕДЕНИЕ</a></div>
+				</div>
+			</div>
+			<div class="content">
+				<br />
+                Найди Францию в России и наоборот
+                <br /><br />
+                Как познакомить малыша с большим и необъятным миром? Полистать вместе с ним детский атлас или энциклопедию о континентах, посмотреть образовательный фильм. А можно устроить целую игру и, проведя параллели между разными странами, узнать, что у них похожего. Возьмем, к примеру, Россию и Францию — и там, и там есть живописные горы, теплое море, удивительные дворцы и красивейшие города... Начнем прямо сейчас?
+                <br /><br />
+                <br /><br />
+				<div class="comment-box">
+					<a href="{{ path('boiron_page',{'pageNum' : 2}) }}">
+						<img src="{{ asset('bundles/vidalmain/boiron/line4.png') }}" class="comment">
+						<div class="comment-title">Читать далее..</div>
+					</a>
+				</div>
+			</div>
+			<div class="line">
+				<div>
+					<img src="{{ asset('bundles/vidalmain/boiron/line3.png') }}">
+					<div class="line-title" style="top: 65px;left: 55px;"><a href="{{ path('boiron_page',{'pageNum' : 3}) }}">ЗИМНЯЯ ЛИХОРАДКА</a></div>
+				</div>
+			</div>
+			<div class="content">
+				<br />
+                Курортов, достойных внимания, много, но мы бы выделили четыре, на наш взгляд, лучших. Если
+                помимо отличных спусков вас привлекают еще и живописные французские деревеньки, то
+                начните с Шамони. Это святая святых горнолыжной Франции и самый старый альпийский курорт,
+                расположившийся у подножия Монблана. В 1924 году здесь прошли первые Зимние Олимпийские
+                игры, так что инфраструктура тут просто идеальная. А вот если вы хотите попасть в один из самых
+                высокогорных и заснеженных курортов, то лучше выбрать Валь Торанс. К тому же, здесь проходят
+                самые веселые après ski вечеринки.
+                <br /><br />
+                <br /><br />
+				<div class="comment-box" >
+					<a href="{{ path('boiron_page',{'pageNum' : 3}) }}">
+						<img src="{{ asset('bundles/vidalmain/boiron/line4.png') }}" class="comment">
+						<div class="comment-title">Читать далее..</div>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	{#<div class="boiron-footer">#}
+		{#<img src="{{ asset('bundles/vidalmain/boiron/man-bottom.png') }}" class="man-bottom">#}
+		{#<img src="{{ asset('bundles/vidalmain/boiron/logo-bottom.png') }}" class="logo-bottom">#}
+	{#</div>#}
+{% endblock %}
+
+{% block stylesheets %}
+		{{ parent() }}
+		<style>
+			.boiron-bg{
+				background: url('{{ asset('bundles/vidalmain/boiron/bg.png') }}');
+				position: relative;
+				height: 1763px;
+			}
+			.boiron-content{
+				min-height: 500px;
+			}
+			.boiron-box{
+				width: 410px;
+				position: absolute;
+				top: 178px;
+				right: 46px;
+			}
+			.boiron-footer{
+				height: 200px;
+				background: #FFFFFF;
+				position: relative;
+			}
+			.line{
+				text-align: left;
+				margin-left: 55px;
+				position: relative;
+				/*margin-top: 20px;*/
+			}
+			.comment{
+				position: absolute;
+				bottom: 0;
+				right: 0;
+				width: 150px;
+				cursor: pointer;
+			}
+			.content{
+				width: 850px;
+				margin: 0 auto;
+				color: #6a685a;
+				line-height: 22px;
+				font-size: 15px;
+				position: relative;
+			}
+			.line-title{
+				position: absolute;
+				font-weight: bold;
+				color: #353535;
+				font-size: 20px;
+				top: 54px;
+				left: 23px;
+			}
+            .line-title a{
+                color: #353535;
+                text-decoration: none;
+            }
+            .line-title a:hover{
+                text-decoration: underline;
+            }
+			.comment-box{
+				position: relative;
+			}
+			.comment-title{
+				position: absolute;
+				color: #EEEEEE;
+				right: 16px;
+				top: -51px;
+				font-weight: bold;
+				font-size: 16px;
+				cursor: pointer;
+			}
+            .comment-title:hover{
+                text-decoration: underline;
+            }
+			.logo-a{
+				display: block;
+				position: absolute;
+				width: 360px;
+				height: 70px;
+				top: 35px;
+				left: 300px;
+			}
+		</style>
+{% endblock %}

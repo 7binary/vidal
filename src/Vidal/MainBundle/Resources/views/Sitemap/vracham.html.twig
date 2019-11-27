@@ -1,0 +1,58 @@
+<ul>
+	<li>
+		<a href="https://www.vidal.ru/vracham/expert/Vidal-CD/">Электронный справочник Видаль</a>
+	</li>
+	<li>
+		<a href="http://vidal.cloudapp.net/mobile/">Поиск аналогов по МНН</a>
+	</li>
+
+	{% for key, rubrique in artRubriques %}
+		<li class="hasChildren expandable">
+			<div class="hitarea hasChildren-hitarea expandable-hitarea"></div>
+			<a href="{{ path('art', {'url':rubrique.url}) }}" target="_blank">{{ rubrique.title }}</a>
+			<ul style="display:none;">
+
+				{% for keyType, type in rubrique.children %}
+					<li class="hasChildren expandable">
+						<div class="hitarea hasChildren-hitarea expandable-hitarea"></div>
+						<a href="{{ path('art', {'url':rubrique.url ~ '/' ~ type.url}) }}"
+						   target="_blank">{{ type.title }}</a>
+						<ul style="display:none;">
+							{% for categoryType, category in type.children %}
+								<li class="hasChildren expandable">
+									<div class="hitarea hasChildren-hitarea expandable-hitarea"></div>
+									<a href="{{ path('art', {'url':rubrique.url ~ '/' ~ type.url ~ '/' ~ category.url}) }}"
+									   target="_blank">{{ type.title }}</a>
+									<ul style="display:none;">
+										{% for article in category.articles %}
+											<li>
+												<a href="{{ path('art', {'url':rubrique.url ~ '/' ~ type.url ~ '/' ~ category.url ~ '/' ~ article.link}) }}"
+												   target="_blank" class="article">{{ article.title|raw }}</a>
+											</li>
+										{% endfor %}
+									</ul>
+								</li>
+							{% endfor %}
+							{% for article in type.articles %}
+								<li>
+									<a href="{{ path('art', {'url':rubrique.url ~ '/' ~ type.url ~ '/' ~ article.link}) }}"
+									   target="_blank" class="article">{{ article.title|raw }}</a>
+								</li>
+							{% endfor %}
+						</ul>
+					</li>
+				{% endfor %}
+
+				{% for article in rubrique.articles %}
+					<li>
+						<a class="article"
+						   href="{{ path('art', {'url':rubrique.url ~ '/' ~ article.link}) }}"
+						   target="_blank">
+							{{ article.title|raw }}
+						</a>
+					</li>
+				{% endfor %}
+			</ul>
+		</li>
+	{% endfor %}
+</ul>

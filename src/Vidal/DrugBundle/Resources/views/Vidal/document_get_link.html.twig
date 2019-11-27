@@ -1,0 +1,12 @@
+<div class="copy">
+	<div class="copy-head">
+		Если вы хотите разместить ссылку на описание этого препарата - используйте данный код
+	</div>
+	{% spaceless %}
+		<textarea cols="92" rows="2">
+			{% if product is defined %}
+				<a href="{{ url('product_url', {'EngName':product.uri}) }}" target="_blank"><b>{{ product.RusName|raw }}</b>. Описание препарата в справочнике Видаль.</a>
+			{% endif %}
+		</textarea>
+	{% endspaceless %}
+</div>

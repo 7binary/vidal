@@ -1,0 +1,39 @@
+{% if not app.user and app.environment == 'prod' %}
+	<noindex>
+		<div id="popupvidal" class="popup">
+			<img id="closepopupvidal" src="{{ asset('bundles/vidalmain/images/cross_red_big.png') }}"/>
+			<a href="#" target="_blank" id="popup-link">
+				<img src="" id="popup-img" style="width: 400px; max-height: 400px"/>
+			</a>
+		</div>
+	</noindex>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			if (typeof(noBanner)=='undefined' || noBanner != true){
+				var popup = getCookie('popupvidal');
+				if (popup == undefined) {
+					$.ajax({
+						type: "GET",
+						url: "{{ path('get-popup') }}",
+						success: function(msg){
+							if (msg != 'no'){
+								msg = $.parseJSON(msg);
+								msg = msg.data;
+								$('#popup-img').attr('src',msg.img);
+								$('#popup-link').attr('href',msg.link);
+								setCookie('popupvidal', '1', {expires: 28800});
+								$('.gray').fadeIn();
+								$('#popupvidal').fadeIn();
+							}
+						}
+					});
+				}
+
+				$('#closepopupvidal').click(function() {
+					$('.gray').fadeOut();
+					$('#popupvidal').fadeOut();
+				});
+			}
+		});
+	</script>
+{% endif %}

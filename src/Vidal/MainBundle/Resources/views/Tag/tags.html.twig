@@ -1,0 +1,89 @@
+{% if tags is not empty %}
+	<div class="tags no-selection">
+		{% for key, tag in tags %}
+			{% set type = tag|type %}
+			{# тег #}
+			{% if type == 'Tag' %}
+				<a href="{{ path('tag_news', {'id':tag.id}) }}" target="_blank"
+				   title="новостей по теме «{{ tag.text }}»: {{ tag.publications.count }}">
+					{{ key }}
+				</a>
+
+				{# атх #}
+			{% elseif type == 'ATC' %}
+				<a href="{{ path('atc_item', {'ATCCode':tag.ATCCode|lower}) }}" target="_blank"
+				   title="анатомо-терапевтически-химическая (АТХ) система классификации (ATC)">
+					{{ key }}
+				</a>
+
+				{# вещество #}
+			{% elseif type == 'Molecule' %}
+				<a href="{{ path('molecule', {'MoleculeID':tag.MoleculeID}) }}" target="_blank"
+				   title="активное вещество">
+					{{ key }}
+				</a>
+
+				{# представительство #}
+			{% elseif type == 'InfoPage' %}
+				{% set infoPage = findInfoPage(tag.InfoPageID) %}
+				{% if infoPage and infoPage.countProducts %}
+					<a href="{{ path('inf_item', {'InfoPageID':tag.InfoPageID}) }}" target="_blank"
+					   title="представительство">
+						{{ tag.tag ? tag.tag.text|raw : tag.RusName|raw }}
+					</a>
+				{% endif %}
+
+				{# нозология #}
+			{% elseif type == 'Nozology' %}
+				<a href="{{ path('nosology_item', {'Code':tag.Code}) }}" target="_blank"
+				   title="нозологический указатель">
+					{{ key }}
+				</a>
+			{% endif %}
+		{% endfor %}
+	</div>
+{% endif %}
+
+{% if productGroups is not empty %}
+	<div class="block descr">
+		<span class="block-head">Описания препаратов:</span>
+		{% for key, products in productGroups %}
+			{% if products|length == 1 %}
+				<a href="{{ path('product_url', {'EngName':products[0].uri}) }}"
+				   target="blank" class="no-underline">{{ products[0].RusName|raw }}</a>
+			{% else %}
+				{% set ids = [] %}
+				{% for product in products %}
+					{% set ids = ids|merge([product.ProductID]) %}
+				{% endfor %}
+				<a href="{{ path('product-group', {'ids':ids|join('-')}) }}" target="blank"
+				   class="no-underline">{{ products[0].RusName|raw }}</a>
+			{% endif %}
+			<span>{{ loop.last ? '.' : ',' }} </span>
+		{% endfor %}
+	</div>
+{% endif %}
+
+{% if badGroups is not empty %}
+	<div class="block">
+		<span class="block-head">БАД:</span>
+		{% for key, products in badGroups %}
+			{% if products|length == 1 %}
+				<a href="{{ path('product_url', {'EngName':products[0].uri}) }}"
+				   target="blank" class="no-underline">
+					{{ products[0].RusName|raw }}
+				</a>
+			{% else %}
+				{% set ids = [] %}
+				{% for product in products %}
+					{% set ids = ids|merge([product.ProductID]) %}
+				{% endfor %}
+				<a href="{{ path('product-group', {'ids':ids|join('-')}) }}" target="blank"
+				   class="no-underline">
+					{{ products[0].RusName|raw }}
+				</a>
+			{% endif %}
+			{% if not loop.last %}, {% endif %}
+		{% endfor %}
+	</div>
+{% endif %}

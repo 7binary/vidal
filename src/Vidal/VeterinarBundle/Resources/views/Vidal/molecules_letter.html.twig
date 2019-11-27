@@ -1,0 +1,171 @@
+{% extends 'VidalVeterinarBundle::vidal_layout.html.twig' %}
+
+
+{% block nav %}
+	<div class="breadcrumbs">
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('index') }}" itemprop="url">
+				<span itemprop="title">Видаль</span>
+			</a>
+		</div>
+		<i></i>
+
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('veterinar') }}" itemprop="url">
+				<span itemprop="title">Видаль-Ветеринар</span>
+			</a>
+		</div>
+		<i></i>
+
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('v_molecules') }}" itemprop="url">
+				<span itemprop="title">Активные вещества</span>
+			</a>
+		</div>
+		<i></i>
+		<span>Буква {{ l }}</span>
+	</div>
+{% endblock %}
+
+
+{% block meta %}
+	{% set currentPage = app.request.get('p', 1) %}
+	{% set maxPages = pagination.pageCount %}
+
+	{% if currentPage > 1 %}
+		{% if currentPage == 2 %}
+			<link rel="prev" href="{{ path('molecules_letter', {'letter':letter}) }}">
+		{% else %}
+			<link rel="prev" href="{{ path('molecules_letter', {'letter':letter, 'p':(currentPage-1)}) }}">
+		{% endif %}
+	{% endif %}
+
+	{% if currentPage < maxPages %}
+		<link rel="next" href="{{ path('molecules_letter', {'letter':letter, 'p':(currentPage+1)}) }}">
+	{% endif %}
+
+	{{ parent() }}
+{% endblock %}
+
+
+{% block vidal %}
+	<h1>{{ seotitle }}</h1>
+
+	{% include 'VidalDrugBundle:Vidal:molecules_form.html.twig' %}
+
+	<div class="info-line">
+		Найдено активных веществ:
+		<span>{{ pagination.totalItemCount }}</span>
+	</div>
+
+	<table class="products-table molecules">
+		<tr class="products-table-header">
+			<td style="width:30%">Название русское</td>
+			<td style="width:30%">Название латинское</td>
+			<td style="width:40%" title="Международное непатентованное наименование (МНН)">МНН</td>
+		</tr>
+		{% for molecule in pagination %}
+			<tr>
+				<td>
+					<a class="no-underline" href="{{ path('v_molecule', {'url':molecule.url}) }}">{{ molecule.RusName|raw }}</a>
+				</td>
+				<td>
+					<a class="no-underline" href="{{ path('v_molecule', {'url':molecule.url}) }}">{{ molecule.LatName|raw }}</a>
+				</td>
+				<td>
+					{% if molecule.GNParent is not empty %}
+						<a title="Международное непатентованное наименование (МНН)" href="{{ path('gnp') }}"
+						   class="no-underline mnn">{{ molecule.GNParent }}
+						</a>
+						<span class="small italic">{{ molecule.GNParent.description }}</span>
+					{% endif %}
+				</td>
+			</tr>
+		{% endfor %}
+	</table>
+
+	<div class="navigation">
+		{{ knp_pagination_render(pagination) }}
+	</div>
+
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+	<script type="text/javascript">
+		$(document).ready(function() {
+			{% if not is_mobile() %}
+			var top = $('#scrolling').offset().top;
+			$(window).scroll(function() {
+				var scrollTop = $(window).scrollTop();
+				if (scrollTop >= top) {
+					$('#scrolling').addClass('fixedtop');
+				}
+				else {
+					$('#scrolling').removeClass('fixedtop');
+				}
+			});
+			{% endif %}
+		});
+	</script>
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/letters.css') }}"/>
+	<style type="text/css">
+		#scrolling.fixedtop {
+			position:   fixed;
+			top:        0;
+			width:      520px;
+			z-index:    1000;
+			background: beige;
+			border:     1px dashed #ccc;
+		}
+		{% if isMobile %}
+		#veterinar_form {
+			overflow: hidden;
+		}
+		.letters {
+			padding-bottom: 0 !important;
+			border-bottom:  none !important;
+		}
+		{% endif %}
+		.veterinar-letters {
+			margin-top: 10px;
+		}
+		.veterinar-letters > div {
+			overflow: hidden;
+		}
+		#veterinar_type {
+			width: 195px;
+		}
+		#form_submit {
+			float: right;
+		}
+		#form_input {
+			width: 408px;
+		}
+		#veterinar_input {
+			width:       205px;
+			margin-left: 8px;
+		}
+		.veterinar-about {
+			font-size:   15px;
+			margin-top:  22px;
+			padding-top: 4px;
+			border-top:  1px solid #e1e1e1;
+		}
+		.veterinar-about-2 {
+			margin-top: 35px;
+		}
+		.companies a {
+			text-decoration: none;
+		}
+		.companies a:hover {
+			text-decoration: underline;
+		}
+	</style>
+{% endblock %}

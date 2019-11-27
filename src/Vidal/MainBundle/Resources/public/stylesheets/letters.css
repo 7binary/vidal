@@ -1,0 +1,53 @@
+.letters {
+	margin: 10px 0;
+}
+.letters > div {
+	overflow: hidden;
+}
+.letters input.en, .letters a.en {
+	color: #434EA0;
+}
+.letters input.active, .letters input:hover, .letters a.active, .letters a:hover {
+	background: #d71344;
+	color:      white;
+}
+.letters input:active, .letters a:active {
+	position: relative;
+	top:      1px;
+}
+.letters input, .letters a {
+	display:            inline-block;
+	width:              15px;
+	text-align:         center;
+	text-decoration:    none;
+	color:              #62768A;
+	float:              left;
+	margin-right:       2px;
+	margin-bottom:      3px;
+	font-size:          12px;
+	outline:            none;
+	cursor:             pointer;
+	padding:            0;
+	background:         #F5F5F5;
+	box-shadow:         1px 1px 3px rgba(0, 0, 0, 0.5);
+	-moz-box-shadow:    1px 1px 3px rgba(0, 0, 0, 0.5);
+	-webkit-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+	border:             none;
+	line-height:        18px;
+}
+.letter.active {
+	border: 1px solid #d71344;
+	color:  #d71344;
+}
+.letter:hover {
+	border: 1px solid #d71344;
+	color:  #d71344;
+    margin-bottom: 1px;
+}
+.letter:active {
+	position: relative;
+	top:      1px;
+}
+.letters-controls > * {
+	vertical-align: top;
+}

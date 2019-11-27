@@ -1,0 +1,51 @@
+<form id="veterinar_form" method="GET" action="{{ path('veterinar') }}">
+	<div class="veterinar-search">
+		<select id="veterinar_type" name="t">
+			<option value="all"{{ t is defined and t == 'all' ? ' selected="selected"' }}>Все</option>
+			<option value="p"{{ t is defined and t == 'p' ? ' selected="selected"' }}>Препараты</option>
+			<option value="c"{{ t is defined and t == 'c' ? ' selected="selected"' }}>Фирмы-производители</option>
+			<option value="r"{{ t is defined and t == 'r' ? ' selected="selected"' }}>Информационные страницы</option>
+			<option value="m"{{ t is defined and t == 'm' ? ' selected="selected"' }}>Активные вещества</option>
+		</select>
+
+		<input id="veterinar_input" type="text" name="q" placeholder="Введите слово для поиска..."
+			   value="{{ q is defined and q is not empty and not l ? q }}"/>
+		<input id="veterinar_submit" type="submit" value="Найти" class="btn-red">
+	</div>
+</form>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('.veterinar-search select').chosen({
+			disable_search: true
+		});
+
+		$('#veterinar_input')
+			.autocomplete({
+				minLength: 2,
+				source:    function(request, response) {
+					var url = '/elastic/autocomplete_veterinar/' + request.term.trim();
+					$.getJSON(url, function(data) {
+						response($.map(data.hits.hits, function(item) {
+							return {
+								label: item.highlight.name,
+								value: item._source.name,
+								code:  item._source.code
+							}
+						}));
+					});
+				},
+				select:    function(event, ui) {
+					if (ui.item) {
+						$(this).val(ui.item.value);
+					}
+				}
+			})
+			.data("ui-autocomplete")._renderItem = function(ul, item) {
+			return $('<li class="aut"></li>')
+				.data("item.autocomplete", item)
+				.append("<a>" + item.label + "</a>")
+				.appendTo(ul);
+		};
+	});
+</script>

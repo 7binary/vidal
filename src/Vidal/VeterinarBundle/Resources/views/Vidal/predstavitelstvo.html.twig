@@ -1,0 +1,63 @@
+{% extends 'VidalVeterinarBundle::vidal_layout.html.twig' %}
+
+
+{% block title %}
+	<h1>Информационные страницы</h1>
+{% endblock %}
+
+
+{% block nav %}
+	<div class="breadcrumbs">
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('index') }}" itemprop="url">
+				<span itemprop="title">Видаль</span>
+			</a>
+		</div>
+		<i></i>
+
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('veterinar') }}" itemprop="url">
+				<span itemprop="title">Видаль-Ветеринар</span>
+			</a>
+		</div>
+		<i></i>
+		<span>Информационные страницы</span>
+	</div>
+{% endblock %}
+
+
+{% block vidal %}
+	{% if menu_veterinar is defined %}
+		{% include 'VidalVeterinarBundle:Vidal:veterinar_menu.html.twig' %}
+	{% endif %}
+
+	{% if infoPages is not empty %}
+		<table class="infopage products-table">
+			<tr class="products-table-header">
+				<td>Название</td>
+				<td class="right">Страна</td>
+			</tr>
+			{% for i in infoPages %}
+				<tr>
+					<td>
+						<a target="_blank" href="{{ path('v_inf', {'Name':i.Name}) }}">{{ i.RusName|raw }}</a>
+					</td>
+					<td class="right">{{ i.Country }}</td>
+				</tr>
+			{% endfor %}
+		</table>
+	{% endif %}
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<style type="text/css">
+		.infopage a {
+			text-decoration: none;
+		}
+		.infopage a:hover {
+			text-decoration: underline;
+		}
+	</style>
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends 'VidalVeterinarBundle::vidal_layout.html.twig' %}
+
+
+{% block title %}
+	<h1>Международные наименования <span>(МНН)</span></h1>
+{% endblock %}
+
+
+{% block nav %}
+	<div class="breadcrumbs">
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('index') }}" itemprop="url">
+				<span itemprop="title">Видаль</span>
+			</a>
+		</div>
+		<i></i>
+
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('veterinar') }}" itemprop="url">
+				<span itemprop="title">Видаль-Ветеринар</span>
+			</a>
+		</div>
+		<i></i>
+		<span>Международные наименования (МНН)</span>
+	</div>
+{% endblock %}
+
+
+{% block vidal %}
+	<div class="gnp">
+		<div class="gnp-title">
+			Международные наименования присвоены активным веществам на основании данных
+			"International Nonproprietary Names (INN) for Pharmaceutical Substances", 9th Edition WHO;
+			"Index Nominum: International Drug Directory" 16th Edition; "MARTINDALE The Extra Pharmacopoeia",
+			31st Edition; данных, представленных на сайте
+			<a href="http://www.who.int/medicines/publications/druginformation/en/" target="_new">WHO
+				Drug Information</a> и имеют следующие обозначения:
+		</div>
+
+		<ul class="gnp-items ul-style">
+			{% for gnp in gnps %}
+				<li>
+					<b>{{ gnp.GNParent }}</b>
+					<span>{{ gnp.description }}</span>
+				</li>
+			{% endfor %}
+		</ul>
+	</div>
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<style type="text/css">
+		.gnp {
+			font-size: 15px;
+		}
+		.gnp-title {
+			margin-bottom: 22px;
+			text-align:    justify;
+		}
+		.gnp-items li {
+			overflow:      hidden;
+			margin-bottom: 5px;
+		}
+		.gnp-items li b {
+			display: block;
+			width:   95px;
+			float:   left;
+		}
+		.gnp-items li span {
+			display:     block;
+			margin-left: 100px;
+		}
+	</style>
+{% endblock %}

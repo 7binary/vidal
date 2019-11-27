@@ -1,0 +1,40 @@
+{# Условия отпуска и и сроки хранени#}
+{% if not document.isInstruction %}
+    {% if document.PharmDelivery is not empty %}
+        <div class="block" id="pharm">
+            <h2 class="block-head">Условия реализации</h2>
+            <div class="block-content">
+                {{ document.PharmDelivery|composition|relative|raw }}
+            </div>
+        </div>
+    {% endif %}
+{% endif %}
+
+{% if document.storageConditionSource is not empty %}
+    <div class="block" id="storage_conditions">
+        <h2 class="block-head">Условия хранения{% if document.RusName %} {{ document.RusName|ucwords|raw }} {% endif %}</h2>
+        <div class="block-content">
+            {{ document.storageConditionSource|composition|relative|raw }}
+        </div>
+    </div>
+{% endif %}
+
+{% if document.storageTime is not empty %}
+    <div class="block" id="storage_time">
+        <h2 class="block-head">Срок годности{% if document.RusName %} {{ document.RusName|ucwords|raw }} {% endif %}</h2>
+        <div class="block-content">
+            {{ document.storageTime|composition|relative|raw }}
+        </div>
+    </div>
+{% endif %}
+
+{% if document.isInstruction %}
+    {% if document.PharmDelivery is not empty %}
+        <div class="block" id="pharm">
+            <h2 class="block-head">Условия реализации</h2>
+            <div class="block-content">
+                {{ document.PharmDelivery|composition|relative|raw }}
+            </div>
+        </div>
+    {% endif %}
+{% endif %}

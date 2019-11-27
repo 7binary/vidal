@@ -1,0 +1,90 @@
+{% extends 'VidalVeterinarBundle::vidal_layout.html.twig' %}
+
+
+{% block vidal %}
+	{% if menu_veterinar is defined %}
+		{% include 'VidalVeterinarBundle:Vidal:veterinar_menu.html.twig' %}
+	{% endif %}
+
+	{% include 'VidalVeterinarBundle:Vidal:veterinar_form.html.twig' %}
+
+	<div class="block">
+		<div class="no-results">
+			Для поиска надо ввести хотя бы 2 символа
+		</div>
+	</div>
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/letters.css') }}"/>
+	<style type="text/css">
+		.veterinar-letters {
+			margin-top: 10px;
+		}
+		.veterinar-letters > div {
+			overflow: hidden;
+		}
+		#veterinar_type {
+			width: 195px;
+		}
+		#veterinar_input {
+			width:       205px;
+			margin-left: 8px;
+		}
+		#veterinar_submit {
+			float: right;
+		}
+		.veterinar-about {
+			font-size:   15px;
+			margin-top:  22px;
+			padding-top: 4px;
+			border-top:  1px solid #e1e1e1;
+		}
+		.veterinar-about-2 {
+			margin-top: 35px;
+		}
+		.companies a {
+			text-decoration: none;
+		}
+		.companies a:hover {
+			text-decoration: underline;
+		}
+	</style>
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+	<script type="text/javascript">
+		$(document).ready(function() {
+			var $type = $('#veterinar_type');
+
+			$('#veterinar_input')
+				.autocomplete({
+					minLength: 2,
+					source:    function(request, response) {
+						var url = '/elastic/autocomplete_veterinar/' + request.term.trim() + '?type=' + $type.val();
+						$.getJSON(url, function(data) {
+							response($.map(data.hits.hits, function(item) {
+								return {
+									label: item.highlight.name,
+									value: item._source.name
+								}
+							}));
+						});
+					},
+					select:    function(event, ui) {
+						if (ui.item) {
+							$(this).val(ui.item.value);
+						}
+					}
+				}).data("ui-autocomplete")._renderItem = function(ul, item) {
+				return $("<li></li>")
+					.data("item.autocomplete",tem)
+					.append("<a>" + item.label + "</a>")
+					.appendTo(ul);
+			};
+		});
+	</script>
+{% endblock %}

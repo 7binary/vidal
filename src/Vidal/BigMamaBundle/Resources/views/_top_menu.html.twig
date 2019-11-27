@@ -1,0 +1,42 @@
+{% set currenRoute =  app.request.attributes.get('_route') %}
+{% set isMain = false %}
+{% if currenRoute == 'big_mama' %}
+    {% set isMain = true %}
+{% endif %}
+<div class="top-menu">
+    <div>
+        <a href="{{path('big_mama_about')}}{% if isTestMode() %}?test=1{%endif %}" class="light1 
+            {% if 'big_mama_about' in currenRoute %} active {% endif %}">
+            О проекте
+        </a>
+    </div>
+    <div>
+        <a href="{% if isMain %} #page-news{% else %} {{path('big_mama_publication')}}{% if isTestMode() %}?test=1{%endif %} {% endif %}" class="light2 
+            {% if 'big_mama_publication' in currenRoute %} active {% endif %}">
+            Почитать
+        </a>
+    </div>
+    <div>
+        <a href="{% if isMain %} #page-video{% else %} {{path('big_mama_video')}}{% if isTestMode() %}?test=1{%endif %} {% endif %}" class="light3
+            {% if 'big_mama_video' in currenRoute %} active {% endif %}">
+            Видео
+        </a>
+    </div>
+    <div>
+        <a href="{% if isMain %} #page-audio{% else %} {{path('big_mama_audio')}}{% if isTestMode() %}?test=1{%endif %} {% endif %}" class="light4
+            {% if 'big_mama_audio' in currenRoute %} active {% endif %}">
+            Аудио
+        </a>
+    </div>
+    <div>
+        <a href="{% if isMain %} #specialist{% else %} {{path('big_mama_specialist')}}{% if isTestMode() %}?test=1{%endif %} {% endif %}" class="light5 {% if 'big_mama_specialist' in currenRoute %} active {% endif %}"    >
+            Специалистам
+        </a>
+    </div>
+    <div>
+        <a href="{% if isMain %} #page-questions"{% else %} {{path('big_mama')}}{% if isTestMode() %}?test=1{%endif %}#page-questions
+            {% endif %}" class="light5">
+            Вопросы и ответы
+        </a>
+    </div>
+</div>

@@ -1,0 +1,47 @@
+<div class="auth auth-popup">
+	<img class="auth-popup-close" src="{{ asset('bundles/vidalmain/images/bg/close.png') }}"/>
+
+	<form action="{{ path("ajax_login") }}" method="POST">
+		<div class="auth-info raspberry">Вход для специалистов</div>
+
+		<div class="auth-username">
+			<label for="username" class="form_label">Логин/e-mail:</label>
+			<input type="text" name="username"/>
+		</div>
+
+		<div class="auth-password">
+			<label for="password" class="form_label">Пароль:</label>
+			<input type="password" name="password"/>
+		</div>
+
+		<div class="auth-submit">
+			{#<a href="{{ path('password_reset') }}" title="Сбросить пароль">Забыли пароль?</a>#}
+			<a class="submit btn-red" href="#">Войти</a>
+		</div>
+
+		<div class="auth-fail-message red">Неверный логин или пароль</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('.login-popup').click(function() {
+			$('#overlay').show();
+			$('.auth-popup').show();
+			return false;
+		});
+
+		$('.auth-popup a.submit').click(function(e) {
+			e.preventDefault();
+
+			$.post('/ajax-login', $('.auth-popup form').serialize(), function(data) {
+				data['success'] == 'yes' ? location.reload() : $('.auth-popup .auth-fail-message').show();
+			});
+		});
+
+		$('.auth-popup-close').click(function() {
+			$('.auth-popup').hide();
+			$('#overlay').hide();
+		});
+	});
+</script>

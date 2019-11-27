@@ -1,0 +1,69 @@
+{% if search_companies is defined %}
+	{% if search_infoPages is not empty %}
+		<div class="block" id="search_infoPages">
+			<div class="block-anons">
+				<div class="block-head">
+					Найдено представительств{{ search_infoPages|length == 1 ? 'о' }}: <span>{{ search_infoPages|length }}</span>
+				</div>
+			</div>
+		</div>
+
+		<table class="products-table">
+			<tr class="products-table-header">
+				<td>Представительство</td>
+				<td style="width:30%">Страна</td>
+			</tr>
+			{% for inf in search_infoPages %}
+				<tr>
+					<td>
+						<a class="no-underline"
+						   href="{{ path('inf_item', {'InfoPageID':inf.InfoPageID}) }}">
+							{{ inf.RusName|raw }}
+						</a>
+					</td>
+					<td>
+						{% if inf.CountryCode is not empty and inf.CountryCode.RusName != 'Unknown' %}
+							{{ inf.CountryCode.RusName }}
+						{% endif %}
+					</td>
+				</tr>
+			{% endfor %}
+		</table>
+	{% endif %}
+
+	{% if search_companies is not empty %}
+		<div class="block" id="search_companies">
+			<div class="block-anons">
+				<div class="block-head">
+					Найдено производител{{ search_companies|length == 1 ? 'ь' : 'ей' }}: <span>{{ search_companies|length }}</span>
+				</div>
+			</div>
+		</div>
+
+		<table class="products-table">
+			<tr class="products-table-header">
+				<td>Производитель</td>
+				<td style="width:30%">Страна</td>
+			</tr>
+			{% for company in search_companies %}
+				<tr>
+					<td>
+						<a class="no-underline" href="{{ path('firm_item', {'CompanyID':company.CompanyID}) }}"
+							>{{ company.LocalName|raw }}{{ company.Property is not empty ? ', ' ~ company.Property|raw|replace({'&amp;':'&'}) }}</a>
+					</td>
+					<td>
+						{% if company.Country != 'Unknown' %}
+							{{ company.Country }}
+						{% endif %}
+					</td>
+				</tr>
+			{% endfor %}
+		</table>
+	{% endif %}
+
+	{% if t == 'company' and search_infoPages is empty and search_companies is empty %}
+		<div class="no-results">
+			Не найдено результатов по компании <span>{{ q }}</span>
+		</div>
+	{% endif %}
+{% endif %}

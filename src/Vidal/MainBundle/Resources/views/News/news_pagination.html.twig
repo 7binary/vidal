@@ -1,0 +1,32 @@
+{% if type is defined %}
+	{% set query = query|merge({('type'): type}) %}
+{% endif %}
+
+{% if pageCount > 1 %}
+	<div class="pagination">
+		<noindex>
+			{% if previous is defined %}
+				<span class="previous">
+				{% if previous == 1 %}
+					<a href="{{ path(route, query|merge({(pageParameterName): null})) }}">назад</a>
+				{% else %}
+					<a href="{{ path(route, query|merge({(pageParameterName): previous})) }}">назад</a>
+				{% endif %}
+			</span>
+			{% endif %}
+
+			{% for page in pagesInRange %}
+				{% if page != current %}
+				{% else %}
+					<span class="current">{{ page }}</span>
+				{% endif %}
+			{% endfor %}
+
+			{% if next is defined %}
+				<span class="next">
+            	<a href="{{ path(route, query|merge({(pageParameterName): next})) }}">далее</a>
+        	</span>
+			{% endif %}
+		</noindex>
+	</div>
+{% endif %}

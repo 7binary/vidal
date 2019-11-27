@@ -1,0 +1,9 @@
+{% set isLogged = app.user is not null %}
+
+{% if env_local != 'true' %}
+	{% if isMobile %}
+		{{ render(controller('VidalMainBundle:Banner:renderMobile', {'request':app.request, 'isLogged':isLogged, 'indexPage':indexPage, 'productPage':productPage})) }}
+	{% else %}
+		{{ render(controller('VidalMainBundle:Banner:renderAjax', {'request':app.request, 'isLogged':isLogged, 'groupId':10, 'indexPage':indexPage})) }}
+	{% endif %}
+{% endif %}

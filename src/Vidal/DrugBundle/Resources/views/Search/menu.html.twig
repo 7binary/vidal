@@ -1,0 +1,48 @@
+{% set route = app.request.attributes.get('_route') %}
+
+<h1>РАСШИРЕННЫЙ ПОИСК</h1>
+
+<div style="margin:-10px 0 12px;">
+	<a href="{{ path('searche_google') }}" class="linke">
+		Поиск Google по открытым разделам сайта
+	</a>
+</div>
+
+<div class="tabs">
+	<a href="{{ path('searche_indic') }}"{{ route == 'searche_indic' ? ' class="active"' }}>По заболеванию</a>
+	<a href="{{ path('searche') }}"{{ route == 'searche' ? ' class="active"' }}>По запросу</a>
+	<a href="{{ path('products') }}"
+	   title="Поиск препаратов и БАД">По алфавиту</a><a
+		href="{{ path('atc') }}"
+		title="Анатомо-Терапевтически-Химическая (АТХ) система классификации (ATC)">АТХ</a>
+	<a href="{{ path('companies') }}"
+	   title="Представительства и фирмы-производители">Компании</a><a
+		href="{{ path('kfu') }}"
+		title="Клинико-фармакологические указатели">КФУ</a><a
+		href="#" class="tabs-link">Еще</a>
+
+	<div class="tabs-more">
+		<a href="{{ path('nosology') }}"
+			>Нозологический указатель</a>
+		<a href="{{ path('pharm') }}"
+		   title="Фармако-терапевтические группы ГосРеестра МинЗдрава РФ">ФТГ</a>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('.tabs-link').click(function(e) {
+			e.stopPropagation();
+			$('.tabs-more').toggle();
+			return false;
+		});
+
+		$('.tabs-more a').click(function(e) {
+			e.stopPropagation();
+		});
+
+		$('body').not('tabs-link').click(function() {
+			$('.tabs-more').hide();
+		});
+	});
+</script>

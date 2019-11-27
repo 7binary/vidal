@@ -1,0 +1,77 @@
+{% extends 'VidalDrugBundle:Sonata:mini_layout.html.twig' %}
+
+
+{% block content %}
+	<h1>{{ title }}</h1>
+
+	<div class="row">
+		<label for="companies">Компании</label>
+		<select id="companies" name="companies">
+			<option></option>
+			{% for company in companies %}
+				<option
+					value="{{ company.CompanyID }}">{{ company.LocalName ~ ' [' ~ company.Country ~ '] ' ~ '#' ~ company.CompanyID ~ ' - ' ~ company.countProducts }}</option>
+			{% endfor %}
+		</select>
+	</div>
+
+	<div class="row">
+		<label for="infopages">Представительства</label>
+		<select id="infopages" name="infopages">
+			<option></option>
+			{% for infoPage in infoPages %}
+				<option
+					value="{{ infoPage.InfoPageID }}">{{ infoPage.RusName ~ ' [' ~ infoPage.Country ~ '] ' ~ '#' ~ infoPage.InfoPageID ~ ' - ' ~ infoPage.countProducts }}</option>
+			{% endfor %}
+		</select>
+	</div>
+
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+	<script type="text/javascript">
+		$(document).ready(function() {
+			// companies
+			var $selectCompanies = $('#companies');
+			$selectCompanies.select2({width: 'resolve'});
+
+			$selectCompanies.change(function() {
+				if (this.value) {
+					window.location.href = '/admin/veterinar/excel_company/' + this.value;
+				}
+				else {
+
+				}
+			});
+
+			// infopages
+			var $selectInfopages = $('#infopages');
+			$selectInfopages.select2({width: 'resolve'});
+
+			$selectInfopages.change(function() {
+				if (this.value) {
+					window.location.href = '/admin/veterinar/excel_infopage/' + this.value;
+				}
+				else {
+
+				}
+			});
+		});
+	</script>
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<style type="text/css">
+		#companies, #infopages {
+			width: 600px !important;
+		}
+		label {
+			width: 140px !important;
+			font-weight: bold;
+		}
+	</style>
+{% endblock %}

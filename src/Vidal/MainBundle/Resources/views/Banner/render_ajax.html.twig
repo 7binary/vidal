@@ -1,0 +1,45 @@
+{% set ProductID = ProductID is defined ? ProductID : 0 %}
+
+
+<div id="banners_group_{{ groupId }}"
+	{% if groupId == 2 %}
+	style="margin-bottom:15px;"
+	{% endif %}></div>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		setTimeout(function() {
+			var url = "{{ app.environment == 'dev' ? '/app_dev.php' }}/banner-render/{{ groupId }}/{{ indexPage ? '1' : '0' }}/{{ vetPage ? '1' : '0' }}/{{ nofollow ? '1' : '0' }}/1/{{ exclude_banner_mkb }}/{{ used|unique|join('-') }}?ProductID={{ ProductID }}&isLogged={{ isLogged is defined and isLogged ? '1' : '0'}}";
+
+			$.ajax({
+				type:    "POST",
+				url:     url,
+				success: function(html) {
+					$('#banners_group_{{ groupId }}').html(html);
+					$('#banners_group_{{ groupId }} .banner-link').each(function() {
+						var $banner = $(this);
+						ga('send', 'event', 'Показ баннера: ' + $banner.attr('data-title'), 'show', $banner.attr('data-link'));
+
+						var showEvent = $banner.attr('data-showEvent');
+						if (showEvent.length) {
+							ga('send', 'event', showEvent, 'click', $banner.attr('data-link'));
+						}
+					});
+				}
+			});
+
+		}, 50);
+
+		$('body').on('click', '#banners_group_{{ groupId }} .banner-link', function() {
+			var $banner = $(this);
+			ga('send', 'event', 'Клик баннера: ' + $banner.attr('data-title'), 'click', $banner.attr('data-link'));
+
+			var clickEvent = $banner.attr('data-clickEvent');
+			if (clickEvent.length) {
+				ga('send', 'event', clickEvent, 'click', $banner.attr('data-link'));
+			}
+
+			$.get('/banner-clicked/' + $banner.attr('data-id'));
+		});
+	});
+</script>

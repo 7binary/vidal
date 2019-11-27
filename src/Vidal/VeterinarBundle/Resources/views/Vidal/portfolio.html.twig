@@ -1,0 +1,112 @@
+{% extends 'VidalMainBundle::layout.html.twig' %}
+
+
+{% set document = portfolio.DocumentID %}
+{% set infoPage = document.infoPages[0] is defined ? document.infoPages[0] : null %}
+
+
+{% block title %}
+	<h1>{{ portfolio.title|raw }}</h1>
+{% endblock %}
+
+
+{% block nav %}
+	<div class="breadcrumbs">
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('index') }}" itemprop="url">
+				<span itemprop="title">Видаль</span>
+			</a>
+		</div>
+		<i></i>
+
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('veterinar') }}" itemprop="url">
+				<span itemprop="title">Видаль-Ветеринар</span>
+			</a>
+		</div>
+		<i></i>
+
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('veterinar_portfolios') }}" itemprop="url">
+				<span itemprop="title">Портфели препаратов</span>
+			</a>
+		</div>
+		<i></i>
+
+		<span><span>{{ portfolio.title|raw }}</span></span>
+	</div>
+{% endblock %}
+
+
+{% block content %}
+	{# Публикация #}
+	<div class="publication text relative">
+		{{ portfolio.body|raw }}
+
+		{% if isAdmin %}
+			<a class="admin-edit fade" target="_blank"
+			   href="{{ path('admin_vidal_veterinar_pharmportfolio_edit', {'id':portfolio.id}) }}">
+				<img src="{{ asset('bundles/vidalmain/images/edit.png') }}"/>
+			</a>
+		{% endif %}
+	</div>
+
+	{# Препарат #}
+	{% if products is not empty %}
+		{% if products|length == 1 %}
+			<div class="block product">
+				<span class="block-head">Препарат:</span>
+				<a href="{{ path('v_product', {'EngName':products[0].Name, 'ProductID':products[0].ProductID}) }}"
+				   class="no-underline bold">
+					{{ products[0].RusName|raw }}
+				</a>
+			</div>
+		{% else %}
+			<div class="block product">
+				<div class="block-head">Препараты</div>
+				<ul class="ul-style">
+					{% for product in products %}
+						<li>
+							<a href="{{ path('v_product', {'EngName':product.Name, 'ProductID':product.ProductID}) }}"
+							   class="no-underline bold">
+								{{ product.RusName|raw }}
+							</a>
+							<span class="zip">
+								{{ product.ZipInfo }}
+							</span>
+						</li>
+					{% endfor %}
+				</ul>
+			</div>
+		{% endif %}
+	{% endif %}
+
+	{# Представительство #}
+	{% if infoPage %}
+		<div class="block">
+			<span class="block-head">Представительство:</span>
+			<a href="{{ path('v_inf', {'Name':infoPage.Name}) }}"
+			   class="no-underline bold">
+				{{ infoPage.RusName|raw }}
+			</a>
+		</div>
+	{% endif %}
+
+	{% include 'VidalMainBundle::yad_horizontal.html.twig' %}
+
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<style type="text/css">
+		.product {
+			border-top:  1px solid #ccc;
+			padding-top: 16px;
+		}
+		.zip {
+			font-size:   13px;
+			margin-left: 5px;
+		}
+	</style>
+{% endblock %}

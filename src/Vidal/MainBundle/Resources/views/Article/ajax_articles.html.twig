@@ -1,0 +1,31 @@
+{% set isAdmin = app.user is not null and is_granted('ROLE_ADMIN') %}
+
+<div class="more-articles to-show">
+	{% for article in articles %}
+		<div class="article">
+			{# админам карандашик редактирования #}
+			{% if isAdmin %}
+				<a class="admin-edit fade" target="_blank"
+				   href="{{ path('admin_vidal_drug_article_edit', {'id':article.id}) }}">
+					<img src="{{ asset('bundles/vidalmain/images/edit.png') }}"/>
+				</a>
+			{% endif %}
+
+			<a class="article-title"
+			   href="{{ path('article', {'rubrique':article.rubrique.rubrique, 'link':article.link}) }}">
+				{{ article.title|raw }}
+			</a>
+
+			<div class="article-announce text">
+				{{ article.announce|raw }}
+			</div>
+			<div class="article-footer">
+				<span>Рубрика</span>:
+				<a href="{{ path('rubrique', {'rubrique':article.rubrique.rubrique}) }}"
+					>{{ article.rubrique.title }}</a>
+
+				<div class="article-date">{{ article.date|date('d.m.Y') }}</div>
+			</div>
+		</div>
+	{% endfor %}
+</div>

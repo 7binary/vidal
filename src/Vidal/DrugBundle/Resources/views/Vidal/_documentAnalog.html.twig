@@ -1,0 +1,15 @@
+{% if productAnalogs is defined and productAnalogs and product is defined%}
+    <div style="border: 1px solid #ddd;padding: 10px;">
+        <b>Аналоги препарата</b><br/>
+        {% for productAnalog in productAnalogs %}
+            {% if loop.index <10 %}
+                <p>
+                    <a href="{{ path('product_url', {'EngName':productAnalog['uri']}) }}">
+                        {{ productAnalog['RusName'] |raw }}</a>
+                    ({{productAnalog['GDDBName']}}, {{productAnalog['countryName']}})
+                </p>
+            {% endif %}
+        {% endfor %}
+        <a href="{{path('analog_link_uri', {'uri':product.uri}) }}" style="margin-left: 120px;">Все аналоги</a>
+    </div>
+{% endif %}

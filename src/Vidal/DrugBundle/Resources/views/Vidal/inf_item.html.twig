@@ -1,0 +1,175 @@
+{% extends 'VidalDrugBundle::vidal_layout.html.twig' %}
+
+
+{% block title %}
+	<div style="position:relative">
+		<h1>{{ infoPage.RusName|upper|raw }}
+			<span>{% if infoPage.CountryCode is not empty and infoPage.CountryCode.RusName != 'Unknown' %}
+				({{ infoPage.CountryCode.RusName }}){% endif %}</span>
+		</h1>
+
+		{# ссылка админу на редактирование #}
+		{% if isAdmin is defined and isAdmin %}
+			<a class="admin-edit fade" target="_blank" href="{{ path('admin_vidal_drug_infopage_edit', {'id':infoPage.InfoPageID}) }}">
+				<img src="{{ asset('bundles/vidalmain/images/edit.png') }}"/>
+			</a>
+		{% endif %}
+	</div>
+{% endblock %}
+
+
+{% block nav %}
+	<div class="breadcrumbs">
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('index') }}" itemprop="url">
+				<span itemprop="title">Видаль</span>
+			</a>
+		</div>
+		<i></i>
+
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('companies') }}" itemprop="url">
+				<span itemprop="title">Информационные страницы</span>
+			</a>
+		</div>
+		<i></i>
+
+		<span>{{ infoPage.RusName|raw }}</span>
+	</div>
+{% endblock %}
+
+
+{% block vidal %}
+	{# логотип компании и инфо #}
+	<table class="infopage">
+		<tr>
+			{% if infoPage.logo is not empty and is_file(infoPage.logo) %}
+				<td class="infopage-logo">
+					<img src="{{ infoPage.logo }}"/>
+				</td>
+			{% elseif infoPage.photo %}
+				<td class="infopage-logo">
+					<img src="{{ infoPage.photo.path }}"/>
+				</td>
+			{% elseif picture %}
+				{% set path = '/upload/companies/' ~ picture.path %}
+				{% if is_file(path) %}
+					<td class="infopage-logo">
+						<img src="{{ path }}"/>
+					</td>
+				{% endif %}
+			{% endif %}
+			<td class="infopage-about">
+				{{ infoPage.RusAddress|raw }}
+			</td>
+		</tr>
+	</table>
+
+	{# портфели препаратов #}
+	{% if portfolios is not empty %}
+		{% set hasPortfolio = false %}
+		{% for portfolio in portfolios if portfolio.enabled %}
+			{% set hasPortfolio = true %}
+		{% endfor %}
+
+		{% if hasPortfolio %}
+		<div class="block">
+			<div class="block-head">Портфели препаратов</div>
+			<ul class="ul-style portfolios">
+				{% for portfolio in portfolios if portfolio.enabled %}
+					<li>
+						<a href="{{ path('portfolio_item', {'url':portfolio.url}) }}">
+							{{ portfolio.title|raw }}
+						</a>
+						{% if isAdmin %}
+							<a class="admin-edit fade" target="_blank"
+							   href="{{ path('admin_vidal_drug_pharmportfolio_edit', {'id':portfolio.id}) }}">
+								<img src="{{ asset('bundles/vidalmain/images/edit.png') }}"/>
+							</a>
+						{% endif %}
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
+		{% endif %}
+	{% endif %}
+
+	{% include 'VidalMainBundle:Article:documents.html.twig' with {'object':infoPage, 'label':'представительству', 'item':infoPage.RusName} %}
+
+	{# препараты #}
+	{% if productsLp is defined and productsLp is not empty %}
+		<div class="block">
+			<div class="block-head">Лекарственные препараты</div>
+			{% include 'VidalDrugBundle:Vidal:render_products.html.twig' with {products: productsLp} %}
+		</div>
+	{% endif %}
+
+	{# БАД #}
+	{% if productsBads is defined and productsBads is not empty %}
+		<div class="block">
+			<div class="block-head">БАД</div>
+			{% include 'VidalDrugBundle:Vidal:render_products.html.twig' with {products: productsBads, loz: 'БАД'} %}
+		</div>
+	{% endif %}
+
+    {# Лечебная косметика #}
+    {% if productsLk is defined and productsLk is not empty %}
+        <div class="block">
+            <div class="block-head">Лечебная косметика</div>
+            {% include 'VidalDrugBundle:Vidal:render_products.html.twig' with {products: productsLk} %}
+        </div>
+    {% endif %}
+
+	{# МИ #}
+	{% if productsMi is defined and productsMi is not empty %}
+		<div class="block">
+			<div class="block-head">Медицинские изделия</div>
+			{% include 'VidalDrugBundle:Vidal:render_products.html.twig' with {products: productsMi, loz: 'МИ'} %}
+		</div>
+	{% endif %}
+
+	{# Парафармация #}
+	{% if productsPara is defined and productsPara is not empty %}
+		<div class="block">
+			<div class="block-head">Парафармация</div>
+			{% include 'VidalDrugBundle:Vidal:render_products.html.twig' with {products: productsPara, loz: 'ПР'} %}
+		</div>
+	{% endif %}
+
+	{# Парафармация #}
+	{% if productsNutr is defined and productsNutr is not empty %}
+		<div class="block">
+			<div class="block-head">Лечебное питание</div>
+			{% include 'VidalDrugBundle:Vidal:render_products.html.twig' with {products: productsNutr, loz: 'ПИТ'} %}
+		</div>
+	{% endif %}
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<style type="text/css">
+		.infopage td {
+			vertical-align: top;
+		}
+		.infopage-logo img {
+			max-width:     200px;
+			max-height:    200px;
+			padding-right: 40px;
+		}
+		.infopage-about p {
+			margin:    7px 0;
+			font-size: 15px;
+		}
+		.portfolios li {
+			position: relative;
+		}
+		.portfolios li a {
+			text-decoration: none;
+			font-weight:     bold;
+		}
+		.portfolios li a:hover {
+			text-decoration: underline;
+		}
+	</style>
+{% endblock %}

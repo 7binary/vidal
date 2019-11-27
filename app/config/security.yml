@@ -1,0 +1,38 @@
+security:
+    encoders:
+        Vidal\MainBundle\Entity\User: plaintext
+
+    role_hierarchy:
+        ROLE_DOCTOR: ~
+        ROLE_ADMIN: [ROLE_DOCTOR, ROLE_ALLOWED_TO_SWITCH, ROLE_QA, ROLE_SHKOLA]
+        ROLE_SUPERADMIN: [ROLE_ADMIN]
+
+    providers:
+        local_database:
+            entity: { class: Vidal\MainBundle\Entity\User, property: username}
+
+    firewalls:
+        everything:
+            pattern: ^/
+            form_login:
+                login_path: /login
+                check_path: /login-submit
+                remember_me: true
+            logout:
+                path:   /logout
+                target: /
+            remember_me:
+                key:      "%secret%"
+                lifetime: 0
+                path:     /
+                always_remember_me: true
+                domain:   ~
+            anonymous: ~
+
+    access_control:
+        - { path: ^/excel-users/, roles: [ROLE_SUPERADMIN] }
+        - { path: ^/admin/vidal/main/user/, roles: [ROLE_SUPERADMIN] }
+        - { path: ^/admin/vidal/main/log/, roles: [ROLE_SUPERADMIN] }
+        - { path: ^/admin/vidal/main/banner/, roles: [ROLE_SUPERADMIN,ROLE_ADMIN_VIDAL_RU] }
+        - { path: ^/admin/vidal/main/bannergroup/, roles: [ROLE_SUPERADMIN,ROLE_ADMIN_VIDAL_RU] }
+        - { path: ^/admin/, roles: [ROLE_ADMIN] }

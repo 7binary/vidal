@@ -1,0 +1,29 @@
+{% if specialists is defined and specialists|length >0 %}
+    <div class="pages" id="specialist">
+        <div class="content-title">Специалистам</div>
+        <div class="line"></div>
+        <ul class="bxslider">
+            {% for specialist in specialists %}
+                <li>
+                    <div class="media">
+                        {% if specialist.photo %}
+                            <div class="title-image title-image-right">
+                                <img src="{{specialist.photo.path}}" width="200px" />
+                            </div>
+                        {% endif %}
+                        <div>
+                            <a href="{{path('big_mama_specialist_item', {'link':specialist.link}) }}{% if isTestMode() %}?test=1{%endif %}" class="media-title">
+                                {{ specialist.title|raw }}
+                            </a>
+                            <div class="media-body">{{ specialist.announce|raw }}</div>
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <div class="main-news-link">
+            <a href="{{path('big_mama_specialist')}}{% if isTestMode() %}?test=1{%endif %}">Все статьи</a>
+        </div>
+    </div>
+{% endif %}

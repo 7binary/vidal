@@ -1,0 +1,151 @@
+{% set isLogged = app.user is not null %}
+{% set indexPage = indexPage is defined and indexPage %}
+{% set showN = app.request.get('') %}
+
+{# блок основных боковых меню #}
+<ul class="sidebar-menu ul">
+	<li>
+		<a href="{{ path('news') }}"
+		   class="{{ menu_left is defined and menu_left == 'news' ? 'active' : 'dotted' }}">Новости</a>
+	</li>
+	<li>
+		<a href="{{ path('services') }}"
+		   class="{{ menu_left is defined and menu_left == 'services' ? 'active' : 'dotted' }}">Наши услуги</a>
+	</li>
+	<li>
+		<a href="{{ path('about') }}"
+		   class="{{ menu_left is defined and menu_left == 'about' ? 'active' : 'dotted' }}">О компании</a>
+	</li>
+	<li>
+		<a href="{{ path('vidalbox') }}"
+		   class="{{ menu_left is defined and menu_left == 'vidalbox' ? 'active' : 'dotted' }} vidalbox-menu">VIDAL BOX</a>
+	</li>
+	<li>
+		<a href="{{ path('products', {'t':'b'}) }}"
+		   class="{{ menu_left is defined and menu_left == 'bads' ? 'active' : 'dotted' }}">БАД и МИ</a>
+	</li>
+	<li>
+		<a href="{{ path('products', {'t':'n'}) }}"
+		   class="{{ menu_left is defined and menu_left == 'nutr' ? 'active' : 'dotted' }}">Лечебное питание</a>
+	</li>
+	<li>
+		<a href="{{ path('rubrique', {'rubrique':'esteticheskaya-medicina'}) }}"
+		   class="{{ menu_left is defined and menu_left == 'esteticheskaya-medicina' ? 'active' : 'dotted' }}">Красота и
+			здоровье</a>
+	</li>
+	<li>
+		<a href="{{ path('veterinar') }}"
+		   class="{{ menu_left is defined and menu_left == 'veterinar' ? 'active' : 'dotted' }}">Ветеринария</a>
+	</li>
+	{% if menu_left is defined and menu_left == 'veterinar' %}
+		<li style="margin-top:-10px; padding-left: 20px">
+			<a href="{{ path('v_news') }}" class="dotted">Новости</a>
+		</li>
+		<li style="margin-top:-10px; padding-left: 20px">
+			<a href="{{ path('veterinar_letter', {letter:'a'}) }}" class="dotted">Препараты</a>
+		</li>
+	{% endif %}
+    <li>
+        <a href="https://www.da247.ru/about?cmp=f2b686b2-e87e-4da7-9470-1779b8f8f94d" target="_blank"
+            class="farm-ga dotted">Фармацевтам</a>
+    </li>
+</ul>
+
+{# блок авторизации или личного кабинета #}
+{% if loginAuthError is not defined %}
+	<div class="auth auth-main">
+		{% if isLogged %}
+			<div class="auth-welcome">
+				Здравствуйте,<br/>
+				{{ app.user.politeReference }}
+			</div>
+
+			<ul class="auth-controls ul">
+				{% if app.user is not null and is_granted('ROLE_ADMIN') %}
+					<li>
+						<a href="{{ path('sonata_admin_dashboard') }}" class="dotted">Панель администратора</a>
+					</li>
+				{% endif %}
+				{% if app.user is not null and (is_granted('ROLE_SUPERADMIN') or is_granted('ROLE_ADMIN_VIDAL_RU')) %}
+					<li>
+						<a href="{{ path('delivery') }}" class="dotted">Рассылка</a>
+					</li>
+					<li>
+						<a href="{{ path('upload_users_file') }}" class="dotted">Загрузка участников</a>
+					</li>
+				{% endif %}
+				{% if app.user is not null and is_granted('ROLE_SUPERADMIN') %}
+					<li>
+						<a href="{{ path('analitics') }}" class="dotted">Аналитика GA</a>
+					</li>
+					<li>
+						<a href="{{ path('export_atc_mkb') }}" class="dotted">Ссылки материалов</a>
+					</li>
+					<li>
+						<a href="{{ path('upload_cardio') }}" class="dotted">Мобильные приложения</a>
+					</li>
+				{% endif %}
+				<li>
+					<a href="{{ path('profile') }}" class="dotted">Профиль</a>
+				</li>
+				<li>
+					<a href="{{ path('user_logout') }}" class="dotted">Выйти</a>
+				</li>
+			</ul>
+		{% else %}
+			{% include 'VidalMainBundle:Auth:login_form.html.twig' %}
+		{% endif %}
+	</div>
+
+	{% if not isLogged %}
+		<div class="go-registration">
+			<a href="{{ path('registration') }}">Регистрация</a>
+
+			<div class="go-reset ">
+				<a href="{{ path('password_reset') }}" class="no-underline">Забыли пароль?</a>
+			</div>
+		</div>
+	{% elseif not app.user.emailConfirmed %}
+		<div class="confirm">
+			<a href="{{ path('registration_resend') }}" id="confirm_email" class="note"
+			   title="Отправить письмо для активации">
+				Пожалуйста, подтвердите e-mail
+			</a>
+		</div>
+
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$('#confirm_email').click(function() {
+					$.getJSON(this.href, function(data) {
+						$('.confirm').html('<span class="good">Письмо отослано на адрес {{ app.user.username }}</span>');
+					});
+					return false;
+				});
+			});
+		</script>
+	{% endif %}
+{% endif %}
+
+{% if env_local != true %}
+	{# баннеры #}
+	{% if not isMobile and noYad is not defined %}
+		{{ render(controller('VidalMainBundle:Banner:renderAjax', {'request':app.request, 'isLogged':isLogged, 'groupId':7, 'indexPage':indexPage, 'nofollow':true})) }}
+	{% endif %}
+
+	{# последние новости #}
+	{% if indexPage is not defined %}
+		{{ render(controller('VidalMainBundle:News:left')) }}
+	{% endif %}
+{% endif %}
+
+{# События меню #}
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('.neirontin-menu').click(function() {
+			ga('send', 'event', 'Меню: Работникам первого стола', 'click', 'https://www.vidal.ru/rabotnikam-pervogo-stola');
+		});
+		$('.farm-ga').click(function() {
+			ga('send', 'event', 'Меню: Фармацевтам', 'click', 'Меню: Фармацевтам');
+		});
+	});
+</script>

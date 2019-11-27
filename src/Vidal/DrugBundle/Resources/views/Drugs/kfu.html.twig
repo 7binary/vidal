@@ -1,0 +1,279 @@
+{% extends 'VidalDrugBundle::vidal_layout.html.twig' %}
+
+
+{% block nav %}
+	<div class="breadcrumbs">
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('index') }}" itemprop="url">
+				<span itemprop="title">Видаль</span>
+			</a>
+		</div>
+		<i></i>
+
+		{% if codesByLetter is defined and codesByLetter is not empty %}
+			<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+				<a href="{{ path('kfu') }}" itemprop="url"
+				   title="Клинико-фармакологический указатель">
+					<span itemprop="title">КФУ</span>
+				</a>
+			</div>
+			<i></i>
+			<span>{{ codeByLetter.Name|raw|mb_ucfirst }}</span>
+		{% else %}
+			<span>КФУ</span>
+		{% endif %}
+	</div>
+{% endblock %}
+
+
+{% block vidal %}
+
+	<div class="publication" itemscope itemtype="http://schema.org/Article">
+
+		<div id="scrolling">
+			{% include 'VidalDrugBundle:Drugs:menu_drugs.html.twig' %}
+
+			{% if showTree is defined %}
+				<div class="description">
+					<h1 class="h1" itemprop="name">Клинико-фармакологический указатель</h1>
+
+					<div>
+						Позволяет искать группы препаратов.
+						Cоставлен на основании материалов, представленных в российских и зарубежных монографиях по
+						фармакологии с использованием публикаций в периодических медицинских изданиях последних лет.
+						<br/>
+						<i>Например</i>:
+						<a href="#33" data="33">Гомеопатические средства</a>,
+						<a href="#14.03" data="14.03">Вакцины</a>.
+					</div>
+				</div>
+			{% endif %}
+
+			{% include 'VidalDrugBundle:Drugs:kfu_form.html.twig' %}
+		</div>
+
+		<div class="publication-body text" itemprop="articleBody">
+			{# коды по букве #}
+			{% if codesByLetter is defined and codesByLetter is not empty %}
+				<div class="anons">
+					<h1 itemprop="name" style="color:#476173; margin:0; font-size:inherit;">
+						{{ codeByLetter.Name|raw|mb_ucfirst }}
+					</h1>
+				</div>
+
+				<table class="products-table pointers">
+					<tr class="products-table-header">
+						<td style="width:124px;">Код КФУ</td>
+						<td>Название</td>
+					</tr>
+					{% for code in codesByLetter %}
+						<tr{{ code.Level == 1 ? ' class="bold"' }}>
+							<td style="padding-left:{{ code.Level * 13 }}px">
+								{{ code.Code }}
+							</td>
+							<td>
+								{% if code.countProducts > 0 %}
+									<a href="{{ path('kfu_item', {'code':code.Code}) }}" class="no-underline">
+										{{ code.Name|raw }}
+									</a>
+								{% else %}
+									{{ code.Name|raw }}
+								{% endif %}
+							</td>
+						</tr>
+					{% endfor %}
+				</table>
+			{% endif %}
+
+			{# коды по поисковому запросу #}
+			{% if codes is defined %}
+				{% if codes is null %}
+					<div class="no-results">
+						Запрос должен содержать хотя бы 2 символа
+					</div>
+				{% elseif codes|length %}
+					<div class="block">
+						<div class="block-head anons">
+							Найдено клинико-фармакологических указателей: <span>{{ codes|length }}</span>
+						</div>
+
+						<table class="products-table atc">
+							<tr class="products-table-header">
+								<td>Код КФУ</td>
+								<td>Название</td>
+							</tr>
+							{% for code in codes %}
+								<tr>
+									<td>{{ code.Code }}</td>
+									<td>
+										{% if code.countProducts > 0 %}
+											<a href="{{ path('kfu_item', {'code':code.Code}) }}" class="no-underline">
+												{{ code.Name|raw }}
+											</a>
+										{% else %}
+											{{ code.Name|raw }}
+										{% endif %}
+									</td>
+								</tr>
+							{% endfor %}
+						</table>
+					</div>
+				{% else %}
+					<div class="no-results">
+						Не найдено результатов по КФУ <span>{{ q }}</span>
+					</div>
+				{% endif %}
+			{% endif %}
+
+			{% if showTree is defined %}
+				{% include 'VidalDrugBundle:Drugs:kfu_generated.html.twig' %}
+			{% endif %}
+
+			{% if codesByLetter is defined and codesByLetter is not empty %}
+				<div class="backto">
+					Назад к <a href="{{ path('kfu') }}">Клинико-фармакологическому указателю</a>
+				</div>
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	{% if showTree is defined %}
+		<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/treeview/jquery.treeview.css') }}"/>
+	{% endif %}
+	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/letters.css') }}"/>
+	<style type="text/css">
+		.backto {
+			margin:      18px 0 0;
+			padding-top: 12px;
+			border-top:  1px dashed #ccc;
+			font-size:   15px;
+			font-weight: bold;
+		}
+		.letters input, .letters a {
+			width: 24px;
+		}
+		#form > * {
+			vertical-align: top;
+		}
+		#form_controls {
+			clear: both;
+		}
+		#form_submit {
+			float: right;
+		}
+		#form_input {
+			width: 404px;
+		}
+		.pointers * {
+			font-size: 13px;
+		}
+		.h1 {
+			display:       block;
+			background:    #f5f5f5;
+			padding:       4px 7px 7px;
+			color:         #476173;
+			border-bottom: 1px solid #eee;
+			font-size:     inherit;
+			font-weight:   inherit;
+		}
+	</style>
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+	{% if showTree is defined %}
+		<script src="{{ asset('bundles/vidalmain/treeview/jquery.treeview.js') }}" type="text/javascript"></script>
+		<script src="{{ asset('bundles/vidalmain/treeview/jquery.treeview.edit.js') }}" type="text/javascript"></script>
+		<script src="{{ asset('bundles/vidalmain/treeview/jquery.treeview.async.kfu.js') }}"
+				type="text/javascript"></script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				var $tree = $('.treeview');
+
+				$tree.treeview({
+					animated:  "fast",
+					collapsed: true,
+					url:       '/drugs/kfu-ajax',
+					ajax:      {
+						type: "post"
+					}
+				});
+
+				$('#tree_collapse').on('click', function() {
+					$tree.find('ul').hide();
+					$tree.find('div.collapsable-hitarea').removeClass('collapsable-hitarea').addClass('expandable-hitarea');
+					$tree.find('div.lastCollapsable-hitarea').removeClass('lastCollapsable-hitarea').addClass('lastExpandable-hitarea');
+					$tree.find('li.collapsable').removeClass('collapsable').addClass('expandable');
+					$tree.find('li.lastCollapsable').removeClass('lastCollapsable').addClass('lastExpandable');
+					return false;
+				});
+
+				$('a[data="33"]').click(function() {
+					$('#tree_collapse').click();
+					$tree.find('span').removeClass('highlight');
+					$('#33 > div').click();
+					$('#33 > span').addClass('highlight');
+				});
+
+				$('a[data="14.03"]').click(function() {
+					$('#tree_collapse').click();
+					$tree.find('span').removeClass('highlight');
+					$('#14 > div').click();
+					$('#14 > span').addClass('highlight');
+					setTimeout(function() {
+						$('li[id="14.03"] > div').click();
+						$('li[id="14.03"] > span').addClass('highlight');
+					}, 1500);
+				});
+
+				{# если мы пришли показать КФУ - надо подгрузить и раскрыть конкретный узел #}
+				{% if showBaseKfu is defined %}
+				function parentCb() {
+					var $show = $('#{{ showKfu.ClPhPointerID }}');
+					if ($show.length == 0) {
+						setTimeout(parentCb, 500);
+					}
+					else {
+						$show.parents('li').removeClass('expandable').addClass('collapsable')
+							.find('> div').removeClass('expandable-hitarea').addClass('collapsable-hitarea')
+							.siblings('ul').show();
+						$show.find('> i, > span').addClass('highlight');
+						$('html, body').animate({scrollTop: $show.closest('ul').offset().top}, 1500);
+					}
+				}
+
+				var $base = $('#{{ showBaseKfu.ClPhPointerID }}');
+				$base.find(' > div').click();
+				setTimeout(parentCb, 500);
+				{% endif %}
+
+				{# MICRODATA #}
+				$('.publication img').each(function() {
+					var $this = $(this);
+					$this.attr('itemprop', 'image');
+				});
+
+				$('.publication a').each(function() {
+					$(this).attr({
+						itemprop: "url"
+					});
+				});
+
+				$('.publication-body a').each(function() {
+					var $a = $(this);
+					if (this.href.charAt(0) != '/'
+						&& this.href.indexOf('vidal.ru') === -1
+						&& this.href.indexOf('localhost:97') === -1
+					) {
+						$a.attr('rel', 'nofollow');
+					}
+				});
+			});
+		</script>
+	{% endif %}
+{% endblock %}

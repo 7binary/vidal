@@ -1,0 +1,61 @@
+{% extends 'VidalMainBundle::layout.html.twig' %}
+
+{% block title %}
+	<h1>{{ title }}</h1>
+{% endblock %}
+
+{% block content %}
+	{% for msg in app.session.flashbag.get('msg') %}
+		<div class="msg">{{ msg }}</div>
+	{% endfor %}
+
+	<div style="margin: 0 0 20px; padding: 3px 5px; background:beige; border:1px solid #a4a75f;">
+		Вы будете перенаправлены на страницу платежной системы <b>RBKMoney</b> для оплаты товара "{{ rbk.product }}"
+		на сумму {{ rbk.price }} рублей.
+	</div>
+
+	<form action="https://rbkmoney.ru/acceptpurchase.aspx" name="pay" method="POST" id="pay_form">
+		<input type="hidden" name="eshopId" value="{{ rbk.eshopId }}">
+		<input type="hidden" name="orderId" value="{{ rbk.orderId }}">
+		<input type="hidden" name="serviceName" value="{{ rbk.product }}">
+		<input type="hidden" name="recipientAmount" value="{{ rbk.price }}">
+		<input type="hidden" name="recipientCurrency" value="RUR">
+		<label for="email">Укажите свой E-mail для оповещения</label>
+		<input id="email" type="text" name="user_email" value="">
+		<input type="hidden" name="successUrl" value="https://www.vidal.ru/rbkmoney/paid/{{ rbk.orderId }}">
+		<input type="hidden" name="failUrl" value="https://www.vidal.ru/rbkmoney/failed/{{ rbk.orderId }}">
+
+		<input type="submit" name="button" value="Оплатить" class="btn btn-red" id="pay_button">
+	</form>
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<style>
+		#pay_form label {
+			display: inline-block;
+			margin-bottom: 5px;
+		}
+	</style>
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+	<script>
+		$(document).ready(function() {
+			$('#pay_button').click(function(e) {
+				e.preventDefault();
+
+				var data = $('#pay_form').serialize();
+
+				$.getJSON('/rbkmoney/sent' + '?' + data, function(response) {
+					$('#pay_form').submit();
+				}).error(function() {
+					alert('В процессе обработки платежа возникла техническая ошибка');
+				});
+			});
+		});
+	</script>
+{% endblock %}

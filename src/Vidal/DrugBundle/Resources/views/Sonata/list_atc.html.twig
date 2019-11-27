@@ -1,0 +1,61 @@
+<script type="text/javascript">
+	$(document).ready(function() {
+		// ATC: список
+		{% if object.atcCodes is not empty %}
+		var ulAtc = $('<ul class="list atcCodes-list">{% for atc in object.atcCodes %}<li data="{{ atc.ATCCode }}"><b><a href="{{ path('atc_remove', {'type':object|type, 'id':object.id, 'ATCCode':atc.ATCCode}) }}">X</a></b>' + '{{ atc.ATCCode }} - {{ atc.RusName|raw }}' + '</li>{% endfor %}</ul>');
+		$('.atcCodes-text').parent().append(ulAtc);
+		{% endif %}
+
+		// ATC: автодополнение
+		$('.atcCodes-text')
+			.autocomplete({
+				minLength: 1,
+				source:    function(request, response) {
+					var url = '/autocomplete/atc/' + request.term.trim();
+					$.getJSON(url, function(data) {
+						var ids = $('.atcCodes-list li').map(function(element) {
+							return $(this).attr("data");
+						});
+						var values = [];
+
+						for (var i = 0; i < data.length; i++) {
+							if ($.inArray(data[i].id, ids) == -1) {
+								values.push({
+									'id':   data[i].id,
+									'text': data[i].text
+								});
+							}
+						}
+
+						response(values);
+					});
+				},
+				select:    function(event, ui) {
+					if (ui.item) {
+						var urlAdd = '/admin/atc-add/{{ object|type }}/{{ object.id }}/' + ui.item.id;
+						var urlRemove = '/admin/atc-remove/{{ object|type }}/{{ object.id }}/' + ui.item.id;
+						$.getJSON(urlAdd, function(data) {
+							if (data == 'OK') {
+								var li = '<li data="' + ui.item.id + '"><b><a href="' + urlRemove + '">X</a></b>' + ui.item.text + '</li>';
+								var $li = $(li);
+								var $list = $('.atcCodes-list');
+								if (!$list.length) {
+									$('.atcCodes-text').parent().append($('<ul class="list atcCodes-list"></ul>'));
+									$list = $('.atcCodes-list');
+								}
+								$list.append($li);
+							}
+						});
+					}
+
+					$(this).val('');
+
+					return false;
+				}
+			})
+			.data("ui-autocomplete")._renderItem =
+			function(ul, item) {
+				return $("<li></li>").data("item.autocomplete", item).append("<a>" + item.text + "</a>").appendTo(ul);
+			};
+	});
+</script>

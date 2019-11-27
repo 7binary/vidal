@@ -1,0 +1,104 @@
+{% extends 'VidalVeterinarBundle::vidal_layout.html.twig' %}
+
+
+{% block nav %}
+	<div class="breadcrumbs">
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('index') }}" itemprop="url">
+				<span itemprop="title">Видаль</span>
+			</a>
+		</div>
+		<i></i>
+
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('veterinar') }}" itemprop="url">
+				<span itemprop="title">Видаль-Ветеринар</span>
+			</a>
+		</div>
+		<i></i>
+
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('v_molecules') }}" itemprop="url">
+				<span itemprop="title">Активные вещества</span>
+			</a>
+		</div>
+		<i></i>
+
+		<span>{{ molecule.LatName|upperFirst|raw }}</span>
+	</div>
+{% endblock %}
+
+
+{% block vidal %}
+	<div class="schema" itemscope itemtype="http://schema.org/Article">
+		<h1 itemprop="name">{{ molecule.RusName|upper|raw }}
+			{% if molecule.LatName is not empty %}
+				<span>({{ molecule.LatName|upper|raw }})</span>
+			{% endif %}</h1>
+
+		{% if molecule.GNParent is not empty %}
+			<div class="mnn anons">
+				Международное непатентованное наименование (МНН):
+				<a title="Международное непатентованное наименование (МНН)" href="{{ path('v_gnp') }}"
+				   class="no-underline mnn">{{ molecule.GNParent }}</a>
+				<span class="small italic">{{ molecule.GNParent.description }}</span>
+			</div>
+		{% endif %}
+
+		{% if document %}
+			{% include 'VidalVeterinarBundle:Vidal:document_navigation.html.twig' %}
+		{% endif %}
+
+		<div class="block">
+			<span class="block-head">Входит в состав препаратов: </span>
+			<a href="{{ path('v_molecule_included', {'url':molecule.url}) }}">список</a>
+		</div>
+
+		<div class="articleBody">
+			{% if document %}
+				{% include 'VidalVeterinarBundle:Vidal:document_info.html.twig' %}
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<style type="text/css">
+		#vidal .mnn.anons {
+			margin-left: 0;
+			font-size:   15px;
+		}
+		#vidal .mnn.anons a {
+			font-weight: bold;
+		}
+	</style>
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('.schema img').each(function() {
+				$(this).attr({
+					itemprop: "image"
+				});
+			});
+
+			$('.schema a').each(function() {
+				var $a = $(this);
+				$a.attr('itemprop', 'url');
+				if (this.href.length
+					&& this.href.charAt(0) != '/'
+					&& this.href.indexOf('vidal.ru') === -1
+					&& this.href.indexOf('localhost:97') === -1
+				) {
+					$a.attr('rel', 'nofollow');
+				}
+			});
+		});
+	</script>
+{% endblock %}
+

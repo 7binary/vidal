@@ -1,0 +1,59 @@
+{% if news is not empty %}
+	<div class="news text">
+		{% for publication in news %}
+			{% set withPhoto = publication.photo and is_file(publication.photo.path) %}
+			{% set href = path('publication', {'id':publication.link ~ '-' ~ publication.id}) %}
+
+			<div class="publication">
+				{# админам карандашик редактирования #}
+				{% if isAdmin %}
+					<a class="admin-edit fade" target="_blank"
+					   href="{{ path('admin_vidal_drug_publication_edit', {'id':publication.id}) }}">
+						<img src="{{ asset('bundles/vidalmain/images/edit.png') }}"/>
+					</a>
+				{% endif %}
+
+				{% if withPhoto %}
+					<div class="publication-title">
+						<a href="{{ href }}">{{ publication.title|raw }}</a>
+					</div>
+					<table class="publ">
+						<tr>
+							<td class="publ-image">
+								<img src="{{ publication.photo.path }}"/>
+							</td>
+							<td>
+								<div class="publication-announce">
+									{{ publication.announce|raw }}
+								</div>
+								{% if without_date is not defined %}
+									<div class="publication-footer">
+										<div class="publication-date">
+											{{ publication.date|date('d.m.Y') }}
+										</div>
+									</div>
+								{% endif %}
+							</td>
+						</tr>
+					</table>
+				{% else %}
+					<div>
+						<div class="publication-title">
+							<a href="{{ href }}">{{ publication.title|raw }}</a>
+						</div>
+						<div class="publication-announce">
+							{{ publication.announce|raw }}
+						</div>
+						{% if without_date is not defined %}
+							<div class="publication-footer">
+								<div class="publication-date">
+									{{ publication.date|date('d.m.Y') }}
+								</div>
+							</div>
+						{% endif %}
+					</div>
+				{% endif %}
+			</div>
+		{% endfor %}
+	</div>
+{% endif %}

@@ -1,0 +1,24 @@
+{% if question is defined %}
+    {{ question.question | raw }}
+    <br />
+    <ul class="heli-test">
+        <li data-num="0" class="active"><div>{{ question.answers[0] }}</div></li>
+        <li data-num="1"><div>{{ question.answers[1] }}</div></li>
+        <li data-num="2"><div>{{ question.answers[2] }}</div></li>
+    </ul>
+    <input type="hidden" name="number" value="{{ number }}" id="number">
+    <input type="hidden" name="value" value="0" id="value">
+    <br />
+{% endif %}
+
+
+{% if result is defined %}
+    <b style="font-size: 22px;">{{ result.title | raw }}</b>
+    <br />
+    <br />
+    {{ result.text | raw }}
+    <input type="hidden" name="number" value="{{ number }}" id="number">
+    <br />
+    <br />
+{% endif %}
+

@@ -1,0 +1,244 @@
+.publications {
+	margin: 20px 0
+}
+.publication .photo {
+	display:    inline-block;
+	float:      left;
+	margin-top: 4px
+}
+.publication .photo img {
+	max-width: 135px
+}
+.publication-title {
+	margin-bottom: 5px
+}
+.publication-title p {
+	margin: 0
+}
+.publication-title a {
+	font-weight:     700;
+	text-decoration: none;
+	font-size:       15px
+}
+.publication-title a:hover {
+	text-decoration: underline
+}
+.publication-announce p {
+	margin: 0
+}
+.publication-date {
+	text-align: right
+}
+.articles, .news {
+	padding: 10px 0 0
+}
+.article, .publication {
+	position:       relative;
+	padding-bottom: 12px;
+	border-bottom:  1px solid #ddd;
+	margin-bottom:  10px
+}
+.article-title {
+	display:         block;
+	margin-bottom:   5px;
+	font-weight:     700;
+	text-decoration: none;
+	font-size:       15px
+}
+.article-title:hover {
+	text-decoration: underline
+}
+.article-announce, .publication-announce {
+	margin-bottom: 6px;
+	font-size:     14px
+}
+.article-announce p {
+	margin: 0
+}
+.article-footer, .publication-footer {
+	overflow:  hidden;
+	font-size: 13px
+}
+.articles .tags {
+	margin-top: 8px
+}
+.article-date, .publication-date {
+	display:    inline-block;
+	float:      right;
+	font-size:  13px;
+	font-style: italic;
+	color:      #959595
+}
+.article-footer span {
+	color: #888
+}
+.article-footer a {
+	text-decoration: none;
+	color:           #2f4053
+}
+.article-footer a:hover {
+	text-decoration: underline
+}
+.title {
+	background-color: #F5F5F5;
+	font-weight:      700;
+	font-size:        14px;
+	padding:          4px 8px;
+	color:            #2f4053;
+	margin-bottom:    8px
+}
+.title span {
+	color: #333
+}
+.pharm-articles {
+	max-width: 530px
+}
+.pharm-articles img {
+	margin-right: 15px
+}
+.pharm-articles > div {
+	position: relative
+}
+.pharm-articles .article {
+	font-size: 14px;
+	overflow:  hidden
+}
+.pharm-articles .article p:last-child {
+	margin-bottom: 0
+}
+.pharm-articles .article-footer {
+	font-size:     14px;
+	text-align:    right;
+	margin-bottom: 15px;
+	color:         #777
+}
+.pharm-articles .article-company {
+	background:    #f5f5f5;
+	padding:       4px 5px 5px;
+	margin-bottom: 15px
+}
+.pharm-articles .pharm-articles .article-company a {
+	color:       #2f4053 !important;
+	font-weight: 700
+}
+.pharm-articles .article-more {
+	margin-top: 9px
+}
+.pharm-article {
+	border-bottom: 2px solid #d71344;
+	margin-bottom: 25px
+}
+.article-company a {
+	color:           #476173;
+	text-decoration: none;
+	font-weight:     700
+}
+div.spoiler {
+	padding:     5px;
+	line-height: 1.6
+}
+div.spoiler div.spoiler-title {
+	color:                 #000;
+	font-size:             12px;
+	font-weight:           700;
+	padding:               4px 7px;
+	border:                1px solid #bbb;
+	border-bottom-color:   #999;
+	-moz-border-radius:    3px;
+	-webkit-border-radius: 3px;
+	border-radius:         3px;
+	-moz-box-shadow:       0 1px 0 rgba(255, 255, 255, .5), 0 0 2px rgba(255, 255, 255, .15) inset, 0 1px 0 rgba(255, 255, 255, .15) inset;
+	-webkit-box-shadow:    0 1px 0 rgba(255, 255, 255, .5), 0 0 2px rgba(255, 255, 255, .15) inset, 0 1px 0 rgba(255, 255, 255, .15) inset;
+	box-shadow:            0 1px 0 rgba(255, 255, 255, .5), 0 0 2px rgba(255, 255, 255, .15) inset, 0 1px 0 rgba(255, 255, 255, .15) inset;
+	background:            #cfd1cf;
+	background-image:      -webkit-gradient(linear, left top, left bottom, from(#f5f5f5), to(#cfd1cf));
+	background-image:      -moz-linear-gradient(top, #f5f5f5, #e5e5e5);
+	background-image:      -webkit-linear-gradient(top, #f5f5f5, #e5e5e5);
+	background-image:      -o-linear-gradient(top, #f5f5f5, #e5e5e5);
+	background-image:      -ms-linear-gradient(top, #f5f5f5, #e5e5e5);
+	background-image:      linear-gradient(top, #f5f5f5, #e5e5e5);
+	filter:                progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#f5f5f5', endColorstr='#cfd1cf');
+	cursor:                pointer;
+	-moz-user-select:      none;
+	-webkit-user-select:   none;
+	-ms-user-select:       none
+}
+div.spoiler div.spoiler-title div.spoiler-toggle {
+	display:             inline-block;
+	width:               11px;
+	height:              11px;
+	line-height:         14px;
+	margin-left:         4px;
+	margin-right:        6px;
+	cursor:              pointer;
+	-webkit-user-modify: read-only
+}
+div.spoiler div.spoiler-title div.hide-icon {
+	background: url(../images/minus.png) -1px -2px no-repeat
+}
+div.spoiler div.spoiler-title div.show-icon {
+	background: url(../images/plus.png) -1px -2px no-repeat
+}
+div.spoiler div.spoiler-content {
+	font-size:             13px;
+	border:                1px solid #bbb;
+	border-top:            0;
+	-moz-border-radius:    3px;
+	-webkit-border-radius: 3px;
+	border-radius:         3px;
+	background:            #F5F5F5;
+	padding:               4px 10px
+}
+.pharm-company-more {
+	margin:     0 0 5px;
+	list-style: none;
+}
+.spoiler-title > p, .spoiler-title > div {
+	display: inline-block;
+}
+table.publ {
+	width: 100%;
+}
+table.publ td {
+	vertical-align: top;
+}
+td.publ-image {
+	width: 90px;
+}
+#vidal td.publ-image img {
+	float:      left;
+	max-width:  70px !important;
+	max-height: 120px;
+}
+/* prev-next */
+div.prev_next {
+	text-align: center;
+	margin:     0 0 15px;
+	overflow: hidden;
+}
+div.prev_next a {
+	text-decoration: none;
+	padding: 7px 10px;
+}
+div.prev_next .prev {
+	float: left;
+}
+div.prev_next .next {
+	float: right;
+}
+/* random-publication */
+.random-publications-title {
+	font-weight: bold;
+}
+.random-publications {
+	padding: 0 0 0 16px;
+	font-size: 12px;
+	margin-bottom: 15px;
+	margin-top: 8px;
+}
+.random-publications li {
+	margin-bottom: 5px;
+}
+.random-publications a {
+	color: inherit !important;
+}

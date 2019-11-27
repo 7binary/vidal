@@ -1,0 +1,167 @@
+{% extends 'VidalVeterinarBundle::vidal_layout.html.twig' %}
+
+{% block meta %}
+    {% set hasOg = true %}
+	{{ parent() }}
+	<meta property="og:image" content="https://www.vidal.ru/bundles/vidalmain/images/share/vidal.jpg">
+	<meta content="{{ ogTitle }}" property="og:title">
+	<meta content="{{ description }}" property="og:description">
+{% endblock %}
+
+
+{% block nav %}
+	<div class="breadcrumbs">
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('index') }}" itemprop="url">
+				<span itemprop="title">Видаль</span>
+			</a>
+		</div>
+		<i></i>
+
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('veterinar') }}" itemprop="url">
+				<span itemprop="title">Видаль-Ветеринар</span>
+			</a>
+		</div>
+		<i></i>
+
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('v_news') }}" itemprop="url">
+				<span itemprop="title">Новости ветеринарии</span>
+			</a>
+		</div>
+		<i></i>
+
+		<span>{{ publication|raw }}</span>
+	</div>
+{% endblock %}
+
+
+{% block content %}
+	{% include 'VidalMainBundle::share.html.twig' with {'subtitle':'Новости', 'class':'Publication', 'id':publication.id} %}
+
+	<div style="display:none" id="curr_id">{{ publication.id }}</div>
+
+	<div class="publication" itemscope itemtype="http://schema.org/Article">
+		<h1 itemprop="name">{{ publication|raw }}</h1>
+		{# админу карандашик на правку #}
+		{% if isAdmin %}
+			<a class="admin-edit fade" target="_blank"
+			   href="{{ path('admin_vidal_drug_publication_edit', {'id':publication.id}) }}">
+				<img src="{{ asset('bundles/vidalmain/images/edit.png') }}"/>
+			</a>
+		{% endif %}
+
+		{% if publication.video and publication.video.path is defined %}
+			{% set width = publication.videoWidth > 480 ? 480 : publication.videoWidth %}
+			{% set height = publication.videoWidth > 480
+			? (publication.videoHeight * 480 / publication.videoWidth) | number_format(0)
+			: publication.videoHeight %}
+
+			<p id="player1"></p>
+
+			<script src="{{ asset('bundles/vidalmain/javascripts/swfobject.js') }}" type="text/javascript"></script>
+			<script type="text/javascript">
+				var so = new SWFObject('/players/uppod.swf', 'mpl', {{ width }}, {{ height }}, '8');
+				so.addParam('allowscriptaccess', 'always');
+				so.addParam('allowfullscreen', 'true');
+				so.addVariable('height', '{{ height }}');
+				so.addVariable('width', '{{ width }}');
+				so.addVariable('file', '{{ publication.video.path }}');
+				so.addVariable('bufferlength', '10');
+				so.addVariable('autostart', 'false');
+				so.addVariable('enablejs', 'true');
+				so.write('player1');
+			</script>
+		{% endif %}
+
+		{# видео вручную #}
+		{% for video in publication.videos if video.enabled %}
+			{% include 'VidalMainBundle:Article:render_video.html.twig' with {'path':video.path, 'width':video.width, 'height':video.height, 'id':'video' ~ video.id} %}
+		{% endfor %}
+
+		<div class="publication-body text" itemprop="articleBody">
+			{{ text|relative|raw }}
+
+			{% if publication.code is not empty %}
+				{{ publication.code|raw }}
+			{% endif %}
+		</div>
+
+		<div class="publication-footer">
+			<span class="publication-date" itemprop="datePublished">{{ publication.date|date('d.m.Y') }}</span>
+		</div>
+
+		{{ render(controller('VidalMainBundle:Tag:tags', {'object':publication})) }}
+	</div>
+	{% include 'VidalVeterinarBundle:Vidal:prev_next.html.twig' %}
+	<div id="news_random"></div>
+	{% include 'VidalVeterinarBundle:Vidal:read_next.html.twig' %}
+	{% include 'VidalMainBundle::yad_horizontal.html.twig' %}
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/publication.css') }}"/>
+	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/fancybox/source/jquery.fancybox.css') }}"/>
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+	<script type="text/javascript" src="{{ asset('bundles/vidalmain/fancybox/source/jquery.fancybox.js') }}"></script>
+	<script type="text/javascript"
+			src="{{ asset('bundles/vidalmain/placeholder/jquery.placeholder.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/vidalmain/javascripts/jquery.form.min.js') }}"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('.publication img').each(function () {
+				var $this = $(this);
+				$this.attr('itemprop', 'image');
+			});
+
+			$('.publication a').each(function() {
+				$(this).attr({
+					itemprop: "url"
+				});
+			});
+
+			$('.publication-body a').each(function() {
+				var $a = $(this);
+				if (this.href.charAt(0) != '/'
+					&& this.href.indexOf('vidal.ru') === -1
+					&& this.href.indexOf('localhost:97') === -1
+				) {
+					$a.attr('rel', 'nofollow');
+				}
+			});
+
+			$('.publication-body a > img').each(function() {
+				var $a = $(this).closest('a');
+				var href = $a.attr('href');
+
+				if (href.charAt(0) != '/'
+					&& href.indexOf('vidal.ru') === -1
+					&& href.indexOf('localhost:97') === -1
+				) {
+					// внешняя ссылка
+				}
+				else {
+					$a.addClass('fancybox');
+				}
+			});
+
+			$('.fancybox').css('cursor', 'zoom-in').fancybox({
+				fitToView:  false,
+				autoSize:   false,
+				closeClick: true,
+				helpers: {
+					overlay: {
+						locked: false
+					}
+				}
+			});
+		});
+	</script>
+{% endblock %}

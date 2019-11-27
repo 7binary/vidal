@@ -1,0 +1,14 @@
+{% if env_local != 'true' %}
+	<script type="text/javascript" src="{{ asset('bundles/vidalmain/javascripts/swiffy3.js') }}"></script>
+
+	<a id="banner-linz" href="https://www.vidal.ru/promo/glyad_linz" target="_blank"
+	   style="cursor:pointer; width:200px; height:400px; text-align:center; margin-left:21px; display:block; border:1px solid gray;">
+	</a>
+
+	<script>
+		var stage = new swiffy.Stage(document.getElementById('banner-linz'),
+			swiffyobject, {});
+
+		stage.start();
+	</script>
+{% endif %}

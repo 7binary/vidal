@@ -1,0 +1,9 @@
+{% extends 'VidalMainBundle::layout.html.twig' %}
+
+{% block title %}
+    <h1>Политика конфиденциальности</h1>
+{% endblock %}
+
+{% block content %}
+    {{ render(controller('VidalMainBundle:Index:Module', {'moduleId':12})) }}
+{% endblock %}

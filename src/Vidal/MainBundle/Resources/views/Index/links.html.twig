@@ -1,0 +1,23 @@
+<script type="text/javascript">
+	$(document).ready(function() {
+		var excludeLinks = '{{ links }}'.split(' ');
+
+		$('a').not('.banner a').each(function() {
+			var href = $(this).attr('href');
+
+			if (href && href.length >= 3 && href.charAt(0) != '/' && href.indexOf('vidal.ru') === -1) {
+				var exclude = false;
+				for (var i = 0; i < excludeLinks.length; i++) {
+					if (href.indexOf(excludeLinks[i]) !== -1) {
+						exclude = true;
+						break;
+					}
+				}
+
+				if (!exclude) {
+					$(this).attr('rel', 'nofollow');
+				}
+			}
+		});
+	});
+</script>

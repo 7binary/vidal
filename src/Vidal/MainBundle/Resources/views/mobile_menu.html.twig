@@ -1,0 +1,62 @@
+<div class="mobile_menu">
+    <div class="mobile_menu_auth"></div>
+    <div class="mobile_menu_search">
+        <div class="mobile_menu_search_overlay"></div>
+        <form id="search_form_top" class="search" method="get" action="{{ path('search') }}">
+            <input type="hidden" name="search-type" value="{{ app.request.get('t')|default('all') }}">
+            <input type="submit" value="" class="search-submit">
+            <input class="search-query ui-autocomplete-input" type="text" name="q" autocomplete="off"
+                   placeholder="Аспирин, Байер, грипп..."
+                   value="{{ app.request.attributes.get('_route') == 'search' ? app.request.get('q') }}">
+        </form>
+    </div>
+
+    <div class="mobile_menu_icon"></div>
+
+    <div class="mobile_menu_hidden">
+        <div class="mobile_menu_overlay"></div>
+        <div class="mobile_menu_close"></div>
+        <div class="mobile_menu_wrap"></div>
+    </div>
+
+    <div class="mobile_search_hidden">
+        <div class="mobile_search_overlay"></div>
+        <div class="mobile_search_close"></div>
+        <div class="mobile_search_wrap"></div>
+    </div>
+
+    <div class="mobile_auth_hidden">
+        <div class="mobile_auth_overlay"></div>
+        <div class="mobile_auth_close"></div>
+        <div class="mobile_auth_wrap"></div>
+    </div>
+    {% if showMobileSocial is not defined%}
+        {% set showMobileSocial = true %}
+    {% endif %}
+
+    {% if showMobileSocial %}
+    <div style="text-align: center;margin-top:20px; height: 25px; margin-left: 20%;" class="mobile_social">
+        <a target="_blank" href="https://www.facebook.com/vidalru">
+            <i class="tada animated social-sprite social-facebook-m"></i>
+        </a>
+        <a target="_blank" href="https://vk.com/vidalru">
+            <i class="tada animated social-sprite social-vk-m"></i>
+        </a>
+        <a target="_blank" href="https://vidalru.livejournal.com/">
+            <i class="tada animated social-sprite social-livejournal-m"></i>
+        </a>
+        <a target="_blank" href="https://google.com/+VidalRu">
+            <i class="tada animated social-sprite social-gplus-m"></i>
+        </a>
+        <a target="_blank" href="https://twitter.com/Vidalru">
+            <i class="tada animated social-sprite social-twitter-m"></i>
+        </a>
+        <a target="_blank" href="https://vidalru.blogspot.ru/">
+            <i class="tada animated social-sprite social-blogspot-m"></i>
+        </a>
+        <a target="_blank" href="https://www.linkedin.com/company/vidal-ru/">
+            <i class="tada animated social-sprite social-linkedin-m"></i>
+        </a>
+    </div>
+    {% endif %}
+</div>

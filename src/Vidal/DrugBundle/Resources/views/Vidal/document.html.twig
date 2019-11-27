@@ -1,0 +1,591 @@
+{% extends 'VidalDrugBundle::vidal_layout.html.twig' %}
+
+
+{% set loz = asset('bundles/vidalmain/images/g2.gif') %}
+
+{% if product.hasChildrenParentID %}
+	{% set Composition = product.Composition|composition %}
+{% elseif product.hasChildrenMainID and document is defined %}
+	{% set Composition = document.CompiledComposition|composition %}
+{% else %}
+	{% set Composition = product.forms is empty ? product.Composition|composition : (document is defined ? document.CompiledComposition|composition : null) %}
+{% endif %}
+
+{% set isDoctor = app.user is not null %}
+{% set isAdmin = app.user is not null and is_granted('ROLE_ADMIN') %}
+{% set short = document is defined and document.isActiveSubstance() %}
+
+
+{% if product.ProductID in [4153,4157,4154,24331,4155,4156, 7057] %}
+	{% set hideYandexDirect = true %}
+{% endif %}
+
+
+{% block meta %}
+    {% set hasOg = true %}
+	{{ parent() }}
+	<meta property="og:image" content="https://www.vidal.ru/bundles/vidalmain/images/share/vidal.jpg">
+	<meta content="{{ ogTitle }}" property="og:title">
+	<meta content="{{ description }}" property="og:description">
+{% endblock %}
+
+
+{% block nav %}
+	<div class="breadcrumbs">
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('index') }}" itemprop="url">
+				<span itemprop="title">Видаль</span>
+			</a>
+		</div>
+		<i></i>
+
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('products') }}" itemprop="url">
+				<span itemprop="title">{{ app.request.get('from') == 'bad' ? 'Препараты и БАД' : 'Препараты' }}</span>
+			</a>
+		</div>
+		<i></i>
+
+		<span>{{ product.RusName|raw }}</span>
+	</div>
+{% endblock %}
+
+
+{% block vidal %}
+	<div class="schema" itemscope itemtype="http://schema.org/Article">
+		<div class="relative">
+			{% if (product.hasChildrenMainID or product.multiForm) and documentMerge is defined and documentMerge is not empty %}
+				<h1 itemprop="name">{{ product.RusName|raw }}
+					({{ documentMerge.EngName|raw }}) {% if not short %}<span style="color:#d71344">инструкция по применению</span>{% endif %}
+				</h1>
+			{% else %}
+				<h1 itemprop="name">{{ product.RusName|raw }}
+					({{ product.EngName|raw }}) {% if not short %}<span style="color:#d71344">инструкция по применению</span>{% endif %}
+				</h1>
+			{% endif %}
+
+			{# ссылка админу на редактирование #}
+			{% if isAdmin %}
+				<a class="admin-edit fade" target="_blank" href="{{ product is defined
+				? path('admin_vidal_drug_product_edit', {'id':product.ProductID})
+				: path('admin_vidal_drug_document_edit', {'id':document.DocumentID}) }}">
+					<img src="{{ asset('bundles/vidalmain/images/edit.png') }}"/>
+				</a>
+			{% endif %}
+		</div>
+
+		{# Быстрые ссылки #}
+		{% include 'VidalMainBundle::_quickLinks.html.twig' with {'product':product} %}
+
+		{# Поделиться #}
+		{% include 'VidalMainBundle::share.html.twig' with {'subtitle':'Лекарственные препараты, БАД, МИ', 'class':'Product', 'id':product.id, 'shareTitle': 'Сохраните у себя'} %}
+
+		{% include 'VidalDrugBundle:Vidal:product_banners.html.twig' with {'product':product} %}
+
+		{# Видальбокс #}
+		{% include 'VidalDrugBundle:Vidal:vidalbox.html.twig' with {'ads_vidalbox':ads_vidalbox} %}
+
+		{# Иконки использования при состояниях #}
+		{% if document is defined and not short %}
+			{% include 'VidalDrugBundle:Vidal:document_conditions.html.twig' %}
+		{% endif %}
+
+		{# АПТЕКА #}
+		<div class="analogs-full" id="product-top-buttons">
+			<noindex>
+				{{ render(controller('VidalDrugBundle:Api:renderAnalogButton', {'product':product})) }}
+			</noindex>
+		</div>
+
+		{# подробнее о препарате #}
+		{% if document is defined and document.portfolios.count %}
+			{% set portfolio = document.portfolios[0] %}
+			{% if portfolio.enabled %}
+				<div class="block">
+					<a href="{{ path('portfolio_item', {'url':portfolio.url}) }}"
+					   class="portfolio-link no-underline closed-link">
+						<span>Подробнее о препарате</span><img
+							src="{{ asset('bundles/vidalmain/images/redbutton.jpg') }}"/>
+					</a>
+					{% if not isDoctor %}
+						{% include 'VidalMainBundle:Auth:closed_info.html.twig' %}
+					{% endif %}
+				</div>
+			{% endif %}
+		{% endif %}
+
+		{# Изображения препарата #}
+		{% if not product.hidePhoto %}
+			{% if product.photo or product.photo2 or product.photo3 or product.photo4 or product.photo5 or product.photo6 %}
+				<div class="pictures block">
+					{% if product.photo %}
+						<a href="{{ product.photo.path }}" target="_blank">
+							<img src="{{ product.photo.path }}" alt="{{ img_alt_title|raw }}"
+								 title="{{ img_alt_title|raw }}"/>
+						</a>
+					{% endif %}
+					{% if product.photo2 %}
+						<a href="{{ product.photo2.path }}" target="_blank">
+							<img src="{{ product.photo2.path }}" alt="{{ img_alt_title|raw }}"
+								 title="{{ img_alt_title|raw }}"/>
+						</a>
+					{% endif %}
+					{% if product.photo3 %}
+						<a href="{{ product.photo3.path }}" target="_blank">
+							<img src="{{ product.photo3.path }}" alt="{{ img_alt_title|raw }}"
+								 title="{{ img_alt_title|raw }}"/>
+						</a>
+					{% endif %}
+					{% if product.photo4 %}
+						<a href="{{ product.photo4.path }}" target="_blank">
+							<img src="{{ product.photo4.path }}" alt="{{ img_alt_title|raw }}"
+								 title="{{ img_alt_title|raw }}"/>
+						</a>
+					{% endif %}
+					{% if product.photo5 %}
+						<a href="{{ product.photo5.path }}" target="_blank">
+							<img src="{{ product.photo5.path }}" alt="{{ img_alt_title|raw }}"
+								 title="{{ img_alt_title|raw }}"/>
+						</a>
+					{% endif %}
+					{% if product.photo6 %}
+						<a href="{{ product.photo6.path }}" target="_blank">
+							<img src="{{ product.photo6.path }}" alt="{{ img_alt_title|raw }}"
+								 title="{{ img_alt_title|raw }}"/>
+						</a>
+					{% endif %}
+				</div>
+			{% elseif product.pictures is not empty %}
+				<div class="pictures block">
+					{% for picture in product.pictures|split('|') %}
+						{% set path = '/upload/products/' ~ picture %}
+						{% if is_file(path) %}
+							<a href="{{ path }}" target="_blank">
+								<img src="{{ path }}" alt="{{ img_alt_title|raw }}" title="{{ img_alt_title|raw }}"/>
+							</a>
+						{% endif %}
+					{% endfor %}
+				</div>
+			{% endif %}
+		{% endif %}
+
+		{% if document is defined and not short %}
+			{% include 'VidalDrugBundle:Vidal:document_about.html.twig' %}
+			{% include 'VidalDrugBundle:Vidal:document_navigation.html.twig' %}
+		{% endif %}
+
+		<div itemprop="articleBody">
+			{# Блок регистратора/владельца/представительства #}
+			{% if owners is defined or distributors is defined or infoPages is defined %}
+				<div class="block firms">
+					{# Владелец регистрационного удостоверения #}
+					{% if owners is defined and owners is not empty %}
+						<h2 class="block-head">Владелец регистрационного удостоверения:</h2><br/>
+						{% for owner in owners %}
+						<div class="owners">
+							<a href="{{ path('firm_item', {'CompanyID':owner.CompanyID}) }}" class="no-underline">
+								{{ owner.LocalName|raw }}{{ owner.Property is not empty ? ', ' ~ owner.Property|raw|replace({'&amp;':'&'}) }}</a>
+							{% if owner.Country is not empty and owner.Country != 'Unknown' %}
+								<span class="small">({{ owner.Country }})</span>
+							{% endif %}
+							{% if not loop.last %} или{% endif %}
+						</div>
+						{% endfor %}
+					{% endif %}
+
+					{# Произведено #}
+					{% if distributors is defined and distributors is not empty %}
+						{% set groupedCompanies = groupCompanies(distributors) %}
+
+						{% for note, listCompanies in groupedCompanies %}
+							<div class="distributor">
+								{% if note is not empty %}
+									<h2 class="block-head">{{ note|upperFirst }}:</h2><br/>
+								{% endif %}
+								{% for company in listCompanies %}
+									{% if loop.index > 1 %}или{% endif %}
+									<a class="no-underline"
+									   href="{{ path('firm_item', {'CompanyID':company.CompanyID}) }}">
+										{{ company.LocalName|raw }}
+									</a>
+									{% if company.Country is not empty and company.Country != 'Unknown' %}
+										<span class="small">({{ company.Country }})</span>
+									{% endif %}
+								{% endfor %}
+							</div>
+						{% endfor %}
+					{% endif %}
+
+					{# Представительство #}
+					{% if infoPages is defined and infoPages is not empty %}
+						<div class="infoPages">
+							<h2 class="block-head">Контакты для обращений:</h2><br/>
+							{% for infoPage in infoPages %}
+								{% if loop.index > 1 %}<br/>{% endif %}
+								<a href="{{ path('inf_item', {'InfoPageID':infoPage.InfoPageID}) }}"
+								   class="no-underline">
+									{{ infoPage.RusName|raw }}</a>
+								{% if infoPage.Country and infoPage.Country != 'Unknown' %}
+									<span class="small">({{ infoPage.Country }})</span>
+								{% endif %}
+							{% endfor %}
+						</div>
+					{% endif %}
+				</div>
+			{% endif %}
+
+			{# Блок АТХ кодов #}
+			{% if product.atcCodes is not empty %}
+				{% if product.atcCodes|length == 1 %}
+					{% set atc = product.atcCodes[0] %}
+					<div class="block" id="atc_codes">
+						<span class="block-head">Код ATX:</span>
+						<span class="block-content">
+						<a href="{{ path('atc_item', {'ATCCode':atc.ATCCode|lower}) }}" class="no-underline">
+							{{ atc.ATCCode }}
+						</a>
+						<span class="atc-name small">({{ atc.RusName|raw }})</span>
+					</span>
+					</div>
+				{% else %}
+					<div class="block">
+						<h2 class="block-head">Коды АТХ</h2><br/>
+						<div class="block-content">
+							<ul class="ul-style">
+								{% for atc in product.atcCodes %}
+									<li>
+										<a href="{{ path('atc_item', {'ATCCode':atc.ATCCode|lower}) }}"
+										   class="no-underline">
+											{{ atc.ATCCode }}
+										</a>
+										<span class="atc-name small">({{ atc.RusName|raw }})</span>
+									</li>
+								{% endfor %}
+							</ul>
+						</div>
+					</div>
+				{% endif %}
+			{% endif %}
+
+			{# Блок активных веществ #}
+			{% if molecules is defined
+			and molecules is not empty
+			and molecules|length < 4
+			and (document is not defined or not document.ShowGenericsOnlyInGNList) %}
+				<div class="block">
+					{% if molecules|length == 1 %}
+						{% set molecule = molecules[0] %}
+						{% set gn = molecule.GNParent %}
+						<span class="block-head">Активное вещество:</span>
+						<a href="{{ path('molecule', {'MoleculeID':molecule.MoleculeID}) }}"
+						   class="no-underline">{{ molecule.RusName|raw }}</a>
+						{% if molecule.RusName %}
+							<span class="small">({{ molecule.LatName|raw }})</span>
+						{% endif %}
+						{% if gn is not empty %}
+							<div style="padding-left:146px">
+								<a title="Международное непатентованное наименование (МНН)" href="{{ path('gnp') }}"
+								   class="no-underline mnn">{{ gn.GNParent }}
+								</a>
+								<span class="small italic">{{ gn.description }}</span>
+							</div>
+						{% endif %}
+					{% else %}
+						<h2 class="block-head">Активные вещества</h2><br/>
+						<ul class="ul-style">
+							{% for molecule in molecules %}
+								{% set gn = molecule.GNParent %}
+								<li>
+									<a href="{{ path('molecule', {'MoleculeID':molecule.MoleculeID}) }}"
+									   class="no-underline">{{ molecule.RusName|raw }}</a>
+									{% if molecule.RusName %}
+										<span class="small">({{ molecule.LatName|raw }})</span>
+									{% endif %}
+									{% if gn is not empty %}
+										<a title="Международное непатентованное наименование (МНН)"
+										   href="{{ path('gnp') }}" class="no-underline mnn">{{ gn.GNParent }}</a>
+										<span class="small italic">{{ gn.description }}</span>
+									{% endif %}
+								</li>
+							{% endfor %}
+						</ul>
+					{% endif %}
+				</div>
+			{% endif %}
+
+			{# Лекарственная форма #}
+			<div class="block">
+				{% set single = true %}
+				{% if product.forms is not empty %}
+					{% set forms = product.forms|jsonDecode %}
+					{% for form in forms %}
+						{% if loop.index > 1 %}
+							{% set single = false %}
+						{% endif %}
+					{% endfor %}
+				{% endif %}
+
+				<h2 class="block-head">{{ single ? 'Лекарственная форма' : 'Лекарственные формы' }}</h2><br/>
+				<div class="block-content">
+					{% include 'VidalDrugBundle:Vidal:product_forms.html.twig' %}
+				</div>
+			</div>
+
+			{# Форма выпуска, упаковка и состав #}
+			{% if compositions is defined
+			and compositions is not empty
+			and (product.hasChildrenParentID or (product.hasChildrenMainID and (document is not defined or document is empty or document.IsApproved == false or document.isNotForSite or document.inactive or document.CompiledComposition is empty))) %}
+				<div class="block" id="composition">
+					<h2 class="block-head">Форма выпуска, упаковка и состав{% if document is defined and document.RusName %} {{ document.RusName|ucwords|raw }} {% endif %}</h2><br/>
+					<div class="block-content composition">
+						{% for comp in compositions %}
+							{{ comp|replace({
+								'[PRING]':'<i class"pring">Вспомогательные вещества</i>:',
+								'&loz;':'<img class="loz" src="'~loz~'" title="Препарат разрешен к применению в качестве средств безрецептурного отпуска"/>'
+							})|composition|raw }}
+							{% if not loop.last %}
+								<hr/>
+							{% endif %}
+						{% endfor %}
+					</div>
+				</div>
+			{% elseif Composition is not empty %}
+				<div class="block" id="composition">
+					<h2 class="block-head">Форма выпуска, упаковка и состав{% if document is defined and document.RusName %} {{ document.RusName|ucwords|raw }} {% endif %}</h2><br/>
+					<div class="block-content composition">
+						{{ Composition|replace({
+							'[PRING]':'<i class"pring">Вспомогательные вещества</i>:',
+							'&loz;':'<img class="loz" src="'~loz~'" title="Препарат разрешен к применению в качестве средств безрецептурного отпуска"/>'
+						})|composition|raw }}
+					</div>
+				</div>
+			{% endif %}
+
+			{# блоки описания документа #}
+			{% if document is defined %}
+				{% include 'VidalDrugBundle:Vidal:document_info.html.twig' %}
+				{% include 'VidalDrugBundle:Vidal:document_footer.html.twig' %}
+			{% else %}
+				{# Клинико-фармакологическая группа #}
+				{% include 'VidalDrugBundle:Vidal:product_clphGroups.htm.twig' %}
+			{% endif %}
+		</div>
+	</div>
+
+	{# блок детального описания представительств #}
+	{% include 'VidalDrugBundle:Vidal:document_infopages.html.twig' %}
+
+	{# блок горизонтального яндекс-директа #}
+	{% if short or document is not defined or app.user is not null %}
+		{% include 'VidalMainBundle::yad_horizontal.html.twig' %}
+	{% endif %}
+
+	{# прикрепленные материалы #}
+	<div id="documents_of_product"></div>
+	{#{% include 'VidalMainBundle:Article:documents_of_product.html.twig' with {'object':product, 'label':'препарату', 'item':product.RusName, 'productPage':true} %}#}
+
+	{# блок получения ссылки #}
+	{% if product is defined or document is defined %}
+		{% include 'VidalDrugBundle:Vidal:document_get_link.html.twig' %}
+	{% endif %}
+
+	{# АПТЕКА #}
+	{% include 'VidalDrugBundle:Vidal:protec_products.html.twig' with {'ProductID':ProductID} %}
+
+	{# поп-ап неавторизованным #}
+	{% if not isDoctor %}
+		{% include 'VidalMainBundle:Auth:login_popup.html.twig' %}
+	{% endif %}
+
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/fancybox/source/jquery.fancybox.css') }}"/>
+	<style type="text/css">
+		.distributor, .infoPages {
+			margin-top: 7px;
+		}
+		.relative {
+			position: relative;
+		}
+		#dosage p img {
+			max-width:  520px;
+			max-height: 400px;
+		}
+		.mkb {
+			margin-top: 6px;
+		}
+		.mkb .products-table {
+			display: none;
+		}
+		.division-link {
+			display:         table-cell;
+			vertical-align:  middle;
+			height:          34px;
+			padding:         0 24px 0 12px;
+			border:          3px solid #eee;
+			background:      #eee !important;
+			text-decoration: none;
+			font-weight:     bold;
+			font-family:     'PT Sans Caption', sans-serif;
+			font-size:       14px;
+			background:      url(../images/down.png) no-repeat 98% 50%;
+		}
+		.portfolio-link {
+			display:     inline-block;
+			background:  #eee;
+			font-weight: bold;
+			padding:     1px 1px 0 10px;
+			border:      2px solid #ddd;
+		}
+		.portfolio-link > span {
+			display:        inline-block;
+			vertical-align: top;
+			margin:         7px 5px 0 0;
+		}
+		.portfolio-link:hover {
+			border: 2px solid #bbb;
+		}
+		.closed-info {
+			display: none;
+		}
+		.pictures a {
+			display: inline-block;
+		}
+		/* stars */
+		.stars {
+			margin:           0 0 20px;
+			background-color: beige;
+			padding:          7px 8px 4px;
+			overflow:         hidden;
+		}
+		.stars .images {
+			float: left;
+			width: 105px;
+		}
+		.stars .group {
+			margin-left: 110px;
+		}
+		.stars > * {
+			vertical-align: top;
+		}
+		.stars span {
+			color: #2e3f51;
+		}
+		.stars img {
+			width:   16px;
+			display: inline-block;
+		}
+		h2 {
+			display:     inline-block;
+			margin:      0;
+			font-weight: bold;
+			color:       #2e3f51;
+			font-size:   15px;
+		}
+		.vidal .pictures img {
+			max-width: 200px !important;
+		}
+	</style>
+{% endblock %}
+
+{% block right %}
+    {{ parent()}}
+        {% include 'VidalDrugBundle:Vidal:_documentAnalog.html.twig' %}
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<script type="text/javascript" src="{{ asset('bundles/vidalmain/fancybox/source/jquery.fancybox.js') }}"></script>
+	<script type="text/javascript"
+			src="{{ asset('bundles/vidalmain/placeholder/jquery.placeholder.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/vidalmain/javascripts/jquery.form.min.js') }}"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('body')
+				.on('click', '.btn-buy', function(e) {
+					e.preventDefault();
+					$("html, body").animate({scrollTop: $('#protec-table').offset().top}, 600);
+					ga('send', 'event', 'Pharmacy-click', 'Pharmacy-click');
+					return false;
+				})
+				.on('click', '.buy-last a', function(e) {
+					ga('send', 'event', 'Protec-click', this.href);
+					var id = $(this).attr('data-id');
+					var url = '/protec-clicked/' + id;
+					$.getJSON(url);
+				});
+
+			$('.pictures a').fancybox();
+
+			$('.copy textarea')
+				.focus(function() { $(this).css('opacity', '1'); })
+				.blur(function() { $(this).css('opacity', '0.5'); });
+
+			$('.mkb-show').click(function() {
+				$('.mkb .products-table').show();
+				$(this).hide();
+				return false;
+			});
+
+			{% if not isDoctor %}
+			$('.closed-link').click(function() {
+				$('.closed-info').slideDown();
+				return false;
+			});
+			{% endif %}
+
+			{# Переходы к регистрации из фармакокинетики #}
+			$('.closed-info-reg').click(function() {
+				ga('send', 'event', 'Переход к регистрации с Фармакокинетика/действие', 'Переход к регистрации с Фармакокинетика/действие');
+			});
+
+{#
+			setTimeout(function() {
+				var url = '/drugs/documents-of-product/{{ product.ProductID }}';
+				$.getJSON(url, function(html) {
+					$('#documents_of_product').html(html);
+				});
+			}, 500);
+#}
+
+			$('.schema a').each(function() {
+				$(this).attr({
+					itemprop: "url"
+				});
+			});
+
+			$('.schema img').each(function() {
+				$(this).attr({
+					itemprop: "image"
+				});
+			});
+
+			$('.schema a').each(function() {
+				var $a = $(this);
+				if (this.href.charAt(0) != '/'
+					&& this.href.indexOf('vidal.ru') === -1
+					&& this.href.indexOf('localhost:97') === -1
+				) {
+					$a.attr('rel', 'nofollow');
+				}
+			});
+
+			// обертка для широких таблиц
+			var $tables = $('.block-content table');
+			$tables.hide();
+			var vidalWidth = $('#vidal').outerWidth();
+			$tables.show();
+
+			$tables.each(function() {
+				var $this = $(this);
+				if ($this.outerWidth() > vidalWidth) {
+					$this.wrap('<div style="overflow-x:scroll; width:' + vidalWidth + 'px"></div>');
+				}
+			});
+		});
+
+	</script>
+{% endblock %}

@@ -1,0 +1,36 @@
+<ul class="shkola-menu">
+	<li><a href="{{ path('shkola_gastrita') }}">Главная</a></li>
+
+	{% for category in categories if category.enabled %}
+		<li class="dropdown">
+			<a href="{{ path('shkola_category', {'category':category.url}) }}" {{ request.get('category') == category.url ? 'class="active"' }}>
+				{{ category.label }}
+				<img src="{{ asset('bundles/vidalmain/images/dropdown.png') }}"/>
+			</a>
+			<ul>
+				{% for article in category.articles if article.enabled %}
+					<li>
+						{% if article.categoryPage %}
+							<a href="{{ path('shkola_category', {'category':category.url}) }}">
+								{{ article.label }}
+							</a>
+						{% else %}
+							<a href="{{ path('shkola_category_article', {'category':category.url, 'article':article.url}) }}" {{ request.get('article') == article.url ? 'class="active"' }}>
+								{{ article.label }}
+							</a>
+						{% endif %}
+					</li>
+				{% endfor %}
+			</ul>
+		</li>
+	{% endfor %}
+
+	<li><a href="{{ path('shkola_test') }}" {{ request.get('_route') == 'shkola_test' ? 'class="active"' }}>Онлайн
+			тест</a></li>
+	<li><a href="{{ path('shkola_consult') }}" {{ request.get('_route') == 'shkola_consult' ? 'class="active"' }}>Бесплатная
+			консультация</a></li>
+	<li><a href="{{ path('shkola_video') }}" {{ request.get('_route') == 'shkola_video' ? 'class="active"' }}>Видео</a>
+	</li>
+	<li><a href="{{ path('shkola_maps') }}" {{ request.get('_route') == 'shkola_maps' ? 'class="active"' }}>Карта
+			ближайших поликлиник</a></li>
+</ul>

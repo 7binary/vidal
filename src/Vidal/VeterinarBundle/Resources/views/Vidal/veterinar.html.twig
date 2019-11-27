@@ -1,0 +1,266 @@
+{% extends 'VidalVeterinarBundle::vidal_layout.html.twig' %}
+
+
+{% block meta %}
+	{% if pagination is defined %}
+		{% set currentPage = app.request.get('p', 1) %}
+		{% set maxPages = pagination.pageCount %}
+
+		{% if currentPage > 1 %}
+			{% if currentPage == 2 %}
+				<link rel="prev" href="{{ path('veterinar') }}">
+			{% else %}
+				<link rel="prev" href="{{ path('veterinar', {'p':(currentPage-1)}) }}">
+			{% endif %}
+		{% endif %}
+
+		{% if currentPage < maxPages %}
+			<link rel="next" href="{{ path('veterinar', {'p':(currentPage+1)}) }}">
+		{% endif %}
+	{% endif %}
+
+	{{ parent() }}
+{% endblock %}
+
+
+{% block nav %}
+	<div class="breadcrumbs">
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('index') }}" itemprop="url">
+				<span itemprop="title">Видаль</span>
+			</a>
+		</div>
+		<i></i>
+
+		<span>Видаль-Ветеринар</span>
+	</div>
+{% endblock %}
+
+
+{% block vidal %}
+	{# Актуальные новости #}
+	{% if publications is not empty %}
+		{% include 'VidalVeterinarBundle:Vidal:render_news.html.twig' with {'news':publications, 'without_date':1} %}
+	{% endif %}
+
+	{% if menu_veterinar is defined %}
+		{% include 'VidalVeterinarBundle:Vidal:veterinar_menu.html.twig' with {'vetIndexPage':true} %}
+	{% endif %}
+
+	{% include 'VidalVeterinarBundle:Vidal:veterinar_form.html.twig' %}
+
+	{% if o is defined and o is not empty %}
+		<div class="search-info">
+		<span>Результатов поиска по запросу «<b>{{ o }}</b>» не найдено.<br/>
+		Исправлена раскладка клавиатуры в «<b>{{ q }}</b>»</span>
+		</div>
+	{% elseif q is defined and q is not empty %}
+		<div class="search-info">
+			<span>Поиск по запросу «<b>{{ q }}</b>»</span>
+		</div>
+	{% endif %}
+
+	{% include 'VidalVeterinarBundle:Vidal:search_navigation.html.twig' %}
+
+	<div class="veterinar-results">
+		{% if products is defined %}
+			<div id="search_products">
+				{% if products is not empty %}
+					<div class="info-line">
+						Найдено препаратов: <span>{{ products.totalItemCount }}</span>
+					</div>
+					{% include 'VidalVeterinarBundle:Vidal:render_products.html.twig' with {'companies':productCompanies, 'pictures':productPictures} %}
+					{{ knp_pagination_render(products) }}
+				{% else %}
+					<div class="info-line">
+						Не найдено препаратов по запросу <i>{{ q }}</i>
+					</div>
+				{% endif %}
+			</div>
+		{% endif %}
+
+		{% if companies is defined %}
+			<div id="search_companies">
+				{% if companies is not empty %}
+					<div class="info-line">
+						Найдено фирм-производителей: <span>{{ companies|length }}</span>
+					</div>
+					<table class="products-table companies">
+						<tr class="products-table-header">
+							<td>Название</td>
+							<td>Страна</td>
+						</tr>
+						{% for company in companies %}
+							<tr>
+								<td>
+									<a target="_blank"
+									   href="{{ path('v_company', {'Name':company.Name}) }}">{{ company.LocalName|raw }}</a>
+								</td>
+								<td>{{ company.Country }}</td>
+							</tr>
+						{% endfor %}
+					</table>
+				{% else %}
+					<div class="info-line">
+						Не найдено фирм-производителей
+					</div>
+				{% endif %}
+			</div>
+		{% endif %}
+
+		{% if infoPages is defined %}
+			<div id="search_infoPages">
+				{% if infoPages is not empty %}
+					<div class="info-line">
+						Найдено информационных страниц: <span>{{ infoPages|length }}</span>
+					</div>
+					<table class="products-table companies">
+						<tr class="products-table-header">
+							<td>Название</td>
+							<td>Страна</td>
+						</tr>
+						{% for infoPage in infoPages %}
+							<tr>
+								<td>
+									<a target="_blank"
+									   href="{{ path('v_inf', {'Name':infoPage.Name}) }}">{{ infoPage.RusName|raw }}</a>
+								</td>
+								<td>{{ infoPage.Country }}</td>
+							</tr>
+						{% endfor %}
+					</table>
+				{% else %}
+					<div class="info-line">
+						Не найдено представительств фирм
+					</div>
+				{% endif %}
+			</div>
+		{% endif %}
+
+		{% if molecules is defined %}
+			<div id="search_molecules">
+				{% if molecules is not empty %}
+					<div class="info-line">
+						Найдено активных веществ: <span>{{ molecules|length }}</span>
+					</div>
+					<table class="products-table">
+						<tr class="products-table-header">
+							<td>Активное вещ-во</td>
+							<td width="15%" title="Международное непатентованное наименование (МНН)">МНН</td>
+							<td width="15%">Входит в состав препаратов</td>
+						</tr>
+						{% for molecule in molecules %}
+							<tr>
+								<td>
+									<a href="{{ path('v_molecule', {'url':molecule.url}) }}"
+									   class="no-underline">{{ molecule.RusName|raw }}</a>
+									<span>({{ molecule.LatName|raw }})</span>
+								</td>
+								<td><a title="Международное непатентованное наименование (МНН)" href="{{ path('gnp') }}"
+									   class="no-underline">{{ molecule.GNParent }}</a></td>
+								<td><a href="{{ path('v_molecule_included', {'url':molecule.url}) }}"
+									   class="no-underline">список</a></td>
+							</tr>
+						{% endfor %}
+					</table>
+				{% else %}
+					<div class="info-line">
+						Не найдено активных веществ
+					</div>
+				{% endif %}
+			</div>
+		{% endif %}
+	</div>
+
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/letters.css') }}"/>
+	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/publication.css') }}"/>
+
+	<style type="text/css">
+		{% if isMobile %}
+		#veterinar_form {
+			overflow: hidden;
+		}
+		.letters {
+			padding-bottom: 0 !important;
+			border-bottom:  none !important;
+		}
+		{% endif %}
+		.veterinar-letters {
+			margin-top: 10px;
+		}
+		.veterinar-letters > div {
+			overflow: hidden;
+		}
+		#veterinar_type {
+			width: 195px;
+		}
+		#veterinar_input {
+			width:       205px;
+			margin-left: 8px;
+		}
+		#veterinar_submit {
+			float: right;
+		}
+		.veterinar-about {
+			font-size:   15px;
+			margin-top:  22px;
+			padding-top: 4px;
+			border-top:  1px solid #e1e1e1;
+		}
+		.veterinar-about-2 {
+			margin-top: 35px;
+		}
+		.companies a {
+			text-decoration: none;
+		}
+		.companies a:hover {
+			text-decoration: underline;
+		}
+	</style>
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+	<script type="text/javascript">
+		$(document).ready(function() {
+			var $type = $('#veterinar_type');
+
+			setTimeout(function() {
+				$('#link_1').attr('href', 'https://www.vidal.ru/download/vet_cd2017.zip');
+				$('#link_2').attr('href', 'https://www.vidal.ru/about/kontakty#storage');
+			}, 300);
+
+			$('#veterinar_input')
+				.autocomplete({
+					minLength: 2,
+					source:    function(request, response) {
+						var url = '/elastic/autocomplete_veterinar/' + request.term.trim() + '?type=' + $type.val();
+						$.getJSON(url, function(data) {
+							response($.map(data.hits.hits, function(item) {
+								return {
+									label: item.highlight.name,
+									value: item._source.name
+								}
+							}));
+						});
+					},
+					select:    function(event, ui) {
+						if (ui.item) {
+							$(this).val(ui.item.value);
+						}
+					}
+				}).data("ui-autocomplete")._renderItem = function(ul, item) {
+				return $("<li></li>")
+					.data("item.autocomplete", item)
+					.append("<a>" + item.label + "</a>")
+					.appendTo(ul);
+			};
+		});
+	</script>
+{% endblock %}

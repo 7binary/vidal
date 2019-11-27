@@ -1,0 +1,11 @@
+<td class="swap">
+	{% if object.authorEmail is not empty %}
+		{% if not object.emailSent %}
+			<a class="btn btn-email btn-negative" title="отправить"
+			   href="{{ path('qa_email', {'id':object.id}) }}">
+			</a>
+		{% else %}
+			<div>отправлено: {{ object.authorEmail }}</div>
+		{% endif %}
+	{% endif %}
+</td>

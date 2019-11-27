@@ -1,0 +1,468 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+    - { resource: @VidalDrugBundle/Resources/config/admin.xml }
+
+framework:
+    #esi:             ~
+    translator:      { fallback: "%locale%" }
+    secret:          %secret%
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: ~
+    templating:
+        engines: ['twig']
+        assets_version: v331
+    form:            ~
+    csrf_protection: false
+    validation:      { enable_annotations: true }
+    default_locale:  "%locale%"
+    trusted_proxies: ~
+    session:
+        cookie_lifetime: 15536000
+        save_path: "%session_path%"
+    fragments:       ~
+
+# Twig Configuration
+twig:
+    debug:            %kernel.debug%
+    strict_variables: %kernel.debug%
+    globals:
+        portal: %portal%
+        env_local: %env_local%
+    form:
+        resources:
+            - 'VidalMainBundle:Form:form_table_layout.html.twig'
+
+# Assetic Configuration
+assetic:
+    debug:          %kernel.debug%
+    use_controller: false
+    bundles:        [ ]
+
+# Doctrine Configuration
+doctrine:
+    dbal:
+        default_connection: default
+        connections:
+            default:
+                driver:   %database_driver%
+                host:     %database_host%
+                port:     %database_port%
+                dbname:   %database_vidal%
+                user:     %database_user%
+                password: %database_password%
+                charset:  UTF8
+                mapping_types:
+                    enum: string
+                options:
+                    1002: "SET NAMES utf8"
+            drug:
+                driver:   %database_driver%
+                host:     %database_host%
+                port:     %database_port%
+                dbname:   %database_drug%
+                user:     %database_user%
+                password: %database_password%
+                charset:  UTF8
+                mapping_types:
+                    enum: string
+                options:
+                    1002: "SET NAMES utf8"
+            veterinar:
+                driver:   %database_driver%
+                host:     %database_host%
+                port:     %database_port%
+                dbname:   %database_veterinar%
+                user:     %database_user%
+                password: %database_password%
+                charset:  UTF8
+                mapping_types:
+                    enum: string
+                options:
+                    1002: "SET NAMES utf8"
+            big_mama:
+                driver:   %database_driver%
+                host:     %database_host%
+                port:     %database_port%
+                dbname:   %database_big_mama%
+                user:     %database_user%
+                password: %database_password%
+                charset:  UTF8
+                mapping_types:
+                    enum: string
+                options:
+                    1002: "SET NAMES utf8"
+    orm:
+        auto_generate_proxy_classes: %kernel.debug%
+        entity_managers:
+            default:
+                connection: default
+                mappings:
+                    VidalMainBundle: ~
+                    VidalApiBundle: ~
+                dql:
+                    datetime_functions:
+                        DATE_FORMAT: Vidal\MainBundle\Dql\DateFormat
+            drug:
+                connection: drug
+                mappings:
+                    VidalDrugBundle: ~
+            veterinar:
+                connection: veterinar
+                mappings:
+                    VidalVeterinarBundle: ~
+            big_mama:
+                connection: big_mama
+                mappings:
+                    VidalBigMamaBundle: ~
+
+#Iphp FileStore
+iphp_file_store:
+    mappings:
+        avatar:
+            upload_dir: %upload_dir%/avatar
+            upload_path: /upload/avatar
+            overwrite_duplicates: false
+            namer:
+                translit: ~
+        avs:
+            upload_dir: %upload_dir%/avs
+            upload_path: /upload/avs
+            overwrite_duplicates: false
+            namer:
+                translit: ~
+        banner:
+            upload_dir: %upload_dir%/banner
+            upload_path: /upload/banner
+            overwrite_duplicates: false
+            namer:
+                 translit: ~
+        big_mama:
+            upload_dir: %upload_dir%/big_mama
+            upload_path: /upload/big_mama
+            overwrite_duplicates: false
+            namer:
+                 translit: ~
+        photo:
+            upload_dir: %upload_dir%/photo
+            upload_path: /upload/photo
+            overwrite_duplicates: false
+            namer:
+                 translit: ~
+        video:
+            upload_dir: %upload_dir%/video
+            upload_path: /upload/video
+            overwrite_duplicates: false
+            namer:
+                 translit: ~
+        product_photo:
+            upload_dir: %upload_dir%/product_photo
+            upload_path: /upload/product_photo
+            overwrite_duplicates: false
+            namer:
+                 translit: ~
+        infopage_photo:
+            upload_dir: %upload_dir%/infopage_photo
+            upload_path: /upload/infopage_photo
+            overwrite_duplicates: false
+            namer:
+                 translit: ~
+        docs:
+            upload_dir: %upload_dir%/docs
+            upload_path: /upload/docs
+            overwrite_duplicates: false
+            namer:
+                 translit: ~
+        blog:
+            upload_dir: %upload_dir%/blog
+            upload_path: /upload/blog
+            overwrite_duplicates: false
+            namer:
+                 translit: ~
+        popup:
+            upload_dir: %upload_dir%/popup
+            upload_path: /upload/popup
+            overwrite_duplicates: false
+            namer:
+                 translit: ~
+        users:
+            upload_dir: %upload_dir%/users
+            upload_path: /upload/users
+            overwrite_duplicates: false
+            namer:
+                translit: ~
+
+# Swiftmailer Configuration
+swiftmailer:
+    transport: %mailer_transport%
+    host:      %mailer_host%
+    username:  %mailer_user%
+    password:  %mailer_password%
+    encryption: null
+    port: 25
+
+
+# KnpPaginator Configuration
+knp_paginator:
+    page_range: 5                      # default page range used in pagination control
+    default_options:
+        page_name: p                   # page query parameter name
+    template:
+        pagination: KnpPaginatorBundle:Pagination:sliding.html.twig     # sliding pagination controls template
+        sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig # sort link template
+
+
+sonata_block:
+    default_contexts: [cms]
+    blocks:
+        # Enable the SonataAdminBundle block
+        sonata.admin.block.admin_list:
+            contexts:   [admin]
+        sonata.block.service.text:
+        sonata.block.service.rss:
+
+#Sonata admin configuration
+sonata_admin:
+    title:      Vidal.ru
+    title_logo: /favicon.ico
+    templates:
+        # default global templates
+        layout:  VidalDrugBundle:Sonata:admin_layout.html.twig
+        #ajax:    SonataAdminBundle::ajax_layout.html.twig
+
+        # default actions templates, should extend a global templates
+        list:    VidalDrugBundle:Sonata:list_layout.html.twig
+        show:    SonataAdminBundle:CRUD:show.html.twig
+        edit:    VidalDrugBundle:Sonata:base_edit.html.twig
+
+    dashboard:
+        blocks:
+            # display a dashboard block
+            - { position: center, type: sonata.admin.block.admin_list }
+
+gregwar_captcha:
+    length:  4
+    charset: 123456789
+    background_color: [255,255,255]
+    max_front_lines: 0
+    max_behind_lines: 0
+    invalid_message: "Проверочный код указан неверно"
+
+mobile_detect:
+    redirect:
+        full:
+            is_enabled: false           # default false
+            host: http://site.com       # with scheme (http|https), default null, url validate
+            status_code: 301            # default 302
+            action: redirect            # redirect, no_redirect, redirect_without_path
+        mobile:
+            is_enabled: false           # default false
+            host: http://m.site.com     # with scheme (http|https), default null, url validate
+            status_code: 301            # default 302
+            action: redirect            # redirect, no_redirect, redirect_without_path
+        tablet:
+            is_enabled: false           # default false
+            host: http://t.site.com     # with scheme (http|https), default null, url validate
+            status_code: 301            # default 302
+            action: redirect            # redirect, no_redirect, redirect_without_path
+        detect_tablet_as_mobile: true   # default false
+    switch_device_view:
+        save_referer_path: false
+
+#######################################################################################################
+#######################################################################################################
+
+nelmio_security:
+    external_redirects:
+        abort: true
+        log: true
+
+    csp:
+        report_logger_service: logger
+        enforce:
+            default-src:
+                - 'self'
+                - 'https://*.gstatic.com'
+            frame-src:
+                - 'self'
+                - 'https://www.vidal.ru'
+                - 'https://*.youtube.com'
+                - 'https://*.google.com'
+                - 'https://*.google.ru'
+                - 'https://yandex.ru'
+                - 'https://*.yandex.ru'
+                - 'https://*.yandex.net'
+                - 'https://*.yandex.st'
+                - 'https://awaps.yandex.ru'
+                - 'https://awaps.yandex.net'
+                - 'https://yandexadexchange.net'
+                - 'https://*.yandexadexchange.net'
+                - 'https://yastatic.net'
+                - 'https://*.youtube.com'
+                - 'https://*.ytimg.com'
+                - 'https://*.1dmp.io'
+                - 'http://*.1dmp.io'
+                - 'http://localhost:*'
+                - 'https://s0.2mdn.net'
+            font-src:
+                - 'https://*.gstatic.com'
+                - 'https://s0.2mdn.net'
+                - 'self'
+            script-src:
+                - 'self'
+                - 'https://www.vidal.ru'
+                - 'https://yandex.ru'
+                - 'https://*.yandex.ru'
+                - 'https://*.yandex.net'
+                - 'https://*.yandex.st'
+                - 'https://an.yandex.ru'
+                - 'https://yandex.st'
+                - 'https://yastatic.net'
+                - 'https://mc.yandex.ru'
+                - 'http://mc.yandex.ru'
+                - 'http://*.yandex.ru'
+                - 'http://*.google-analytics.com'
+                - 'http://*.gstatic.com'
+                - 'http://*.google.com'
+                - 'https://*.google.ru'
+                - 'https://*.gstatic.com'
+                - 'https://*.google-analytics.com'
+                - 'https://*.google.com'
+                - 'https://*.googleapis.com'
+                - 'http://*.mail.ru'
+                - 'https://*.youtube.com'
+                - 'https://*.ytimg.com'
+                - 'http://pixel.betweenx.com'
+                - 'https://px.adhigh.net'
+                - 'https://dmp.vihub.ru'
+                - 'https://top-fwz1.mail.ru'
+                - 'https://pixel.betweenx.com'
+                - 'https://*.1dmp.io'
+                - 'http://*.1dmp.io'
+                - 'https://go.saleswingsapp.com'
+                - 'nonce-RAND'
+                - 'unsafe-inline'
+                - 'unsafe-eval'
+                - 'https://s0.2mdn.net'
+            style-src:
+                - 'self'
+                - 'https://www.vidal.ru'
+                - 'unsafe-inline'
+                - 'unsafe-eval'
+                - 'nonce-RAND'
+                - 'http://*.google-analytics.com'
+                - 'http://*.gstatic.com'
+                - 'https://yandex.ru'
+                - 'https://*.yandex.ru'
+                - 'https://*.yandex.net'
+                - 'https://*.yandex.st'
+                - 'https://yandex.st'
+                - 'https://yastatic.net'
+                - 'http://*.google.com'
+                - 'https://*.google.com'
+                - 'https://*.google.ru'
+                - 'https://*.googleapis.com'
+                - 'http://*.mail.ru'
+                - 'https://*.youtube.com'
+                - 'https://*.ytimg.com'
+                - 'https://*.1dmp.io'
+                - 'http://*.1dmp.io'
+                - 'https://s0.2mdn.net'
+            img-src:
+                - 'self'
+                - 'http://localhost:97/'
+                - 'https://localhost:97/'
+                - 'https://www.vidal.ru'
+                - 'https://yandex.ru'
+                - 'https://*.yandex.ru'
+                - 'https://*.yandex.net'
+                - 'https://*.yandex.st'
+                - 'https://avatars-fast.yandex.net'
+                - 'https://favicon.yandex.net'
+                - 'http://*.google-analytics.com'
+                - 'http://*.gstatic.com'
+                - 'http://*.google.com'
+                - 'https://*.gstatic.com'
+                - 'https://*.google-analytics.com'
+                - 'https://*.google.com'
+                - 'https://*.google.ru'
+                - 'https://*.google.de'
+                - 'https://*.googleapis.com'
+                - 'https://www.google.com.do'
+                - 'http://*.mail.ru'
+                - 'data:'
+                - 'http://gderu.hit.gemius.pl'
+                - 'https://*.youtube.com'
+                - 'https://*.ytimg.com'
+                - 'https://admin.mailigen.com'
+                - 'https://dmg.digitaltarget.ru'
+                - 'https://x01.aidata.io'
+                - 'https://gmtdmp.mookie1.com'
+                - 'https://eu-gmtdmp.gd1.mookie1.com'
+                - 'https://ru-gmtdmp.mookie1.com/'
+                - 'https://sync.botscanner.com'
+                - 'https://match.ads.betweendigital.com'
+                - 'https://safehub.ru'
+                - 'https://dmp.vihub.ru'
+                - 'https://top-fwz1.mail.ru'
+                - 'https://pixel.betweenx.com'
+                - 'https://stats.g.doubleclick.net'
+                - 'https://px.adhigh.net'
+                - 'https://cm.g.doubleclick.net'
+                - 'https://*.doubleclick.net'
+                - 'https://*.adriver.ru'
+                - 'https://*.rubiconproject.com'
+                - 'https://*.adhigh.net'
+                - 'https://*.insigit.com'
+                - 'https://*.republer.com'
+                - 'https://*.webvisor.org'
+                - 'http://ad.adriver.ru'
+                - 'https://ad.adriver.ru'
+                - 'http://ar.tns-counter.ru'
+                - 'https://*.1dmp.io'
+                - 'http://*.1dmp.io'
+                - 'https://go.saleswingsapp.com'
+                - 'https://cp.unisender.com'
+                - 'https://vk.com'
+            connect-src:
+                - 'self'
+                - 'https://www.vidal.ru'
+                - 'http://*.google-analytics.com'
+                - 'http://*.gstatic.com'
+                - 'https://yandex.ru'
+                - 'https://*.yandex.ru'
+                - 'https://*.yandex.net'
+                - 'https://*.yandex.st'
+                - 'http://*.google.com'
+                - 'https://*.google.com'
+                - 'https://*.google.ru'
+                - 'https://*.googleapis.com'
+                - 'http://*.mail.ru'
+                - 'https://*.youtube.com'
+                - 'https://*.ytimg.com'
+                - 'https://*.1dmp.io'
+                - 'http://*.1dmp.io'
+                - 'https://localhost'
+                - 'http://localhost'
+                - 'https://s0.2mdn.net'
+            media-src:
+                - 'self'
+                - 'https://*.google.com'
+                - 'https://*.google.ru'
+                - 'https://*.yandex.net'
+                - 'https://yandex.st'
+                - 'https://yastatic.net'
+                - 'https://*.yandex.st'
+                - 'https://*.yastatic.net'
+                - 'https://*.1dmp.io'
+                - 'http://*.1dmp.io'
+                - 'http://localhost:97'
+                - 'https://s0.2mdn.net'
+
+    content_type:
+        nosniff: true
+
+    xss_protection:
+        enabled: true
+        mode_block: true

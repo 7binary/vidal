@@ -1,0 +1,12 @@
+<noindex>
+	<div class="random-publications-title">ВОЗМОЖНО, ВАС ЭТО ЗАИНТЕРЕСУЕТ:</div>
+</noindex>
+<ul class="list random-publications">
+	{% for pub in randomPublications %}
+		<li>
+			<a href="{{ path('publication', {'id':pub.link ~ '-' ~ pub.id}) }}" class="no-underline">
+				{{ pub.title|html_entity_decode }}
+			</a>
+		</li>
+	{% endfor %}
+</ul>

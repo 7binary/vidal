@@ -1,0 +1,19 @@
+{% extends 'VidalMainBundle::layout.html.twig' %}
+
+
+{% block title %}
+    <h1>Подтверждение доктора</h1>
+{% endblock %}
+
+
+{% block content %}
+    <div class="divisions">
+        Ваша заявка находится в обработке
+    </div>
+{% endblock %}
+
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/divisions.css') }}"/>
+{% endblock %}

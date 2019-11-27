@@ -1,0 +1,263 @@
+{% extends 'VidalDrugBundle::vidal_layout.html.twig' %}
+
+
+{% block nav %}
+	<div class="breadcrumbs">
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('index') }}" itemprop="url">
+				<span itemprop="title">Видаль</span>
+			</a>
+		</div>
+		<i></i>
+
+		{% if codeByLetter is defined and codeByLetter is not empty %}
+			<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+				<a href="{{ path('atc') }}" itemprop="url">
+					<span itemprop="title">АТХ</span>
+				</a>
+			</div>
+			<i></i>
+			<span>{{ codeByLetter.RusName|raw }}</span>
+		{% else %}
+			<span>АТХ</span>
+		{% endif %}
+	</div>
+{% endblock %}
+
+
+{% block vidal %}
+	<div class="publication" itemscope itemtype="http://schema.org/Article">
+
+		{% include 'VidalDrugBundle::scrolling.html.twig' %}
+		<div id="scrolling">
+			{% if menu_drugs is defined %}
+				{% include 'VidalDrugBundle:Drugs:menu_drugs.html.twig' %}
+			{% endif %}
+
+			{% if showTree is defined %}
+				<div class="description">
+					<h1 itemprop="name">Анатомо-Терапевтически-Химическая (АТХ) система классификации (ATC)</h1>
+
+					<div class="publication-body" itemprop="articleBody">
+						Рекомендованная Всемирной Организацией Здравоохранения для международных исследований
+						использования
+						лекарственных препаратов. Эта система классификации активно используется в фармакоэкономике для
+						учета
+						лекарственных средств, а также применяется при проведении клинических исследований для оценки
+						сопутствующей
+						терапии (<a target="_blank"
+									href="https://vidal.ru/vracham/provizoram-i-farmatsevtam/ATC-systema-klassifikatsii-lekarstv.html">подробнее</a>).
+						<br/><i>Например</i>:
+						<a href="#B" data="B">Антикоагулянты</a>.
+					</div>
+				</div>
+			{% endif %}
+
+			{% include 'VidalDrugBundle:Drugs:atc_form.html.twig' %}
+		</div>
+
+		{# коды по букве #}
+		{% if codesByLetter is defined and codesByLetter is not empty %}
+			<div class="anons">
+				<h1 itemprop="name"
+					style="color:#476173; font-size:inherit; margin:0; display:inline-block;">{{ codeByLetter.RusName|raw }}</h1>
+			</div>
+
+			<div class="publication-body" itemprop="articleBody">
+				<table class="products-table atc">
+					<tr class="products-table-header">
+						<td style="width:124px;">АТХ код</td>
+						<td>Название</td>
+					</tr>
+					{% for atc in codesByLetter %}
+						{% set length = atc.ATCCode|length %}
+						<tr id="{{ atc.ATCCode }}"
+							class="{{ atcCode == atc.ATCCode ? 'current' }} {{ length == 3 ? 'bold' }}">
+							<td style="padding-left:{{ (length - 3) * 13 }}px">
+								{{ atc.ATCCode }}
+							</td>
+							<td>
+								{% if atc.countProducts > 0 %}
+									<a href="{{ path('atc_item', {'ATCCode':atc.ATCCode|lower}) }}"
+									   class="no-underline">
+										{{ atc.RusName|raw }}
+									</a>
+								{% else %}
+									{{ atc.RusName|raw }}
+								{% endif %}
+							</td>
+						</tr>
+					{% endfor %}
+				</table>
+			</div>
+
+			<p>Назад к
+				<a href="{{ path('atc') }}">Анатомо-Терапевтически-Химической системе классификации (АТХ)</a>
+			</p>
+		{% endif %}
+
+		{# коды по поисковому запросу #}
+		{% if atcCodes is defined %}
+			{% if atcCodes is null %}
+				<div class="no-results">
+					Запрос должен содержать хотя бы 2 символа
+				</div>
+			{% elseif atcCodes is not empty %}
+				<div class="block">
+					<div class="block-head anons"
+						 title="Анатомо-Терапевтически-Химическая (АТХ) система классификации (ATC)">
+						Найдено кодов АТХ: <span>{{ atcCodes|length }}</span>
+					</div>
+
+					<table class="products-table atc">
+						<tr class="products-table-header">
+							<td style="width:10%">АТХ код</td>
+							<td style="width:40%">Название</td>
+							<td style="width:40%">Латинское название</td>
+							<td style="width:10%">Входит в&nbsp;группу</td>
+						</tr>
+						{% for code, atc in atcCodes %}
+							<tr>
+								<td>
+									<a href="{{ path('atc_item', {'ATCCode':atc.ATCCode|lower}) }}"
+									   class="no-underline">{{ atc.ATCCode }}</a>
+								</td>
+								<td>{{ atc.RusName }}</td>
+								<td>{{ atc.EngName }}</td>
+								<td>
+									{% if atc.parentATCCode is not empty %}
+										<a href="{{ path('atc', {'ATCCode':atc.parentATCCode}) }}"
+										   class="no-underline">{{ atc.parentATCCode }}</a>
+									{% endif %}
+								</td>
+							</tr>
+						{% endfor %}
+					</table>
+				</div>
+			{% else %}
+				<div class="no-results">
+					Не найдено результатов по AТХ коду <span>{{ q }}</span>
+				</div>
+			{% endif %}
+		{% endif %}
+
+		{% if showTree is defined %}
+			{% include 'VidalDrugBundle:Drugs:atc_generated.html.twig' %}
+		{% endif %}
+	</div>
+
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	{% if showTree is defined %}
+		<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/treeview/jquery.treeview.css') }}"/>
+	{% endif %}
+	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/letters.css') }}"/>
+	<style type="text/css">
+		#form > * {
+			vertical-align: top;
+		}
+		#form_controls {
+			clear: both;
+		}
+		#form_submit {
+			float: right;
+		}
+		#form_input {
+			width: 404px;
+		}
+		.atc * {
+			font-size: 13px !important;
+		}
+		.atc .current {
+			background-color: beige;
+			font-weight:      bold;
+		}
+		.description h1 {
+			display:       block;
+			background:    #f5f5f5;
+			padding:       4px 7px 7px;
+			color:         #476173;
+			border-bottom: 1px solid #eee;
+			font-size:     13px;
+		}
+	</style>
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+
+	{% if showTree is defined %}
+		<script src="{{ asset('bundles/vidalmain/treeview/jquery.treeview.js') }}" type="text/javascript"></script>
+		<script src="{{ asset('bundles/vidalmain/treeview/jquery.treeview.edit.js') }}" type="text/javascript"></script>
+		<script src="{{ asset('bundles/vidalmain/treeview/jquery.treeview.async.atc.js') }}"
+				type="text/javascript"></script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				var $tree = $('.treeview');
+
+				$tree.treeview({
+					animated:  "fast",
+					collapsed: true,
+					url:       '/drugs/atc-ajax',
+					ajax:      {
+						type: "post"
+					}
+				});
+
+				$('#tree_collapse').on('click', function() {
+					$tree.find('ul').hide();
+					$tree.find('div.collapsable-hitarea').removeClass('collapsable-hitarea').addClass('expandable-hitarea');
+					$tree.find('div.lastCollapsable-hitarea').removeClass('lastCollapsable-hitarea').addClass('lastExpandable-hitarea');
+					$tree.find('li.collapsable').removeClass('collapsable').addClass('expandable');
+					$tree.find('li.lastCollapsable').removeClass('lastCollapsable').addClass('lastExpandable');
+					return false;
+				});
+
+				$('a[data="B"]').click(function() {
+					$('#tree_collapse').click();
+					$tree.find('span').removeClass('highlight');
+					$('#B > div').click();
+					$('#B > span').addClass('highlight');
+					setTimeout(function() {
+						$('#B01 > div').click();
+						$('#B01 > span').addClass('highlight');
+					}, 2000);
+				});
+
+				{% if atcCode is not empty %}
+				var selector = '#{{ atcCode }}';
+				var $atc = $(selector);
+				$atc.find('>span').addClass('highlight');
+				$atc.parents('ul').show().siblings('div.hitarea').removeClass('expandable-hitarea').addClass('collapsable-hitarea');
+				location.hash = '#' + $atc.parents('li').last().attr('id');
+				{% endif %}
+
+				{# Publication microdata #}
+				$('.publication img').each(function() {
+					var $this = $(this);
+					$this.attr('itemprop', 'image');
+				});
+
+				$('.publication a').each(function() {
+					$(this).attr({
+						itemprop: "url"
+					});
+				});
+
+				$('.publication-body a').each(function() {
+					var $a = $(this);
+					if (this.href.charAt(0) != '/'
+						&& this.href.indexOf('vidal.ru') === -1
+						&& this.href.indexOf('localhost:97') === -1
+					) {
+						$a.attr('rel', 'nofollow');
+					}
+				});
+			});
+		</script>
+	{% endif %}
+{% endblock %}

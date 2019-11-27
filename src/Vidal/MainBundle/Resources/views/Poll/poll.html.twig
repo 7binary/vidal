@@ -1,0 +1,142 @@
+{% if poll is defined %}
+	<style>
+		body {
+			margin:  0;
+			padding: 0;
+		}
+
+		.poll {
+			width:       235px;
+			border:      1px solid #CED2D5;
+			color:       #555555;
+			text-shadow: 1px 0 #FFF;
+			background:  rgba(239, 239, 239, 0.3);
+		}
+		.poll-title {
+			margin-bottom:    5px;
+			background-color: #D8DBE2;
+		}
+		.poll-answer {
+			margin-top: 10px;
+		}
+
+		.poll-answer textarea {
+			width:        205px;
+			height:       50px;
+			font-size:    14px;
+			display:      block;
+			outline:      none;
+			padding-left: 10px;
+			border:       1px solid #cccccc;
+
+		}
+		.poll-questionNumber {
+			font-weight:  bold;
+			padding-left: 10px;
+		}
+		.poll-question {
+			font-size: 14px;
+		}
+		.poll-submit {
+			margin-top: 10px;
+			text-align: center;
+		}
+		.sbtnPoll {
+			display:          inline-block;
+			margin:           0 !important;
+			padding:          5px 22px 7px;
+			background-color: #d71344;
+			color:            #fff;
+			border:           none;
+			outline:          0;
+			cursor:           pointer;
+			text-decoration:  none;
+			font-size:        15px;
+			text-align:       center;
+		}
+
+	</style>
+    <noindex>
+        <div class="poll">
+            <div class="poll-title">
+                <span class="poll-questionNumber">1 / {{ questionCount }} </span>
+                <span class="poll-title-text">{{ poll.title | raw }} </span>
+            </div>
+            <div style="padding: 5px;">
+                <div class="poll-question">{{ question.title }}</div>
+                {% if options is null %}
+                    <div class="poll-answer"><textarea rows="3" name="answerText" id="answerText"
+                                                       placeholder="При желании, введите Ваши предложения"></textarea></div>
+                {% else %}
+                    <div class="poll-answer">
+                        {% for option in options %}
+                            <input type="radio" name="answerText" value="{{ option }}">&nbsp;{{ option }}<br/>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                <div class="poll-submit">
+                    <button class="btn-red sbtnPoll" id="answer-send">Далее</button>
+                </div>
+            </div>
+        </div>
+    </noindex>
+
+	<script>
+		$(document).ready(function() {
+			var numberQuest = 1;
+			var countQuest = {{ questionCount }};
+			var questionId = {{ question.id }}
+
+				$('#answer-send').on("click", function() {
+					if ($('input[name=answerText]').length > 0 && $('*[name=answerText]:checked').length == 0) {
+//                $('*[name=answerText]').css('borderColor','#CC0000');
+						$('.poll-answer').css('color', '#CC0000');
+						return false;
+					} else {
+						$('*[name=answerText]').css('borderColor', 'rgb(169, 169, 169)');
+						$('.poll-answer').css('color', '#555555');
+						if ($('*[name=answerText]:checked').length) {
+							var value = $('*[name=answerText]:checked').attr('value');
+						} else {
+							var value = $('*[name=answerText]').val();
+						}
+						$.ajax({
+							type:    "POST",
+							url:     '/poll/{{ poll.id}}/' + questionId,
+							data:    "answer=" + value,
+							success: function(result) {
+								data = result.data
+								if (data.pollId == {{ poll.id }}) {
+									// Меняем вопрос и сколько осталось до конца теста
+									numberQuest++;
+									if (numberQuest > countQuest) {
+										$('.poll-questionNumber').html('');
+									} else {
+										$('.poll-questionNumber').html(numberQuest + ' / ' + countQuest);
+									}
+									// Меняем вопрос
+									$('.poll-question').html(data.title);
+									//Меняем id вопроса
+									questionId = data.id;
+									//Меняем ответ(ы)
+									if (data.options != null) {
+										txt = '';
+										$.each(data.options, function(key, val) {
+											txt += '<input type="radio" name="answerText" value="' + val + '">&nbsp;' + val + '<br />';
+										});
+										$('.poll-answer').html(txt);
+									} else {
+										$('.poll-answer').html('<textarea rows="3"  name="answerText" id="answerText" placeholder="При желании, введите Ваши предложения"></textarea>')
+									}
+									if (data.next == 'End') {
+										$('#answerText').css('display', 'none');
+										$('#answer-send').css('display', 'none');
+									}
+								}
+							}
+						});
+					}
+				});
+		});
+	</script>
+{% endif %}

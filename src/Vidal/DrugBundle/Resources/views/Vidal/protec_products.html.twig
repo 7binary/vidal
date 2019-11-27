@@ -1,0 +1,86 @@
+<style>
+	.buy-table {
+		width:           100%;
+		border-collapse: collapse;
+		font-size:       12px;
+	}
+	.buy-table td {
+		border:     1px solid #cfcfcf;
+		padding:    7px 10px;
+		text-align: center;
+		width:      60px;
+	}
+	.buy-table td.buy-name {
+		width:      auto;
+		text-align: left;
+	}
+	.buy-header {
+		color:     #d71344;
+		font-size: 1.3em;
+		margin:    25px 0 10px;
+	}
+	.rigla-mobile {
+		display: none;
+		margin:  -2px 0 12px;
+	}
+	#buy-box {
+		display: none;
+	}
+	#buy-box.mobile td {
+		display: block;
+		width: 90%;
+		margin: 0 auto;
+		text-align: center;
+	}
+	#buy-box.mobile td.buy-last {
+		margin-bottom: 25px;
+	}
+	.protec-hidden {
+		display: none;
+	}
+</style>
+
+<script>
+	$(document).on('click', '.btn-protec-more', function() {
+		$(this).closest('tr').remove();
+		$('.protec-hidden').removeClass('protec-hidden');
+	});
+
+	$(document).ready(function() {
+		if ((navigator.userAgent.match(/Android/i)
+				|| navigator.userAgent.match(/webOS/i)
+				|| navigator.userAgent.match(/iPhone/i)
+				|| navigator.userAgent.match(/iPad/i)
+				|| navigator.userAgent.match(/iPod/i)
+				|| navigator.userAgent.match(/BlackBerry/i)
+				|| navigator.userAgent.match(/Windows Phone/i))
+			&& window.screen.width < 768
+		) {
+			$('#buy-box').addClass('mobile');
+			$('.btn-buy').css('position', 'relative');
+		}
+
+		var url = "{{ app.environment == 'dev' ? '/app_dev.php' }}" + '/protec/{{ ProductID }}';
+		$.getJSON(url, function(data) {
+			if (data.length) {
+				$('#buy-box').html(data).show();
+				$('.btn-buy').css('display', 'inline-block');
+				$('<a rel="nofollow" href="#protec-table" class="btn-buy btn-red">Заказать препарат</a>')
+					.appendTo('#product-top-buttons');
+				$('<a rel="nofollow" href="#protec-table" class="btn-buy btn-red">Заказать препарат</a>')
+					.appendTo('#fixed-right');
+				ga('send', 'event', 'Регион аптеки найден?', $('#regionFound').attr('data-value'));
+				ga('set', 'dimension11', $('#regionTitle').attr('data-value'));
+				ga('set', 'dimension12', $('#regionIp').attr('data-value'));
+				var regionNotFound = $('#regionNotFound').attr('data-value');
+				if (regionNotFound.length) {
+					ga('send', 'event', 'Регион аптеки не найденный', regionNotFound);
+				}
+			}
+		});
+	});
+</script>
+
+<noindex>
+	<div id="buy-box"></div>
+</noindex>

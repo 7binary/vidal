@@ -1,0 +1,22 @@
+{% extends 'VidalMainBundle::minimal_layout.html.twig' %}
+
+{% block body %}
+	<p>Уважаемый {{ user.getPoliteReference() }}, благодарим Вас за регистрацию на портале
+		<a href="https://www.vidal.ru">Vidal.ru</a>!</p>
+
+	<p>Мы приносим Вам свои извинения в связи с тем, что отправляем Вам повторно это письмо и
+		надеемся,<br/> что Вы завершите регистрацию на нашем портале.</p>
+
+	<p>Для того чтобы получить полный доступ к функциям сайта (или мобильного приложения), осталось лишь подтвердить,
+		что это Ваш настоящий электронный адрес. Для этого просто перейдите по ссылке:<br/>
+		<a href="https://www.vidal.ru/confirm-email/{{ user.id }}/{{ user.hash }}">
+			https://www.vidal.ru/confirm-email/{{ user.id }}/{{ user.hash }}
+		</a>
+	</p>
+
+	<p>
+		Ваш логин: <b>{{ user.username }}</b><br/>
+	</p>
+
+	{% include 'VidalMainBundle:Email:signature.html.twig' %}
+{% endblock %}

@@ -1,0 +1,9 @@
+<td>
+	{% if object.tags is defined %}
+		<ul class="tags">
+			{% for tag in object.tags%}
+				<li>{{ tag.text }}</li>
+			{% endfor %}
+		</ul>
+	{% endif %}
+</td>

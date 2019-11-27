@@ -1,0 +1,275 @@
+{% extends 'VidalDrugBundle::vidal_layout.html.twig' %}
+
+
+{% set showTable = l == null %}
+
+
+{% if t =='o' %}
+	{% set from = 'bad' %}
+{% endif %}
+
+
+{% block vidal %}
+	{% if menu_drugs is defined %}
+		{% include 'VidalDrugBundle:Drugs:menu_drugs.html.twig' %}
+	{% endif %}
+
+	<div class="letters">
+		<form id="letters_form" method="GET" action="{{ path('products') }}">
+			<div class="letters-controls no-selection">
+				<select id="letters_type" name="t" style="width:100%">
+					<option value="p"{{ t == 'p' ? ' selected="selected"' }}>Лекарственные препараты</option>
+					<option value="b"{{ t == 'b' ? ' selected="selected"' }}>Биологически активные добавки и медицинские изделия</option>
+					<option value="n"{{ t == 'n' ? ' selected="selected"' }}>Лечебное питание</option>
+					<option value="o"{{ t == 'o' ? ' selected="selected"' }}>Все описания</option>
+				</select>
+				{% if t != 'b' and t != 'm' and t != 'n' %}
+					<span class="letters-controls-check no-selection">
+						<input id="letters_nonpres" type="checkbox" name="n"{{ n ? ' checked="checked"' }}
+							   class="checkbox"/>
+						<span class="small no-selection">только безрецептурные</span>
+					</span>
+				{% endif %}
+			</div>
+
+			<input type="hidden" name="p" id="letters_page" value="{{ p }}"/>
+
+			{# буквы #}
+			<div class="syllables">
+				<div class="letters-russian">
+					{% for letter_first, letter in letters %}
+						{% set parameters = n ? {'l':letter.trans, 't':t, 'n':'1'} : { 'l':letter.trans, 't':t } %}
+						<a href="{{ path('products', parameters) }}"
+						   class="letter {{ letter.active is defined and letter.active ? ' active' }}"
+						   style="{{ letter.eng ? 'font-weight:bold' : '' }}"
+						   data="{{ letter_first }}">{{ letter_first }}</a>
+					{% endfor %}
+				</div>
+				<div class="letters-sub">
+					{% for letter_first, letter in letters %}
+						<div data="{{ letter_first }}">
+							{% for letter_second, trans_second in letter.subs %}
+								{% set parameters = n ? {'l':trans_second, 't':t, 'n':'1'} : { 'l':trans_second, 't':t } %}
+								<a href="{{ path('products', parameters) }}"
+								   class="letter {{ trans_second == l ? 'active' }}"
+								   data="{{ letter_second }}">{{ letter_second }}</a>
+							{% endfor %}
+						</div>
+					{% endfor %}
+				</div>
+				<div class="clear"></div>
+			</div>
+		</form>
+
+		<h1 class="clear" style="margin-top:10px">{{ seotitle }}</h1>
+
+		{% if showTable and t != 'm' and t != 'n' %}
+			{% include 'VidalDrugBundle:Drugs:products_table_letters.html.twig' with {'letters':letters, 't':t, 'allSubLetters':allSubLetters} %}
+		{% endif %}
+	</div>
+
+	{% if products is defined and products is not empty %}
+		<div class="block">
+			<div class="block-anons">
+				<div class="block-head">
+					Найдено {{ n and t != 'b' ? 'безрецептурных ' }}{{ t == 'p' ? 'препаратов' : t == 'b' ? 'БАДов и медицинских изделий' : 'препаратов, БАДов и медицинских изделий' }}
+					<span>{{ pagination.totalItemCount }}</span>
+				</div>
+			</div>
+		</div>
+
+		{% include 'VidalDrugBundle:Vidal:render_products.html.twig' %}
+
+		<div class="navigation">
+			{{ knp_pagination_render(pagination) }}
+		</div>
+	{% endif %}
+
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/letters.css') }}"/>
+	<style type="text/css">
+		#vidal h1 {
+			color: #d71344;
+		}
+		/* letters-controls */
+		.letters-controls {
+			margin-bottom: 8px;
+		}
+		.letters-controls-check {
+			display:     inline-block;
+			margin: 15px 0;
+		}
+		.letters-controls-check input, .letters-controls-check span {
+			vertical-align: top;
+		}
+		.letters-russian {
+			height: 24px;
+		}
+		.letters-sub > div {
+			height:  24px;
+			clear:   both;
+			display: none;
+		}
+		.letters-sub a {
+			width: 22px;
+		}
+		.letters-sub a, .letters .beige {
+			background-color: rgb(241, 241, 119);
+		}
+		{% if showTable %}
+		#vidal .chosen-container {
+			width: 96% !important;
+		}
+		#vidal .chosen-single {
+			width: 96% !important;
+		}
+		.letters-table {
+			width:           100%;
+			border-collapse: collapse;
+			border:          1px solid #d3d3d3;
+		}
+		.letters-table td {
+			border-right: 1px solid #d3d3d3;
+			text-align:   center;
+			height:       16px;
+			padding:      0;
+		}
+		.letters-table .head td {
+			background-color: rgb(241, 241, 119);
+		}
+		.letters-table a {
+			display:         block;
+			height:          16px;
+			color:           #2f4053;
+			text-decoration: none;
+			font-size:       12px;
+		}
+		.letters-table a:hover {
+			background-color: #d71344;
+			color:            white;
+		}
+		.letters-table .odd {
+			background-color: #f5f5f5;
+		}
+		{% endif %}
+		#letters_type, a.chosen-single {
+			width: 150px !important;
+		}
+		.menu-drugs-tabs.fixedtop {
+			position: fixed;
+			top: 0;
+			width: 520px;
+			z-index: 1000;
+		}
+		.letters.fixedtop {
+			position: fixed;
+			top: 28px;
+			width: 520px;
+			z-index: 1000;
+			background-color: white;
+			margin: 0;
+			padding: 20px 0 10px;
+			border-bottom: 1px solid #ddd;
+			box-shadow: 0 4px 2px -2px gray;
+		}
+		.letters input, .letters a {
+			width: 14px !important;
+		}
+		.letters .letters-table-small input, .letters .letters-table-small a {
+			font-size: 11px !important;
+			width: 17px !important;
+			margin-right: 0;
+		}
+		#vidal .l2 {
+			font-size: 11px;
+			font-weight: bold;
+			color: #888;
+			background: beige;
+		}
+		#wrapper .letters-sub a {
+			width: 20px !important;
+		}
+		.syllables {
+			height: 50px !important;
+			min-height: 50px !important;
+		}
+		.chosen-container, .chosen-container-single, .chosen-container-single-nosearch,
+		.chosen-with-drop, .chosen-container-active,
+		#wrapper .chosen-single
+		{
+			width: 96% !important;
+		}
+	</style>
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#letters_type').chosen({
+				disable_search: true
+			});
+
+			$('.letters-russian a[data="{{ l|first }}"]').addClass('beige');
+
+			$('.letters-sub a[data="{{ currentRusLetter }}"]').addClass('active').closest('div').show();
+
+            {% if is_mobile() %}
+                $('.syllables').on('click', '.letters-russian a', function() {
+                    if(!$(this).hasClass('beige')) {
+                        $('.letters-russian a').removeClass('beige');
+                        $(this).addClass('beige');
+                        $('.letters-sub > div').hide();
+                        var data = $(this).attr('data');
+                        $('.letters-sub > div[data="' + data + '"]').show();
+                        return false;
+                    }
+                });
+            {% else %}
+                $('.syllables').on('mouseenter touchend', '.letters-russian a', function() {
+                    $('.letters-russian a').removeClass('beige');
+                    $(this).addClass('beige');
+                    $('.letters-sub > div').hide();
+                    var data = $(this).attr('data');
+                    $('.letters-sub > div[data="' + data + '"]').show();
+                });
+            {% endif %}
+
+			$('#letters_type').change(function() {
+				{% if n %}
+					window.location = '/drugs/products/' + this.value + '/{{ l }}' + '?n=1';
+				{% else %}
+					window.location = '/drugs/products/' + this.value + '/{{ l }}';
+				{% endif %}
+			});
+
+			$('#letters_nonpres').change(function() {
+				if($(this).is(":checked")) {
+					window.location = '/drugs/products/{{ t }}/{{ l }}' + '?n=1';
+				}
+				else {
+					window.location = '/drugs/products/{{ t }}/{{ l }}';
+				}
+			});
+
+			{% if l and not is_mobile() %}
+{#
+			$(window).scroll(function() {
+				var scrollTop = $(window).scrollTop();
+				if (scrollTop >= 306) {
+					$('.menu-drugs-tabs, .letters').addClass('fixedtop');
+				}
+				else {
+					$('.menu-drugs-tabs, .letters').removeClass('fixedtop');
+				}
+			});
+#}
+			{% endif %}
+		});
+	</script>
+{% endblock %}

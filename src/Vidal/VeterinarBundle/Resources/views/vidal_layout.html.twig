@@ -1,0 +1,62 @@
+{% extends 'VidalMainBundle::layout.html.twig' %}
+
+
+{% set menu_left = 'veterinar' %}
+
+
+{% block title %}
+	{% if vetIndexPage is defined and vetIndexPage %}
+		<h1>ВИДАЛЬ-ВЕТЕРИНАР</h1>
+	{% endif %}
+{% endblock %}
+
+
+{% block nav %}
+	<div class="breadcrumbs">
+		<a href="{{ path('index') }}">Видаль</a>
+		<i></i>
+		<a href="{{ path('veterinar') }}">Видаль-Ветеринар</a>
+	</div>
+{% endblock %}
+
+
+{% block right %}
+	{% if env_local != 'true' %}
+		{% if isMobile %}
+			{{ render(controller('VidalMainBundle:Banner:renderMobile', {'request':app.request, 'indexPage':false, 'productPage':false, 'vetPage':true})) }}
+		{% else %}
+			{{ render(controller('VidalMainBundle:Banner:render', {'request':app.request, 'groupId':10, 'indexPage':false, 'vetPage':true})) }}
+		{% endif %}
+	{% endif %}
+{% endblock %}
+
+
+{% block content %}
+	<div id="vidal" class="vidal veterinar">
+		{% block vidal %}{% endblock %}
+	</div>
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+	<script>
+		$('.schema img').each(function() {
+			$(this).attr({
+				itemprop: "image"
+			});
+		});
+
+		$('.schema a').each(function() {
+			var $a = $(this);
+			$a.attr('itemprop', 'url');
+			if (this.href.length
+				&& this.href.charAt(0) != '/'
+				&& this.href.indexOf('vidal.ru') === -1
+				&& this.href.indexOf('localhost:97') === -1
+			) {
+				$a.attr('rel', 'nofollow');
+			}
+		});
+	</script>
+{% endblock %}

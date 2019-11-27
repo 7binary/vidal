@@ -1,0 +1,124 @@
+{% extends 'VidalMainBundle::layout_blank.html.twig' %}
+
+
+{% block content %}
+	{% if app.session.flashBag.get('saved')|length %}
+		{% if app.session.flashBag.get('notice')|length %}
+			<div class="saved">Файл загружен и изменения сохранены</div>
+		{% else %}
+			<div class="saved">Изменения сохранены</div>
+		{% endif %}
+	{% endif %}
+
+	<form enctype="multipart/form-data" method="post">
+		<table style="width:100%">
+			<tr>
+				<td style="width: 25%">
+					{# Upload Main #}
+					<h2 style="margin-top: 0;">Файл основной</h2>
+					<p>Дата модификации файла (его версия): {{ modified }}</p>
+					<p>Размер файла: {{ filesize }}</p>
+					<p><a href="/archive/encrypt.vidal.cardio.zip" target="_blank">скачать</a></p>
+					<p><input type="file" name="file"></p>
+					<p><input type="submit" value="Загрузить" class="btn btn-red"></p>
+					<h2>Ключ API</h2>
+					<p><input type="text" name="{{ key.key }}" value="{{ key.value }}"></p>
+					<p><input type="submit" value="Сохранить" class="btn btn-red"></p>
+				</td>
+				<td style="width: 25%">
+					{# Upload Cardio #}
+					<h2 style="margin-top: 0;">Файл для Android</h2>
+					<p>Дата модификации файла (его версия): {{ modifiedAndroid }}</p>
+					<p>Размер файла: {{ filesizeAndroid }}</p>
+					<p><a href="/archive/cardio_android.zip" target="_blank">скачать</a></p>
+					<p><input type="file" name="fileAndroid"></p>
+					<p><input type="submit" value="Загрузить" class="btn btn-red"></p>
+					<h2>Ключ KEY_PART</h2>
+					<p><input type="text" name="{{ keyPart.key }}" value="{{ keyPart.value }}"></p>
+					<p><input type="submit" value="Сохранить" class="btn btn-red"></p>
+				</td>
+				<td style="width: 25%">
+					{# Upload Neuro #}
+					<h2 style="margin-top: 0;">Файл Neuro</h2>
+					<p>Дата модификации файла (его версия): {{ modifiedNeuro }}</p>
+					<p>Размер файла: {{ filesizeNeuro }}</p>
+					<p><a href="/archive/neuro.zip" target="_blank">скачать</a></p>
+					<p><input type="file" name="fileNeuro"></p>
+					<p><input type="submit" value="Загрузить" class="btn btn-red"></p>
+					<h2>Ключ KEY_PART_NEURO</h2>
+					<p><input type="text" name="{{ keyNeuro.key }}" value="{{ keyNeuro.value }}"></p>
+					<p><input type="submit" value="Сохранить" class="btn btn-red"></p>
+				</td>
+				<td style="width: 25%">
+					{# Upload Endocrino #}
+					<h2 style="margin-top: 0;">Файл Endocrino</h2>
+					<p>Дата модификации файла (его версия): {{ modifiedEndocrino }}</p>
+					<p>Размер файла: {{ filesizeEndocrino }}</p>
+					<p><a href="/archive/endocrino.zip" target="_blank">скачать</a></p>
+					<p><input type="file" name="fileEndocrino"></p>
+					<p><input type="submit" value="Загрузить" class="btn btn-red"></p>
+					<h2>Ключ KEY_PART_ENDOCRINO</h2>
+					<p><input type="text" name="{{ keyEndocrino.key }}" value="{{ keyEndocrino.value }}"></p>
+					<p><input type="submit" value="Сохранить" class="btn btn-red"></p>
+				</td>
+			</tr>
+		</table>
+
+		<hr/>
+
+		<table style="width:100%">
+			<tr>
+				<td style="width: 25%;">
+					{# Upload Gyneco #}
+					<h2 style="margin-top: 0;">Файл Gyneco</h2>
+					<p>Дата модификации файла (его версия): {{ modifiedGyneco }}</p>
+					<p>Размер файла: {{ filesizeGyneco }}</p>
+					<p><a href="/archive/gyneco.zip" target="_blank">скачать</a></p>
+					<p><input type="file" name="fileGyneco"></p>
+					<p><input type="submit" value="Загрузить" class="btn btn-red"></p>
+					<h2>Ключ KEY_PART_GYNECO</h2>
+					<p><input type="text" name="{{ keyGyneco.key }}" value="{{ keyGyneco.value }}"></p>
+					<p><input type="submit" value="Сохранить" class="btn btn-red"></p>
+				</td>
+				<td style="width: 25%;">
+					{# Upload Veterinary #}
+					<h2 style="margin-top: 0;">Файл Veterinary</h2>
+					<p>Дата модификации файла (его версия): {{ modifiedVeterinary }}</p>
+					<p>Размер файла: {{ filesizeVeterinary }}</p>
+					<p><a href="/archive/veterinary.zip" target="_blank">скачать</a></p>
+					<p><input type="file" name="fileVeterinary"></p>
+					<p><input type="submit" value="Загрузить" class="btn btn-red"></p>
+					<h2>Ключ KEY_PART_VETERINARY</h2>
+					<p><input type="text" name="{{ keyVeterinary.key }}" value="{{ keyVeterinary.value }}"></p>
+					<p><input type="submit" value="Сохранить" class="btn btn-red"></p>
+				</td>
+			</tr>
+		</table>
+	</form>
+
+	<hr/>
+
+	<h2>Настройки сервера</h2>
+	<p>post_max_size: {{ post_max_size }}</p>
+	<p>upload_max_filesize: {{ upload_max_filesize }}</p>
+
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<style type="text/css">
+		.saved {
+			background:    beige;
+			padding:       20px;
+			margin-bottom: 20px;
+		}
+		input[type=email], input[type=number], input[type=password], input[type=text], input[type=url] {
+			width:     223px;
+			font-size: 12px;
+		}
+		h2 {
+			font-size: 16px;
+		}
+	</style>
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends 'VidalDrugBundle::vidal_layout.html.twig' %}
+
+
+{% block vidal %}
+	{% include 'VidalDrugBundle:Drugs:menu_drugs.html.twig' %}
+
+	<div class="anons anons-drugs">
+		Клинико-фармакологические группы
+	</div>
+
+	{% include 'VidalDrugBundle:Drugs:clinic_groups_form.html.twig' %}
+
+	<div class="info-line">
+		{% if l %}
+			Найдено клинико-фармакологических групп на букву <i>{{ l }}</i>:
+			<span>{{ pagination.totalItemCount }}</span>
+		{% elseif q %}
+			{% if pagination.totalItemCount %}
+				Найдено клинико-фармакологических групп запросу <i>{{ q }}</i>:
+				<span>{{ pagination.totalItemCount }}</span>
+			{% else %}
+				Не найдено клинико-фармакологических групп по запросу <i>{{ q }}</i>
+			{% endif %}
+		{% else %}
+			Найдено клинико-фармакологических групп:
+			<span>{{ pagination.totalItemCount }}</span>
+		{% endif %}
+	</div>
+
+	{% if pagination is defined and pagination.totalItemCount %}
+		<ul class="ul-style">
+			{% for clphGroup in pagination %}
+				<li>
+					<a href="{{ path('clinic_group', {'id':clphGroup.ClPhGroupsID}) }}" class="no-underline">
+						{{ clphGroup.Name|raw }}
+					</a>
+				</li>
+			{% endfor %}
+		</ul>
+
+		<div class="navigation">
+			{{ knp_pagination_render(pagination) }}
+		</div>
+	{% endif %}
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/letters.css') }}"/>
+	<style type="text/css">
+		#form > * {
+			vertical-align: top;
+		}
+		#form_controls {
+			clear: both;
+		}
+		#form_submit {
+			float: right;
+		}
+		#form_input {
+			width: 408px;
+		}
+	</style>
+{% endblock %}

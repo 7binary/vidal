@@ -1,0 +1,28 @@
+{% extends 'VidalMainBundle::layout_blank.html.twig' %}
+
+
+{% block title %}
+	<h1>ВОССТАНОВЛЕНИЕ ПАРОЛЯ</h1>
+{% endblock %}
+
+
+{% block content %}
+	<style>
+		.form_table td.label {
+			width: 20%;
+		}
+		textarea {
+			width: 70%;
+			height: 300px;
+		}
+	</style>
+
+	<form method="post">
+		{{ form_widget(form) }}
+	</form>
+
+	{% if result is defined %}
+		<hr/>
+		<div>{{ result|raw }}</div>
+	{% endif %}
+{% endblock %}

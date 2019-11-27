@@ -1,0 +1,31 @@
+parameters:
+    database_driver: pdo_mysql
+    database_host: 127.0.0.1
+    database_port: 3306
+    database_vidal: twigavid_vidal
+    database_drug: twigavid_drug
+    database_veterinar: twigavid_veterinar
+    database_big_mama: twigavid_big_mama
+    database_user:
+    database_password:
+    mailer_transport: smtp
+    mailer_host: 127.0.0.1
+    mailer_user: null
+    mailer_password: null
+    manager_emails:
+    locale: ru
+    secret:
+    upload_dir: '%kernel.root_dir%/../web/upload'
+    download_dir: '%kernel.root_dir%/../download'
+    archive_dir: '%kernel.root_dir%/../archive'
+    #session_dir: '/home/twigavid/vidal/sessions'
+    portal: «Vidal.ru»
+    env_local: false
+    yandex_username: vidal.ru@yandex.ru
+    yandex_password:
+    apteka_port:
+    apteka_login:
+    apteka_password:
+    big_mama.testMode: true
+    rollbar_token:
+

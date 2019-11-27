@@ -1,0 +1,328 @@
+{% extends 'VidalMainBundle::layout_promo.html.twig' %}
+
+
+{% block title %}
+	<h1>Школа гастрита</h1>
+{% endblock %}
+
+
+{% block content %}
+	<div class="menu-drugs">
+		<div class="tabs" style="width: 520px">
+			<table style="width: 100%" border="0" cellpadding="0" cellspacing="0">
+				<tr>
+					<td style="width: 15%; text-align: center;">
+						<a href="{{ path('astrazeneca_index') }}">Главная</a>
+					</td>
+					<td style="width: 15%; text-align: center;">
+						<a href="{{ path('astrazeneca_video') }}">Видео</a>
+					</td>
+					<td style="width: 15%; text-align: center;">
+						<a href="{{ path('astrazeneca_news') }}">Статьи</a>
+					</td>
+					<td style="width: 20%; text-align: center;">
+						<a href="{{ path('astrazeneca_faq') }}">Консультация</a>
+					</td>
+					<td style="width: 20%; text-align: center;">
+						<a href="{{ path('astrazeneca_testing') }}">Тестирование</a>
+					</td>
+					<td style="width: 15%; text-align: center;">
+						<a href="{{ path('astrazeneca_map') }}" class="active">Карта</a>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	{#<h1>Карта аптек</h1>#}
+	{#<div class="iption">#}
+	{#<select class="select">#}
+	{#{% for city in cities %}#}
+	{#<option value="{{ city.id }}" {{ thisCity.id ==  city.id ? 'selected="selected"' : ''}}>{{ city.title }}</option>#}
+	{#{% endfor %}#}
+	{#</select>#}
+	{#</div>#}
+	<br/>
+	<div class="map" id="map"></div>
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<style type="text/css">
+		.content .active {
+			background: #d71344 !important;
+		}
+		.tabs {
+			background: url("{{ asset('bundles/vidalmain/images/bg-menu.png') }}");
+		}
+		.tabs a:hover {
+			background: url("{{ asset('bundles/vidalmain/images/bg-menu2.png') }}");
+		}
+		#map {
+			width:  520px;
+			height: 400px
+		}
+		.tabs a {
+			display:    block;
+			text-align: center;
+			padding:    7px 0;
+		}
+	</style>
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+	<script src="http://api-maps.yandex.ru/2.0-stable/?load=package.full&lang=ru-RU" type="text/javascript"></script>
+	<!-- Класс множественного геокодирования -->
+	<script src="http://dimik.github.io/ymaps/examples/multi-geocoder/multi-geocoder.js"
+			type="text/javascript"></script>
+	<script src="http://dimik.github.io/ymaps/examples/multi-geocoder/list-collection.js"
+			type="text/javascript"></script>
+
+	<script type="text/javascript">
+
+		var eee;
+		ymaps.ready(init);
+		var myMap;
+
+		function init() {
+
+			myMap = new ymaps.Map("map", {
+				center: [55.76, 37.64],
+				zoom:   7
+			});
+
+
+			searchControl = new ymaps.control.SearchControl({
+				provider:     'yandex#map',
+				noPopup:      false,
+				useMapBounds: true
+			});
+			var placemarks = {};
+			var clusterer = new ymaps.Clusterer({
+				// clusterDisableClickZoom: false
+				// clusterBalloonContentBodyLayout: "cluster#balloonCarouselContent"
+			});
+
+			var geoObjects = [];
+
+			// function addPlacemark(id, name, latitude, longitude, address, metro, phone, schedule, branchId) {
+			function addPlacemark(id, latitude, longitude) {
+
+				var balloon = '';
+
+				var placemark = new ymaps.Placemark([latitude, longitude], {
+					// content: name,
+					balloonContent: 'Загрузка...',
+					hasBalloon:     true,
+					drugStoreId:    id,
+					hintContent:    'Загрузка...'
+				}, {
+					preset:          'twirl#hospitalIcon',
+					iconImageHref:   '{{ asset('bundles/vidalmain/images/apt.png') }}',
+					iconImageSize:   [20, 20],
+					iconImageOffset: [-10, -10]
+				});
+
+				// myMap.geoObjects.add(placemark);
+
+				clusterer.add(placemark);
+				placemarks[id] = placemark;
+			}
+
+			var layer = new ymaps.Layer('', {zIndex: 0});
+			myMap.layers.add(layer);
+			var projection = myMap.options.get('projection');
+			var xhr = null;
+			var cachedTiles = {};
+			var addedStores = {};
+
+			function loadDrugStores() {
+
+				var zoom = myMap.getZoom();
+
+				var globalPixelPoint = projection.toGlobalPixels(myMap.getBounds()[1], zoom);
+				var clientPixelPoint = layer.toClientPixels(globalPixelPoint);
+				var rightBottomTile = layer.clientPixelsToNumber(clientPixelPoint, zoom);
+				var leftTopTile = layer.clientPixelsToNumber(clientPixelPoint, zoom);
+				// console.log(rightBottomTile);
+
+				var countTiles = 0;
+				var tiles = {};
+				for (var i = leftTopTile[0]; i < rightBottomTile[0] + 1; i++) {
+					for (var j = rightBottomTile[1]; j < leftTopTile[1] + 1; j++) {
+
+						var tileKey = zoom + ':' + i + ':' + j;
+
+						if (typeof cachedTiles[tileKey] !== 'undefined') continue;
+
+						var tileNumber = [i, j];
+
+						var clientBounds = layer.numberToClientBounds(tileNumber, zoom);
+						var globalBounds = [
+							layer.fromClientPixels(clientBounds[0], zoom),
+							layer.fromClientPixels(clientBounds[1], zoom)
+						];
+
+						var geoBounds = [
+							projection.fromGlobalPixels(globalBounds[0], zoom),
+							projection.fromGlobalPixels(globalBounds[1], zoom)
+						];
+
+						tiles[tileKey] = {
+							bounds: geoBounds,
+							number: tileNumber
+						}
+						countTiles++;
+						cachedTiles[tileKey] = 1;
+
+					}
+				}
+
+				if (countTiles <= 0) return;
+
+
+				var Bounds = myMap.getBounds();
+				var urlb = 'y1=' + Bounds[0][0] + '&x1=' + Bounds[0][1] + '&y2=' + Bounds[1][0] + '&x2=' + Bounds[1][1] + '&z=' + myMap.getZoom();
+				xhr = $.post('{{ path('astrazeneca_map_xml') }}?' + urlb, tiles, function(stores) {
+					stores = JSON.parse(stores);
+					$.each(stores, function(index, store) {
+						if (addedStores['store_id_' + store.id] === 1) return;
+						addedStores['store_id_' + store.id] = 1;
+						addPlacemark(
+							store.id,
+							store.Latitude,
+							store.Longitude
+						);
+					});
+				});
+
+			}
+
+
+			myMap.events.add('boundschange', function(e) {
+				loadDrugStores();
+			});
+
+			myMap.events.add('balloonopen', function(e) {
+				eee = e.get('balloon').getData();
+				if (e.get('balloon').getData().geoObject != null) {
+					var geoObjectProperties = e.get('balloon').getData().geoObject.properties;
+					if (geoObjectProperties.get('balloonContentLoaded')) return;
+					var drugStoreId = geoObjectProperties.get('drugStoreId');
+
+					$.post('/shkola-gastrita/zgetMapBalloonContent/'.drugStoreId, function(balloon) {
+						geoObjectProperties.set('balloonContent', balloon);
+						geoObjectProperties.set('balloonContentLoaded', true);
+					});
+				} else {
+					var geoObjectProperties = e.get('balloon').getData().properties.getAll().geoObjects[0].properties;
+					if (geoObjectProperties.get('balloonContentLoaded')) return;
+					var drugStoreId = geoObjectProperties.get('drugStoreId');
+
+					$.post('/shkola-gastrita/zgetMapBalloonContent/'.drugStoreId, function(balloon) {
+						geoObjectProperties.set('balloonContent', balloon);
+						geoObjectProperties.set('balloonContentLoaded', true);
+					});
+				}
+			});
+
+			myMap.events.add('hintshow', function(e) {
+				if (e.get('hint').getData().geoObject != null) {
+					var geoObjectProperties = e.get('hint').getData().geoObject.properties;
+					if (geoObjectProperties.get('hintContentLoaded')) return;
+					var drugStoreId = geoObjectProperties.get('drugStoreId');
+
+					$.post('/shkola-gastrita/zgetMapHintContent/'.drugStoreId, function(balloon) {
+						geoObjectProperties.set('hintContent', balloon);
+						geoObjectProperties.set('hintContentLoaded', true);
+					});
+				} else {
+					var geoObjectProperties = e.get('hint').getData().properties.getAll().geoObjects[0].properties;
+					if (geoObjectProperties.get('hintContentLoaded')) return;
+					var drugStoreId = geoObjectProperties.get('drugStoreId');
+
+					$.post('/shkola-gastrita/zgetMapHintContent/' . drugStoreId, function(balloon) {
+						geoObjectProperties.set('hintContent', balloon);
+						geoObjectProperties.set('hintContentLoaded', true);
+					});
+				}
+			});
+
+			function enableScrollZoom() {
+				myMap.behaviors.enable('scrollZoom');
+				myMap.events.remove('click', enableScrollZoom);
+			}
+
+			myMap.events.add('click', enableScrollZoom);
+
+			loadDrugStores();
+
+//            clusterer.add(geoObjects);
+
+			myMap.geoObjects.add(clusterer);
+			// myMap.geoObjects.add(clusterer);
+
+			myMap.controls.add(new ymaps.control.ZoomControl());
+
+// добавляем панель на карту в нужную позицию
+//            myMap.controls.add(searchControl, { left: '40px', top: '10px' });
+
+			jQuery(function($) {
+				$(".region-drug-stores,.item-related_points").on("click", "a.change_coordinates", function(e) {
+					var coordinates = $(this).data("coordinates").split(",");
+					var xCoords = parseFloat(coordinates[0]);
+					var yCoords = parseFloat(coordinates[1]);
+					var id = $(this).attr("value");
+					myMap.panTo(
+						[xCoords, yCoords], {
+							checkZoomRange: true,
+							flying:         true,
+							callback:       function(e) {
+								var zoom = myMap.getZoom();
+								if (zoom < 15) {
+									zoom = 15;
+									myMap.setZoom(zoom, {duration: 1000})
+								}
+								mark = placemarks[id];
+								if (mark && mark.getMap()) {
+									mark.balloon.open();
+								} else {
+									var clustererListener = clusterer.events.group()
+										.add('add', function(e) {
+											mark = placemarks[id];
+											if (mark && mark.getMap()) {
+												mark.balloon.open();
+												clustererListener.removeAll();
+											}
+										})
+								}
+							}
+						}
+					)
+
+
+					var elem = $(this).attr("href"),
+						destination = $(elem).offset().top;
+					$("html:not(:animated),body:not(:animated)").animate({scrollTop: destination}, 1000, 'swing');
+
+					return false;
+				});
+			})
+		}
+
+		jQuery(function($) {
+
+			$('.search_box.search_box-pharmacy').submit(function(e) {
+				e.preventDefault();
+				$('.ymaps-b-search__button .ymaps-b-form-button__text').click();
+			});
+
+			$('#choiceField').keyup(function() {
+				$('.ymaps-b-form-input__input').val($(this).val());
+			});
+
+		});
+	</script>
+{% endblock %}

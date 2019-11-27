@@ -1,0 +1,173 @@
+{% extends 'VidalDrugBundle::vidal_layout.html.twig' %}
+
+
+{% block nav %}
+	<div class="breadcrumbs">
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('index') }}" itemprop="url">
+				<span itemprop="title">Видаль</span>
+			</a>
+		</div>
+		<i></i>
+
+		{% if l %}
+			<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+				<a href="{{ path('companies') }}" itemprop="url">
+					<span itemprop="title">Компании</span>
+				</a>
+			</div>
+			<i></i>
+
+			<span>Фармацевтические компании и информационные страницы на букву {{ rusLetter ? rusLetter|upper : l|upper }}</span>
+		{% else %}
+			<span>Компании</span>
+		{% endif %}
+	</div>
+{% endblock %}
+
+
+{% block vidal %}
+	<div class="publication" itemscope itemtype="http://schema.org/Article">
+
+		{% include 'VidalDrugBundle::scrolling.html.twig' %}
+		<div id="scrolling">
+			{% include 'VidalDrugBundle:Drugs:menu_drugs.html.twig' %}
+
+			<div class="anons anons-drugs">
+				<h1 class="h1" itemprop="name">
+					{{ title }}
+				</h1>
+			</div>
+
+			{% include 'VidalDrugBundle:Drugs:companies_form.html.twig' %}
+		</div>
+
+		<div class="publication-body text" itemprop="articleBody">
+			{% if search_infoPages is defined and search_infoPages|length %}
+				<div class="info-line">
+					{% if l %}
+						Найдено информационных страниц на букву <i>{{ rusLetter ? rusLetter|upper : l|upper }}</i>:
+						<span>{{ search_infoPages|length }}</span>
+					{% elseif q %}
+						Найдено информационных страниц запросу <i>{{ q }}</i>: <span>{{ search_infoPages|length }}</span>
+					{% endif %}
+				</div>
+				{% include 'VidalDrugBundle:Drugs:render_infoPages.html.twig' with {'infoPages':search_infoPages} %}
+			{% endif %}
+
+			{% if search_companies is defined and search_companies|length %}
+				<div class="info-line">
+					{% if l %}
+						Найдено фирм-производителей {{ l in ['1','2','3','4','5','6','7','8','9','0'] ? 'c цифры' : 'на букву' }}
+						<i>{{ rusLetter ? rusLetter|upper : l|upper }}</i>: <span>{{ search_companies|length }}</span>
+					{% elseif q %}
+						Найдено фирм-производителей по запросу <i>{{ q }}</i>:
+						<span>{{ search_companies|length }}</span>
+					{% endif %}
+				</div>
+				{% include 'VidalDrugBundle:Drugs:render_companies.html.twig' with {'companies':search_companies} %}
+			{% endif %}
+
+			<div class="publication-body text" itemprop="articleBody">
+				{# найдено представительств #}
+				{% if pagination_infoPages is defined and pagination_infoPages.totalItemCount %}
+					<div class="info-line">
+						Найдено информационных страниц:
+						<span>{{ pagination_infoPages.totalItemCount }}</span>
+					</div>
+					{% include 'VidalDrugBundle:Drugs:render_infoPages.html.twig' with {'infoPages':pagination_infoPages} %}
+					<div class="navigation">
+						{{ knp_pagination_render(pagination_infoPages) }}
+					</div>
+				{% endif %}
+
+				{# найдено фирм-производителей #}
+				{% if pagination_companies is defined and pagination_companies.totalItemCount %}
+					<div class="info-line">
+						Найдено фирм-производителей:
+						<span>{{ pagination_companies.totalItemCount }}</span>
+					</div>
+					{% include 'VidalDrugBundle:Drugs:render_companies.html.twig' with {'companies':pagination_companies} %}
+					<div class="navigation">
+						{{ knp_pagination_render(pagination_companies) }}
+					</div>
+				{% endif %}
+
+				{% if l %}
+					<div class="backto">
+						Назад ко всем <a href="{{ path('companies') }}">Фармацевтическим компаниям и
+							представительствам</a>
+					</div>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/letters.css') }}"/>
+	<style type="text/css">
+		.backto {
+			margin:      18px 0 0;
+			padding-top: 12px;
+			border-top:  1px dashed #ccc;
+			font-size:   15px;
+			font-weight: bold;
+		}
+		#form > * {
+			vertical-align: top;
+		}
+		#form_controls {
+			clear: both;
+		}
+		#form_submit {
+			float: right;
+		}
+		#form_input {
+			width: 408px;
+		}
+		.h1 {
+			display:       block;
+			background:    #f5f5f5;
+			color:         #476173;
+			border-bottom: 1px solid #eee;
+			font-size:     inherit;
+			font-weight:   inherit;
+			margin:        0;
+			padding:       0;
+		}
+	</style>
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+	<script type="text/javascript">
+		$(document).ready(function() {
+			{# MICRODATA #}
+			$('.publication img').each(function() {
+				var $this = $(this);
+				$this.attr('itemprop', 'image');
+			});
+
+			$('.publication a').each(function() {
+				$(this).attr({
+					itemprop: "url"
+				});
+			});
+
+			$('.publication-body a').each(function() {
+				var $a = $(this);
+				if (this.href.charAt(0) != '/'
+					&& this.href.indexOf('vidal.ru') === -1
+					&& this.href.indexOf('localhost:97') === -1
+				) {
+					$a.attr('rel', 'nofollow');
+				}
+			});
+		});
+	</script>
+{% endblock %}

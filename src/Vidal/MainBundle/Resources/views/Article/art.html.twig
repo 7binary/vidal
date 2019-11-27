@@ -1,0 +1,138 @@
+{% extends 'VidalMainBundle::layout.html.twig' %}
+
+
+{% set item = category is defined ? category : (type is defined ? type : rubrique) %}
+
+
+{% block title %}
+	<h1>{{ item.title }}</h1>
+{% endblock %}
+
+
+{% block nav %}
+	<div class="breadcrumbs">
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{  path('index') }}" itemprop="url">
+				<span itemprop="title">Видаль</span>
+			</a>
+		</div>
+		<i></i>
+
+		<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a href="{{ path('vracham') }}" itemprop="url">
+				<span itemprop="title">Информация для специалистов</span>
+			</a>
+		</div>
+
+		{% if type is defined and type %}
+			<i></i>
+
+			<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+				<a href="{{ path('art', {'url':rubrique.url}) }}" itemprop="url">
+					<span itemprop="title">{{ rubrique.title }}</span>
+				</a>
+			</div>
+		{% endif %}
+
+		{% if category is defined and category %}
+			<i></i>
+
+			<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+				<a href="{{ path('art', {'url':[rubrique.url, type.url]|join('/') }) }}" itemprop="url">
+					<span itemprop="title">{{ type.title }}</span>
+				</a>
+			</div>
+		{% endif %}
+
+		<i></i>
+		<span>{{ item.title }}</span>
+	</div>
+{% endblock %}
+
+
+{% block content %}
+	{% if item.announce is not empty %}
+		<div class="divisions">
+			<div class="announce">{{ item.announce|raw }}</div>
+		</div>
+	{% endif %}
+
+	<div class="divisions">
+		{% if types is defined %}
+			{% for type in types %}
+				<div>
+					{% if isAdmin %}
+						<a class="admin-edit fade" target="_blank"
+						   href="{{ path('admin_vidal_drug_arttype_edit', {'id':type.id}) }}">
+							<img src="{{ asset('bundles/vidalmain/images/edit.png') }}"/>
+						</a>
+					{% endif %}
+					<a class="link"
+					   href="{{ path('art', {'url':[rubrique.url, type.url]|join('/') }) }}">{{ type.title }}</a>
+
+					{% if type.announce is not empty %}
+						<div class="announce">{{ type.announce|raw }}</div>
+					{% endif %}
+				</div>
+			{% endfor %}
+		{% elseif categories is defined %}
+			{% for category in categories %}
+				<div>
+					{% if isAdmin %}
+						<a class="admin-edit fade" target="_blank"
+						   href="{{ path('admin_vidal_drug_artcategory_edit', {'id':category.id}) }}">
+							<img src="{{ asset('bundles/vidalmain/images/edit.png') }}"/>
+						</a>
+					{% endif %}
+					<a class="link"
+					   href="{{ path('art', {'url':[rubrique.url, type.url, category.url]|join('/') }) }}">{{ category.title }}</a>
+				</div>
+			{% endfor %}
+		{% elseif item.is == 'category' %}
+
+		{% endif %}
+	</div>
+
+	{# список статей с пагинацией #}
+	{% include 'VidalMainBundle:Article:render_articles.html.twig' %}
+
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/article.css') }}"/>
+	<style type="text/css">
+		.divisions > div {
+			position:      relative;
+			margin-bottom: 15px;
+			padding:       9px 12px 10px;
+			border:        3px solid #eee;
+			font-size:     14px;
+		}
+		.divisions .link {
+			font-size:       16px;
+			color:           #2f4053;
+			font-weight:     bold;
+			text-decoration: none;
+		}
+		.divisions .link:hover {
+			text-decoration: underline;
+		}
+		.divisions .announce {
+			margin-top: 10px;
+		}
+		.divisions. announce * {
+			font-size: 14px;
+		}
+		.divisions .announce p {
+			margin: 6px 0;
+		}
+		.divisions .announce p:first-child {
+			margin-top: 0;
+		}
+		.divisions .announce p:last-child {
+			margin-bottom: 0;
+		}
+	</style>
+{% endblock %}
